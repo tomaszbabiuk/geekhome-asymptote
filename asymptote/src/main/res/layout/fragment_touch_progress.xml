@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="vm"
+            type="eu.geekhome.asymptote.viewmodel.TouchProgressViewModel"/>
+
+        <import type="android.view.View"/>
+    </data>
+
+    <LinearLayout style="@style/Layout.MatchXY.Vertical">
+
+        <include
+            layout="@layout/actionbar_help"
+            tools:vm="@{vm.actionBarModel}"/>
+
+        <LinearLayout style="@style/Touch.Background">
+
+            <View style="@style/Common.OrangeSeparator.Horizontal"/>
+
+            <TextView
+                style="@style/Common.Text.Big"
+                android:layout_marginTop="@dimen/common_medium_padding"
+                android:gravity="center_horizontal"
+                android:text="@string/pair_device"/>
+
+
+            <View style="@style/Common.OrangeSeparator.Horizontal.Thin"/>
+
+            <View style="@style/Common.OrangeTriangle"/>
+
+            <TextView
+                style="@style/Common.Text.Medium"
+                android:gravity="center_horizontal"
+                android:text="@string/sending_wifi_configuration"/>
+
+            <View style="@style/Layout.MatchX1"/>
+
+            <FrameLayout style="@style/Touch.AnimationArea">
+
+                <eu.geekhome.controls.SvgImageView
+                    style="@style/Common.MainImage"
+                    app:svgId="@raw/refreshwifi_inner"/>
+
+                <eu.geekhome.controls.SvgImageView
+                    android:id="@+id/image_refresh_outer"
+                    style="@style/Common.MainImage"
+                    app:svgId="@raw/refreshwifi_outer"/>
+
+            </FrameLayout>
+
+            <View style="@style/Layout.MatchX1"/>
+
+            <View style="@style/Common.OrangeSeparator.Horizontal"/>
+
+            <LinearLayout style="@style/ActionBar.BottomLayout">
+
+                <TextView
+                    style="@style/Touch.Header.Text"
+                    android:text="@{@string/step_no(3,3)}"/>
+
+                <Button
+                    style="@style/Touch.CancelButton"
+                    android:onClick="@{vm.onCancel}"
+                    android:text="@string/cancel"/>
+            </LinearLayout>
+        </LinearLayout>
+
+    </LinearLayout>
+</layout>

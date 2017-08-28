@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="sensorlist_fake_footer_size">90dp</dimen>
+    <dimen name="sensorlist_scene_circle_diameter">20dp</dimen>
+    <dimen name="sensorlist_signallost_icon_width">160dp</dimen>
+    <dimen name="sensorlist_signallost_icon_height">80dp</dimen>
+    <dimen name="sensorlist_listitem_icon_size">90dp</dimen>
+    <dimen name="sensorlist_value_icon_size">25dp</dimen>
+    <dimen name="sensorlist_gauge_icon_size">35dp</dimen>
+    <dimen name="sensorlist_listitem_discovery_icon_size">75dp</dimen>
+    <dimen name="sensorlist_controllistitem_minheight">75dp</dimen>
+    <dimen name="sensorlist_actionicon">35dp</dimen>
+
+    <style name="SensorList"/>
+
+    <style name="SensorList.Layout.ControlListItem" parent="Layout.MatchX">
+        <item name="android:minHeight">@dimen/sensorlist_controllistitem_minheight</item>
+        <item name="android:padding">@dimen/common_small_padding</item>
+    </style>
+
+    <style name="SensorList.Icon">
+        <item name="android:layout_width">@dimen/sensorlist_listitem_icon_size</item>
+        <item name="android:layout_height">@dimen/sensorlist_listitem_icon_size</item>
+        <item name="android:layout_gravity">top</item>
+        <item name="android:background">@android:color/transparent</item>
+        <item name="android:padding">@dimen/common_small_padding</item>
+        <item name="svgColor">@color/almost_black</item>
+    </style>
+
+    <style name="SensorList.SignalLostIcon">
+        <item name="android:layout_width">@dimen/sensorlist_signallost_icon_width</item>
+        <item name="android:layout_height">@dimen/sensorlist_signallost_icon_height</item>
+        <item name="svgId">@raw/low_signal</item>
+        <item name="svgColor">@color/almost_white</item>
+        <item name="android:layout_gravity">center</item>
+    </style>
+
+    <style name="SensorList.CertificateUpdateIcon">
+        <item name="android:layout_marginEnd">@dimen/common_medium_padding</item>
+        <item name="android:layout_width">50dp</item>
+        <item name="android:layout_height">50dp</item>
+        <item name="svgId">@raw/fileexchange</item>
+        <item name="svgColor">@color/almost_white</item>
+    </style>
+
+    <style name="SensorList.ValueIcon">
+        <item name="android:layout_width">@dimen/sensorlist_value_icon_size</item>
+        <item name="android:layout_height">@dimen/sensorlist_value_icon_size</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:background">@android:color/transparent</item>
+        <item name="svgColor">@color/almost_white</item>
+    </style>
+
+    <style name="SensorList.ValueIcon.Big" parent="SensorList.ValueIcon">
+        <item name="android:layout_width">@dimen/sensorlist_gauge_icon_size</item>
+        <item name="android:layout_height">@dimen/sensorlist_gauge_icon_size</item>
+    </style>
+
+    <style name="SensorList.GaugeIcon">
+        <item name="android:layout_width">@dimen/sensorlist_gauge_icon_size</item>
+        <item name="android:layout_height">@dimen/sensorlist_gauge_icon_size</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:background">@android:color/transparent</item>
+        <item name="android:layout_marginTop">@dimen/common_extra_padding</item>
+        <item name="svgColor">@color/almost_black</item>
+    </style>
+
+    <style name="SensorList.DiscoveryIcon">
+        <item name="android:layout_width">@dimen/sensorlist_listitem_discovery_icon_size</item>
+        <item name="android:layout_height">@dimen/sensorlist_listitem_discovery_icon_size</item>
+        <item name="android:background">@android:color/transparent</item>
+        <item name="svgColor">@color/almost_black</item>
+    </style>
+
+    <style name="SensorList.Text.SensorValueMedium" parent="Common.Text">
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textAppearance">?android:attr/textAppearanceMedium</item>
+        <item name="android:layout_width">wrap_content</item>
+    </style>
+
+    <style name="SensorList.Text.PwmChannel" parent="Common.Text">
+        <item name="android:textColor">@color/white</item>
+        <item name="android:gravity">end</item>
+        <item name="android:layout_marginEnd">@dimen/common_extra_small_padding</item>
+        <item name="android:textAppearance">?android:attr/textAppearanceMedium</item>
+    </style>
+
+    <style name="SensorList.Text.Color" parent="Common.Text">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:layout_marginEnd">@dimen/common_extra_small_padding</item>
+        <item name="android:textAppearance">?android:attr/textAppearanceMedium</item>
+    </style>
+
+
+    <style name="SensorList.Text.SensorValueLarge" parent="SensorList">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:textAppearance">?android:attr/textAppearanceLarge</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:gravity">bottom</item>
+    </style>
+
+    <style name="SensorList.SensorValueLayout" parent="SensorList">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:orientation">horizontal</item>
+    </style>
+
+    <style name="SensorList.Switch" parent="Layout.MatchX">
+        <item name="android:textAppearance">?android:attr/textAppearanceMedium</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="showText">false</item>
+        <item name="trackTint">@color/light_gray</item>
+        <item name="thumbTint">@color/white</item>
+    </style>
+
+    <style name="SensorList.SeekBar" parent="Layout.MatchX">
+        <item name="android:max">255</item>
+        <item name="android:thumb">@drawable/seekbar_thumb_white</item>
+        <item name="android:progressDrawable">@drawable/seekbar_progress</item>
+    </style>
+
+    <style name="SensorList.SeekBar.Red" parent="SensorList.SeekBar">
+        <item name="android:thumb">@drawable/seekbar_thumb_red</item>
+    </style>
+
+    <style name="SensorList.SeekBar.Green" parent="SensorList.SeekBar">
+        <item name="android:thumb">@drawable/seekbar_thumb_green</item>
+    </style>
+
+    <style name="SensorList.SeekBar.Blue" parent="SensorList.SeekBar">
+        <item name="android:thumb">@drawable/seekbar_thumb_blue</item>
+    </style>
+
+    <style name="SensorList.Header.ResourceImage" parent="Layout.Wrapped">
+        <item name="android:layout_alignParentRight">true</item>
+        <item name="android:layout_alignParentBottom">true</item>
+        <item name="android:visibility">gone</item>
+    </style>
+
+    <style name="SensorList.ValueRectangle">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:layout_height">10dp</item>
+        <item name="android:layout_gravity">center_vertical</item>
+    </style>
+
+    <style name="SensorList.ColorValueRectangle">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:layout_height">60dp</item>
+        <item name="android:layout_gravity">center_vertical</item>
+    </style>
+
+    <style name="SensorList.ActionIcon" parent="SensorList">
+        <item name="android:layout_width">@dimen/sensorlist_actionicon</item>
+        <item name="android:layout_height">@dimen/sensorlist_actionicon</item>
+        <item name="android:layout_gravity">top</item>
+        <item name="android:padding">@dimen/common_extra_small_padding</item>
+    </style>
+
+    <style name="SensorList.ActionIcon.Cart" parent="SensorList.ActionIcon">
+        <item name="svgColor">@color/almost_white</item>
+        <item name="svgId">@raw/shoppingcart</item>
+    </style>
+
+    <style name="SensorList.ActionIcon.CartDot" parent="SensorList.ActionIcon">
+        <item name="svgColor">@color/almost_white</item>
+        <item name="svgId">@raw/shoppingcart_dot</item>
+    </style>
+
+    <style name="SensorList.ActionIcon.Settings" parent="SensorList.ActionIcon">
+        <item name="svgColor">@color/almost_white</item>
+        <item name="svgId">@raw/gear</item>
+    </style>
+
+    <style name="SensorList.ActionIcon.Locked" parent="SensorList.ActionIcon">
+        <item name="svgColor">@color/almost_white</item>
+        <item name="svgId">@raw/locked</item>
+    </style>
+
+    <style name="SensorList.ActionIcon.Unlocked" parent="SensorList.ActionIcon">
+        <item name="svgColor">@color/almost_white</item>
+        <item name="svgId">@raw/unlocked</item>
+    </style>
+
+    <style name="SensorList.ActionIcon.WiFi" parent="SensorList.ActionIcon">
+        <item name="svgColor">@color/almost_black</item>
+        <item name="svgId">@raw/wifi</item>
+    </style>
+
+    <style name="SensorList.ActionIcon.Cloud" parent="SensorList.ActionIcon">
+        <item name="svgColor">@color/almost_black</item>
+        <item name="svgId">@raw/cloud</item>
+    </style>
+
+    <style name="SensorList.ActionProgressBar" parent="android:Widget.ProgressBar.Small.Inverse">
+        <item name="android:layout_width">@dimen/sensorlist_actionicon</item>
+        <item name="android:layout_height">@dimen/sensorlist_actionicon</item>
+    </style>
+
+    <style name="SensorList.HorizontalLine" parent="SensorList">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">1dp</item>
+        <item name="android:layout_marginBottom">@dimen/common_medium_padding</item>
+        <item name="android:layout_marginTop">@dimen/common_normal_padding</item>
+        <item name="android:background">@color/white</item>
+    </style>
+</resources>

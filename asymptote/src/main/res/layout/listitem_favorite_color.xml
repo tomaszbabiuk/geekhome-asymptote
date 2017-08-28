@@ -1,0 +1,33 @@
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+        <import type="android.view.View"/>
+
+        <variable
+            name="vm"
+            type="eu.geekhome.asymptote.viewmodel.FavoriteColorItemViewModel"/>
+    </data>
+
+
+    <FrameLayout
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_margin="1dp"
+        android:onClick="@{() -> vm.picked()}"
+        android:background="@color/light_gray">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="1dp"
+            android:background="@{vm.selected ? @color/light_gray : vm.color}">
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="@dimen/common_small_padding"
+                android:background="@{vm.color}"/>
+        </FrameLayout>
+    </FrameLayout>
+</layout>

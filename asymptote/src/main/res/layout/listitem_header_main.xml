@@ -1,0 +1,32 @@
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View"/>
+
+        <variable
+            name="vm"
+            type="eu.geekhome.asymptote.viewmodel.HeaderItemViewModel"/>
+    </data>
+
+    <LinearLayout
+        style="@style/Layout.MatchX.Vertical"
+        android:layout_marginTop="@dimen/common_medium_padding"
+        android:layout_marginBottom="@dimen/common_small_padding"
+        android:padding="@dimen/common_small_padding">
+
+        <TextView
+            style="@style/Common.Text.Big"
+            android:gravity="center_horizontal"
+            android:text="@{vm.content}"
+            tools:text="content"/>
+
+        <View style="@style/Common.OrangeSeparator.Horizontal.Thin"/>
+
+        <View style="@style/Common.OrangeTriangle"/>
+
+    </LinearLayout>
+
+</layout>

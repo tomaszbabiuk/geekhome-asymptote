@@ -1,0 +1,121 @@
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View"/>
+
+        <import
+            type="eu.geekhome.asymptote.viewmodel.FirmwareItemViewModel"/>
+
+        <variable
+            name="vm"
+            type="eu.geekhome.asymptote.viewmodel.FirmwareItemViewModel"/>
+    </data>
+
+    <LinearLayout
+        style="@style/Layout.MatchX.Vertical"
+        android:background="@{vm.selected ? @drawable/rectangle_orange : null}">
+
+        <LinearLayout
+            style="@style/SensorList.Layout.ControlListItem">
+
+            <FrameLayout
+                style="@style/SensorList.DiscoveryIcon">
+
+                <eu.geekhome.controls.SvgImageView
+                    style="@style/SensorList.DiscoveryIcon"
+                    app:svgColor="@color/black"
+                    app:svgId="@{vm.firmware.variant.iconId}"/>
+
+                <eu.geekhome.controls.SvgImageView
+                    style="@style/SensorList.DiscoveryIcon"
+                    app:svgColor="@{vm.selected ? @color/orange : @color/black}"
+                    app:svgId="@{vm.firmware.variant.iconId}"/>
+
+            </FrameLayout>
+
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/common_small_padding"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:orientation="vertical">
+
+                <TextView
+                    style="@style/Common.Text.Big"
+                    android:gravity="center_vertical"
+                    android:text='@{vm.name + " v" + vm.sensor.syncData.systemInfo.versionMajor + "." + vm.sensor.syncData.systemInfo.versionMinor}'
+                    android:textColor="@color/black"
+                    android:visibility="@{vm.selected ? View.VISIBLE : View.GONE}"
+                    tools:text="Firmware name and version"/>
+
+                <TextView
+                    style="@style/Common.Text.Big"
+                    android:gravity="center_vertical"
+                    android:text='@{vm.name + " v" + vm.firmware.versionMajor + "." + vm.firmware.versionMinor}'
+                    android:textColor="@color/black"
+                    android:visibility="@{vm.selected ? View.GONE : View.VISIBLE}"
+                    tools:text="Firmware name and version"/>
+
+                <TextView
+                    style="@style/Common.Text.Medium"
+                    android:gravity="center_vertical"
+                    android:text="@{vm.description}"
+                    android:textColor="@color/black"
+                    tools:text="Firmware description"/>
+
+                <TextView
+                    style="@style/Common.Text.Medium"
+                    android:gravity="center_vertical"
+                    android:text="@string/not_latest_version"
+                    android:textColor="@color/light_gray"
+                    android:visibility="@{vm.context == FirmwareItemViewModel.Context.Update ? View.VISIBLE : View.GONE}"/>
+
+                <TextView
+                    style="@style/Common.Text.Medium"
+                    android:gravity="center_vertical"
+                    android:text="@string/latest_version"
+                    android:textColor="@color/light_gray"
+                    android:visibility="@{vm.context == FirmwareItemViewModel.Context.Actual ? View.VISIBLE : View.GONE}"/>
+
+                <TextView
+                    style="@style/Common.Text.Medium"
+                    android:gravity="center_vertical"
+                    android:text="@string/sign_in_to_install"
+                    android:textColor="@color/light_gray"
+                    android:visibility="@{vm.available ? View.GONE : View.VISIBLE}"/>
+
+            </LinearLayout>
+
+            <Button
+                style="@style/Common.Button.Orange"
+                android:layout_height="wrap_content"
+                android:layout_gravity="top"
+                android:onClick="@{() -> vm.change()}"
+                android:text='@{@string/update + "\nv" + vm.firmware.versionMajor + "." + vm.firmware.versionMinor}'
+                android:visibility="@{vm.context == FirmwareItemViewModel.Context.Update ? View.VISIBLE : View.GONE}"/>
+
+            <Button
+                style="@style/Common.Button.Gray"
+                android:layout_gravity="top"
+                android:onClick="@{() -> vm.change()}"
+                android:text="@string/change"
+                android:visibility="@{vm.context == FirmwareItemViewModel.Context.Change &amp;&amp; vm.available ? View.VISIBLE : View.GONE}"/>
+
+        </LinearLayout>
+
+        <TextView
+            style="@style/Common.Text.Medium"
+            android:layout_marginBottom="@dimen/common_small_padding"
+            android:layout_marginStart="@dimen/common_small_padding"
+            android:gravity="center_vertical"
+            android:text="@string/variant_installed"
+            android:textColor="@color/orange"
+            android:visibility="@{vm.selected ? View.VISIBLE : View.GONE}"/>
+    </LinearLayout>
+
+</layout>

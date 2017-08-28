@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="actionbar_text_padding">10dp</dimen>
+    <dimen name="actionbar_border_weight">2dp</dimen>
+    <dimen name="actionbar_menu_item_size">44dp</dimen>
+    <dimen name="actionbar_button_padding">3dp</dimen>
+    <dimen name="actionbar_total_height">48dp</dimen>
+    <dimen name="actionbar_logo_height">15dp</dimen>
+    <dimen name="actionbar_logo_width">20dp</dimen>
+    <dimen name="actionbar_logo_left_margin">17dp</dimen>
+    <dimen name="actionbar_alerts_circle_size">15dp</dimen>
+    <dimen name="actionbar_alerts_circle_top_margin">10dp</dimen>
+    <dimen name="actionbar_alerts_text_top_margin">7dp</dimen>
+    <dimen name="actionbar_alerts_text_size">15sp</dimen>
+    <dimen name="actionbar_refresh_text_size">12sp</dimen>
+    <dimen name="actionbar_refresh_text_top_padding">3dp</dimen>
+
+    <style name="ActionBar" />
+
+    <style name="ActionBar.TopLayout" parent="Layout.MatchX.Vertical">
+        <item name="android:background">@drawable/shape_header_gradient_dark</item>
+    </style>
+
+    <style name="ActionBar.BottomLayout" parent="Layout.MatchX.Horizontal">
+        <item name="android:background">@drawable/shape_header_gradient_dark</item>
+        <item name="android:gravity">center_vertical|end</item>
+        <item name="android:padding">@dimen/common_medium_padding</item>
+    </style>
+
+    <style name="ActionBar.IconSized">
+        <item name="android:layout_width">@dimen/actionbar_menu_item_size</item>
+        <item name="android:layout_height">@dimen/actionbar_menu_item_size</item>
+    </style>
+
+    <style name="ActionBar.Separator" parent="ActionBar">
+        <item name="android:background">@color/gray</item>
+    </style>
+
+    <style name="ActionBar.Separator.Vertical" parent="ActionBar.Separator">
+        <item name="android:layout_width">@dimen/actionbar_border_weight</item>
+        <item name="android:layout_height">match_parent</item>
+    </style>
+
+    <style name="ActionBar.Separator.Horizontal" parent="ActionBar.Separator">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/actionbar_border_weight</item>
+    </style>
+
+    <style name="ActionBar.Image" parent="ActionBar">
+        <item name="android:layout_width">@dimen/actionbar_menu_item_size</item>
+        <item name="android:layout_height">@dimen/actionbar_menu_item_size</item>
+        <item name="android:scaleType">centerCrop</item>
+        <item name="android:clickable">true</item>
+        <item name="android:background">@drawable/actionbar_button_selector</item>
+        <item name="android:padding">@dimen/actionbar_button_padding</item>
+        <item name="svgColor">@color/silver</item>
+    </style>
+
+    <style name="ActionBar.Header" parent="ActionBar">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">@dimen/actionbar_menu_item_size</item>
+        <item name="android:paddingLeft">@dimen/actionbar_text_padding</item>
+        <item name="android:paddingRight">@dimen/actionbar_text_padding</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:textColor">@color/light_silver</item>
+    </style>
+
+    <style name="ActionBar.TextLink" parent="ActionBar.Header">
+        <item name="android:clickable">true</item>
+        <item name="android:background">@drawable/actionbar_button_selector</item>
+    </style>
+
+    <style name="ActionBar.Text.AlertsCounter" parent="Common.Text">
+        <item name="android:textSize">@dimen/actionbar_alerts_text_size</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:gravity">center_horizontal</item>
+        <item name="android:layout_marginTop">@dimen/actionbar_alerts_text_top_margin</item>
+        <item name="android:visibility">gone</item>
+    </style>
+
+    <style name="ActionBar.Text.RefreshCounter" parent="Common.Text">
+        <item name="android:textSize">@dimen/actionbar_refresh_text_size</item>
+        <item name="android:textColor">@color/silver</item>
+        <item name="android:layout_width">@dimen/actionbar_menu_item_size</item>
+        <item name="android:layout_height">@dimen/actionbar_menu_item_size</item>
+        <item name="android:paddingTop">@dimen/actionbar_refresh_text_top_padding</item>
+        <item name="android:gravity">center_horizontal|center_vertical</item>
+    </style>
+
+    <style name="ActionBar.AlertsCircle" parent="Layout.MatchX">
+        <item name="android:src">@drawable/alerts_circle</item>
+        <item name="android:layout_marginTop">@dimen/actionbar_alerts_circle_top_margin</item>
+        <item name="android:visibility">gone</item>
+    </style>
+
+    <style name="ActionBar.Logo.Text" parent="Layout.Wrapped">
+        <item name="android:textSize">@dimen/common_medium_text</item>
+    </style>
+
+    <style name="ActionBar.Logo.Text.Geek" parent="ActionBar.Logo.Text">
+        <item name="android:text">geek</item>
+        <item name="android:textColor">@color/light_silver</item>
+    </style>
+
+    <style name="ActionBar.Logo.Text.Home" parent="ActionBar.Logo.Text">
+        <item name="android:text">HOME</item>
+        <item name="android:textColor">@color/orange</item>
+    </style>
+
+    <style name="ActionBar.Logo.Image" parent="Common.Logo.Image">
+        <item name="android:layout_width">@dimen/actionbar_logo_width</item>
+        <item name="android:layout_marginLeft">@dimen/actionbar_logo_left_margin</item>
+        <item name="android:layout_height">@dimen/actionbar_logo_height</item>
+    </style>
+</resources>

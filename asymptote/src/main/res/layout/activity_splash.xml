@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View"/>
+
+        <variable
+            name="vm"
+            type="eu.geekhome.asymptote.viewmodel.SplashViewModel"/>
+    </data>
+
+    <FrameLayout
+        style="@style/Layout.MatchXY.Vertical">
+
+        <ScrollView
+            style="@style/Layout.MatchXY"
+            android:fillViewport="true">
+
+            <LinearLayout
+                style="@style/Splash.Background">
+
+                <TextView
+                    style="@style/Touch.ErrorMessage"
+                    android:text="@{vm.errorMessage}"
+                    android:visibility="@{vm.errorMessage != null ? View.VISIBLE : View.GONE}"
+                    tools:text="[error message]"/>
+
+                <View
+                    style="@style/Layout.MatchX"
+                    android:layout_weight="1"/>
+
+                <eu.geekhome.controls.SvgImageView
+                    android:layout_width="300dp"
+                    android:layout_height="150dp"
+                    android:layout_gravity="center_horizontal"
+                    app:svgId="@raw/asymptote_logo_full"/>
+
+                <View
+                    style="@style/Layout.MatchX"
+                    android:layout_weight="1"/>
+
+                <FrameLayout
+                    style="@style/Splash.CenterContainer">
+
+                    <FrameLayout
+                        style="@style/Layout.MatchX"
+                        android:visibility="@{vm.busy ? View.VISIBLE : View.INVISIBLE}">
+
+                        <ImageView
+                            android:id="@+id/gear_image"
+                            style="@style/Layout.Wrapped"
+                            android:layout_gravity="center_horizontal"
+                            android:src="@drawable/gear_small"
+                            tools:ignore="ContentDescription"/>
+
+                    </FrameLayout>
+
+                    <FrameLayout
+                        android:id="@+id/fragments_container"
+                        style="@style/Layout.MatchX"
+                        android:layout_gravity="center_horizontal"
+                        android:visibility="@{vm.busy ? View.GONE : View.VISIBLE}"/>
+
+                </FrameLayout>
+
+                <View
+                    style="@style/Layout.MatchX"
+                    android:layout_weight="1"/>
+
+                <TextView
+                    style="@style/Splash.LinkButton"
+                    android:onClick="@{() -> vm.showTermsAndPrivacy()}"
+                    android:text="@string/terms_and_privacy"/>
+            </LinearLayout>
+
+        </ScrollView>
+
+        <FrameLayout
+            android:id="@+id/overlays_container"
+            style="@style/Layout.MatchXY"/>
+
+    </FrameLayout>
+</layout>

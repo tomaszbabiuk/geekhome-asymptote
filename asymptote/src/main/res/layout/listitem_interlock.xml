@@ -1,0 +1,69 @@
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View"/>
+
+        <variable
+            name="vm"
+            type="eu.geekhome.asymptote.viewmodel.RelayInterlockItemViewModel"/>
+
+        <import type="eu.geekhome.asymptote.utils.ValueConverter"/>
+    </data>
+
+
+    <LinearLayout
+        style="@style/Layout.MatchX.Horizontal">
+
+        <TextView
+            style="@style/SensorEdit.ChannelNumber"
+            android:text='@{vm.channel + ":"}'
+            tools:text="1:"/>
+
+        <LinearLayout style="@style/Layout.MatchX.Vertical">
+
+            <LinearLayout
+                style="@style/Layout.Wrapped.Horizontal"
+                android:padding="@dimen/common_small_padding">
+
+                <TextView
+                    style="@style/SensorEdit.LockRectangle"
+                    android:background="@{vm.lockGroup &lt;= 0 ? @drawable/rectangle_orange : @drawable/rectangle_silver}"
+                    android:onClick="@{() -> vm.setLockGroup(0)}"
+                    android:text="x"
+                    tools:background="@drawable/rectangle_orange"
+                    tools:ignore="ContentDescription,HardcodedText"/>
+
+                <TextView
+                    style="@style/SensorEdit.LockRectangle"
+                    android:background="@{vm.lockGroup == 1 ? @drawable/rectangle_orange : @drawable/rectangle_silver}"
+                    android:visibility="@{vm.totalChannels > 1 ? View.VISIBLE : View.GONE}"
+                    android:onClick="@{() -> vm.setLockGroup(1)}"
+                    android:text="1"
+                    tools:ignore="ContentDescription,HardcodedText"/>
+
+                <TextView
+                    style="@style/SensorEdit.LockRectangle"
+                    android:background="@{vm.lockGroup == 2 ? @drawable/rectangle_orange : @drawable/rectangle_silver}"
+                    android:visibility="@{vm.totalChannels > 2 ? View.VISIBLE : View.GONE}"
+                    android:onClick="@{() -> vm.setLockGroup(2)}"
+                    android:text="2"
+                    tools:ignore="ContentDescription,HardcodedText"/>
+
+                <TextView
+                    style="@style/SensorEdit.LockRectangle"
+                    android:background="@{vm.lockGroup == 3 ? @drawable/rectangle_orange : @drawable/rectangle_silver}"
+                    android:visibility="@{vm.totalChannels > 3 ? View.VISIBLE : View.GONE}"
+                    android:onClick="@{() -> vm.setLockGroup(3)}"
+                    android:text="3"
+                    tools:ignore="ContentDescription,HardcodedText"/>
+
+            </LinearLayout>
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+</layout>

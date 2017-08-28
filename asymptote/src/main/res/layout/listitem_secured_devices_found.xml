@@ -1,0 +1,59 @@
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View"/>
+
+        <import type="android.graphics.Color"/>
+
+        <variable
+            name="vm"
+            type="eu.geekhome.asymptote.viewmodel.SecuredDevicesFoundViewModel"/>
+    </data>
+
+    <android.support.v7.widget.CardView
+        style="@style/Layout.MatchX"
+        android:layout_marginBottom="@dimen/common_small_padding"
+        android:layout_marginTop="@dimen/common_extra_small_padding">
+
+        <LinearLayout
+            style="@style/SensorList.Layout.ControlListItem">
+
+            <FrameLayout
+                style="@style/SensorList.Icon">
+
+                <eu.geekhome.controls.SvgImageView
+                    style="@style/SensorList.DiscoveryIcon"
+                    app:svgId="@raw/locked"/>
+
+            </FrameLayout>
+
+
+            <LinearLayout style="@style/Layout.MatchX.Vertical"
+                android:gravity="center_vertical">
+
+                <TextView
+                    style="@style/Common.Text.Big"
+                    android:text="@string/secured_device_found"
+                    android:textColor="@color/light_gray"
+                    android:gravity="center_vertical"/>
+
+                <TextView
+                    style="@style/Common.Text.Medium"
+                    android:text="@{vm.addresses}"
+                    android:textColor="@color/light_gray"
+                    android:gravity="center_vertical"/>
+
+                <TextView
+                    style="@style/Common.Button.Orange"
+                    android:onClick="@{() -> vm.enterEmergencyPassword()}"
+                    android:text="@string/enter_emergency_password"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </android.support.v7.widget.CardView>
+</layout>

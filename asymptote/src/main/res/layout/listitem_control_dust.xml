@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="vm"
+            type="eu.geekhome.asymptote.viewmodel.ControlDustItemViewModel"/>
+
+        <import type="android.view.View"/>
+
+        <import type="eu.geekhome.asymptote.utils.ValueConverter"/>
+
+        <import type="eu.geekhome.asymptote.utils.DustLevelMatcher"/>
+    </data>
+
+    <LinearLayout
+        style="@style/Layout.MatchX.Vertical"
+        android:layout_marginTop="@dimen/common_medium_padding"
+        android:visibility="@{vm.sensor.syncData.dust != null ? View.VISIBLE : View.GONE}">
+
+        <LinearLayout
+            style="@style/Layout.MatchX.Horizontal">
+
+            <ImageView
+                style="@style/SensorList.ValueRectangle"
+                android:src="@{DustLevelMatcher.matchLevel(vm.sensor.syncData.dust, 1)}"
+                tools:background="@drawable/rectangle_dust_level1"
+                tools:ignore="ContentDescription"/>
+
+            <ImageView
+                style="@style/SensorList.ValueRectangle"
+                android:src="@{DustLevelMatcher.matchLevel(vm.sensor.syncData.dust, 2)}"
+                tools:background="@drawable/rectangle_dust_level2"
+                tools:ignore="ContentDescription"/>
+
+            <ImageView
+                style="@style/SensorList.ValueRectangle"
+                android:src="@{DustLevelMatcher.matchLevel(vm.sensor.syncData.dust, 3)}"
+                tools:background="@drawable/rectangle_dust_level3"
+                tools:ignore="ContentDescription"/>
+
+            <ImageView
+                style="@style/SensorList.ValueRectangle"
+                android:src="@{DustLevelMatcher.matchLevel(vm.sensor.syncData.dust, 4)}"
+                tools:background="@drawable/rectangle_dust_level4"
+                tools:ignore="ContentDescription"/>
+
+            <ImageView
+                style="@style/SensorList.ValueRectangle"
+                android:src="@{DustLevelMatcher.matchLevel(vm.sensor.syncData.dust, 5)}"
+                tools:background="@drawable/rectangle_dust_level5"
+                tools:ignore="ContentDescription"/>
+
+            <ImageView
+                style="@style/SensorList.ValueRectangle"
+                android:src="@{DustLevelMatcher.matchLevel(vm.sensor.syncData.dust, 6)}"
+                tools:background="@drawable/rectangle_dust_level6"
+                tools:ignore="ContentDescription"/>
+
+            <ImageView
+                style="@style/SensorList.ValueRectangle"
+                android:src="@{DustLevelMatcher.matchLevel(vm.sensor.syncData.dust, 7)}"
+                tools:background="@drawable/rectangle_dust_level7"
+                tools:ignore="ContentDescription"/>
+
+            <ImageView
+                style="@style/SensorList.ValueRectangle"
+                android:src="@{DustLevelMatcher.matchLevel(vm.sensor.syncData.dust, 8)}"
+                tools:background="@drawable/rectangle_dust_level8"
+                tools:ignore="ContentDescription"/>
+
+            <ImageView
+                style="@style/SensorList.ValueRectangle"
+                android:src="@{DustLevelMatcher.matchLevel(vm.sensor.syncData.dust, 9)}"
+                tools:background="@drawable/rectangle_dust_level9"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            style="@style/Layout.MatchX.Horizontal"
+            android:gravity="center_horizontal">
+
+            <eu.geekhome.controls.SvgImageView
+                style="@style/SensorList.ValueIcon"
+                app:svgId="@raw/dust"
+                tools:ignore="ContentDescription"/>
+
+            <TextView
+                style="@style/SensorList.Text.SensorValueMedium"
+                android:text='@{ValueConverter.intToDust(vm.sensor.syncData.dust)}'
+                tools:text="23 µg/m3"/>
+
+        </LinearLayout>
+    </LinearLayout>
+</layout>

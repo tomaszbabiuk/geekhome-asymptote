@@ -1,0 +1,211 @@
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View"/>
+
+        <import type="android.graphics.Color"/>
+
+        <import type="eu.geekhome.asymptote.R"/>
+
+        <import type="eu.geekhome.asymptote.utils.SensorColorMatcher"/>
+
+        <import type="eu.geekhome.asymptote.utils.ValueConverter"/>
+
+        <import type="eu.geekhome.asymptote.utils.DustLevelMatcher"/>
+
+        <import type="eu.geekhome.asymptote.model.BoardRole"/>
+
+        <import type="eu.geekhome.asymptote.model.Variant"/>
+
+        <variable
+            name="vm"
+            type="eu.geekhome.asymptote.viewmodel.SensorItemViewModel"/>
+    </data>
+
+    <android.support.v7.widget.CardView
+        style="@style/Layout.MatchX"
+        android:layout_marginBottom="@dimen/common_small_padding"
+        android:layout_marginTop="@dimen/common_extra_small_padding">
+
+        <FrameLayout
+            style="@style/Layout.MatchX"
+            android:background="@{context.getResources().getColor(SensorColorMatcher.fromInt(vm.syncData.color).getSectionColor())}"
+            tools:background="@color/section_floors">
+
+            <LinearLayout
+                style="@style/Layout.MatchX.Horizontal">
+
+                <LinearLayout
+                    style="@style/Layout.MatchY.Vertical"
+                    android:background="@color/white">
+
+                    <FrameLayout
+                        style="@style/Layout.Wrapped">
+
+                        <eu.geekhome.controls.SvgImageView
+                            style="@style/SensorList.Icon"
+                            app:svgId="@{vm.syncData.role.inactiveIconId}"
+                            tools:ignore="ContentDescription"/>
+
+                        <eu.geekhome.controls.SvgImageView
+                            style="@style/SensorList.Icon"
+                            android:visibility="@{vm.active ? View.VISIBLE : View.GONE}"
+                            app:svgColor="@{context.getResources().getColor(SensorColorMatcher.fromInt(vm.syncData.color).getSectionColor())}"
+                            app:svgId="@{vm.syncData.role.activeIconId}"/>
+                    </FrameLayout>
+
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"/>
+
+                    <LinearLayout
+                        style="@style/Layout.Wrapped.Horizontal"
+                        tools:visibility="visible">
+
+                        <eu.geekhome.controls.SvgImageView
+                            style="@style/SensorList.ActionIcon.WiFi"
+                            android:alpha="@{vm.hasWiFiSignal ? 1.0f : 0.2f}"/>
+
+                        <eu.geekhome.controls.SvgImageView
+                            style="@style/SensorList.ActionIcon.Cloud"
+                            android:alpha="@{vm.hasCloudSignal ? 1.0f : 0.2f}"/>
+                    </LinearLayout>
+                </LinearLayout>
+
+
+                <LinearLayout
+                    style="@style/Layout.MatchX1.Vertical"
+                    android:padding="@dimen/common_normal_padding">
+
+                    <LinearLayout style="@style/Layout.MatchXY.Horizontal">
+
+                        <TextView
+                            style="@style/Layout.Wrapped.Weight1"
+                            android:text="@{vm.syncData.name}"
+                            android:textAppearance="?android:attr/textAppearanceLarge"
+                            android:textColor="@color/white"
+                            tools:text="[Sensor name]"/>
+
+                        <FrameLayout
+                            android:layout_gravity="top"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:onClick="@{() -> vm.changeFirmware()}">
+
+                            <eu.geekhome.controls.SvgImageView
+                                style="@style/SensorList.ActionIcon.Cart" />
+
+                            <eu.geekhome.controls.SvgImageView
+                                style="@style/SensorList.ActionIcon.CartDot"
+                                app:svgColor="@color/light_gray"
+                                android:visibility="@{vm.newFirmwareAvailable ? View.VISIBLE : View.GONE}"/>
+                        </FrameLayout>
+
+                        <eu.geekhome.controls.SvgImageView
+                            style="@style/SensorList.ActionIcon.Settings"
+                            android:onClick="@{() -> vm.edit()}"/>
+
+                        <LinearLayout
+                            style="@style/Layout.Wrapped.Horizontal"
+                            android:layout_gravity="top"
+                            android:visibility="@{vm.syncData.systemInfo.variant.wifi ? View.VISIBLE : View.GONE}">
+
+                            <eu.geekhome.controls.SvgImageView
+                                style="@style/SensorList.ActionIcon.Unlocked"
+                                android:onClick="@{() -> vm.lock()}"
+                                android:visibility="@{vm.syncData.locked ? View.GONE : View.VISIBLE}"/>
+
+                            <eu.geekhome.controls.SvgImageView
+                                style="@style/SensorList.ActionIcon.Locked"
+                                android:onClick="@{() -> vm.unlock()}"
+                                android:visibility="@{vm.syncData.locked ? View.VISIBLE : View.GONE}"/>
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+
+                    <TextView
+                        style="@style/Layout.MatchX"
+                        android:text='@{vm.syncData.deviceKey.deviceId + " v" + vm.syncData.systemInfo.versionMajor + "." + vm.syncData.systemInfo.versionMinor}'
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        android:textColor="@color/white"
+                        tools:text="[001234093123212309]"/>
+
+                    <View
+                        style="@style/SensorList.HorizontalLine"/>
+
+                    <TextView
+                        style="@style/Layout.MatchX"
+                        android:text="@string/controlled_by_geekhome"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        android:textColor="@color/white"
+                        android:visibility="@{vm.syncData.role == BoardRole.GeekHOME ? View.VISIBLE : View.GONE}"
+                        tools:visibility="visible"/>
+
+                    <eu.geekhome.asymptote.bindingutils.controls.VerticalRecyclerView
+                        style="@style/Layout.MatchX"
+                        android:visibility="@{vm.syncData.role == BoardRole.GeekHOME ? View.GONE : View.VISIBLE}"
+                        app:items="@{vm.controls}"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                style="@style/Layout.MatchXY.Horizontal"
+                android:background="@color/lightgray_transparent"
+                android:gravity="center"
+                android:visibility="@{vm.alive ? View.GONE : View.VISIBLE}"
+                tools:visibility="visible">
+
+                <eu.geekhome.asymptote.bindingutils.controls.NonClickableLinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <eu.geekhome.controls.SvgImageView
+                        style="@style/SensorList.SignalLostIcon"
+                        tools:ignore="ContentDescription"/>
+
+                    <TextView
+                        style="@style/Common.Text.Centered"
+                        android:text="@string/signal_lost"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:textColor="@color/almost_white"/>
+                </eu.geekhome.asymptote.bindingutils.controls.NonClickableLinearLayout>
+
+
+                <eu.geekhome.controls.SvgImageView
+                    style="@style/SensorList.CertificateUpdateIcon"
+                    android:onClick="@{() -> vm.certificateUpdate()}"
+                    android:visibility="@{vm.restoreToken == null ? View.GONE : View.VISIBLE}"
+                    tools:ignore="ContentDescription"/>
+
+            </LinearLayout>
+
+
+            <eu.geekhome.asymptote.bindingutils.controls.NonClickableLinearLayout
+                style="@style/Layout.MatchXY.Vertical"
+                android:background="@color/lightgray_transparent"
+                android:gravity="center"
+                android:visibility="@{vm.blocked ? View.VISIBLE : View.GONE}"
+                tools:visibility="gone">
+
+                <ImageView
+                    android:id="@+id/gear_image"
+                    style="@style/Layout.Wrapped"
+                    android:layout_gravity="center_horizontal"
+                    android:src="@drawable/gear_small"
+                    tools:ignore="ContentDescription"/>
+
+            </eu.geekhome.asymptote.bindingutils.controls.NonClickableLinearLayout>
+
+        </FrameLayout>
+    </android.support.v7.widget.CardView>
+</layout>

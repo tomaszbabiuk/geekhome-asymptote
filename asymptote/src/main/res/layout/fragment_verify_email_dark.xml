@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View"/>
+
+        <import type="eu.geekhome.asymptote.validation.MinLengthParams"/>
+
+        <variable
+            name="vm"
+            type="eu.geekhome.asymptote.viewmodel.VerifyEmailDarkViewModel"/>
+    </data>
+
+    <LinearLayout
+        style="@style/Layout.MatchX.Vertical">
+
+        <TextView
+            style="@style/Layout.MatchX"
+            android:gravity="center_horizontal"
+            android:text="@{vm.instruction}"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textColor="@color/silver"
+            tools:text="[Finish registration]"/>
+
+        <TextView
+            style="@style/Common.LinkButton.Orange.Centered"
+            android:visibility="@{vm.emailVerificationInProgress ? View.GONE : View.VISIBLE}"
+            android:onClick="@{() -> vm.resendToken()}"
+            android:text="@string/resent_verification_email"/>
+
+        <ProgressBar
+            style="@style/Profile.ProgressBar"/>
+
+        <TextView
+            style="@style/Layout.MatchX"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/common_button_top_margin"
+            android:gravity="center"
+            android:text="@string/or"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="@color/silver"/>
+
+        <TextView
+            style="@style/Common.Button.Gray"
+            android:layout_width="match_parent"
+            android:onClick="@{() -> vm.cancelRegistration()}"
+            android:text="@string/cancel_registration"/>
+    </LinearLayout>
+</layout>

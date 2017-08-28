@@ -1,0 +1,395 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="ssid">SSID</string>
+
+    <string name="please_wait">Proszę czekać…</string>
+    <string name="sending_wifi_configuration">Wysyłanie konfiguracji WiFi do urządzenia… Może to potrwać do 30 sekund.</string>
+    <string name="cancel">Anuluj</string>
+    <string name="network_hidden">Ta sieć jest ukryta!</string>
+    <string name="pair_device">Parowanie urządzenia</string>
+
+    <string name="relay_x_is_off" formatted="false">Przekaźnik %d jest wył</string>
+    <string name="relay_x_is_on" formatted="false">Przekaźnik %d jest wł</string>
+    <string name="choose_color">Wybierz kolor</string>
+    <string name="choose">Wybierz</string>
+    <string name="remember_password_this_session">Zapamiętaj hasło w tej sesji</string>
+    <string name="password">Hasło</string>
+    <string name="next">Dalej</string>
+    <string name="touch_configuration_title">Podaj szczegóły połączenia WiFi</string>
+    <string name="touch_press_instruction">Przytrzymaj wciśnięty przycisk parowania na urządzeniu przez 5 sekund do czasu aż dioda LED zacznie migać. Następnie, wybierz "Dalej".</string>
+    <string name="ask_for_support">Prośba o wsparcie</string>
+    <string name="ask_for_support_with_uid">Prośba o wsparcie (id użytkownika: %s)</string>
+    <string name="support_problem_configuring">Dzień dobry, chciałbym uzyskać pomoc na temat </string>
+    <string name="send_email">Wyślij email…</string>
+    <string name="no_email_client_installed">Brak zainstalowanego klienta poczty elektronicznej.</string>
+    <string name="step_no" formatted="false">Krok %d z %d</string>
+    <string name="done">Zakończ</string>
+    <string name="device_paired" formatted="false">Urządzenie zostało sparowane, IP: %s</string>
+    <string name="pairing_failed">Parowanie nie powiodło się</string>
+    <string name="note_discovery">Wykrywanie czujników geekHOME w sieci LAN i chmurze</string>
+    <string name="enter_wifi_password">Podaj hasło WiFi</string>
+    <string name="refresh">Odśwież</string>
+    <string name="ota_update">Instalacja nowego oprogramowania</string>
+    <string name="ota_starting_update_server">Czekaj, uruchamianie serwera…</string>
+    <string name="ota_waiting_for_device">Oczekiwanie na połączenie z urządzeniem…</string>
+    <string name="ota_int_progress">Uaktualnianie w trakcie, nie wyłączaj telefonu/tabletu!</string>
+    <string name="ota_notice">Prosimy nie wyłączać telefonu/tabletu w trakcie uaktualniania oprogramowania!</string>
+    <string name="ota_server_error">Błąd! Nie można uruchomić serwera aktualizującego!</string>
+    <string name="ota_done">Zakończ!</string>
+    <string name="ota_failed">Uaktualnienie nie zostało zainstalowane!</string>
+    <string name="ota_device_updated" formatted="false">Urządzenie %s zostało uaktualnione do wersji %d.%d</string>
+    <string name="name">Nazwa</string>
+    <string name="ok">OK</string>
+    <string name="enter_sensor_name">Wprowadź nazwę czujnika</string>
+    <string name="cloud_only">Tylko chmura</string>
+    <string name="ota_elapsed">Przekroczono limit czasowy</string>
+    <string name="signal_lost">Brak sygnału</string>
+    <string name="no_lan_sensors_found">Brak czujników :(</string>
+    <string name="sensors_found">Znaleziono czujniki!</string>
+    <string name="discovery_elapsed" formatted="false">Proszę czekać… wykrywanie urządzeń w trakcie: %d sek</string>
+    <string name="old_google_play_services">Twój telefon/tablet nie może się łączyć z chmurą geekHOME. Upewnij się, że Usługi Google Play są zainstalowane i uaktualnione.</string>
+    <string name="rationale_nowifi_cannot_detect_local_devices">Nie można wykrywać urządzeń w Twojej sieci LAN, gdy sieć WiFi jest wyłączona. Wciąż możesz używać trybu \"Tylko chmura\", aby kontrolować urządzenia które zostały sparowane.</string>
+    <string name="rationale_nowifi_adding_devices">Nie można parować nowych urządzeń gdy sieć WiFi jest wyłączona.</string>
+    <string name="rationale_nowifi_ota_impossible">Uaktualnianie urządzeń nie jest możliwe gdy sieć WiFi jest wyłączona.</string>
+    <string name="my_profile">Mój profil</string>
+    <string name="profile_description">Wszystkie detale odnośnie Twojego konta geekHOME!</string>
+    <string name="register_via_email">Zarejestruj przez email</string>
+    <string name="register_enter_email_and_password">Podaj adres email i hasło</string>
+    <string name="email">Email</string>
+    <string name="enter_correct_email">Niepoprawny adres email</string>
+    <string name="confirm_password">Potwierdź hasło</string>
+    <string name="minimum_password_length_is_8">Minimalna długość hasła to 8 znaków</string>
+    <string name="password_not_confirmed">Potwierdzone hasło nie zgadza się</string>
+    <string name="change_email">Zmień adres email</string>
+    <string name="resent_verification_email">Wyślij ponownie email weryfikacyjny</string>
+    <string name="error_linking_with_email" formatted="false">Wystąpił problem w trakcie rejestrowania Twojego konta: %s.</string>
+    <string name="error_signing_up" formatted="false">Wystąpił problem w trakcie rejestrowania Twojego konta: %s.</string>
+    <string name="error_verifying_email" formatted="false">Wystąpił problem z weryfikacją Twojego adresu email: %s.</string>
+    <string name="error_cancelling_registration" formatted="false">Wystąpił problem z anulowaniem rejestracji: %s.</string>
+    <string name="error_resetting_password" formatted="false">Wystąpił problem z resetowaniem hasła: %s.</string>
+    <string name="reset_password_success" formatted="false">Na podany adres email %s została wysłana wiadomość z instrukcją jak zresetować hasło. Odbierz pocztę i kliknij na linku do resetowania hasła.</string>
+    <string name="email_verify_success" formatted="false">Na podany adres email %s została wysłana wiadomość z kodem weryfikacyjnym. Odbierz pocztę i kliknij na linku weryfikacyjnym.</string>
+    <string name="verify_email_instruction">Aby dokończyć proces rejestracji prosimy się wylogować i zalogować ponownie.</string>
+    <string name="later">Później</string>
+    <string name="change_password">Zmień hasło</string>
+    <string name="enter_old_and_new_password">Podaj stare i nowe hasło</string>
+    <string name="old_password">Stare hasło</string>
+    <string name="old_password_required">Stare hasło jest wymagane</string>
+    <string name="new_password">Nowe hasło</string>
+    <string name="confirm_new_password">Potwierdź nowe hasło</string>
+    <string name="password_has_been_changed">Hasło zostało zmienione</string>
+    <string name="error_changing_password" formatted="false">Wystąpił problem w trakcie zmieniania hasła: %s.</string>
+    <string name="error_changing_email" formatted="false">Wystąpił problem w trakcie zmieniania adresu email: %s.</string>
+    <string name="enter_your_password_and_new_email">Podaj hasło i nowy adres email</string>
+    <string name="not_verified">nie zweryfikowano</string>
+    <string name="logout">Wyloguj się</string>
+    <string name="sign_in">Zaloguj się</string>
+    <string name="sign_in_with_email">Zaloguj się mailem</string>
+    <string name="sign_up">Zarejestruj się</string>
+    <string name="unable_to_signin" formatted="false">Nie można się zalogować: %s</string>
+    <string name="terms_and_privacy">Warunki i prywatność</string>
+    <string name="or">lub</string>
+    <string name="invalid_username_or_password">Nieprawidłowa nazwa użytkownika lub hasło</string>
+    <string name="choose_different_username">Prosimy o wybranie innego adresu email</string>
+    <string name="finish_registration_process" formatted="false">Dokończ rejestrację użytkownika %s. Odbierz pocztę i kliknij link weryfikacyjny.</string>
+    <string name="cancel_registration">Anuluj rejestrację</string>
+    <string name="reset_password">Resetuj hasło</string>
+    <string name="forgot_password_instruction">Zapomniałeś hasło?</string>
+    <string name="user_not_found">Użytkownik nie znaleziony!</string>
+
+    <string name="terms_and_privacy_html"><![CDATA[
+        <h1>Witamy w GeekHOME!</h1>
+        <p>Dziękujemy za korzystanie z naszych usług i aplikacji („Usług”). Usługi są świadczone przez firmę GeekHOME Sp z o.o. („GeekHOME”), której siedziba znajduje się pod adresem Dziekanowice 184, 32-086 Dziekanowice, woj. małopolskie, Polska.</p>
+        <p>Korzystając z Usług, użytkownik akceptuje niniejsze warunki. Prosimy o ich dokładne przeczytanie.</p>
+
+        <h1>Warunki korzystania</h1>
+        <h3>Gwarancje i wyłączenia odpowiedzialności</h3>
+        <p>Usługi świadczymy przy wykorzystaniu uzasadnionego pod względem handlowym poziomu umiejętności i zaangażowania. Mamy nadzieję, że korzystanie z nich będzie przyjemne. Mimo to nie możemy w związku z Usługami złożyć pewnych obietnic.</p>
+        <p>FIRMA GEEKHOME ANI JEJ DOSTAWCY I DYSTRYBUTORZY NIE SKŁADAJĄ ŻADNYCH KONKRETNYCH OBIETNIC ZWIĄZANYCH Z USŁUGAMI, INNYCH NIŻ WYRAŹNIE WYMIENIONE W NINIEJSZYCH WARUNKACH ORAZ WARUNKACH DODATKOWYCH. NA PRZYKŁAD NIE OKREŚLAMY ŻADNYCH SWOICH ZOBOWIĄZAŃ W ZAKRESIE TREŚCI ZNAJDUJĄCYCH SIĘ W USŁUGACH, KONKRETNYCH FUNKCJI, NIEZAWODNOŚCI ANI DOSTĘPNOŚCI USŁUG, JAK RÓWNIEŻ MOŻLIWOŚCI SPEŁNIENIA PRZEZ NIE POTRZEB UŻYTKOWNIKA. USŁUGI SĄ ŚWIADCZONE „W TAKIM STANIE, W JAKIM SIĘ ZNAJDUJĄ”.</p>
+        <p>W NIEKTÓRYCH JURYSDYKCJACH PRZEWIDZIANO KONIECZNOŚĆ UDZIELENIA PEWNYCH GWARANCJI, NA PRZYKŁAD DOROZUMIANEJ GWARANCJI WARTOŚCI HANDLOWEJ, PRZYDATNOŚCI DO OKREŚLONEGO CELU LUB NIENARUSZANIA PRAW. W ZAKRESIE DOZWOLONYM PRZEZ PRAWO WYŁĄCZAMY WSZYSTKIE GWARANCJE.</p>
+        <h3>Odpowiedzialność za Usługi</h3>
+        <p>JEŚLI JEST TO DOZWOLONE PRZEZ PRAWO, FIRMA GEEKHOME ANI JEJ DOSTAWCY I DYSTRYBUTORZY NIE PONOSZĄ ODPOWIEDZIALNOŚCI ZA UTRACONE ZYSKI, PRZYCHODY ANI DANE, STRATY FINANSOWE, SZKODY POŚREDNIE, SZCZEGÓLNE, WTÓRNE ANI MORALNE, A TAKŻE ODSZKODOWANIA Z TYTUŁU STRAT MORALNYCH.</p>
+        <p>W ZAKRESIE DOZWOLONYM PRZEZ PRAWO CAŁKOWITA ODPOWIEDZIALNOŚĆ FIRMY GEEKHOME, JEJ DOSTAWCÓW I DYSTRYBUTORÓW Z TYTUŁU WSZELKICH ROSZCZEŃ NA MOCY NINIEJSZYCH WARUNKÓW, W TYM Z TYTUŁU WSZELKICH DOROZUMIANYCH GWARANCJI I RĘKOJMI, JEST OGRANICZONA DO KWOTY ZAPŁACONEJ NAM PRZEZ UŻYTKOWNIKA ZA KORZYSTANIE Z USŁUG (LUB, JEŚLI PODEJMIEMY TAKĄ DECYZJĘ, OGRANICZONA DO PONOWNEGO ŚWIADCZENIA PRZEZ NAS USŁUG UŻYTKOWNIKOWI).</p>
+        <p>W ŻADNYM PRZYPADKU FIRMA GEEKHOME, JEJ DOSTAWCY ANI DYSTRYBUTORZY NIE PONOSZĄ ODPOWIEDZIALNOŚCI ZA JAKIEKOLWIEK STRATY BĄDŹ SZKODY, KTÓRYCH NIE MOŻNA PRZEWIDZIEĆ PRZY ZASTOSOWANIU UZASADNIONYCH ŚRODKÓW.</p>
+
+        <h1>Polityka prywatności</h1>
+        <p>Korzystając z systemu sterowania GeekHOME (systemu automatyki budynkowej lub aplikacji sterujących) powierzasz nam swoje informacje. Niniejsza Polityka prywatności służy jako pomoc w zrozumieniu, jakie dane są zbierane, w jakim celu oraz do czego są wykorzystywane. Te informacje są ważne, dlatego prosimy o dokładne zapoznanie się z tym dokumentem. Treść polityki prywa tności została znacznie uproszczona, jednak w przypadku nieznajomości takich kluczowych terminów, jak czujnik, odczyty stanów, adres IP, chmura, warto najpierw przeczytać ich definicje.</p>
+        <h3>Definicje</h3>
+        <p><b>Schemat konfiguracyjny budynku</b> - zawiera wszystkie informacje o rozmieszczeniu pięter i pokojów w budynku, urządzeniach, warunkach automatyki, trybach, alarmach oraz pozstałych rzeczach podawanych przez użytkownika podczas konfiguracji systemu (za wyjątkiem sekcji “Ustawienia”).</p>
+        <p><b>Dane kont systemów trzecich</b> - wszystkie dane niezbędne do funkcjonowania usług dodatkowych (np. dostęp do chmury, sterowanie domem za pomocą poczty elektronicznej lub komunikatora internetowego) podawanych przez użytkownika podczas konfiguracji systemu w sekcji “Ustawienia”</p>
+        <p><b>Odczyty czujników</b> - wszystkie informacje przekazywane przez urządzenia, którymi system GeekHOME steruje, lub na podstawie których podejmuje akcje sterowania (tj. wszelkiego rodzaju dane z czujników lub kart wykonawczych).</p>
+        <p><b>Kopia konfiguracji w chmurze</b> - usługa internetowa dostępna za pomocą sieci internet polegająca na przechowywaniu kopii schematu konfiguracyjnego na serwerze dostępnym przez sieć internet</p>
+        <p><b>Dane osobowe</b> - informacje o użytkowniku takie jak imię i nazwisko, adres email, hasło do kopii bezpieczeństwa oraz dodatkowe informacje na temat licencji wykupionej przez użytkownika</p>
+        <h3>Gromadzone informacje</h3>
+        <p>Podczas normalnej pracy z systemem GeekHOME gromadzone są różne dane: od schematu konfiguracyjnego budynku, po dane na temat kont systemów trzecich.</p>
+        <p>Gromadzimy informacje w następujący sposób:</p>
+        <p><b>Aplikacja sterująca GeekHOME Asymptote</b> – aplikacja przechowuje wszystkie niezbędne dane związane ze danymi kont systemów trzecich (konto użytkownika) oraz metadane sparowanych czujników. Wszystkie te dane są bezpiecznie przechowywane w chmurze Google Firebase i zarządzane przez administratora systemu geekHOME.</p>
+        <p><b>Aplikacja sterująca GeekHOME Server</b> – aplikacja przechowuje wszystkie niezbędne dane związane ze schematem konfiguracyjnym budynku, danymi kont systemów trzecich oraz odczytami czujników. Schemat konfiguracyjny budynku przechowywany jest lokalnie (na karcie pamięci na której znajduje się system GeekHOME) oraz w chmurze (kopia bezpieczeństwa). Wszystkie ustawienia przechowywane są wyłącznie lokalnie.</p>
+        <p><b>Aplikacja GeekHOME Pilot</b> - aplikacja przechowuje dane związane ze schematem konfiguracyjnym budynku oraz ustawienia konta XMPP (niezbędnego do komunikacji aplikacje sterującej z budynkiem). Dane te przetrzymywane są wyłącznie w lokalniej pamięci na telefonie lub tablecie na którym zainstalowana jest aplikacja.</p>
+        <p><b>Licencja systemu GeekHOME</b> - zawiera dane osobowe użytkownika, niezbędne do weryfikacji legalności systemu. Dane te przechowywane są w chmurze. Ma do nich dostęp jedynie pracownik firmy GeekHOME.</p>
+        <h3>Sposoby wykorzystania zgromadzonych informacji</h3>
+        <p>Wszystkie informacje, które użytkownik wprowadza do systemu GeekHOME są niezbędne do prawidłowego działania systemu. Firma GeekHOME nie przetwarza danych użytkownika w celu wydobycia z nich informacji innych, niż te niezbędne do prawidłowej pracy systemu GeekHOME.</p>
+        <h3>Bezpieczeństwo informacji</h3>
+        <p>Dokładamy wszelkich starań, aby chronić firmę GeekHOME i użytkowników przed nieuprawnionym dostępem, nieautoryzowaną modyfikacją, ujawnieniem oraz zniszczeniem informacji znajdujących się w posiadaniu GeekHOME. W szczególności:</p>
+        <p>&#8226; Stosujemy szyfrowanie SSL.<br/>
+        &#8226; Urządzenia których działanie w budynku jest krytyczne dla bezpieczeństwa (np. szyfratory alarmowe lub bramy) są zabezpieczone dodatkowym kodem, niezbędnym do zmiany stanu ich pracy<br/>
+        &#8226; Kontrolujemy nasze metody gromadzenia, przechowywania i przetwarzania informacji, w tym fizyczne środki bezpieczeństwa, aby chronić przed nieuprawnionym dostępem do systemu.<br/>
+        &#8226; Dostępu do danych osobowych udzielamy jedynie tym pracownikom, kontrahentom i przedstawicielom firmy GeekHOME, którzy muszą mieć do nich dostęp, aby przetwarzać je na potrzeby GeekHOME (na przykład sprawdzić ważność licencji). Ponadto na mocy umowy są oni zobowiązani do zachowania ścisłej poufności, a w przypadku niewypełnienia tych zobowiązań mogą ponieść konsekwencje, łącznie z zakończeniem współpracy.<br/>
+        <h3>Zmiany</h3>
+        <p>Polityka prywatności GeekHOME może czasami ulegać zmianom (np. w momencie wprowadzania nowych usług do systemu). Prawa użytkownika wynikające z niniejszej Polityki prywatności nie zostaną ograniczone bez wyraźnej zgody użytkownika. Wszelkie zmiany Polityki prywatności będą publikowane na stronie http://geekhome.eu, a o istotnych zmianach będziemy informować w bardziej widoczny sposób (w przypadku niektórych usług łącznie z wysłaniem odpowiedniego powiadomienia e-mail).</p>]]></string>
+    <string name="agree">Akceptuję</string>
+    <string name="disagree">Odrzucam</string>
+    <string name="scroll_to_bottom">… Przewiń w dół …</string>
+    <string name="unsupported_board" formatted="false">Wykryto niewspierany sensor \"%s\"</string>
+    <string name="unsupported_board_note">Uaktualnij aplikację do najnowżej wersji aby móc korzystać z nowego urządzenia.</string>
+    <string name="choose_role">Wybierz rolę</string>
+    <string name="role_geekhome">Urządzenie automatyki GeekHOME</string>
+    <string name="role_rgb_1pwm_controller">Sterownik RGB+W</string>
+    <string name="role_rgb_1pwm_controller_desc">Steruje taśmą lub panelem RGB. Posiada dodatkowy kanał bieli.</string>
+    <string name="role_rgb_2pwm_controller">Sterownik RGB+WW</string>
+    <string name="role_rgb_2pwm_controller_desc">Steruje taśmą lub panelem RGB. Posiada dodatkowe dwa kanały bieli.</string>
+    <string name="role_rgbw_controller">Sterownik RGBW</string>
+    <string name="role_rgbw_controller_desc">Steruje taśmą lub panelem RGBW.</string>
+    <string name="role_pwm_multichannel">Wielokanałowy sterownik LED</string>
+    <string name="role_pwm_multichannel_desc">Każdy z kanałów PWM jest sterowany oddzielnie.</string>
+    <string name="role_mains_switch">Włącznik sieciowy</string>
+    <string name="role_mains_switch_advanced">Włącznik sieciowy (zaawansowany)</string>
+    <string name="role_gate">Sterownik bramy</string>
+    <string name="role_gate_desc">Kontroluje bramę garażową lub wjazdową wyposażoną w styki P.P. i STOP. Brama musi być wyposażona w kontaktron.</string>
+    <string name="role_mains_desc">Włącznik zdalny (IoT lub WiFi)</string>
+    <string name="role_light_switch">Włącznik światła</string>
+    <string name="role_light_switch_desc">Zdalny włącznik światła (IoT lub WiFi). Włącza światło gdy zostatnie dotknięty.</string>
+    <string name="controlled_by_geekhome">To urządzenie jest kontrolowane przez serwer automatyki GeekHOME. Aby sterować nim tą aplikacją, edytuj urządzenie i zmień jego rolę.</string>
+    <string name="role_cooling_thermostat">Termostat (chłodzenie)</string>
+    <string name="role_cooling_thermostat_desc">Włącza przekaźnik, gdy temperatura jest zbyt wysoka.</string>
+    <string name="role_heating_thermostat">Termostat (grzanie)</string>
+    <string name="role_heating_thermostat_desc">Włącza przekaźnik, gdy tempetatura jest zbyt niska.</string>
+    <string name="role_drying_hygrostat">Higrostat (osuszanie)</string>
+    <string name="role_drying_hygrostat_desc">Włącza przekaźnik, gdy wilgotność jest zbyt wysoka.</string>
+    <string name="role_humidification_hygrostat">Higrostat (nawilżanie)</string>
+    <string name="role_humidification_hygrostat_desc">Włącza przekaźnik, gdy wilgotność jest zbyt niska.</string>
+    <string name="sensor_settings">Ustawienia urządzenia</string>
+    <string name="heating_thermostat_details">Szczegóły termostatu (grzanie)</string>
+    <string name="heating_thermostat_instruction">Włącza przekaźnik, gdy temperatura spadnie poniżej zadanej wartości.</string>
+    <string name="cooling_thermostat_details">Szczegóły termostatu (chłodzenie)</string>
+    <string name="cooling_thermostat_instruction">Włącza przekaźnik, gdy temperatura przekroczy zadaną wartość.</string>
+    <string name="drying_hygrostat_details">Szczegłówy hygrostatu (osuszanie)</string>
+    <string name="drying_hygrostat_instruction">Włącza przekaźnik, gdy wilgotność spadnie poniżej zadanej wartości.</string>
+    <string name="humidification_hygrostat_details">Szczegóły hygrostatu (nawilżanie)</string>
+    <string name="humidification_hygrostat_instruction">Włącza przekaźnik, gdy wilgotność przekroczy zadaną wartość.</string>
+    <string name="temperature_range_in_C">Zakres temperatur (°C)</string>
+    <string name="humidity_range_in_pc">Zakres wilgotności (%)</string>
+    <string name="hysteresis_in_C" formatted="false">Histereza: %d°C</string>
+    <string name="hysteresis_in_pc" formatted="false">Histereza: %d%%</string>
+    <string name="temperature_set_in_C" formatted="false">Zadana temperatura: %.2f°C</string>
+    <string name="humidity_set_in_pc" formatted="false">Zadana wilgotność: %d%%</string>
+    <string name="role_multisensor">Multisensor</string>
+    <string name="role_multisensor_desc">Zdalny czujnik temperatury, wilgotności, światła, hałasu i kurzu (IoT lub WiFi)</string>
+    <string name="heating_on">Ogrzewanie włączone</string>
+    <string name="heating_off">Ogrzewanie wyłączone</string>
+    <string name="cooling_on">Chłodzenie włączone</string>
+    <string name="cooling_off">Chłodzenie wyłączone</string>
+    <string name="drying_on">Osuszanie włączone</string>
+    <string name="drying_off">Osuszanie wyłączone</string>
+    <string name="humidification_on">Nawilżanie właczone</string>
+    <string name="humidification_off">Nawilżanie wyłaczone</string>
+    <string name="device_locked">Urządzenie jest zablokowane</string>
+    <string name="unlock_instuction">Aby odblokować urządzenie, należy je zresetować do ustawień fabrycznych:\n1) Naciśnij i przytrzymaj przycisk dodawania na urządzeniu, do momentu aż dioda stanu zacznie migać\n2) Puść przycisk i poczekaj aż dioda skończy migać (trwa to ok 45 sekund). Nie dodawaj nowych urządzeń w tym czasie.\n3) Urządzenie powinno się zresetować i sygnalizować brak sieci WiFi (dwa krótkie mrugnięcia) - możesz je teraz dodać ponownie.</string>
+    <string name="yes">Tak</string>
+    <string name="no">Nie</string>
+    <string name="device_locked_not_upgradable">Z powodów bezpieczeństwa nie można aktualizować oprogramowania urządzenia, które nie jest zablokowane. Wpierw zablokuj urządzenie ustawiając hasło awaryjne.</string>
+    <string name="change_firmware">Zmień oprogramowanie</string>
+    <string name="available_firmware_variants">Dostępne warianty oprogramowania</string>
+    <string name="update">Uaktualnij</string>
+    <string name="change">Zmień</string>
+    <string name="variant_installed">Ten wariant oprogramowania jest zainstalowany.</string>
+    <string name="latest_version">To jest najnowsza wersja.</string>
+    <string name="not_latest_version">To nie jest najnowsza wersja, prosimy uaktualnić oprogramowanie!</string>
+    <string name="troubleshooting">Rozwiązywanie problemów</string>
+    <string name="whats_is_status_led_signaling">Co sygnalizuje dioda statusu?</string>
+    <string name="define_role_details">Zdefiniuj szczegóły roli</string>
+
+    <string name="signal_none">Dioda nie świeci się</string>
+    <string name="signal_none_desc">Jeżeli dioda stanu nie świeci się (nie miga) może to oznacząć, że urządzenie nie jest podłączone do prądu lub jest uszkodzone.</string>
+    <string-array name="signal_none_solutions">
+        <item>Upewnij się, że urządzenie jest podłączone do sieci (jeżeli nie, podłącz je).</item>
+        <item>Jeżeli urządzenie jest podłączone do sieci i jest prąd w sieci, zwróć urządzenie do dostawcy.</item>
+    </string-array>
+
+    <string name="signal_blinking">Dioda miga</string>
+    <string name="signal_blinking_desc">Dioda miga, gdy urządzenie jest w trakcie długotrwającej operacji np. parowania lub zdalnego uaktualniania oprogramowania.</string>
+    <string-array name="signal_blinking_solutions">
+        <item>Proszę poczekaj aż operacja zakończy się.</item>
+        <item>Jeżeli doda miga przez dłuższy czas niż 5 minut, odetnij prąd od urządzenia i uruchom je ponownie.</item>
+    </string-array>
+
+    <string name="signal_1blink">Jedno mrugnięcie co ok 3–4 sek</string>
+    <string name="signal_1blink_desc">Jedno mrugnięcie oznacza, że urządzenie może nawiązać połączenie w siecią WiFi oraz Chmurą (jeżeli wybrany wariant firmware wymaga połączenia z Chmurą). Jeżli mimo to, nie widzisz urządzenia na liście to:</string>
+    <string-array name="signal_1blink_solutions">
+        <item>Problem może być związany z Twoim kontem. Jeżeli niewidoczne urządzenie jest zablokowane, musisz być pewny, że urządzenie zostało zablokowane przez Ciebie (tylko właściciele urządzeń widzą swoje urządzenia)!</item>
+        <item>Jeżeli urządzenie pracuje w wariancie oprogramowania WiFi to może zostać zresetowane do ustawień fabrycznych, a potem zablokowane przez Ciebie (zmiana właściciela). Przywrócanie urządzenia do ustawień fabrycznych wymaga fizycznego dostępu do urządzenia.</item>
+        <item>Jeżeli urządzenie pracuje w wariancie oprogramowania Chmura może to oznaczać, że urządzenie łączy się do konta innego użytkownika (jesteś pewiem, że używasz właściwego konta podczas logowania?).</item>
+        <item>W rzadkich przypadkach, urządzenie mogło zostać uszkodzone w trakcie podgrywania nowej wersji oprogramowania. Wciąż możesz spróbować zresetować je do ustawień fabrycznych (zwłaszcza, jeżeli wybranym wariantem oprogramowania jest wariant WiFi).</item>
+        <item>W rzadkich przypadkach, jeżeli urządzenie pracuje w wariancie oprogramowania Chmura, spróbuj przywrócić oprogramowanie WiFi.</item>
+    </string-array>
+    <string-array name="reset_procedure">
+        <item>Naciśnij i przytrzymaj przez kilka sekund przycisk parowania na urządzeniu (do momentu aż dioda stanu zacznie migać).</item>
+        <item>Puść przycisk parowania i poczekaj aż dioda przestanie migać (ok. 45 sekund). Nie dodawaj/paruj żadnych nowych urządzeń w tym czasie!</item>
+        <item>Urządzenie powino się zresetować i dioda stanu powinna zacząć sygnalizować błąd połączenia z WiFi - urządzenie jest gotowe do ponownego parowania.</item>
+    </string-array>
+
+    <string name="signal_2blinks">Dwa mignięcia co ok 3–4 sek</string>
+    <string name="signal_2blinks_desc">Dwa mignięcia oznaczają, że urządzenie nie może nawiązać połączenia z siecią WiFi.</string>
+    <string-array name="signal_2blinks_solutions">
+        <item>Rozpocznij procedurę parowania (dodawania) nowego urządzenia klikając przycisk "+" na liście urządzeń. Następnie postępuj zgodnie z instrukcjami na ekranie.</item>
+    </string-array>
+
+    <string name="signal_3blinks">Trzy mignięcia co ok 3–4 sekundy</string>
+    <string name="signal_3blinks_desc">Trzy mignięcia oznaczają, że urządzenie może połączyć się z siecią WiFi, ale nie może połączyć się z Chmurą.</string>
+    <string-array name="signal_3blinks_solutions">
+        <item>Upewnij się, że masz połączenie z siecią internet (możesz sprawdzić czy na urządzeniu zalogowanym to Twojej sieci WiFi możesz przeglądać strony internetowe jak google.com czy wikipedia.org).</item>
+        <item>Poczekaj przez dłuższą chwilę (nawet do godziny). Jeżeli wystąpił błąd z połączeniem internetowym, urządzenie wejdzie w tryb oszczędzania energii i  spróbuje połączyć się z Chmurą ponownie dopiero po upływie 30 minut. Aby urządzenie natychmiast spróbowało nawiązać połączenie odetnij prąc i podłącz je do zasilania ponownie.</item>
+        <item>Jeżeli wariant oprogramowania łączący się z chmurą sprawia problemy (np. ze względu na słabą jakość połączenia internetowegi), rozważ przywrócenie oprogramowania w wariancie WiFi.</item>
+        <item>Jeżeli problem jest notoryczny, utwórz zgłoszenie wsparcia na stronie http://geekhome.eu.</item>
+    </string-array>
+
+    <string name="signal_4blinks">Cztery mignięcia co ok 3–4 sekundy</string>
+    <string name="signal_4blinks_desc">Cztery mignięcia oznaczają, że urządzenie może połączyć się z internetem, ale certyfikat Chmury został odnowiony lub wygasł. Należy wprowadzić nowy certyfikat na urządzeniu.</string>
+    <string-array name="signal_4blinks_solutions">
+        <item>Będąc podłączonym do sieci WiFi, zaloguj się do aplikacji (nie używaj trybu awaryjnego)</item>
+        <item>Poczkaj aż wykrywanie czujników zakończy się (60 sekund)</item>
+        <item>System powinien wykryć, że uszkodzone urządzenie znajduje się w sieci LAN ale nie wysyła danych do chmury.</item>
+        <item>Na liście urządzeń, pojawi się specjalny element z informacją o urządzeniu, które jest offline i z opcją uaktualnienia certyfikatu.</item>
+        <item>Kliknij przycisk \"Uaktualnij certyfikat\" i poczekaj chwilę.</item>
+        <item>Po kilku sekundach, certyfikat powinien zostać uaktualniony, a urządzenie pojawić się na liście.</item>
+    </string-array>
+
+
+    <string name="signal_turned_on">Dioda świeci się (nie miga)</string>
+    <string name="signal_turned_on_desc">Dioda stanu świeci się, gdy urządzenie próbuje nawiązać połączenie z siecią WiFi.</string>
+    <string name="cannot_access_profile_when_emergency">Aplikacja pracuje w trybie awaryjnym. Profil użytkownika jest niedostępny.</string>
+    <string name="emergency_mode">Tryb awaryjny</string>
+    <string name="emergency_password">Hasło awaryjne</string>
+    <string name="set_emergency_password">Ustaw hasło awaryjne</string>
+    <string name="set_emergency_password_instruction">Zdefiniuj hasło awaryjne aby zabezpieczyć urządzenia przed nieautoryzowanym dostępem i programami typu "malware". Hasło awaryjne jest współdzielone pomiędzy wszystkimi urządzeniami geekHOME Asymptote w sieci lokalnej.</string>
+    <string name="confirm_emergency_password">Potwierdź hasło awaryjne</string>
+    <string name="set_password_and_secure_device">Ustaw hasło i zabezpiecz urządzenie</string>
+    <string name="enter_emergency_password">Wprowadź hasło awaryjne</string>
+    <string name="found_password_protected_devices">Odnaleziono urządzenia chronione hasłem. Wprowadź hasło awaryjne, aby je kontrolować.</string>
+    <string name="secured_device_found">Znaleziono urządzenia chronione hasłem</string>
+    <string name="offline_device_found">To urządzenie pracuje w Twojej sieci lokalnej ale nie może nawiązać połączenia z internetem:</string>
+
+    <string name="device_invalid_password" formatted="false">%s - nieprawidłowe hasło\n</string>
+    <string name="remember_password_when_logged">Pamiętaj hasło, gdy jestem zalogowany</string>
+    <string name="sign_in_to_install">Musisz być zalogowany, aby zainstalować ten wariant oprogramowania</string>
+    <string name="restore_wifi_firmware">Czy chcesz przywrócić oprogramowanie WiFi na tym urządzeniu?</string>
+    <string name="wifi_firmware_desc">Oprogramowanie bazowe, największa niezawodność. Może pracować bez połączenia internetowego. Poziom zabezpieczeń jest wysoki.</string>
+    <string name="iot_firmware_desc">Oprogramowanie alternatywne, niezawodność zależna od jakości połączenia internetowego oraz innych dostawców usług (Google Firebase). Poziom zabezpieczeń jest wysoki.</string>
+    <string name="hybrid_firmware_desc">Oprogramowanie hybrydowe, urządzenia mogą być kontrolowane w sieci LAN i za pomocą chmury jednocześcnie. Poziom zabezpieczeń jest średni.</string>
+    <string name="choose_relay_modes">Wybierz tryb pracy przekaźników</string>
+    <string name="second">sek</string>
+    <string name="on_off">wł/wył</string>
+    <string name="on">włącz</string>
+    <string name="off">wyłącz</string>
+    <string name="countdown">odliczanie</string>
+    <string name="delay">opóźnienie</string>
+    <string name="impulse">Impuls</string>
+    <string name="interlocking">Blokowanie</string>
+    <string name="update_certificate">Uaktualnij certyfikat</string>
+    <string name="stop">STOP</string>
+    <string name="release">Odblokuj</string>
+    <string name="open">Otwórz</string>
+    <string name="close">Zamknij</string>
+    <string name="na">n/d</string>
+    <string name="gate_open">Brama otwara</string>
+    <string name="gate_closed">Brama zamknięta</string>
+    <string name="gate_stopped">Brama zablokowana</string>
+    <string name="gate_opening_error">Błąd otwierania</string>
+    <string name="gate_closing_error">Błąd zamykania</string>
+    <string name="gate_opening">Otwieranie…</string>
+    <string name="gate_closing">Zamykanie…</string>
+
+    <string-array name="signal_turned_on_solutions">
+        <item>Poczekaj na bardziej znaczący sygnał. Przykładowo, gdy urządzenie nie zna naszej sieci WiFi i próbuje nawiązać połączenie dioda stanu świeci się w sposób ciągły (nie miga) przez kilka sekund, a następnie miga dwukrotnie kilka razy i znowu zaświeca się, aby ponowić próbę. Te dwa mrugnięcia są tym bardziej znaczącym sygnałem w tym przypadku.</item>
+    </string-array>
+    <plurals name="reset_procedure_steps">
+        <item quantity="one">Procedura resetowania ustawień WiFi</item>
+        <item quantity="few">Kroki procedury resetowania ustawień WiFi</item>
+        <item quantity="other">Kroki procedury resetowania ustawień WiFi</item>
+    </plurals>
+    <plurals name="solutions">
+        <item quantity="one">Rozwiązanie</item>
+        <item quantity="few">Rozwiązania</item>
+        <item quantity="other">Rozwiązań</item>
+    </plurals>
+
+    <plurals name="relays">
+        <item quantity="one">%d przekaźnik</item>
+        <item quantity="few">%d przekaźniki</item>
+        <item quantity="other">%d przekaźników</item>
+    </plurals>
+    <plurals name="thermometers">
+        <item quantity="one">%d termometr</item>
+        <item quantity="few">%d termometry</item>
+        <item quantity="other">%d termometrów</item>
+    </plurals>
+    <plurals name="hygrometers">
+        <item quantity="one">%d higrometr</item>
+        <item quantity="few">%d higrometry</item>
+        <item quantity="other">%d higrometrów</item>
+    </plurals>
+    <plurals name="lux_meters">
+        <item quantity="one">%d luxometer</item>
+        <item quantity="few">%d luxometry</item>
+        <item quantity="other">%d luxometrów</item>
+    </plurals>
+    <plurals name="dust_meters">
+        <item quantity="one">%d miernik pyłu</item>
+        <item quantity="few">%d mierniki pyłu</item>
+        <item quantity="other">%d mierników pyłu</item>
+    </plurals>
+    <plurals name="noise_meters">
+        <item quantity="one">%d miernik hałasu</item>
+        <item quantity="few">%d mierniki hałasu</item>
+        <item quantity="other">%d mierników hałasu</item>
+    </plurals>
+    <plurals name="digital_output_ports">
+        <item quantity="one">%d cyfrowy port wyjścia</item>
+        <item quantity="few">%d cyfrwych portów wyjścia</item>
+        <item quantity="other">%d cyfrowych portów wyjścia</item>
+    </plurals>
+    <plurals name="temperature_ports">
+        <item quantity="one">%d port temperaturowy</item>
+        <item quantity="few">%d porty temperaturowe</item>
+        <item quantity="other">%d portów temperaturowych</item>
+    </plurals>
+    <plurals name="humidity_ports">
+        <item quantity="one">%d port wilgotności</item>
+        <item quantity="few">%d porty wilgotności</item>
+        <item quantity="other">%d portów wilgotności</item>
+    </plurals>
+    <plurals name="luminosity_ports">
+        <item quantity="one">%d port natężenia światła</item>
+        <item quantity="few">%d porty natężenia światła</item>
+        <item quantity="other">%d portów natężenia światła</item>
+    </plurals>
+    <plurals name="dust_ports">
+        <item quantity="one">%d port kurzu</item>
+        <item quantity="few">%d porty kurzu</item>
+        <item quantity="other">%d portów kurzu</item>
+    </plurals>
+    <plurals name="noise_ports">
+        <item quantity="one">%d port hałasu</item>
+        <item quantity="few">%d porty hałasu</item>
+        <item quantity="other">%d portów hałasu</item>
+    </plurals>
+    <plurals name="channels_pwm" tools:ignore="MissingQuantity">
+        <item quantity="one">%d kanał PWM</item>
+        <item quantity="few">%d kanały PWM</item>
+        <item quantity="other">%d kanałów PWM</item>
+    </plurals>
+    <plurals name="channels_rgb">
+        <item quantity="one">%d kanał RGB</item>
+        <item quantity="few">%d kanały RGB</item>
+        <item quantity="other">%d kanałów RGB</item>
+    </plurals>
+</resources>

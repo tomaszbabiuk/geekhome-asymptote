@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns" width="100.0px" height="100px" viewBox="0 0 144 144" version="1.1">
+    <title>Accordian List</title>
+    <description>Created with Sketch (http://www.bohemiancoding.com/sketch)</description>
+    <defs/>
+    <g id="Page 1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Accordian List" fill="#000000">
+            <path d="M144,0 L144,24 L108,24 L108,36 L120,36 L96,72 L72,36 L84,36 L84,24 L0,24 L0,0 L144,0 Z M36,84 L36,72 L24,72 L48,36 L72,72 L60,72 L60,84 L144,84 L144,108 L0,108 L0,84 L36,84 Z M144,120 L144,144 L0,144 L0,120 L144,120 Z M144,120" id="Rectangle 23"/>
+        </g>
+    </g>
+</svg>

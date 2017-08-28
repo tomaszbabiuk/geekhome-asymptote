@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="vm"
+            type="eu.geekhome.asymptote.viewmodel.ControlGateItemViewModel"/>
+
+        <import type="android.view.View"/>
+
+    </data>
+
+    <LinearLayout style="@style/Layout.MatchX.Horizontal">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1"
+            android:text="@{vm.message}"
+            android:textColor="@color/white"/>
+
+        <LinearLayout
+            android:layout_width="125dp"
+            android:layout_height="35dp"
+            android:layout_margin="5dp"
+            android:background="@drawable/orange_button_selector"
+            android:clickable="true"
+            android:gravity="center"
+            android:onClick="@{() -> vm.stopRelease()}"
+            android:orientation="horizontal">
+
+            <eu.geekhome.controls.SvgImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                app:svgColor="@color/almost_white"
+                app:svgId="@raw/emergencystop"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/common_small_padding"
+                android:text='@{vm.value.equals("stopped") ? @string/release : @string/stop}'
+                android:textColor="@color/white"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="125dp"
+            android:layout_height="35dp"
+            android:layout_margin="5dp"
+            android:background="@drawable/gray_button_selector"
+            android:clickable="true"
+            android:gravity="center"
+            android:onClick="@{() -> vm.openClose()}"
+            android:visibility='@{vm.value.equals("stopped") ? View.GONE : View.VISIBLE}'
+            android:orientation="horizontal">
+
+            <eu.geekhome.controls.SvgImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                app:svgColor="@color/almost_white"
+                app:svgId="@raw/monitor"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/common_small_padding"
+                android:text='@{(vm.value.equals("open")) ? @string/close : (vm.value.equals("closed")) ? @string/open : @string/na}'
+                android:enabled='@{vm.value.equals("open") || vm.value.equals("closed")}'
+                android:textColor="@color/white"/>
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+</layout>

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="touch_small_icon_size">20dp</dimen>
+
+    <style name="Touch" />
+
+    <style name="Touch.WarningIcon">
+        <item name="android:layout_width">@dimen/touch_small_icon_size</item>
+        <item name="android:layout_height">@dimen/touch_small_icon_size</item>
+        <item name="svgColor">@color/orange</item>
+        <item name="svgId">@raw/warning</item>
+    </style>
+
+    <style name="Touch.Header.Text" parent="Layout.Wrapped">
+        <item name="android:textSize">@dimen/common_big_text</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="Touch.Title" parent="Layout.Wrapped">
+        <item name="android:textSize">@dimen/common_big_text</item>
+        <item name="android:textColor">@color/gray</item>
+    </style>
+
+    <style name="Touch.Background" parent="Layout.MatchXY.Vertical">
+        <item name="android:background">@color/panty_blue</item>
+    </style>
+
+    <style name="Touch.ErrorMessage" parent="Layout.MatchX">
+        <item name="android:textAppearance">?android:attr/textAppearanceMedium</item>
+        <item name="android:background">@color/red</item>
+        <item name="android:gravity">center_horizontal</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="Touch.NextButton" parent="Common.Button.Orange">
+        <item name="android:layout_marginStart">@dimen/common_extra_padding</item>
+        <item name="android:layout_marginEnd">0dp</item>
+        <item name="android:layout_marginTop">0dp</item>
+        <item name="android:layout_marginBottom">0dp</item>
+    </style>
+
+    <style name="Touch.CancelButton" parent="Common.Button.Gray">
+        <item name="android:layout_marginStart">@dimen/common_extra_padding</item>
+        <item name="android:layout_marginEnd">0dp</item>
+        <item name="android:layout_marginTop">0dp</item>
+        <item name="android:layout_marginBottom">0dp</item>
+    </style>
+
+    <style name="Touch.Footer" parent="ActionBar.BottomLayout">
+        <item name="android:gravity">center_vertical|end</item>
+        <item name="android:padding">@dimen/common_medium_padding</item>
+    </style>
+
+    <style name="Touch.AnimationArea" parent="Layout.MatchX">
+        <item name="android:gravity">center_horizontal</item>
+    </style>
+</resources>

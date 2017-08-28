@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View"/>
+
+        <import type="eu.geekhome.asymptote.validation.MinLengthParams"/>
+
+        <variable
+            name="vm"
+            type="eu.geekhome.asymptote.viewmodel.LoginViewModel"/>
+    </data>
+
+    <eu.geekhome.asymptote.validation.controls.ValidationLinearLayout
+        style="@style/Splash.CenterContainer"
+        tools:validationContext="@{vm.validation}"
+        android:padding="@dimen/common_medium_padding">
+
+        <TextView
+            style="@style/Layout.MatchX"
+            android:gravity="center_horizontal"
+            android:text="@string/sign_in"
+            android:textAppearance="?android:attr/textAppearanceLarge"/>
+
+        <android.support.design.widget.TextInputLayout
+            style="@style/Splash.TextInputLayout">
+
+            <android.support.design.widget.TextInputEditText
+                style="@style/Splash.TextInput"
+                android:hint="@string/email"
+                android:inputType="textEmailAddress"
+                android:text="@={vm.email}"
+                app:validateEmail="@{@string/enter_correct_email}"/>
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            style="@style/Splash.TextInputLayout">
+
+            <android.support.design.widget.TextInputEditText
+                style="@style/Splash.TextInput"
+                android:hint="@string/password"
+                android:inputType="textPassword"
+                android:text="@={vm.password}"
+                app:validatePassword="@{MinLengthParams.create(@string/minimum_password_length_is_8, 8)}"/>
+        </android.support.design.widget.TextInputLayout>
+
+        <TextView
+            style="@style/Common.Button.Orange"
+            android:layout_width="match_parent"
+            android:onClick="@{() -> vm.signInWithEmail()}"
+            android:text="@string/sign_in"/>
+
+    </eu.geekhome.asymptote.validation.controls.ValidationLinearLayout>
+</layout>

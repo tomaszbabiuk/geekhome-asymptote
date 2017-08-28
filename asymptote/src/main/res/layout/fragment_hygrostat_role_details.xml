@@ -1,0 +1,305 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View"/>
+
+        <variable
+            name="vm"
+            type="eu.geekhome.asymptote.viewmodel.HygrostatRoleDetailsViewModel"/>
+    </data>
+
+    <LinearLayout
+        style="@style/Layout.MatchXY.Vertical">
+
+        <include
+            layout="@layout/actionbar_help"
+            tools:vm="@{vm.actionBarModel}"/>
+
+        <ScrollView
+            style="@style/Layout.MatchX1"
+            android:fillViewport="true">
+
+            <LinearLayout style="@style/SensorEdit.Background">
+
+                <View style="@style/Common.OrangeSeparator.Horizontal"/>
+
+                <TextView
+                    style="@style/Common.Text.Big"
+                    android:layout_marginTop="@dimen/common_medium_padding"
+                    android:gravity="center_horizontal"
+                    android:text="@{vm.title}"/>
+
+                <View style="@style/Common.OrangeSeparator.Horizontal.Thin"/>
+
+                <View style="@style/Common.OrangeTriangle"/>
+
+                <TextView
+                    style="@style/Common.Text.Medium"
+                    android:gravity="center_horizontal"
+                    android:text="@{vm.instruction}"/>
+
+                <LinearLayout
+                    style="@style/Layout.MatchX1.Vertical"
+                    android:paddingEnd="@dimen/common_normal_padding"
+                    android:paddingStart="@dimen/common_normal_padding">
+
+                    <TextView
+                        style="@style/Common.Text.FormLabel"
+                        android:text="@string/humidity_range_in_pc"/>
+
+                    <me.bendik.simplerangeview.SimpleRangeView
+                        android:id="@+id/range"
+                        style="@style/SensorEdit.HumidityRange"
+                        app:end="@{vm.rangeEnd}"
+                        app:start="@{vm.rangeStart}"/>
+
+                    <TextView
+                        style="@style/Common.Text.FormLabel"
+                        android:text="@{@string/humidity_set_in_pc(vm.value)}"/>
+
+                    <LinearLayout
+                        style="@style/Layout.MatchX.Horizontal"
+                        android:layout_marginEnd="10dp"
+                        android:layout_marginStart="10dp">
+
+                        <TextView
+                            style="@style/SensorEdit.HysteresisLabel"
+                            android:text="0"
+                            android:textColor="@{(vm.rangeStart == 0 || vm.rangeEnd == 0) ? @color/orange : @color/light_gray}"
+                            android:visibility="@{vm.rangeStart &lt;= 0 &amp;&amp; 0 &lt;= vm.rangeEnd ? View.VISIBLE : View.GONE}"
+                            tools:ignore="HardcodedText"/>
+
+                        <View
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            android:layout_weight="1"
+                            android:visibility="@{vm.rangeStart &lt;= 0 &amp;&amp; 0 &lt; vm.rangeEnd ? View.VISIBLE : View.GONE}"/>
+
+                        <TextView
+                            style="@style/SensorEdit.HysteresisLabel"
+                            android:text="10"
+                            android:textColor="@{vm.rangeStart == 1 || vm.rangeEnd == 1 ? @color/orange : @color/light_gray}"
+                            android:visibility="@{vm.rangeStart &lt;= 1 &amp;&amp; 1 &lt;= vm.rangeEnd ? View.VISIBLE : View.GONE}"
+                            tools:ignore="HardcodedText"/>
+
+
+                        <View
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            android:layout_weight="1"
+                            android:visibility="@{vm.rangeStart &lt;= 1 &amp;&amp; 1 &lt; vm.rangeEnd ? View.VISIBLE : View.GONE}"/>
+
+                        <TextView
+                            style="@style/SensorEdit.HysteresisLabel"
+                            android:text="20"
+                            android:textColor="@{vm.rangeStart == 2 || vm.rangeEnd == 2 ? @color/orange : @color/light_gray}"
+                            android:visibility="@{vm.rangeStart &lt;= 2 &amp;&amp; 2 &lt;= vm.rangeEnd ? View.VISIBLE : View.GONE}"
+                            tools:ignore="HardcodedText"/>
+
+
+                        <View
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            android:layout_weight="1"
+                            android:visibility="@{vm.rangeStart &lt;= 2 &amp;&amp; 2 &lt; vm.rangeEnd ? View.VISIBLE : View.GONE}"/>
+
+                        <TextView
+                            style="@style/SensorEdit.HysteresisLabel"
+                            android:text="30"
+                            android:textColor="@{vm.rangeStart == 3 || vm.rangeEnd == 3 ? @color/orange : @color/light_gray}"
+                            android:visibility="@{vm.rangeStart &lt;= 3 &amp;&amp; 3 &lt;= vm.rangeEnd ? View.VISIBLE : View.GONE}"
+                            tools:ignore="HardcodedText"/>
+
+
+                        <View
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            android:layout_weight="1"
+                            android:visibility="@{vm.rangeStart &lt;= 3 &amp;&amp; 3 &lt; vm.rangeEnd ? View.VISIBLE : View.GONE}"/>
+
+                        <TextView
+                            style="@style/SensorEdit.HysteresisLabel"
+                            android:text="40"
+                            android:textColor="@{vm.rangeStart == 4 || vm.rangeEnd == 4 ? @color/orange : @color/light_gray}"
+                            android:visibility="@{vm.rangeStart &lt;= 4 &amp;&amp; 4 &lt;= vm.rangeEnd ? View.VISIBLE : View.GONE}"
+                            tools:ignore="HardcodedText"/>
+
+
+                        <View
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            android:layout_weight="1"
+                            android:visibility="@{vm.rangeStart &lt;= 4 &amp;&amp; 4 &lt; vm.rangeEnd ? View.VISIBLE : View.GONE}"/>
+
+                        <TextView
+                            style="@style/SensorEdit.HysteresisLabel"
+                            android:text="50"
+                            android:textColor="@{vm.rangeStart == 5 || vm.rangeEnd == 5 ? @color/orange : @color/light_gray}"
+                            android:visibility="@{vm.rangeStart &lt;= 5 &amp;&amp; 5 &lt;= vm.rangeEnd ? View.VISIBLE : View.GONE}"
+                            tools:ignore="HardcodedText"/>
+
+
+                        <View
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            android:layout_weight="1"
+                            android:visibility="@{vm.rangeStart &lt;= 5 &amp;&amp; 5 &lt; vm.rangeEnd ? View.VISIBLE : View.GONE}"/>
+
+                        <TextView
+                            style="@style/SensorEdit.HysteresisLabel"
+                            android:text="60"
+                            android:textColor="@{vm.rangeStart == 6 || vm.rangeEnd == 6 ? @color/orange : @color/light_gray}"
+                            android:visibility="@{vm.rangeStart &lt;= 6 &amp;&amp; 6 &lt;= vm.rangeEnd ? View.VISIBLE : View.GONE}"
+                            tools:ignore="HardcodedText"/>
+
+
+                        <View
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            android:layout_weight="1"
+                            android:visibility="@{vm.rangeStart &lt;= 6 &amp;&amp; 6 &lt; vm.rangeEnd ? View.VISIBLE : View.GONE}"/>
+
+                        <TextView
+                            style="@style/SensorEdit.HysteresisLabel"
+                            android:text="70"
+                            android:textColor="@{vm.rangeStart == 7 || vm.rangeEnd == 7 ? @color/orange : @color/light_gray}"
+                            android:visibility="@{vm.rangeStart &lt;= 7 &amp;&amp; 7 &lt;= vm.rangeEnd ? View.VISIBLE : View.GONE}"
+                            tools:ignore="HardcodedText"/>
+
+
+                        <View
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            android:layout_weight="1"
+                            android:visibility="@{vm.rangeStart &lt;= 7 &amp;&amp; 7 &lt; vm.rangeEnd ? View.VISIBLE : View.GONE}"/>
+
+                        <TextView
+                            style="@style/SensorEdit.HysteresisLabel"
+                            android:text="80"
+                            android:textColor="@{vm.rangeStart == 8 || vm.rangeEnd == 8 ? @color/orange : @color/light_gray}"
+                            android:visibility="@{vm.rangeStart &lt;= 8 &amp;&amp; 8 &lt;= vm.rangeEnd ? View.VISIBLE : View.GONE}"
+                            tools:ignore="HardcodedText"/>
+
+
+                        <View
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            android:layout_weight="1"
+                            android:visibility="@{vm.rangeStart &lt;= 8 &amp;&amp; 8 &lt; vm.rangeEnd ? View.VISIBLE : View.GONE}"/>
+
+                        <TextView
+                            style="@style/SensorEdit.HysteresisLabel"
+                            android:text="90"
+                            android:textColor="@{vm.rangeStart == 9 || vm.rangeEnd == 9 ? @color/orange : @color/light_gray}"
+                            android:visibility="@{vm.rangeStart &lt;= 9 &amp;&amp; 9 &lt;= vm.rangeEnd ? View.VISIBLE : View.GONE}"
+                            tools:ignore="HardcodedText"/>
+
+
+                        <View
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            android:layout_weight="1"
+                            android:visibility="@{vm.rangeStart &lt;= 9 &amp;&amp; 9 &lt; vm.rangeEnd ? View.VISIBLE : View.GONE}"/>
+
+                        <TextView
+                            style="@style/SensorEdit.HysteresisLabel"
+                            android:text="100"
+                            android:textColor="@{vm.rangeStart == 10 || vm.rangeEnd == 10 ? @color/orange : @color/light_gray}"
+                            android:visibility="@{vm.rangeStart &lt;= 10 &amp;&amp; 10 &lt;= vm.rangeEnd ? View.VISIBLE : View.GONE}"
+                            tools:ignore="HardcodedText"/>
+
+                    </LinearLayout>
+
+                    <android.support.v7.widget.AppCompatSeekBar
+                        style="@style/SensorEdit.HysteresisBar"
+                        android:max="@{(vm.rangeEnd - vm.rangeStart) * 10}"
+                        android:progress="@={vm.valueIndex}"/>
+
+                    <TextView
+                        style="@style/Common.Text.FormLabel"
+                        android:text="@{@string/hysteresis_in_pc(vm.hysteresis)}"/>
+
+                    <LinearLayout
+                        style="@style/Layout.MatchX.Horizontal"
+                        android:layout_marginEnd="10dp"
+                        android:layout_marginStart="10dp">
+
+                        <TextView
+                            style="@style/SensorEdit.HysteresisLabel"
+                            android:text="0"
+                            tools:ignore="HardcodedText"/>
+
+                        <View
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            android:layout_weight="1"/>
+
+                        <TextView
+                            style="@style/SensorEdit.HysteresisLabel"
+                            android:text="1"
+                            tools:ignore="HardcodedText"/>
+
+                        <View
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            android:layout_weight="1"/>
+
+                        <TextView
+                            style="@style/SensorEdit.HysteresisLabel"
+                            android:text="2"
+                            tools:ignore="HardcodedText"/>
+
+                        <View
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            android:layout_weight="1"/>
+
+                        <TextView
+                            style="@style/SensorEdit.HysteresisLabel"
+                            android:text="3"
+                            tools:ignore="HardcodedText"/>
+
+                        <View
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            android:layout_weight="1"/>
+
+                        <TextView
+                            style="@style/SensorEdit.HysteresisLabel"
+                            android:text="4"
+                            tools:ignore="HardcodedText"/>
+
+                        <View
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            android:layout_weight="1"/>
+
+                        <TextView
+                            style="@style/SensorEdit.HysteresisLabel"
+                            android:text="5"
+                            tools:ignore="HardcodedText"/>
+
+                    </LinearLayout>
+
+                    <android.support.v7.widget.AppCompatSeekBar
+                        style="@style/SensorEdit.HysteresisBar"
+                        android:progress="@={vm.hysteresis}"/>
+                </LinearLayout>
+
+                <View style="@style/Common.OrangeSeparator.Horizontal"/>
+
+                <LinearLayout style="@style/ActionBar.BottomLayout">
+
+                    <Button
+                        style="@style/Touch.NextButton"
+                        android:onClick="@{() -> vm.onDone()}"
+                        android:text="@string/ok"/>
+                </LinearLayout>
+            </LinearLayout>
+        </ScrollView>
+    </LinearLayout>
+</layout>

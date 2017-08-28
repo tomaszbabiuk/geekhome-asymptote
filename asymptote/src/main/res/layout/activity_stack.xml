@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/Layout.MatchXY.Vertical">
+
+    <FrameLayout
+        android:id="@+id/fragments_container"
+        style="@style/Layout.MatchXY"/>
+
+    <FrameLayout
+        android:id="@+id/overlays_container"
+        style="@style/Layout.MatchXY"/>
+
+</FrameLayout>

@@ -1,0 +1,43 @@
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View"/>
+
+        <variable
+            name="vm"
+            type="eu.geekhome.asymptote.viewmodel.SignalItemViewModel"/>
+    </data>
+
+    <LinearLayout
+        style="@style/Layout.MatchX"
+        android:background="@{vm.selected ? @drawable/rectangle_orange : null}"
+        android:onClick="@{() -> vm.selectSignal()}"
+        android:padding="@dimen/common_small_padding">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/common_small_padding"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:orientation="vertical">
+
+            <TextView
+                style="@style/Common.Text.Medium"
+                android:gravity="center_vertical"
+                android:text="@{context.getString(vm.signalType.nameResId)}"
+                android:textColor="@{vm.selected ? @color/black : @color/light_gray}"
+                tools:text="Role description"/>
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/circle"
+            style="@style/Repair.SignalImage"
+            android:src="@{(vm.ledOn &amp;&amp; vm.selected) ? @drawable/circle_signalled_selected : @drawable/circle_signalled}"/>
+
+    </LinearLayout>
+
+</layout>

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="splash_logo_width">130dp</dimen>
+    <dimen name="splash_logo_height">80dp</dimen>
+
+    <style name="Splash" />
+
+    <style name="Splash.Logo.Image" parent="Common.Logo.Image">
+        <item name="android:layout_width">@dimen/splash_logo_width</item>
+        <item name="android:layout_height">@dimen/splash_logo_height</item>
+        <item name="android:layout_gravity">center_horizontal</item>
+    </style>
+
+    <style name="Splash.Logo.Text" parent="Layout.Wrapped">
+        <item name="android:textSize">@dimen/common_logo_big_text</item>
+    </style>
+
+    <style name="Splash.Logo.Text.Geek" parent="Splash.Logo.Text">
+        <item name="android:text">geek</item>
+        <item name="android:textColor">@color/light_silver</item>
+    </style>
+
+    <style name="Splash.Logo.Text.Home" parent="Splash.Logo.Text">
+        <item name="android:text">HOME</item>
+        <item name="android:textColor">@color/orange</item>
+    </style>
+
+    <style name="Splash.TextInputLayout" parent="Layout.MatchX">
+
+    </style>
+
+    <style name="Splash.TextInput" parent="Layout.MatchX">
+        <item name="android:maxLines">1</item>
+    </style>
+
+    <style name="Splash.LinkButton" parent="Layout.Wrapped">
+        <item name="android:textSize">@dimen/common_medium_text</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:layout_gravity">center_horizontal</item>
+        <item name="android:textColor">@drawable/silver_linkbutton_selector</item>
+        <item name="android:layout_marginBottom">@dimen/common_medium_padding</item>
+    </style>
+
+    <style name="Splash.Background" parent="@style/Layout.MatchXY.Vertical">
+        <item name="android:background">@drawable/black_background</item>
+    </style>
+
+    <style name="Splash.CenterContainer" parent="Layout.MatchX.Vertical">
+        <item name="android:layout_width">350dp</item>
+        <item name="android:layout_gravity">center_horizontal</item>
+    </style>
+</resources>

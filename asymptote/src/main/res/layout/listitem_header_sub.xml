@@ -1,0 +1,23 @@
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View"/>
+
+        <variable
+            name="vm"
+            type="eu.geekhome.asymptote.viewmodel.HeaderItemViewModel"/>
+    </data>
+
+    <TextView
+        style="@style/Common.Text.Big"
+        android:layout_marginStart="@dimen/common_small_padding"
+        android:layout_marginTop="@dimen/common_medium_padding"
+        android:padding="@dimen/common_small_padding"
+        android:text='@{vm.content + ":"}'
+        android:textColor="@color/light_gray"
+        tools:text="Description"/>
+
+</layout>

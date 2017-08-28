@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="Privacy.Content" parent="Layout.MatchX">
+        <item name="documentView_textAlignment">justified</item>
+        <item name="documentView_textFormat">formatted</item>
+        <item name="documentView_insetPadding">10dp</item>
+    </style>
+
+    <style name="Privacy.Button.Gray" parent="Common.Button.Gray">
+        <item name="android:layout_weight">1</item>
+    </style>
+
+    <style name="Privacy.Button.Orange" parent="Common.Button.Orange">
+        <item name="android:layout_weight">1</item>
+    </style>
+
+    <style name="Privacy.AgreementPanel" parent="Layout.MatchX.Horizontal">
+        <item name="android:layout_marginBottom">@dimen/common_medium_padding</item>
+    </style>
+
+    <style name="Privacy.ScrollText" parent="Layout.MatchX">
+        <item name="android:paddingTop">@dimen/common_small_padding</item>
+        <item name="android:gravity">center_horizontal</item>
+    </style>
+</resources>

@@ -1,0 +1,10 @@
+<svg xmlns:x="http://ns.adobe.com/Extensibility/1.0/" xmlns:i="http://ns.adobe.com/AdobeIllustrator/10.0/" xmlns:graph="http://ns.adobe.com/Graphs/1.0/" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Layer_1" x="0px" y="0px" width="100px" height="83px" viewBox="0 0 100 83" enable-background="new 0 0 100 83" xml:space="preserve">
+<switch>
+	<foreignObject requiredExtensions="http://ns.adobe.com/AdobeIllustrator/10.0/" x="0" y="0" width="1" height="1">
+		</foreignObject>
+	<g i:extraneous="self">
+		<polygon fill-rule="evenodd" clip-rule="evenodd" points="91.723,11.765 79.843,11.765 79.843,21.664 91.723,33.541   "/>
+		<path fill-rule="evenodd" clip-rule="evenodd" d="M98.977,47.697L52.624,1.345c-1.367-1.366-3.881-1.366-5.248,0L1.024,47.697    c-1.366,1.366-1.366,3.881,0,5.247s3.881,1.366,5.248,0v27.111c0,1.094,1.53,2.623,2.624,2.623h81.334    c1.094,0,2.624-1.529,2.624-2.623V52.069l0.875,0.875c1.365,1.364,3.882,1.364,5.248,0    C100.342,51.58,100.342,49.062,98.977,47.697z M87.606,48.571v27.111c0,1.094-0.656,1.749-1.749,1.749H63.993V50.32    c0-3.279-2.841-5.247-6.123-5.247H42.129c-3.281,0-6.122,1.968-6.122,5.247v27.111H13.269c-1.094,0-1.749-1.53-1.749-2.623V49.446    c0-0.497,0.615-1.78,1.286-3.035L49.578,9.639l12.723,11.878l24.594,24.595C87.275,47.105,87.606,48.105,87.606,48.571z"/>
+	</g>
+</switch>
+</svg>

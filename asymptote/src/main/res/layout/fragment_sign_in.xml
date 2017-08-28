@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View"/>
+
+        <import type="eu.geekhome.asymptote.validation.MinLengthParams"/>
+
+        <variable
+            name="vm"
+            type="eu.geekhome.asymptote.viewmodel.SignInViewModel"/>
+    </data>
+
+    <LinearLayout
+        style="@style/Splash.CenterContainer">
+
+        <LinearLayout
+            style="@style/Layout.MatchX.Vertical"
+            android:padding="@dimen/common_medium_padding">
+
+            <TextView
+                style="@style/Common.Button.Orange"
+                android:layout_width="match_parent"
+                android:onClick="@{() -> vm.signInWithEmail()}"
+                android:text="@string/sign_in_with_email"/>
+
+            <TextView
+                style="@style/Common.Button.Gray"
+                android:layout_width="match_parent"
+                android:onClick="@{() -> vm.signInEmergency()}"
+                android:text="@string/emergency_mode"/>
+
+            <TextView
+                style="@style/Common.Button.Gray"
+                android:layout_width="match_parent"
+                android:onClick="@{() -> vm.signUp()}"
+                android:text="@string/sign_up"/>
+
+            <TextView
+                style="@style/Layout.MatchX"
+                android:layout_marginTop="@dimen/common_medium_padding"
+                android:gravity="center_horizontal"
+                android:text="@string/forgot_password_instruction"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="@color/silver"/>
+
+            <TextView
+                style="@style/Common.LinkButton.Orange.Centered"
+                android:onClick="@{() -> vm.resetPassword()}"
+                android:text="@string/reset_password"/>
+
+
+        </LinearLayout>
+    </LinearLayout>
+</layout>

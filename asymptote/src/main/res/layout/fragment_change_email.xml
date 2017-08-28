@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View"/>
+
+        <import type="eu.geekhome.asymptote.validation.MinLengthParams"/>
+
+        <variable
+            name="vm"
+            type="eu.geekhome.asymptote.viewmodel.ChangeEmailViewModel"/>
+    </data>
+
+    <LinearLayout style="@style/Layout.MatchXY.Vertical">
+
+        <include
+            layout="@layout/actionbar_help"
+            tools:vm="@{{vm.actionBarModel}"/>
+
+        <ScrollView
+            style="@style/Layout.MatchX1"
+            android:fillViewport="true">
+
+            <LinearLayout
+                style="@style/Touch.Background">
+
+                <TextView style="@style/Touch.ErrorMessage"
+                          tools:text="[error message]"
+                          android:text="@{vm.errorMessage}"
+                          android:visibility="@{vm.errorMessage != null ? View.VISIBLE : View.GONE}"/>
+
+                <View style="@style/Common.OrangeSeparator.Horizontal"/>
+
+                <TextView
+                    style="@style/Common.Text.Big"
+                    android:layout_marginTop="@dimen/common_medium_padding"
+                    android:gravity="center_horizontal"
+                    android:text="@string/change_email"/>
+
+                <View style="@style/Common.OrangeSeparator.Horizontal.Thin"/>
+
+                <View style="@style/Common.OrangeTriangle"/>
+
+                <TextView
+                    style="@style/Common.Text.Medium"
+                    android:gravity="center_horizontal"
+                    android:text="@string/enter_your_password_and_new_email"/>
+
+                <eu.geekhome.asymptote.validation.controls.ValidationLinearLayout
+                    style="@style/Layout.MatchX1.Vertical"
+                    android:layout_margin="@dimen/common_medium_padding"
+                    tools:validationContext="@{vm.validation}">
+
+
+                    <android.support.design.widget.TextInputLayout
+                        style="@style/Layout.MatchX">
+
+                        <android.support.design.widget.TextInputEditText
+                            style="@style/Layout.MatchX"
+                            android:hint="@string/password"
+                            android:inputType="textPassword"
+                            android:maxLines="1"
+                            android:text="@={vm.password}"
+                            app:validateRequiredField="@{@string/old_password_required}"/>
+                    </android.support.design.widget.TextInputLayout>
+
+                    <android.support.design.widget.TextInputLayout
+                        style="@style/Layout.MatchX">
+
+                        <android.support.design.widget.TextInputEditText
+                            style="@style/Layout.MatchX"
+                            android:hint="@string/email"
+                            android:maxLines="1"
+                            android:text="@={vm.email}"
+                            android:inputType="textEmailAddress"
+                            app:validateEmail="@{@string/enter_correct_email}"/>
+                    </android.support.design.widget.TextInputLayout>
+                </eu.geekhome.asymptote.validation.controls.ValidationLinearLayout>
+
+                <View style="@style/Common.OrangeSeparator.Horizontal"/>
+
+                <LinearLayout style="@style/ActionBar.BottomLayout">
+
+                    <TextView
+                        style="@style/Touch.Header.Text"
+                        android:text="@{@string/step_no(1,2)}"/>
+
+                    <Button
+                        style="@style/Touch.NextButton"
+                        android:onClick="@{vm.next}"
+                        android:text="@string/next"/>
+                </LinearLayout>
+
+            </LinearLayout>
+        </ScrollView>
+    </LinearLayout>
+
+</layout>

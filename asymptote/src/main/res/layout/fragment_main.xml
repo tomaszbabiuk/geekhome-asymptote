@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <import type="android.view.View"/>
+
+        <variable
+            name="vm"
+            type="eu.geekhome.asymptote.viewmodel.MainViewModel"/>
+    </data>
+
+    <LinearLayout
+        style="@style/Layout.MatchXY.Vertical">
+
+        <include
+            layout="@layout/actionbar_main"
+            app:vm="@{vm.actionBarModel}"/>
+
+        <TextView style="@style/Touch.ErrorMessage"
+                  tools:text="[error message]"
+                  android:text="@{vm.errorMessage}"
+                  android:visibility="@{vm.errorMessage != null ? View.VISIBLE : View.GONE}"/>
+
+        <RelativeLayout style="@style/Layout.MatchX1">
+
+            <eu.geekhome.asymptote.bindingutils.controls.VerticalRecyclerView
+                style="@style/Layout.MatchXY"
+                android:id="@+id/recycler"
+                android:background="@color/light_gray"
+                app:items="@{vm.sensors}"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentStart="true"/>
+
+            <FrameLayout
+                style="@style/Main.ActionButton"
+                android:onClick="@{() -> vm.actionBarModel.pairSensor()}">
+
+                <eu.geekhome.controls.SvgImageView
+                    style="@style/Main.ActionIcon"/>
+            </FrameLayout>
+        </RelativeLayout>
+
+
+    </LinearLayout>
+</layout>

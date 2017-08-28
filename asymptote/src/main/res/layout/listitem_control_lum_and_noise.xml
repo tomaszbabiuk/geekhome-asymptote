@@ -1,0 +1,33 @@
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View"/>
+
+        <import type="eu.geekhome.asymptote.R"/>
+
+        <import type="eu.geekhome.asymptote.utils.ValueConverter"/>
+
+        <variable
+            name="vm"
+            type="eu.geekhome.asymptote.viewmodel.ControlLumAndNoiseItemViewModel"/>
+    </data>
+
+    <LinearLayout style="@style/Layout.MatchX.Horizontal">
+
+        <include
+            layout="@layout/control_sensor_value"
+            app:iconId="@{R.raw.sun}"
+            app:value='@{ValueConverter.intToLuminosity(vm.sensor.syncData.luminosity)}'/>
+
+
+        <include
+            layout="@layout/control_sensor_value_reversed"
+            app:iconId="@{R.raw.speaker}"
+            app:value='@{ValueConverter.intToNoise(vm.sensor.syncData.noise)}'/>
+
+    </LinearLayout>
+
+</layout>

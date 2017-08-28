@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View"/>
+
+        <import type="eu.geekhome.asymptote.utils.SensorColorMatcher"/>
+
+        <variable
+            name="vm"
+            type="eu.geekhome.asymptote.viewmodel.CMSViewModel"/>
+    </data>
+
+    <LinearLayout
+        style="@style/Layout.MatchXY.Vertical">
+
+        <include
+            layout="@layout/actionbar_help"
+            tools:vm="@{vm.actionBarModel}"/>
+
+        <View style="@style/Common.OrangeSeparator.Horizontal"/>
+
+        <eu.geekhome.asymptote.bindingutils.controls.VerticalRecyclerView
+            style="@style/Layout.MatchX1"
+            android:background="@color/white"
+            app:items="@{vm.sections}"/>
+
+        <View style="@style/Common.OrangeSeparator.Horizontal"/>
+
+        <LinearLayout style="@style/ActionBar.BottomLayout">
+
+            <Button
+                style="@style/Touch.NextButton"
+                android:onClick="@{() -> vm.onOk()}"
+                android:text="@string/ok"/>
+        </LinearLayout>
+    </LinearLayout>
+</layout>

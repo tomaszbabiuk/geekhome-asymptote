@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="common_bar_height">6dp</dimen>
+    <dimen name="common_bar_height_thin">1dp</dimen>
+    <dimen name="common_triangle_size">30dp</dimen>
+    <dimen name="common_orange_bar_margin">20dp</dimen>
+    <dimen name="common_extra_small_padding">2dp</dimen>
+    <dimen name="common_small_padding">5dp</dimen>
+    <dimen name="common_medium_padding">15dp</dimen>
+    <dimen name="common_normal_padding">10dp</dimen>
+    <dimen name="common_extra_padding">20dp</dimen>
+    <dimen name="common_extra_extra_padding">30dp</dimen>
+    <dimen name="common_extra_extra_extra_padding">45dp</dimen>
+    <dimen name="common_small_text">8sp</dimen>
+    <dimen name="common_normal_text">10sp</dimen>
+    <dimen name="common_medium_text">15sp</dimen>
+    <dimen name="common_big_text">20sp</dimen>
+    <dimen name="common_logo_big_text">40sp</dimen>
+    <dimen name="common_formfield_extra_padding">60dp</dimen>
+    <dimen name="common_frame_size">2dp</dimen>
+    <dimen name="common_frame_radius_big">6dp</dimen>
+    <dimen name="common_frame_radius_small">3dp</dimen>
+    <dimen name="common_header_size">160dp</dimen>
+    <dimen name="common_dialogs_minwidth">350dp</dimen>
+    <dimen name="common_darkline_normal">2dp</dimen>
+    <dimen name="common_darkline_thick">4dp</dimen>
+    <dimen name="common_min_button_width">80dp</dimen>
+    <dimen name="common_dialog_icon_size">50dp</dimen>
+    <dimen name="common_mainimage_size">200dp</dimen>
+    <dimen name="common_mainimage_wide_width">192dp</dimen>
+    <dimen name="common_mainimage_wide_height">144dp</dimen>
+    <dimen name="common_button_top_margin">20dp</dimen>
+    <dimen name="common_centeredbutton_width">200dp</dimen>
+
+    <style name="Theme.GeekTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimary">@color/orange</item>
+        <item name="colorPrimaryDark">@color/light_gray</item>
+        <item name="colorControlNormal">@color/light_gray</item>
+        <item name="colorControlActivated">@color/light_orange</item>
+        <item name="colorAccent">@color/orange</item>
+    </style>
+
+    <style name="Theme.GeekTheme.Dark" parent="Theme.AppCompat.NoActionBar">
+        <item name="colorPrimary">@color/white</item>
+        <item name="colorPrimaryDark">@color/light_gray</item>
+        <item name="colorControlNormal">@color/orange</item>
+        <item name="colorControlActivated">@color/white</item>
+    </style>
+
+    <style name="Common" />
+
+    <style name="Common.Logo.Image" parent="Layout.Wrapped">
+        <item name="svgColor">@color/light_silver</item>
+        <item name="svgId">@raw/logo</item>
+    </style>
+
+    <style name="Common.OrangeSeparator" parent="Common">
+        <item name="android:background">@color/orange</item>
+    </style>
+
+    <style name="Common.OrangeSeparator.Horizontal" parent="Common.OrangeSeparator">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/common_bar_height</item>
+        <item name="android:layout_marginStart">@dimen/common_orange_bar_margin</item>
+        <item name="android:layout_marginEnd">@dimen/common_orange_bar_margin</item>
+    </style>
+
+    <style name="Common.OrangeSeparator.Horizontal.Thin" parent="Common.OrangeSeparator.Horizontal">
+        <item name="android:layout_height">@dimen/common_bar_height_thin</item>
+    </style>
+
+    <style name="Common.OrangeTriangle" parent="Common">
+        <item name="android:layout_width">@dimen/common_triangle_size</item>
+        <item name="android:layout_height">@dimen/common_triangle_size</item>
+        <item name="android:layout_gravity">center_horizontal</item>
+        <item name="android:background">@drawable/orange_triangle</item>
+        <item name="android:layout_marginBottom">-10dp</item>
+    </style>
+
+    <style name="Common.OrangeSeparator.Vertical" parent="Common.OrangeSeparator">
+        <item name="android:layout_width">@dimen/common_bar_height</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_marginTop">@dimen/common_orange_bar_margin</item>
+        <item name="android:layout_marginBottom">@dimen/common_orange_bar_margin</item>
+    </style>
+
+    <style name="Common.Text" parent="Common">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/gray</item>
+    </style>
+
+    <style name="Common.Text.Centered" parent="Common.Text">
+        <item name="android:gravity">center</item>
+    </style>
+
+    <style name="Common.Text.Header" parent="Common.Text">
+        <item name="android:textSize">@dimen/common_big_text</item>
+    </style>
+
+    <style name="Common.Text.Header.Centered" parent="Common.Text.Header">
+        <item name="android:layout_margin">@dimen/common_extra_padding</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+    <style name="Common.Text.Title" parent="Common.Text">
+        <item name="android:textSize">@dimen/common_big_text</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:ellipsize">end</item>
+    </style>
+
+    <style name="Common.Text.Small" parent="Common.Text">
+        <item name="android:textSize">@dimen/common_small_text</item>
+    </style>
+
+    <style name="Common.Text.Medium" parent="Common.Text">
+        <item name="android:textSize">@dimen/common_medium_text</item>
+    </style>
+
+    <style name="Common.Text.Big" parent="Common.Text">
+        <item name="android:textSize">@dimen/common_big_text</item>
+    </style>
+
+    <style name="Common.Button.Header" parent="Common.Text">
+        <item name="android:textSize">@dimen/common_big_text</item>
+        <item name="android:clickable">true</item>
+        <item name="android:textColor">@drawable/header_button_selector</item>
+    </style>
+
+    <style name="Common.Text.Header.Dialog" parent="Common.Text.Header">
+        <item name="android:layout_gravity">center_vertical</item>
+        <item name="android:layout_marginLeft">@dimen/common_normal_padding</item>
+    </style>
+
+    <style name="Common.Text.FormLabel" parent="Common.Text">
+        <item name="android:textSize">@dimen/common_medium_text</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:layout_marginTop">@dimen/common_button_top_margin</item>
+        <item name="android:layout_marginBottom">@dimen/common_small_padding</item>
+    </style>
+
+    <style name="Common.Text.FormField" parent="Common.Text">
+        <item name="android:background">@drawable/shape_rounded_with_silver_frame</item>
+        <item name="android:padding">@dimen/common_small_padding</item>
+        <item name="android:layout_marginRight">@dimen/common_formfield_extra_padding</item>
+        <item name="android:textSize">@dimen/common_medium_text</item>
+        <item name="android:maxLines">1</item>
+    </style>
+
+    <style name="Common.Button" parent="Common">
+        <item name="android:clickable">true</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">40dp</item>
+        <item name="android:textSize">@dimen/common_medium_text</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:gravity">center_vertical|center_horizontal</item>
+        <item name="android:padding">@dimen/common_small_padding</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:layout_marginTop">@dimen/common_button_top_margin</item>
+        <item name="android:layout_marginRight">@dimen/common_small_padding</item>
+        <item name="android:layout_marginLeft">@dimen/common_small_padding</item>
+        <item name="android:minWidth">@dimen/common_min_button_width</item>
+    </style>
+
+    <style name="Common.Button.Orange" parent="Common.Button">
+        <item name="android:background">@drawable/orange_button_selector</item>
+    </style>
+
+    <style name="Common.LinkButton.Orange" parent="Layout.MatchX">
+        <item name="android:textColor">@drawable/orange_linkbutton_selector</item>
+    </style>
+
+    <style name="Common.LinkButton.Orange.Centered" parent="Common.LinkButton.Orange">
+        <item name="android:gravity">center</item>
+    </style>
+
+    <style name="Common.Button.Orange.Centered" parent="Common.Button.Orange">
+        <item name="android:layout_width">@dimen/common_centeredbutton_width</item>
+        <item name="android:layout_gravity">center_horizontal</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+    <style name="Common.Button.Gray" parent="Common.Button">
+        <item name="android:background">@drawable/gray_button_selector</item>
+    </style>
+
+    <style name="Common.Button.Gray.Centered" parent="Common.Button.Gray">
+        <item name="android:layout_width">@dimen/common_centeredbutton_width</item>
+        <item name="android:layout_gravity">center_horizontal</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+    <style name="Common.Dialog" parent="Layout.MatchX.Vertical">
+        <item name="android:paddingLeft">@dimen/common_normal_padding</item>
+        <item name="android:paddingRight">@dimen/common_normal_padding</item>
+        <item name="android:paddingBottom">@dimen/common_extra_padding</item>
+        <item name="android:paddingTop">@dimen/common_extra_padding</item>
+        <item name="android:background">@drawable/shape_rounded_white</item>
+        <item name="android:minWidth">@dimen/common_dialogs_minwidth</item>
+    </style>
+
+    <style name="Common.Dialog.Icon" parent="Layout.Wrapped">
+        <item name="android:layout_height">@dimen/common_dialog_icon_size</item>
+        <item name="android:layout_width">@dimen/common_dialog_icon_size</item>
+        <item name="svgColor">@color/light_gray</item>
+        <item name="android:layout_gravity">center_vertical</item>
+    </style>
+
+    <style name="Common.Dialog.Icon.Disconnect" parent="Common.Dialog.Icon">
+        <item name="svgId">@raw/disconnect</item>
+    </style>
+
+    <style name="Common.Dialog.Icon.Nfc" parent="Common.Dialog.Icon">
+        <item name="svgId">@raw/nfc</item>
+    </style>
+
+    <style name="Common.Dialog.TransparencyLayer" parent="Layout.MatchXY.Vertical">
+        <item name="android:background">@color/black_transparent</item>
+        <item name="android:clickable">true</item>
+    </style>
+
+    <style name="Common.DarkLine" parent="Common">
+        <item name="android:background">@color/almost_black</item>
+    </style>
+
+    <style name="Common.DarkLine.Horizontal" parent="Common.DarkLine">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/common_darkline_normal</item>
+    </style>
+
+    <style name="Common.DarkLine.Vertical" parent="Common.DarkLine">
+        <item name="android:layout_width">@dimen/common_darkline_normal</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:background">@color/almost_black</item>
+    </style>
+
+    <style name="Common.DarkLine.Horizontal.Thick" parent="Common.DarkLine.Horizontal">
+        <item name="android:layout_height">@dimen/common_darkline_thick</item>
+    </style>
+
+    <style name="Common.MainImage" parent="Common">
+        <item name="android:layout_width">@dimen/common_mainimage_size</item>
+        <item name="android:layout_height">@dimen/common_mainimage_size</item>
+        <item name="svgColor">@color/light_gray</item>
+        <item name="android:layout_gravity">center</item>
+    </style>
+
+    <style name="Common.MainImage.Wide" parent="Common.MainImage">
+        <item name="android:layout_width">@dimen/common_mainimage_wide_width</item>
+        <item name="android:layout_height">@dimen/common_mainimage_wide_height</item>
+    </style>
+</resources>

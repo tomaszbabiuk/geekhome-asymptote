@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="vm"
+            type="eu.geekhome.asymptote.viewmodel.ResultViewModel"/>
+
+        <import type="android.view.View"/>
+    </data>
+
+    <LinearLayout style="@style/Layout.MatchXY.Vertical">
+
+        <include
+            layout="@layout/actionbar_help"
+            tools:vm="@{vm.actionBarModel}"/>
+
+        <LinearLayout style="@style/Touch.Background">
+
+            <View style="@style/Common.OrangeSeparator.Horizontal"/>
+
+            <TextView
+                style="@style/Common.Text.Big"
+                android:layout_marginTop="@dimen/common_medium_padding"
+                android:gravity="center_horizontal"
+                android:text="@{vm.title}"
+                tools:text="title"/>
+
+            <View style="@style/Common.OrangeSeparator.Horizontal.Thin"/>
+
+            <View style="@style/Common.OrangeTriangle"/>
+
+            <TextView
+                style="@style/Common.Text.Medium"
+                android:gravity="center_horizontal"
+                android:text="@{vm.status}"
+                tools:text="status"/>
+
+            <View style="@style/Layout.MatchX1"/>
+
+            <eu.geekhome.controls.SvgImageView
+                style="@style/Common.MainImage"
+                android:visibility="@{vm.success ? View.VISIBLE : View.GONE}"
+                app:svgId="@raw/ok"/>
+
+            <eu.geekhome.controls.SvgImageView
+                style="@style/Common.MainImage"
+                android:visibility="@{!vm.success ? View.VISIBLE : View.GONE}"
+                app:svgId="@raw/error"/>
+
+            <View style="@style/Layout.MatchX1"/>
+
+            <View style="@style/Common.OrangeSeparator.Horizontal"/>
+
+            <LinearLayout style="@style/ActionBar.BottomLayout">
+
+                <Button
+                    style="@style/Touch.NextButton"
+                    android:onClick="@{vm.onDone}"
+                    android:text="@string/done"/>
+            </LinearLayout>
+        </LinearLayout>
+
+    </LinearLayout>
+</layout>

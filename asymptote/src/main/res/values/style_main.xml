@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <dimen name="main_actionbutton_size">64dp</dimen>
+    <dimen name="main_actionicon_size">40dp</dimen>
+
+    <style name="Main" />
+
+    <style name="Main.ActionButton" parent="Main">
+        <item name="android:layout_width">@dimen/main_actionbutton_size</item>
+        <item name="android:layout_height">@dimen/main_actionbutton_size</item>
+        <item name="android:layout_marginEnd">@dimen/common_extra_padding</item>
+        <item name="android:layout_marginBottom">@dimen/common_extra_padding</item>
+        <item name="android:background">@drawable/circle_orange_selector</item>
+        <item name="android:clickable">true</item>
+        <item name="android:layout_alignParentBottom">true</item>
+        <item name="android:layout_alignParentEnd">true</item>
+        <item name="android:shadowColor">@color/light_orange</item>
+        <item name="android:shadowDx">-2</item>
+        <item name="android:shadowDy">-2</item>
+        <item name="android:shadowRadius">-2</item>
+    </style>
+
+    <style name="Main.ActionIcon" parent="Main">
+        <item name="android:layout_width">@dimen/main_actionicon_size</item>
+        <item name="android:layout_height">@dimen/main_actionicon_size</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:clickable">false</item>
+        <item name="svgId">@raw/pair</item>
+        <item name="svgColor">@color/light_silver</item>
+    </style>
+</resources>

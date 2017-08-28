@@ -1,0 +1,14 @@
+*.iml
+.gradle
+/local.properties
+/.idea/workspace.xml
+/.idea/libraries
+.DS_Store
+/build
+/src/main/assets
+prepare_firmware.sh
+generate_board_file.sh
+geekhome.asymptote.jks
+signing_config.txt
+google-services.json
+src/main/res/raw/ca_x509.pem

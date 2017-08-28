@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="vm"
+            type="eu.geekhome.asymptote.viewmodel.ProfileViewModel"/>
+
+        <import type="android.view.View"/>
+
+    </data>
+
+
+    <LinearLayout
+        style="@style/Layout.MatchXY.Vertical">
+
+        <include
+            layout="@layout/actionbar_help"
+            tools:vm="@{vm.actionBarModel}"/>
+
+        <ScrollView
+            style="@style/Layout.MatchX1"
+            android:fillViewport="true">
+
+            <LinearLayout style="@style/Touch.Background">
+
+                <TextView
+                    style="@style/Touch.ErrorMessage"
+                    android:text="@{vm.errorMessage}"
+                    android:visibility="@{vm.errorMessage != null ? View.VISIBLE : View.GONE}"
+                    tools:text="[error message]"/>
+
+                <View style="@style/Common.OrangeSeparator.Horizontal"/>
+
+                <TextView
+                    style="@style/Common.Text.Big"
+                    android:layout_marginTop="@dimen/common_medium_padding"
+                    android:gravity="center_horizontal"
+                    android:text="@string/my_profile"/>
+
+                <View style="@style/Common.OrangeSeparator.Horizontal.Thin"/>
+
+                <View style="@style/Common.OrangeTriangle"/>
+
+                <TextView
+                    style="@style/Profile.InstructionText"
+                    android:text="@string/profile_description"/>
+
+                <View style="@style/Layout.MatchX1"/>
+
+                <FrameLayout
+                    style="@style/Layout.Wrapped"
+                    android:layout_gravity="center_horizontal">
+
+                    <eu.geekhome.controls.SvgImageView
+                        style="@style/Common.MainImage.Wide"
+                        app:svgColor="@color/light_gray"
+                        app:svgId="@raw/idcard_back"/>
+
+                    <eu.geekhome.controls.SvgImageView
+                        style="@style/Common.MainImage.Wide"
+                        app:svgColor="@color/orange"
+                        app:svgId="@raw/idcard_photo"/>
+
+                </FrameLayout>
+
+                <TextView
+                    style="@style/Profile.BigText"
+                    android:gravity="center_horizontal"
+                    android:text="@{vm.user.email}"
+                    tools:text="[email]"/>
+
+                <LinearLayout
+                    style="@style/Layout.MatchX.Vertical">
+
+                    <Button
+                        style="@style/Common.Button.Orange.Centered"
+                        android:onClick="@{() -> vm.changePassword()}"
+                        android:text="@string/change_password"
+                        android:visibility="@{vm.user.emailVerified ? View.VISIBLE : View.GONE}"/>
+
+                    <Button
+                        style="@style/Common.Button.Orange.Centered"
+                        android:onClick="@{() -> vm.changeEmail()}"
+                        android:text="@string/change_email"
+                        android:visibility="@{vm.user.emailVerified ? View.VISIBLE : View.GONE}"/>
+
+                    <LinearLayout
+                        style="@style/Layout.MatchX.Vertical"
+                        android:visibility="@{vm.user.emailVerified ? View.GONE : View.VISIBLE}">
+
+                        <TextView
+                            style="@style/Profile.BigText"
+                            android:gravity="center_horizontal"
+                            android:text="@{'(' + @string/not_verified + ')'}"
+                            android:visibility="@{vm.user.emailVerified ? View.GONE : View.VISIBLE}"/>
+
+                        <TextView
+                            style="@style/Profile.InstructionText"
+                            android:text="@string/verify_email_instruction"/>
+                    </LinearLayout>
+
+                    <Button
+                        style="@style/Common.Button.Orange.Centered"
+                        android:onClick="@{() -> vm.logout()}"
+                        android:text="@string/logout"/>
+                </LinearLayout>
+
+                <View style="@style/Layout.MatchX1"/>
+
+                <View style="@style/Common.OrangeSeparator.Horizontal"/>
+            </LinearLayout>
+        </ScrollView>
+    </LinearLayout>
+</layout>

@@ -1,0 +1,21 @@
+# Add this global rule
+-keepattributes Signature
+
+# This rule will properly ProGuard all the model classes in
+# the package com.yourcompany.models. Modify to fit the structure
+# of your app.
+#-keepclassmembers class com.yourcompany.models.** {
+#  *;
+#}
+
+#and engine warnings
+-dontwarn org.anddev.andengine.extension.svg.util.SVGPathParser
+-dontwarn org.anddev.andengine.extension.svg.util.constants.MathUtils
+
+#arc gauge
+-keep public class * extends com.sccomponents.widgets.ScGauge
+
+#okhttp
+-dontwarn okio.**
+-dontwarn javax.annotation.Nullable
+-dontwarn javax.annotation.ParametersAreNonnullByDefault

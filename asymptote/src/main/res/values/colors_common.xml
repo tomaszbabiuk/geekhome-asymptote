@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <color name="black">#000000</color>
+    <color name="black_transparent">#DD000000</color>
+    <color name="orange">#e74710</color>
+    <color name="red">#ff0000</color>
+    <color name="light_orange">#f76730</color>
+    <color name="transparent_light_orange">#55F76730</color>
+    <color name="light_gray">#555555</color>
+    <color name="gray">#343434</color>
+    <color name="dark_gray">#242424</color>
+    <color name="white">#FFFFFF</color>
+    <color name="almost_white">#FEFEFE</color>
+    <color name="light_silver">#EEEEEE</color>
+    <color name="silver">#BDC3C5</color>
+    <color name="lightgray_transparent">#EE555555</color>
+    <color name="almost_black">#1C1C1C</color>
+    <color name="blue">#25a1c3</color>
+    <color name="panty_blue">#E1E9EB</color>
+    <color name="section_favorites">#4b6c85</color>
+    <color name="section_favorites_light">#5c7d96</color>
+    <color name="section_heating">#9dc90d</color>
+    <color name="section_heating_light" tools:ignore="UnusedResources">#cdf93d</color>
+    <color name="section_ventilation">#25a1c3</color>
+    <color name="section_ventilation_light" tools:ignore="UnusedResources">#55d1f3</color>
+    <color name="section_locks">#0dad83</color>
+    <color name="section_locks_light" tools:ignore="UnusedResources">#3dddb3</color>
+    <color name="section_floors">#f55a16</color>
+    <color name="section_floors_light" tools:ignore="UnusedResources">#ff6d56</color>
+    <color name="section_monitoring">#eeb006</color>
+    <color name="section_monitoring_light" tools:ignore="UnusedResources">#fff157</color>
+    <color name="section_lights">#db2175</color>
+    <color name="section_lights_light" tools:ignore="UnusedResources">#fb5195</color>
+    <color name="section_map">#ad1d95</color>
+    <color name="section_map_light" tools:ignore="UnusedResources">#dd4dc5</color>
+    <color name="section_hotwater">#029338</color>
+    <color name="section_hotwater_light" tools:ignore="UnusedResources">#32b368</color>
+</resources>

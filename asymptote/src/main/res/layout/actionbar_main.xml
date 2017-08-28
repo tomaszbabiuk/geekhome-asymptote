@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="vm"
+            type="eu.geekhome.asymptote.viewmodel.MainActionBarViewModel"/>
+
+        <import type="android.view.View"/>
+    </data>
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        style="@style/ActionBar.TopLayout"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+        app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
+        <LinearLayout style="@style/Layout.MatchX.Horizontal">
+
+            <include
+                layout="@layout/logo_actionbar"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginTop="@dimen/actionbar_button_padding"
+                android:layout_weight="1"/>
+
+            <View style="@style/ActionBar.Separator.Vertical"/>
+
+            <eu.geekhome.controls.SvgImageView
+                style="@style/ActionBar.Image"
+                android:onClick="@{() -> vm.showTroubleshooting()}"
+                app:svgId="@raw/wrench"/>
+
+            <View style="@style/ActionBar.Separator.Vertical"/>
+
+            <eu.geekhome.controls.SvgImageView
+                style="@style/ActionBar.Image"
+                android:onClick="@{() -> vm.showMyAccount()}"
+                app:svgId="@raw/clouduser"/>
+
+            <View style="@style/ActionBar.Separator.Vertical"/>
+
+            <eu.geekhome.controls.SvgImageView
+                style="@style/ActionBar.Image"
+                android:onClick="@{() -> vm.pairSensor()}"
+                app:svgId="@raw/pair"/>
+
+        </LinearLayout>
+    </android.support.v7.widget.Toolbar>
+
+</layout>

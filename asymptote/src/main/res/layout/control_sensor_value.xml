@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="value"
+            type="java.lang.String"/>
+
+        <variable
+            name="iconId"
+            type="java.lang.Integer"/>
+
+        <import type="android.view.View"/>
+
+    </data>
+
+    <LinearLayout
+        style="@style/SensorList.SensorValueLayout"
+        android:visibility="@{value != null ? View.VISIBLE : View.GONE}">
+
+        <eu.geekhome.controls.SvgImageView
+            style="@style/SensorList.ValueIcon.Big"
+            app:svgId="@{iconId}"
+            tools:ignore="ContentDescription"/>
+
+        <TextView
+            style="@style/SensorList.Text.SensorValueLarge"
+            android:text='@{value}'
+            android:gravity="center_vertical"
+            tools:text="10 units"/>
+
+    </LinearLayout>
+</layout>

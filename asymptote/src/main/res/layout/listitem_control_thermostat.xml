@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="vm"
+            type="eu.geekhome.asymptote.viewmodel.ControlThermostatItemViewModel"/>
+
+        <import type="android.view.View"/>
+
+        <import type="eu.geekhome.asymptote.utils.ValueConverter"/>
+
+    </data>
+
+    <LinearLayout
+        style="@style/Layout.MatchX.Vertical"
+        android:paddingEnd="@dimen/common_normal_padding"
+        android:paddingStart="@dimen/common_normal_padding">
+
+        <TextView
+            style="@style/Layout.MatchX"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textColor="@color/white"
+            android:gravity="center_horizontal"
+            android:text="@{vm.sensor.isActive ? vm.activeMessage : vm.inactiveMessage}"
+            tools:text="Status message"/>
+
+        <LinearLayout
+            style="@style/Layout.MatchX.Horizontal"
+            android:layout_marginEnd="10dp"
+            android:layout_marginStart="10dp">
+
+            <TextView
+                style="@style/Layout.Wrapped"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="@color/light_silver"
+                android:text='@{ValueConverter.intToCelsius(vm.min)}'
+                tools:ignore="HardcodedText"/>
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1"/>
+
+            <TextView
+                style="@style/Layout.Wrapped"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textColor="@color/white"
+                android:text='@{ValueConverter.intToCelsius(vm.value)}'
+                tools:ignore="HardcodedText"/>
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1"/>
+
+            <TextView
+                style="@style/Layout.Wrapped"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="@color/light_silver"
+                android:text='@{ValueConverter.intToCelsius(vm.max)}'
+                tools:ignore="HardcodedText"/>
+
+        </LinearLayout>
+
+        <android.support.v7.widget.AppCompatSeekBar
+            style="@style/SensorList.SeekBar"
+            tools:progress="5"
+            android:max="@{vm.maxIndex}"
+            android:progress="@={vm.valueIndex}"/>
+
+    </LinearLayout>
+</layout>

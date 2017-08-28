@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="@dimen/actionbar_menu_item_size"
+              style="@style/Layout.MatchX.Vertical"
+              android:paddingLeft="10dp">
+
+    <eu.geekhome.controls.SvgImageView style="@style/ActionBar.Logo.Image" />
+
+    <LinearLayout style="@style/Layout.MatchX.Horizontal">
+        <TextView style="@style/ActionBar.Logo.Text.Geek" />
+        <TextView  style="@style/ActionBar.Logo.Text.Home"/>
+    </LinearLayout>
+
+</LinearLayout>
+
+                

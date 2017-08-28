@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="Profile.InstructionText" parent="Common.Text.Medium">
+        <item name="android:gravity">center_horizontal</item>
+        <item name="android:layout_marginEnd">@dimen/common_orange_bar_margin</item>
+        <item name="android:layout_marginStart">@dimen/common_orange_bar_margin</item>
+    </style>
+
+    <style name="Profile.BigText" parent="Common.Text.Big">
+        <item name="android:gravity">center_horizontal</item>
+    </style>
+
+    <style name="Profile.ProgressBar" parent="android:Widget.ProgressBar.Small.Inverse">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_gravity">center_horizontal</item>
+        <item name="android:layout_marginTop">@dimen/common_medium_padding</item>
+        <item name="android:layout_marginBottom">@dimen/common_medium_padding</item>
+    </style>
+</resources>

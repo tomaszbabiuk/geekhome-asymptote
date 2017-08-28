@@ -1,0 +1,114 @@
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View"/>
+
+        <variable
+            name="vm"
+            type="eu.geekhome.asymptote.viewmodel.RelayWorkingModeItemViewModel"/>
+
+        <import type="eu.geekhome.asymptote.utils.ValueConverter"/>
+    </data>
+
+
+    <LinearLayout
+        style="@style/Layout.MatchX.Horizontal">
+
+        <TextView
+            style="@style/SensorEdit.ChannelNumber"
+            android:text='@{vm.channel + ":"}'
+            tools:text="1:"/>
+
+
+        <LinearLayout style="@style/Layout.MatchX.Horizontal">
+
+
+            <LinearLayout
+                style="@style/Layout.Wrapped.Vertical"
+                android:layout_margin="@dimen/common_small_padding"
+                android:background="@{vm.impulse == 0 ? @drawable/rectangle_orange : null}"
+                android:onClick="@{() -> vm.setImpulse(0)}"
+                android:padding="@dimen/common_small_padding"
+                tools:background="@drawable/rectangle_orange">
+
+                <eu.geekhome.controls.SvgImageView
+                    style="@style/SensorEdit.ImpulseIcon"
+                    app:svgId="@raw/power"/>
+
+                <TextView
+                    style="@style/Common.Text.Medium"
+                    android:gravity="center_horizontal"
+                    android:text="@string/on_off"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                style="@style/Layout.Wrapped.Vertical"
+                android:layout_margin="@dimen/common_small_padding"
+                android:background="@{vm.impulse == 1 ? @drawable/rectangle_orange : null}"
+                android:onClick="@{() -> vm.setImpulse(1)}"
+                android:padding="@dimen/common_small_padding"
+                tools:background="@drawable/rectangle_orange">
+
+                <eu.geekhome.controls.SvgImageView
+                    style="@style/SensorEdit.ImpulseIcon"
+                    app:svgId="@raw/monitor"/>
+
+                <TextView
+                    style="@style/Common.Text.Medium"
+                    android:gravity="center_horizontal"
+                    android:text="@string/second"/>
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                style="@style/Layout.Wrapped.Vertical"
+                android:layout_margin="@dimen/common_small_padding"
+                android:background="@{vm.impulse != 0 &amp;&amp; vm.impulse != 1 ? @drawable/rectangle_orange : null}"
+                android:padding="@dimen/common_small_padding"
+                tools:background="@drawable/rectangle_orange">
+
+
+                <LinearLayout style="@style/Layout.Wrapped.Horizontal">
+
+                    <eu.geekhome.controls.SvgImageView
+                        style="@style/SensorEdit.ImpulseIcon"
+                        android:onClick="@{() -> vm.toggle()}"
+                        app:svgColor="@{vm.impulse &gt; 1 ? @color/black : @color/silver}"
+                        app:svgId="@raw/clock"/>
+
+                    <eu.geekhome.controls.SvgImageView
+                        style="@style/SensorEdit.ImpulseIcon"
+                        android:onClick="@{() -> vm.toggle()}"
+                        app:svgColor="@{vm.impulse &lt; 0 ? @color/black : @color/silver}"
+                        app:svgId="@raw/hourglass"/>
+
+                    <LinearLayout style="@style/Layout.Wrapped.Vertical">
+
+                        <TextView
+                            style="@style/SensorEdit.PickTimeButton"
+                            android:onClick="@{() -> vm.onPickTime()}"
+                            android:text="@{ValueConverter.secondsToText(vm.impulse)}"
+                            tools:text="+00:00:00"/>
+                    </LinearLayout>
+
+
+                </LinearLayout>
+
+                <TextView
+                    style="@style/Common.Text.Medium"
+                    android:gravity="center_horizontal"
+                    android:text="@{vm.impulse &lt; 0 ? @string/delay : @string/countdown}"/>
+            </LinearLayout>
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+
+</layout>

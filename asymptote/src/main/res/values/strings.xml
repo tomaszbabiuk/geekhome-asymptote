@@ -1,0 +1,382 @@
+<resources>
+    <string name="app_name" translatable="false">geekHOME Asymptote</string>
+    <string name="ssid">SSID</string>
+
+    <string name="please_wait">Please wait…</string>
+    <string name="sending_wifi_configuration">Sending WiFi configuration to the device… This may take up to 30 seconds.</string>
+    <string name="cancel">Cancel</string>
+    <string name="network_hidden">This network is hidden!</string>
+    <string name="pair_device">Pair device</string>
+
+    <string name="relay_x_is_off" formatted="false">Relay %d is off</string>
+    <string name="relay_x_is_on" formatted="false">Relay %d is on</string>
+    <string name="choose_color">Choose color</string>
+    <string name="choose">Choose</string>
+    <string name="remember_password_this_session">Remember password for this session</string>
+    <string name="password">Password</string>
+    <string name="next">Next</string>
+    <string name="touch_configuration_title">Enter Wifi configuration details</string>
+    <string name="touch_press_instruction">Press pairing button on target device for about 5 seconds. When LED diode starts blinking press "Next".</string>
+    <string name="ask_for_support">Ask for support</string>
+    <string name="ask_for_support_with_uid">Ask for support (user id: %s)</string>
+    <string name="support_problem_configuring">Hi, can you help me to </string>
+    <string name="send_email">Send email…</string>
+    <string name="no_email_client_installed">There are no email clients installed.</string>
+    <string name="step_no" formatted="false">Step %d of %d</string>
+    <string name="done">Done</string>
+    <string name="device_paired" formatted="false">Device paired, IP: %s</string>
+    <string name="pairing_failed">Pairing failed</string>
+    <string name="note_discovery">Discovering geekHOME sensors in your LAN network and cloud</string>
+    <string name="enter_wifi_password">Enter wifi password</string>
+    <string name="refresh">Refresh</string>
+    <string name="ota_update">OTA update</string>
+    <string name="ota_starting_update_server">Starting update server, wait…</string>
+    <string name="ota_waiting_for_device">Waiting for device to connect…</string>
+    <string name="ota_int_progress">OTA update in progress, don\'t turn this phone/tablet off!</string>
+    <string name="ota_notice">Please don\'t turn your phone or close the app when updating!</string>
+    <string name="ota_server_error">Error! Cannot start OTA server!</string>
+    <string name="ota_done">Done!</string>
+    <string name="ota_failed">OTA update failed!</string>
+    <string name="ota_device_updated" formatted="false">Device %s updated to version %d.%d</string>
+    <string name="name">Name</string>
+    <string name="ok">OK</string>
+    <string name="enter_sensor_name">Enter sensor name</string>
+    <string name="cloud_only">Cloud only</string>
+    <string name="ota_elapsed">Time elapsed</string>
+    <string name="signal_lost">Signal lost</string>
+    <string name="no_lan_sensors_found">No sensors found :(</string>
+    <string name="sensors_found">Sensors found!</string>
+    <string name="discovery_elapsed" formatted="false">Please wait… discovery ends in %d sec</string>
+    <string name="old_google_play_services">Your device cannot connect to geekHOME cloud. Make sure latest version of Google Play Services is installed.</string>
+    <string name="rationale_nowifi_cannot_detect_local_devices">It\'s impossible to discover devices in your local network when WiFi is off. You can still use cloud-only id to control devices that are bound to geekHOME cloud.</string>
+    <string name="rationale_nowifi_adding_devices">It\'s impossible to add new devices when WiFi is off.</string>
+    <string name="rationale_nowifi_ota_impossible">Updating devices \'Over the air\' is impossible when WiFi is off.</string>
+    <string name="my_profile">My profile</string>
+    <string name="profile_description">All details about your GeekHOME account!</string>
+    <string name="register_via_email">Register via email</string>
+    <string name="register_enter_email_and_password">Enter you email address and password</string>
+    <string name="email">Email</string>
+    <string name="enter_correct_email">Enter correct email address</string>
+    <string name="confirm_password">Confirm your password</string>
+    <string name="minimum_password_length_is_8">Minimum password length is 8 characters</string>
+    <string name="password_not_confirmed">Confirmed password does not match</string>
+    <string name="change_email">Change email address</string>
+    <string name="resent_verification_email">Resend verification email</string>
+    <string name="error_linking_with_email" formatted="false">There\'s been problem with registering your account: %s.</string>
+    <string name="error_signing_up" formatted="false">There\'s been problem with signing up: %s.</string>
+    <string name="error_verifying_email" formatted="false">We were not able to verify your email address: %s.</string>
+    <string name="error_cancelling_registration" formatted="false">We were not able to cancel your registration: %s.</string>
+    <string name="error_resetting_password" formatted="false">We were not able to reset your password: %s.</string>
+    <string name="reset_password_success" formatted="false">An email with password reset instruction has been sent to %s email address. Please check your email and click reset link.</string>
+    <string name="email_verify_success" formatted="false">An email with verification code has been sent to %s email address. Please check your email and click verification link.</string>
+    <string name="verify_email_instruction">Please logout and sign in to finish registration process.</string>
+    <string name="later">Later</string>
+    <string name="change_password">Change password</string>
+    <string name="enter_old_and_new_password">Enter your old and new password</string>
+    <string name="old_password">Old password</string>
+    <string name="old_password_required">Old password is required</string>
+    <string name="new_password">New password</string>
+    <string name="confirm_new_password">Confirm new password</string>
+    <string name="password_has_been_changed">Password has been changed</string>
+    <string name="error_changing_password" formatted="false">There\'s been problem with changing your password: %s.</string>
+    <string name="error_changing_email" formatted="false">There\'s been problem with changing your email: %s.</string>
+    <string name="enter_your_password_and_new_email">Enter your password and new email</string>
+    <string name="not_verified">not verified</string>
+    <string name="logout">Logout</string>
+    <string name="sign_in">Sign in</string>
+    <string name="sign_in_with_email">Sign in with email</string>
+    <string name="sign_up">Sign up</string>
+    <string name="unable_to_signin" formatted="false">Unable to sign in: %s</string>
+    <string name="terms_and_privacy">Terms and privacy policy</string>
+    <string name="or">or</string>
+    <string name="invalid_username_or_password">Invalid user name or password</string>
+    <string name="choose_different_username">Please choose different username</string>
+    <string name="finish_registration_process" formatted="false">Finish registration of %s email address by checking your inbox and clicking verification link.</string>
+    <string name="cancel_registration">Cancel registration</string>
+    <string name="reset_password">Reset password</string>
+    <string name="forgot_password_instruction">Did you forgot  your password?</string>
+    <string name="user_not_found">User not found!</string>
+
+    <string name="terms_and_privacy_html"><![CDATA[
+        <h1>Welcome to GeekHOME!</h1>
+        <p>Thanks for using our products and services (“Services”). The Services are provided by GeekHOME Sp z o.o. (“GeekHOME”), located at 184 Dziekanowice, 32-086 Dziekanowice, Lesser Poland, Cracow.</p>
+        <p>By using our Services, you are agreeing to these terms. Please read them carefully.</p>
+
+        <h1>Terms and Conditions</h1>
+        <h3>Our Warranties and Disclaimers</h3>
+        <p>We provide our Services using a commercially reasonable level of skill and care and we hope that you will enjoy using them. But there are certain things that we do not promise about our Services.</p>
+        <p>NEITHER GEEKHOME NOR ITS SUPPLIERS OR DISTRIBUTORS MAKES ANY SPECIFIC PROMISES ABOUT THE SERVICES. FOR EXAMPLE, WE DO NOT MAKE ANY COMMITMENTS ABOUT THE CONTENT WITHIN THE SERVICES, THE SPECIFIC FUNCTIONS OF THE SERVICES OR THEIR RELIABILITY, AVAILABILITY OR ABILITY TO MEET YOUR NEEDS. WE PROVIDE THE SERVICES “AS IS”.</p>
+        <p>SOME JURISDICTIONS PROVIDE FOR CERTAIN WARRANTIES, LIKE THE IMPLIED WARRANTY OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT. TO THE EXTENT PERMITTED BY LAW, WE EXCLUDE ALL WARRANTIES.</p>
+        <h3>Liability for our Services</h3>
+        <p>WHEN PERMITTED BY LAW, GEEKHOME AND GEEKHOME’S SUPPLIERS AND DISTRIBUTORS WILL NOT BE RESPONSIBLE FOR LOST PROFITS, REVENUES OR DATA, FINANCIAL LOSSES OR INDIRECT, SPECIAL, CONSEQUENTIAL, EXEMPLARY OR PUNITIVE DAMAGES.</p>
+        <p>TO THE EXTENT PERMITTED BY LAW, THE TOTAL LIABILITY OF GEEKHOME AND ITS SUPPLIERS AND DISTRIBUTORS FOR ANY CLAIMS UNDER THESE TERMS, INCLUDING FOR ANY IMPLIED WARRANTIES, IS LIMITED TO THE AMOUNT THAT YOU PAID US TO USE THE SERVICES (OR, IF WE CHOOSE, TO SUPPLYING YOU WITH THE SERVICES AGAIN).</p>
+        <p>IN ALL CASES, GEEKHOME AND ITS SUPPLIERS AND DISTRIBUTORS WILL NOT BE LIABLE FOR ANY LOSS OR DAMAGE THAT IS NOT REASONABLY FORESEEABLE.</p>
+
+        <h1>Privacy policy</h1>
+        <p>When you use GeekHOME automation and IoT system, you trust us with your information. This Privacy Policy is meant to help you understand what data we collect, why we collect it and what we do with it.
+        <h3>Definitions</h3>
+        <p><b>House configuration schema</b> - contains all necessary information about how floors and rooms are located in the building, devices, automation conditions, modes, alerts and other configuration items defined by the user during system setup.</p>
+        <p><b>Third party accounts data</b> - all information required to third party services to work (eg. cloud access, controlling the building using email or internet messaging) defined by the user during system setup.</p>
+        <p><b>Sensor readings</b> - all data readings from GeekHOME controlled sensors and actuators.</p>
+        <p><b>Cloud configuration backup</b> - a internet service providing configuration backup in internet network</p>
+        <p><b>Cloud device access</b> - a internet service providing possibility to control devices from any place with internet connection</p>
+        <p><b>Personal data</b> - all the information about the user like firstname, lastname, email address, geekHOME account password and acquired license data</p>
+        <h3>Information that we collect</h3>
+        <p>While using GeekHOME automation and IoT system, different types of information are collected: from house schema to third party account data.</p>
+        <p>We collect information in the following ways:/p>
+        <p><b>GeekHOME Asymptote sensor control app</b> – the app collects third party accounts data (user account) and paired sensors metadata. All data is secured and stored in the Google Firebase cloud, managed by geekHOME Administrator.</p>
+        <p><b>GeekHOME home automation server</b> – the app collects house schema, third party accounts configuration and sensors data. House schema is stored in two places: locally and in the cloud (as a backup). All settings (third party accounts data) are stored locally only.</p>
+        <p><b>GeekHOME Pilot</b> - the home control app collects are house schema and xmpp account data (which is required to connect controlled house with GeekHOME Pilot app together via internet network). All data is stored locally on device (smartphone or tablet) memory.</p>
+        <p><b>GeekHOME license</b> - contains user data that are required to validate the license. The data is stored in the cloud only. We restrict access to personal information to GeekHOME employees only.</p>
+        <h3>How we use information that we collect</h3>
+        <p>We collect only the information required to GeekHOME to work correctly. We don\'t process this information to extract details that are not relevant to the GeekHOME automation system during it\'s normal work.</p>
+        <h3>Information security</h3>
+        <p>We work hard to protect GeekHOME company and our users from unauthorised access to or unauthorised alteration, disclosure or destruction of information that we hold. In particular:</p>
+        <p>&#8226; We encrypt many of our services using SSL.<br/>
+        &#8226; The devices that are sensitive to security (eg. code locks or gates) are protected by additional code which is required to change its state.<br/>
+        &#8226; We review our information collection, storage and processing practices, including physical security measures, to guard against unauthorised access to system.<br/>
+        &#8226; We restrict access to personal information to GeekHOME employees, contractors and agents who need to know that information in order to process it for us and who are subject to strict contractual confidentiality obligations. They may be disciplined or their contract terminated if they fail to meet these obligations.<br/>
+        <h3>Changes</h3>
+        <p>Our Privacy Policy may change from time to time. We will not reduce your rights under this Privacy Policy without your explicit consent. We will post any Privacy Policy changes on http://geekhome.eu page and, if the changes are significant, we will provide a more prominent notice (including, for certain services, email notification of Privacy Policy changes).</p>]]></string>
+    <string name="agree">Agree</string>
+    <string name="disagree">Disagree</string>
+    <string name="scroll_to_bottom">… Scroll to bottom …</string>
+    <string name="unsupported_board" formatted="false">Unsupported sensor \"%s\" found</string>
+    <string name="unsupported_board_note">Please update this app to the latest version to use this device</string>
+    <string name="choose_role">Choose role</string>
+    <string name="role_geekhome">GeekHOME automation device</string>
+    <string name="role_rgb_1pwm_controller">RGB+W controller</string>
+    <string name="role_rgb_1pwm_controller_desc">Controls RGB tape/panel. Contains extra white channel.</string>
+    <string name="role_rgb_2pwm_controller">RGB+WW controller</string>
+    <string name="role_rgb_2pwm_controller_desc">Controls RGB tape/panel. Contains two extra white channels.</string>
+    <string name="role_rgbw_controller">RGBW controller</string>
+    <string name="role_rgbw_controller_desc">Controls RGBW tape/panel.</string>
+    <string name="role_mains_switch">Mains switch</string>
+    <string name="role_mains_switch_advanced">Mains switch (advanced)</string>
+    <string name="role_gate">Gate controller</string>
+    <string name="role_gate_desc">Controls electronic garage door or estate gate with toggle and stop inputs. The door/gate must be equipped with a contactron.</string>
+    <string name="role_mains_desc">IoT/WiFi switch.</string>
+    <string name="role_light_switch">Light switch</string>
+    <string name="role_light_switch_desc">IoT/WiFi light switch. Turns light on when touched.</string>
+    <string name="role_pwm_multichannel">Multichannel LED controller</string>
+    <string name="role_pwm_multichannel_desc">Each of PWM channels can be controlled separately.</string>
+    <string name="controlled_by_geekhome">This device is controlled by geekHOME automation server. In order to control it here, edit device and change device role.</string>
+    <string name="role_cooling_thermostat">Cooling thermostat</string>
+    <string name="role_cooling_thermostat_desc">Turns relay on when temperature is too high.</string>
+    <string name="role_heating_thermostat">Heating thermostat</string>
+    <string name="role_heating_thermostat_desc">Turns relay on when temperature is too low.</string>
+    <string name="role_drying_hygrostat">Drying hygrostat</string>
+    <string name="role_drying_hygrostat_desc">Turns relay on when humidity is too high.</string>
+    <string name="role_humidification_hygrostat">Humidification hygrostat</string>
+    <string name="role_humidification_hygrostat_desc">Turns relay on when humidity is too low.</string>
+    <string name="sensor_settings">Sensor settings</string>
+    <string name="heating_thermostat_details">Heating thermostat details</string>
+    <string name="heating_thermostat_instruction">Turns relay on when temperature goes below target value.</string>
+    <string name="cooling_thermostat_details">Cooling thermostat details</string>
+    <string name="cooling_thermostat_instruction">Turns relay on when temperature goes above target value.</string>
+    <string name="drying_hygrostat_details">Drying hygrostat details</string>
+    <string name="drying_hygrostat_instruction">Turns relay on when humidity goes below target value.</string>
+    <string name="humidification_hygrostat_details">Humidification hygrostat details</string>
+    <string name="humidification_hygrostat_instruction">Turns relay on when humidity goes above target value.</string>
+    <string name="temperature_range_in_C">Temperature range (°C)</string>
+    <string name="humidity_range_in_pc">Humidity range (%)</string>
+    <string name="hysteresis_in_C" formatted="false">Hysteresis: %d°C</string>
+    <string name="hysteresis_in_pc" formatted="false">Hysteresis: %d%%</string>
+    <string name="temperature_set_in_C" formatted="false">Target temperature: %.2f°C</string>
+    <string name="humidity_set_in_pc" formatted="false">Target humidity: %d%%</string>
+    <string name="role_multisensor">Multisensor</string>
+    <string name="role_multisensor_desc">IoT/WiFi sensor of temperature, humidity, luminosity, noise and dust.</string>
+    <string name="heating_on">Heating is on</string>
+    <string name="heating_off">Heating is off</string>
+    <string name="cooling_on">Cooling is on</string>
+    <string name="cooling_off">Cooling is off</string>
+    <string name="drying_on">Drying is on</string>
+    <string name="drying_off">Drying is off</string>
+    <string name="humidification_on">Humidification is on</string>
+    <string name="humidification_off">Humidification is off</string>
+    <string name="device_locked">Device is locked</string>
+    <string name="unlock_instuction">For security reasons you cannot unlock the device. You can still reset it to factory default by following these steps:\n1) Press and hold pairing button on the device for few seconds (until status led starts blinking)\n2) Release the button and wait till status led stops blinking (about 45 secs). Don\'t add any new device during that time!\n3) Device should reboot and signal no Wi-Fi error (two short blinks) - now you can add device again.</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="device_locked_not_upgradable">Cannot change firmware on a device that\'s not locked because of security reasons. Please lock this device first.</string>
+    <string name="change_firmware">Change firmware</string>
+    <string name="available_firmware_variants">Available firmware variants</string>
+    <string name="update">Update</string>
+    <string name="change">Change</string>
+    <string name="variant_installed">This variant is installed.</string>
+    <string name="latest_version">This is the latest version.</string>
+    <string name="not_latest_version">This is not the latest version, please update!</string>
+    <string name="troubleshooting">Troubleshooting</string>
+    <string name="whats_is_status_led_signaling">What is status led signaling?</string>
+    <string name="define_role_details">Define role details</string>
+
+    <string name="signal_none">Turned off (no blinking)</string>
+    <string name="signal_none_desc">When status led is off (no blinking) it means device has no power or is broken.</string>
+    <string-array name="signal_none_solutions">
+        <item>Make sure device is connected to mains (if not, plug it in)</item>
+        <item>If the signal led is still off and power is connected, device may be broken. Please return it to supplier.</item>
+    </string-array>
+
+    <string name="signal_blinking">Blinking</string>
+    <string name="signal_blinking_desc">Led is blinking when device is during long-running operations like pairing (smart-config) or over the air update are in progress.</string>
+    <string-array name="signal_blinking_solutions">
+        <item>Please wait for a while (till operation ends).</item>
+        <item>If device is blinking for more than 5 minutes, cut the power off turn it on.</item>
+    </string-array>
+
+    <string name="signal_1blink">One blink every 3–4 secs</string>
+    <string name="signal_1blink_desc">One blink means device can connect to your WiFi network and to the Cloud (if firmware requires cloud connection).</string>
+    <string-array name="signal_1blink_solutions">
+        <item>The problem can be related with your account. If device is locked you need to be sure that it\'s been locked by you (which means you own the device)!</item>
+        <item>If device is running WiFi firmware, it can be restored to factory defaults and than locked by you. Restoring device to factory defaults requires physical access to it.</item>
+        <item>If device is running Cloud firmware that means device is connected to other user\'s account (are you using correct account to sign in?).</item>
+        <item>In rare cases, device might have been corrupted during Over the air update. You can still reset it to defaults (when on WiFi firmware).</item>
+        <item>In rare cases, when running Cloud firmware you can restore WiFi firmware and than reset the device.</item>
+    </string-array>
+    <string-array name="reset_procedure">
+        <item>Press and hold pairing button on the device for few seconds (until status led starts blinking).</item>
+        <item>Release the button and wait till status led stops blinking (about 45 secs). Don\'t add/pair any other devices during that time!</item>
+        <item>Device should reboot and signal no Wi-Fi error (two blinks) - now you can pair/add device gain.</item>
+    </string-array>
+
+    <string name="signal_2blinks">Two blinks every 3–4 secs</string>
+    <string name="signal_2blinks_desc">Status led is blinking 2 times. This means device cannot connect to WiFi network.</string>
+    <string-array name="signal_2blinks_solutions">
+        <item>Pair device with your WiFi network by clicking "+" button on main screen and follow pairing procedure.</item>
+    </string-array>
+
+    <string name="signal_3blinks">Three blinks every 3–4 secs</string>
+    <string name="signal_3blinks_desc">Status led is blinking 3 times. This means device is running Cloud firmware, can connect to your Wifi network but the problem is with connecting to the Cloud.</string>
+    <string-array name="signal_3blinks_solutions">
+        <item>Make sure your internet provider is working (you can browse external sites like google.com, wikipedia.org when connected to your WiFi).</item>
+        <item>Please wait for a while (even an hour). If there were connection errors, device will save the power and tries to reconnect within 30 minutes. You can reset device manually (by cutting power off and turning it on) to reconnect immediately.</item>
+        <item>If Cloud firmware is still making you a problem, consider restoring WiFi firmware.</item>
+        <item>If problem still persists just let us know using support form (Cloud provider may be broken).</item>
+    </string-array>
+
+    <string name="signal_4blinks">Four blinks every 3–4 secs</string>
+    <string name="signal_4blinks_desc">Status led is blinking 4 times. This means device is running Cloud firmware, can connect to your Wifi network but the Cloud certificate is renewed or expired. Device security data must be updated.</string>
+    <string-array name="signal_4blinks_solutions">
+        <item>While connected to your WiFi, sign in to the app (don\'t use emergency mode).</item>
+        <item>Wait till device discovery is over (60 seconds)</item>
+        <item>The system should detect that there\'s a device in your network that cannot connect to the internet.</item>
+        <item>Offline device should show on the list (with a special note about certificate renewal).</item>
+        <item>Click \'Update certificate\' and wait.</item>
+        <item>After few seconds, certificate should be updated and device should show on the list.</item>
+    </string-array>
+
+    <string name="signal_turned_on">Turned on (no blinking)</string>
+    <string name="signal_turned_on_desc">Signal led is on when trying to connect to your WiFi network.</string>
+    <string name="cannot_access_profile_when_emergency">This is emergency mode. User profile is unavailable.</string>
+    <string name="emergency_mode">Emergency mode</string>
+    <string name="emergency_password">Emergency password</string>
+    <string name="set_emergency_password">Set emergency password</string>
+    <string name="set_emergency_password_instruction">Emergency password help in securing your devices from unauthorized access and malware. Emergency password is shared between all geekHOME Asymptote devices in local network.</string>
+    <string name="confirm_emergency_password">Confirm emergency password</string>
+    <string name="set_password_and_secure_device">Set password and secure this device</string>
+    <string name="enter_emergency_password">Enter emergency password</string>
+    <string name="found_password_protected_devices">Password protected devices found. Enter emergency password to control them.</string>
+    <string name="secured_device_found">Password-protected devices found</string>
+    <string name="offline_device_found">This device is in your local area network but is not able to connect to the internet:</string>
+    <string name="device_invalid_password" formatted="false">%s - invalid password\n</string>
+    <string name="remember_password_when_logged">Remember password when I\'m logged in</string>
+    <string name="sign_in_to_install">You must be signed in to install this firmware</string>
+    <string name="restore_wifi_firmware">Do you want to restore WiFi firmware on this device?</string>
+    <string name="wifi_firmware_desc">Stock firmware, best reliability. Can work without internet connection. Security level is high.</string>
+    <string name="iot_firmware_desc">Alternative firmware, reliability limited to your internet connection and cloud vendor (Google Firebase). Security level is high.</string>
+    <string name="hybrid_firmware_desc">Hybrid firmware, devices can be controlled from LAN and Cloud at once. Security level is medium.</string>
+    <string name="choose_relay_modes">Choose relay modes</string>
+    <string name="second">sec</string>
+    <string name="on_off">on/off</string>
+    <string name="on">on</string>
+    <string name="off">off</string>
+    <string name="countdown">countdown</string>
+    <string name="delay">delay</string>
+    <string name="impulse">Impulse</string>
+    <string name="interlocking">Interlocking</string>
+    <string name="update_certificate">Update certificate</string>
+    <string name="stop">STOP</string>
+    <string name="release">Release</string>
+    <string name="open">Open</string>
+    <string name="close">Close</string>
+    <string name="na">n/a</string>
+    <string name="gate_open">Gate open</string>
+    <string name="gate_closed">Gate closed</string>
+    <string name="gate_stopped">Gate stopped</string>
+    <string name="gate_opening_error">Opening error</string>
+    <string name="gate_closing_error">Closing error</string>
+    <string name="gate_opening">Opening…</string>
+    <string name="gate_closing">Closing…</string>
+
+
+
+    <string-array name="signal_turned_on_solutions">
+        <item>Please wait for more meaningful signal. Like when wifi is not configured device will turn on
+        for few seconds and than blinks two times and turns on for few seconds again. The meaningful signal
+        is two blinks in this case (also see 2 blinks scenario)</item>
+    </string-array>
+    <plurals name="reset_procedure_steps">
+        <item quantity="one">Reset procedure step</item>
+        <item quantity="other">Reset procedure steps</item>
+    </plurals>
+    <plurals name="solutions">
+        <item quantity="one">Solution</item>
+        <item quantity="other">Solutions</item>
+    </plurals>
+    <plurals name="relays">
+        <item quantity="one">%d relay</item>
+        <item quantity="other">%d relays</item>
+    </plurals>
+    <plurals name="thermometers">
+        <item quantity="one">%d thermometer</item>
+        <item quantity="other">%d thermometers</item>
+    </plurals>
+    <plurals name="hygrometers">
+        <item quantity="one">%d hygrometer</item>
+        <item quantity="other">%d hygrometers</item>
+    </plurals>
+    <plurals name="lux_meters">
+        <item quantity="one">%d lux meter</item>
+        <item quantity="other">%d lux meters</item>
+    </plurals>
+    <plurals name="dust_meters">
+        <item quantity="one">%d dust meter</item>
+        <item quantity="other">%d dust meters</item>
+    </plurals>
+    <plurals name="noise_meters">
+        <item quantity="one">%d noise meter</item>
+        <item quantity="other">%d noise meters</item>
+    </plurals>
+    <plurals name="digital_output_ports">
+        <item quantity="one">%d digital output port</item>
+        <item quantity="other">%d digital output ports</item>
+    </plurals>
+    <plurals name="temperature_ports">
+        <item quantity="one">%d temperature port</item>
+        <item quantity="other">%d temperature ports</item>
+    </plurals>
+    <plurals name="humidity_ports">
+        <item quantity="one">%d humidity port</item>
+        <item quantity="other">%d humidity ports</item>
+    </plurals>
+    <plurals name="luminosity_ports">
+        <item quantity="one">%d luminosity port</item>
+        <item quantity="other">%d luminosity ports</item>
+    </plurals>
+    <plurals name="dust_ports">
+        <item quantity="one">%d dust port</item>
+        <item quantity="other">%d dust ports</item>
+    </plurals>
+    <plurals name="noise_ports">
+        <item quantity="one">%d noise port</item>
+        <item quantity="other">%d noise ports</item>
+    </plurals>
+    <plurals name="channels_pwm">
+        <item quantity="one">%d PWM channel</item>
+        <item quantity="other">%d PWM channels</item>
+    </plurals>
+    <plurals name="channels_rgb">
+        <item quantity="one">%d RGB channel</item>
+        <item quantity="other">%d RGB channels</item>
+    </plurals>
+</resources>

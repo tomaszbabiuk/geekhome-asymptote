@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="SensorEdit" />
+
+    <style name="SensorEdit.Background" parent="Layout.MatchXY.Vertical">
+        <item name="android:background">@color/white</item>
+    </style>
+
+    <style name="SensorEdit.TemperatureRange" parent="Layout.MatchX">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="activeLabelColor">@color/gray</item>
+        <item name="activeThumbLabelColor">@color/orange</item>
+        <item name="activeLineColor">@color/orange</item>
+        <item name="activeThumbColor">@color/orange</item>
+        <item name="lineColor">@color/light_gray</item>
+        <item name="showActiveTicks">false</item>
+        <item name="minDistance">4</item>
+        <item name="showLabels">true</item>
+        <item name="tickRadius">1dp</item>
+        <item name="count">21</item>
+        <item name="movable">true</item>
+        <item name="labelFontSize">12sp</item>
+    </style>
+
+    <style name="SensorEdit.HumidityRange" parent="SensorEdit.TemperatureRange">
+        <item name="count">11</item>
+    </style>
+
+    <style name="SensorEdit.HysteresisBar" parent="Layout.MatchX">
+        <item name="android:thumb">@drawable/circle_orange</item>
+        <item name="android:max">5</item>
+    </style>
+
+    <style name="SensorEdit.HysteresisLabel" parent="Layout.Wrapped">
+        <item name="android:textSize">12sp</item>
+        <item name="android:textColor">@color/light_gray</item>
+    </style>
+
+    <style name="SensorEdit.LockRectangle">
+        <item name="android:layout_height">35dp</item>
+        <item name="android:layout_width">35dp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textSize">25dp</item>
+    </style>
+
+    <style name="SensorEdit.ChannelNumber" parent="Common.Text.Big">
+        <item name="android:layout_marginTop">5dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textSize">30dp</item>
+    </style>
+
+    <style name="SensorEdit.ImpulseIcon">
+        <item name="android:layout_width">35dp</item>
+        <item name="android:layout_height">35dp</item>
+        <item name="svgColor">@color/black</item>
+    </style>
+
+    <style name="SensorEdit.PickTimeButton">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">35dp</item>
+        <item name="android:layout_gravity">center_vertical</item>
+        <item name="android:background">@drawable/orange_button_selector</item>
+        <item name="android:gravity">center</item>
+        <item name="android:padding">@dimen/common_small_padding</item>
+        <item name="android:textAppearance">?android:attr/textAppearanceMedium</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+</resources>

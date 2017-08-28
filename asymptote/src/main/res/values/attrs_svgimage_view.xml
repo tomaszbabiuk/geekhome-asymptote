@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="svgimageview">
+        <attr name="svgId" format="reference" />
+        <attr name="svgColor" format="color" />
+        <attr name="svgRawName" format="string" />
+    </declare-styleable>
+</resources>

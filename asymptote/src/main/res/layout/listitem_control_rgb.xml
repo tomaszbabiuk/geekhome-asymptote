@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="vm"
+            type="eu.geekhome.asymptote.viewmodel.ControlRGBItemViewModel"/>
+
+        <variable
+            name="channel"
+            type="java.lang.Integer"/>
+
+        <import type="android.view.View"/>
+
+        <import type="android.graphics.Color"/>
+
+    </data>
+
+    <LinearLayout
+        style="@style/Layout.MatchX1.Vertical">
+
+        <LinearLayout
+            style="@style/Layout.MatchX.Horizontal">
+
+            <eu.geekhome.asymptote.bindingutils.controls.HorizontalRecyclerView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                app:items="@{vm.favoriteColors}"/>
+
+            <eu.geekhome.controls.SvgImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_gravity="center_vertical"
+                android:layout_marginEnd="@dimen/common_small_padding"
+                android:onClick="@{() -> vm.addColor()}"
+                app:svgColor="@color/almost_white"
+                app:svgId="@raw/add"/>
+
+            <FrameLayout
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_margin="1dp"
+                android:background="@color/light_gray"
+                android:onClick="@{() -> vm.colorPicked(Color.BLACK)}">
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="1dp"
+                    android:background="@{vm.valueRed + vm.valueGreen + vm.valueBlue == 0 ? @color/light_gray : @color/black}">
+
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_margin="@dimen/common_small_padding"
+                        android:background="@color/black">
+
+                        <eu.geekhome.controls.SvgImageView
+                            android:layout_width="28dp"
+                            android:layout_height="28dp"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginStart="@dimen/common_small_padding"
+                            app:svgColor="@color/almost_white"
+                            app:svgId="@raw/power_off"/>
+                    </FrameLayout>
+                </FrameLayout>
+            </FrameLayout>
+
+        </LinearLayout>
+    </LinearLayout>
+
+</layout>

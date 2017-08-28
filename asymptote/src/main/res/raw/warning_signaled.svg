@@ -1,0 +1,26 @@
+<svg width="100" height="100" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+ <g>
+  <title>Layer 1</title>
+  <g id="svg_17" fill="#FFFFFF">
+   <defs>
+    <rect height="100" width="100" id="SVGID_1_"/>
+   </defs>
+   <clipPath id="SVGID_3_">
+    <use id="svg_18" xlink:href="#SVGID_1_"/>
+   </clipPath>
+   <g id="svg_19" clip-path="url(#SVGID_3_)">
+    <defs>
+     <rect height="100" width="100" id="SVGID_2_"/>
+    </defs>
+    <clipPath id="SVGID_4_">
+     <use id="svg_20" xlink:href="#SVGID_2_"/>
+    </clipPath>
+    <path id="svg_21" d="m49.608,3.984c-0.876,0.139 -1.622,0.678 -2.043,1.429l-45.59,80.798c-0.5,0.889 -0.501,2.029 0,2.914c0.508,0.897 1.448,1.485 2.472,1.485h91.182c1.022,0 1.965,-0.588 2.473,-1.485c0.5,-0.885 0.5,-2.025 0,-2.914l-45.591,-80.798c-0.585,-1.042 -1.717,-1.619 -2.903,-1.429m0.43,9.294l38.709,69.742h-77.472l38.763,-69.742z" clip-path="url(#SVGID_4_)"/>
+    <path id="svg_22" d="m54.039,74.536c0,2.12 -1.682,3.838 -3.753,3.838c-2.072,0 -3.752,-1.718 -3.752,-3.838c0,-2.119 1.68,-3.83801 3.752,-3.83801c2.071,0 3.753,1.719 3.753,3.83801" clip-path="url(#SVGID_4_)"/>
+    <ellipse id="svg_23" ry="3.838" rx="3.752" cy="74.536" cx="50.287" stroke-linecap="round" stroke-width="2" clip-path="url(#SVGID_4_)"/>
+    <path id="svg_24" d="m48.437,30.16h3.309c1.678,0 3.029,2.198 3.029,4.929l-1.415,22.596c0,2.732 -1.351,4.93 -3.028,4.93h-0.479c-1.68,0 -3.031,-2.197 -3.031,-4.93l-1.414,-22.596c0,-2.731 1.351,-4.929 3.029,-4.929" clip-path="url(#SVGID_4_)"/>
+    <path id="svg_25" d="m48.437,30.16h3.309c1.678,0 3.029,2.198 3.029,4.929l-1.415,22.596c0,2.732 -1.351,4.93 -3.028,4.93h-0.479c-1.68,0 -3.031,-2.197 -3.031,-4.93l-1.414,-22.596c0,-2.731 1.351,-4.929 3.029,-4.929z" stroke-linecap="round" stroke-width="1.898" clip-path="url(#SVGID_4_)"/>
+   </g>
+  </g>
+ </g>
+</svg>

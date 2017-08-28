@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="dust_level1">#8BFF86</color>
+    <color name="dust_level2">#28FF00</color>
+    <color name="dust_level3">#27CD00</color>
+    <color name="dust_level4">#FFFF00</color>
+    <color name="dust_level5">#FFFF00</color>
+    <color name="dust_level6">#FF8900</color>
+    <color name="dust_level7">#FF7B7E</color>
+    <color name="dust_level8">#FF0000</color>
+    <color name="dust_level9">#870000</color>
+</resources>

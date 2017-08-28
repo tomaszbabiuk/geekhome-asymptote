@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <import type="android.view.View"/>
+
+        <variable
+            name="vm"
+            type="eu.geekhome.asymptote.viewmodel.PrivacyViewModel"/>
+    </data>
+
+    <LinearLayout
+        style="@style/Touch.Background">
+
+        <View style="@style/Common.DarkLine.Horizontal"/>
+
+        <eu.geekhome.controls.ScrollViewExt
+            android:id="@+id/privacy_scroll"
+            style="@style/Layout.MatchX1">
+
+            <com.bluejamesbond.text.DocumentView
+                style="@style/Privacy.Content"
+                app:documentView_antialias="true"
+                android:text="@{vm.privacyText}"/>
+        </eu.geekhome.controls.ScrollViewExt>
+
+
+        <LinearLayout
+            android:id="@+id/agreement_layout"
+            style="@style/Layout.MatchX.Vertical">
+
+            <TextView
+                android:id="@+id/scroll_text"
+                style="@style/Privacy.ScrollText"
+                android:textColor="@color/orange"
+                android:text="@string/scroll_to_bottom"
+                android:visibility="@{vm.bottomReached ? View.INVISIBLE : View.VISIBLE}"/>
+
+            <LinearLayout
+                style="@style/ActionBar.BottomLayout"
+                android:visibility="@{vm.showAgreement ? View.VISIBLE : View.GONE}">
+
+
+                <Button
+                    style="@style/Touch.CancelButton"
+                    android:onClick="@{() -> vm.disagree()}"
+                    android:text="@string/disagree"/>
+
+                <Button
+                    style="@style/Touch.NextButton"
+                    android:enabled="@{vm.bottomReached}"
+                    android:onClick="@{() -> vm.agree()}"
+                    android:text="@string/agree"/>
+            </LinearLayout>
+
+            <LinearLayout
+                style="@style/ActionBar.BottomLayout"
+                android:visibility="@{vm.showAgreement ? View.GONE : View.VISIBLE}">
+
+                <Button
+                    style="@style/Touch.NextButton"
+                    android:onClick="@{() -> vm.done()}"
+                    android:text="@string/done"/>
+            </LinearLayout>
+
+        </LinearLayout>
+    </LinearLayout>
+</layout>

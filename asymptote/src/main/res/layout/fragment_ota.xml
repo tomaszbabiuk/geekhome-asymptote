@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="vm"
+            type="eu.geekhome.asymptote.viewmodel.OtaViewModel"/>
+
+        <import type="android.view.View"/>
+
+        <import type="eu.geekhome.asymptote.viewmodel.OtaPhase"/>
+    </data>
+
+
+    <LinearLayout
+        style="@style/Layout.MatchXY.Vertical"
+        android:keepScreenOn="true">
+
+        <include
+            layout="@layout/actionbar_help"
+            tools:vm="@{vm.actionBarModel}"/>
+
+        <ScrollView
+            style="@style/Layout.MatchX1"
+            android:fillViewport="true">
+
+            <LinearLayout style="@style/Touch.Background">
+
+                <TextView style="@style/Touch.ErrorMessage"
+                          tools:text="[error message]"
+                          android:text="@{vm.errorMessage}"
+                          android:visibility="@{vm.errorMessage != null ? View.VISIBLE : View.GONE}"/>
+
+                <View style="@style/Common.OrangeSeparator.Horizontal"/>
+
+                <TextView
+                    style="@style/Common.Text.Big"
+                    android:layout_marginTop="@dimen/common_medium_padding"
+                    android:gravity="center_horizontal"
+                    android:text="@string/ota_update"/>
+
+                <TextView
+                    style="@style/Common.Text.Small"
+                    android:gravity="center_horizontal"
+                    android:text="@{vm.sensor.syncData.deviceKey.deviceId}"/>
+
+                <View style="@style/Common.OrangeSeparator.Horizontal.Thin"/>
+
+                <View style="@style/Common.OrangeTriangle"/>
+
+                <TextView
+                    style="@style/Common.Text.Medium"
+                    android:gravity="center_horizontal"
+                    android:text="@string/ota_notice"/>
+
+                <View style="@style/Layout.MatchX1"/>
+
+                <ProgressBar
+                    style="?android:attr/progressBarStyleLarge"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    tools:visibility="visible"/>
+
+                <TextView
+                    style="@style/Common.Text"
+                    android:gravity="center"
+                    android:text="@{context.getString(vm.otaPhase.instructionResourceId)}"
+                    tools:text="instruction/message"
+                    tools:visibility="visible"/>
+
+
+                <View style="@style/Layout.MatchX1"/>
+
+                <View style="@style/Common.OrangeSeparator.Horizontal"/>
+            </LinearLayout>
+        </ScrollView>
+    </LinearLayout>
+</layout>

@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:bind="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="vm"
+            type="eu.geekhome.asymptote.viewmodel.TouchPressViewModel"/>
+
+        <import type="android.view.View"/>
+    </data>
+
+
+    <LinearLayout style="@style/Layout.MatchXY.Vertical">
+
+        <include layout="@layout/actionbar_help" bind:vm="@{vm.actionBarModel}" />
+
+        <ScrollView
+            style="@style/Layout.MatchX1"
+            android:fillViewport="true">
+
+            <LinearLayout style="@style/Touch.Background">
+
+                <View style="@style/Common.OrangeSeparator.Horizontal"/>
+
+                <TextView
+                    style="@style/Common.Text.Big"
+                    android:layout_marginTop="@dimen/common_medium_padding"
+                    android:gravity="center_horizontal"
+                    android:text="@string/pair_device"/>
+
+
+                <View style="@style/Common.OrangeSeparator.Horizontal.Thin"/>
+
+                <View style="@style/Common.OrangeTriangle"/>
+
+                <TextView
+                    style="@style/Common.Text.Medium"
+                    android:gravity="center_horizontal"
+                    android:text="@string/touch_press_instruction"/>
+
+                <View style="@style/Layout.MatchX1"/>
+
+                <FrameLayout style="@style/Touch.AnimationArea">
+
+                    <eu.geekhome.controls.SvgImageView
+                        style="@style/Common.MainImage"
+                        app:svgId="@raw/press_sensor"/>
+
+                    <eu.geekhome.controls.SvgImageView
+                        android:id="@+id/image_hand"
+                        style="@style/Common.MainImage"
+                        android:translationY="20dp"
+                        app:svgId="@raw/press_hand"/>
+
+                    <eu.geekhome.controls.SvgImageView
+                        android:id="@+id/image_led"
+                        style="@style/Common.MainImage"
+                        android:alpha="0"
+                        app:svgId="@raw/press_led"/>
+                </FrameLayout>
+
+                <View style="@style/Layout.MatchX1"/>
+
+                <eu.geekhome.controls.SvgImageView
+                    android:id="@+id/image_arrow"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_gravity="end"
+                    android:layout_marginEnd="@dimen/common_extra_extra_extra_padding"
+                    android:alpha="0"
+                    app:svgColor="@color/light_gray"
+                    app:svgId="@raw/press_arrow"/>
+
+                <View style="@style/Common.OrangeSeparator.Horizontal"/>
+
+                <LinearLayout style="@style/ActionBar.BottomLayout">
+
+                    <TextView
+                        style="@style/Touch.Header.Text"
+                        android:text="@{@string/step_no(2,3)}"/>
+
+                    <Button
+                        style="@style/Touch.NextButton"
+                        android:onClick="@{vm.onNext}"
+                        android:text="@string/next"/>
+                </LinearLayout>
+            </LinearLayout>
+        </ScrollView>
+    </LinearLayout>
+</layout>

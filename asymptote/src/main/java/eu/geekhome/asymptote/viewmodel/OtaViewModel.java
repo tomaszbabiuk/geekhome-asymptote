@@ -32,6 +32,7 @@ import eu.geekhome.asymptote.model.RestoreTokenSyncUpdate;
 import eu.geekhome.asymptote.model.UserSnapshot;
 import eu.geekhome.asymptote.model.Variant;
 import eu.geekhome.asymptote.services.CloudActionCallback;
+import eu.geekhome.asymptote.services.CloudCertificateChecker;
 import eu.geekhome.asymptote.services.CloudDeviceService;
 import eu.geekhome.asymptote.services.CloudException;
 import eu.geekhome.asymptote.services.NavigationService;
@@ -39,6 +40,7 @@ import eu.geekhome.asymptote.services.OtaServer;
 import eu.geekhome.asymptote.services.SyncListener;
 import eu.geekhome.asymptote.services.SyncManager;
 import eu.geekhome.asymptote.services.WiFiHelper;
+import eu.geekhome.asymptote.utils.ByteUtils;
 import eu.geekhome.asymptote.utils.Ticker;
 
 public class OtaViewModel extends WiFiAwareViewModel<FragmentOtaBinding> implements SyncListener, OtaServer.Listener {
@@ -64,6 +66,8 @@ public class OtaViewModel extends WiFiAwareViewModel<FragmentOtaBinding> impleme
     WiFiHelper _wifiHelper;
     @Inject
     CloudDeviceService _cloudDeviceService;
+    @Inject
+    CloudCertificateChecker _certificateChecker;
 
     @Bindable
     public String getErrorMessage() {
@@ -80,7 +84,7 @@ public class OtaViewModel extends WiFiAwareViewModel<FragmentOtaBinding> impleme
         return _actionBarModel;
     }
 
-    public OtaViewModel(ActivityComponent activityComponent, SensorItemViewModel sensor, Firmware firmware) {
+    OtaViewModel(ActivityComponent activityComponent, SensorItemViewModel sensor, Firmware firmware) {
         super(activityComponent);
         _firmware = firmware;
         _sensor = sensor;
@@ -126,7 +130,7 @@ public class OtaViewModel extends WiFiAwareViewModel<FragmentOtaBinding> impleme
         return _otaPhase;
     }
 
-    public void setOtaPhase(OtaPhase value) {
+    private void setOtaPhase(OtaPhase value) {
         _otaPhase = value;
         notifyPropertyChanged(BR.otaPhase);
     }
@@ -193,7 +197,7 @@ public class OtaViewModel extends WiFiAwareViewModel<FragmentOtaBinding> impleme
     }
 
 
-    public void started() {
+    private void started() {
         _serverStartedAt = Calendar.getInstance().getTimeInMillis();
         _restoreTokenUsed = false;
         switch (_firmware.getVariant()) {
@@ -229,35 +233,48 @@ public class OtaViewModel extends WiFiAwareViewModel<FragmentOtaBinding> impleme
         final String deviceToken = new BigInteger(160, random).toString(32);
         final String restoreToken = new BigInteger(80, random).toString(32);
         final DeviceSnapshot deviceSnapshot = new DeviceSnapshot(chipId, deviceToken, restoreToken);
-        _cloudDeviceService.registerDevice(_sensor.getUserId(), deviceSnapshot, new CloudActionCallback<Void>() {
+        _certificateChecker.check(new CloudCertificateChecker.Listener() {
             @Override
-            public void success(Void data) {
-                String md5 = _firmware.getMd5();
-                String host = String.format("http://%s:8890/", _wifiHelper.getIP());
-                OtaHashSyncUpdate hashSyncUpdate = new OtaHashSyncUpdate(md5);
-                OtaHostSyncUpdate hostSyncUpdate = new OtaHostSyncUpdate(host);
-                RestoreTokenSyncUpdate restoreTokenSyncUpdate = new RestoreTokenSyncUpdate(restoreToken);
-                CloudUsernameSyncUpdate usernameSyncUpdate = new CloudUsernameSyncUpdate(_sensor.getUserId());
-                CloudPasswordSyncUpdate passwordSyncUpdate = new CloudPasswordSyncUpdate(deviceToken);
-                String fingerprint = _context.getString(R.string.cloud_fingerprint);
-                CloudFingerprintSyncUpdate cloudFingerprintSyncUpdate = new CloudFingerprintSyncUpdate(fingerprint);
-                _sensor.getUpdates().add(hashSyncUpdate);
-                _sensor.getUpdates().add(hostSyncUpdate);
-                _sensor.getUpdates().add(restoreTokenSyncUpdate);
-                _sensor.getUpdates().add(usernameSyncUpdate);
-                _sensor.getUpdates().add(passwordSyncUpdate);
-                _sensor.getUpdates().add(cloudFingerprintSyncUpdate);
-                _sensor.onRequestFullSync();
-                _sensor.getUpdates().clear();
-                _cloudDeviceService.registerForDeviceSyncEvents(_sensor.getUserId(), deviceSnapshot);
-                setOtaPhase(OtaPhase.WaitingForDevice);
+            public void onChecked(final byte[] sha1Thumbprint) {
+                _cloudDeviceService.registerDevice(_sensor.getUserId(), deviceSnapshot, new CloudActionCallback<Void>() {
+                    @Override
+                    public void success(Void data) {
+                        String md5 = _firmware.getMd5();
+                        String host = String.format("http://%s:8890/", _wifiHelper.getIP());
+                        OtaHashSyncUpdate hashSyncUpdate = new OtaHashSyncUpdate(md5);
+                        OtaHostSyncUpdate hostSyncUpdate = new OtaHostSyncUpdate(host);
+                        RestoreTokenSyncUpdate restoreTokenSyncUpdate = new RestoreTokenSyncUpdate(restoreToken);
+                        CloudUsernameSyncUpdate usernameSyncUpdate = new CloudUsernameSyncUpdate(_sensor.getUserId());
+                        CloudPasswordSyncUpdate passwordSyncUpdate = new CloudPasswordSyncUpdate(deviceToken);
+                        //TEMP
+                        sha1Thumbprint[0] = 0;
+                        String fingerprint = ByteUtils.bytesToHex(sha1Thumbprint).toLowerCase();
+                        CloudFingerprintSyncUpdate cloudFingerprintSyncUpdate = new CloudFingerprintSyncUpdate(fingerprint);
+                        _sensor.getUpdates().add(hashSyncUpdate);
+                        _sensor.getUpdates().add(hostSyncUpdate);
+                        _sensor.getUpdates().add(restoreTokenSyncUpdate);
+                        _sensor.getUpdates().add(usernameSyncUpdate);
+                        _sensor.getUpdates().add(passwordSyncUpdate);
+                        _sensor.getUpdates().add(cloudFingerprintSyncUpdate);
+                        _sensor.onRequestFullSync();
+                        _sensor.getUpdates().clear();
+                        _cloudDeviceService.registerForDeviceSyncEvents(_sensor.getUserId(), deviceSnapshot);
+                        setOtaPhase(OtaPhase.WaitingForDevice);
+                    }
+
+                    @Override
+                    public void failure(CloudException exception) {
+                        setErrorMessage(exception.getLocalizedMessage());
+                    }
+                });
             }
 
             @Override
-            public void failure(CloudException exception) {
-                setErrorMessage(exception.getLocalizedMessage());
+            public void onError(IOException e) {
+                setErrorMessage(e.getLocalizedMessage());
             }
         });
+
     }
 
     private void startOtaServer() {

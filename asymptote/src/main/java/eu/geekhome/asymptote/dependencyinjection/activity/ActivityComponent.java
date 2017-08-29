@@ -19,7 +19,6 @@ import eu.geekhome.asymptote.viewmodel.MainActionBarViewModel;
 import eu.geekhome.asymptote.viewmodel.MainViewModel;
 import eu.geekhome.asymptote.viewmodel.MainsAdvancedRoleDetailsViewModel;
 import eu.geekhome.asymptote.viewmodel.NoWiFiViewModel;
-import eu.geekhome.asymptote.viewmodel.OfflineDeviceFoundViewModel;
 import eu.geekhome.asymptote.viewmodel.OtaViewModel;
 import eu.geekhome.asymptote.viewmodel.PrivacyViewModel;
 import eu.geekhome.asymptote.viewmodel.ProfileViewModel;
@@ -76,6 +75,5 @@ public interface ActivityComponent {
     void inject(TouchPressViewModel touchPressViewModel);
     void inject(TouchProgressViewModel touchProgressViewModel);
     void inject(VerifyEmailLightViewModel verifyEmailLightViewModel);
-    void inject(OfflineDeviceFoundViewModel offlineDeviceFoundViewModel);
     void inject(RelayWorkingModeItemViewModel relayWorkingModeItemViewModel);
 }

@@ -23,4 +23,6 @@ public interface CloudDeviceService {
     void getUserSnapshot(String userId, CloudActionCallback<UserSnapshot> callback);
 
     void pushUpdates(String userId, String token, DeviceSyncData syncData, ArrayList<SyncUpdate> updates, CloudActionCallback<Void> callback);
+
+    void updateCertificateFingerprint(String userId, String token, String fingerprint, String hash, CloudActionCallback<Void> callback);
 }

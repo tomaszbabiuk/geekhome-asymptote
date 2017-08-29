@@ -179,14 +179,6 @@
                         android:textAppearance="?android:attr/textAppearanceMedium"
                         android:textColor="@color/almost_white"/>
                 </eu.geekhome.asymptote.bindingutils.controls.NonClickableLinearLayout>
-
-
-                <eu.geekhome.controls.SvgImageView
-                    style="@style/SensorList.CertificateUpdateIcon"
-                    android:onClick="@{() -> vm.certificateUpdate()}"
-                    android:visibility="@{vm.restoreToken == null ? View.GONE : View.VISIBLE}"
-                    tools:ignore="ContentDescription"/>
-
             </LinearLayout>
 
 

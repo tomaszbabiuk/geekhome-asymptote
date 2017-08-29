@@ -9,6 +9,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
+import java.io.IOException;
 import java.net.InetAddress;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -30,6 +31,7 @@ import eu.geekhome.asymptote.model.DeviceSyncData;
 import eu.geekhome.asymptote.model.UserSnapshot;
 import eu.geekhome.asymptote.model.Variant;
 import eu.geekhome.asymptote.services.CloudActionCallback;
+import eu.geekhome.asymptote.services.CloudCertificateChecker;
 import eu.geekhome.asymptote.services.CloudDeviceService;
 import eu.geekhome.asymptote.services.CloudException;
 import eu.geekhome.asymptote.services.EmergencyManager;
@@ -38,13 +40,14 @@ import eu.geekhome.asymptote.services.SyncListener;
 import eu.geekhome.asymptote.services.SyncManager;
 import eu.geekhome.asymptote.services.ThreadRunner;
 import eu.geekhome.asymptote.services.WiFiHelper;
+import eu.geekhome.asymptote.utils.ByteUtils;
 import eu.geekhome.asymptote.utils.Ticker;
 
 public class MainViewModel extends ViewModel<FragmentMainBinding> implements SyncListener, SensorItemViewModel.SensorLifecycleListener {
     private ArrayList<DeviceSnapshot> _deviceSnapshots;
     private final Hashtable<InetAddress, Byte[]> _firebaseDevices;
     private ObservableArrayList<LayoutHolder> _sensors = new ObservableArrayList<>();
-    ArrayList<InetAddress> _securedDevices = new ArrayList<>();
+    private ArrayList<InetAddress> _securedDevices = new ArrayList<>();
     private DiscoveryViewModel _discoveryViewModel;
     private SecuredDevicesFoundViewModel _securedDevicesFoundViewModel;
     private Ticker _aliveTicker;
@@ -55,6 +58,7 @@ public class MainViewModel extends ViewModel<FragmentMainBinding> implements Syn
     private String _userId;
     private boolean _notAuthorizedDialogShown;
     private boolean _reloadDevices = false;
+    private byte[] _cloudFingerPrint;
 
     @Inject
     NavigationService _navigationService;
@@ -70,6 +74,8 @@ public class MainViewModel extends ViewModel<FragmentMainBinding> implements Syn
     Context _context;
     @Inject
     CloudDeviceService _cloudDeviceService;
+    @Inject
+    CloudCertificateChecker _cloudCertificateChecker;
 
     private interface SensorFoundDelegate {
         void sensorFound(SensorItemViewModel sensor);
@@ -113,8 +119,8 @@ public class MainViewModel extends ViewModel<FragmentMainBinding> implements Syn
         return new Ticker(new Ticker.Listener() {
             @Override
             public void onTick() {
-                if (_discoveryTick == 0) { //0
-                    checkForBrokenDevices();
+                if (_discoveryTick == 50) {
+                    checkIfAllSnapshotsReport();
                 }
 
                 if (_discoveryTick < 0) {
@@ -139,55 +145,24 @@ public class MainViewModel extends ViewModel<FragmentMainBinding> implements Syn
         }, 70, 1000);
     }
 
-    private void checkForBrokenDevices() {
-        for (final Map.Entry<InetAddress, Byte[]> set : _firebaseDevices.entrySet()) {
-            String token = new String(new byte[]{
-                    set.getValue()[0],
-                    set.getValue()[1],
-                    set.getValue()[2],
-                    set.getValue()[3],
-                    set.getValue()[4],
-                    set.getValue()[5],
-                    set.getValue()[6],
-                    set.getValue()[7]
-            });
-
-            if (_deviceSnapshots != null) {
-                for (final DeviceSnapshot snapshot : _deviceSnapshots) {
-                    if (token.equals("aaaaaaaa") && !checkIfAnyOfflineDeviceModelIsAlreadyAdded()) {
-                        OfflineDeviceFoundViewModel brokenModel = new OfflineDeviceFoundViewModel(
-                                getActivityComponent(), set.getKey(), "aaaaaaaabbbbbbbb");
-                        _sensors.add(brokenModel);
-                    } else if (snapshot.getRestoreToken().startsWith(token)) {
-                        final String chipId = snapshot.getChipId();
-                        final Boolean[] sensorFound = {false};
-                        iterateSensors(new SensorFoundDelegate() {
-                            @Override
-                            public void sensorFound(SensorItemViewModel sensor) {
-                                if (sensor.getSyncData().getDeviceKey().getChipId().equals(chipId)) {
-                                    sensorFound[0] = true;
-                                }
-                            }
-                        });
-                        if (!sensorFound[0] && !checkIfAnyOfflineDeviceModelIsAlreadyAdded()) {
-                            OfflineDeviceFoundViewModel brokenModel = new OfflineDeviceFoundViewModel(
-                                    getActivityComponent(), set.getKey(), snapshot.getRestoreToken());
-                            _sensors.add(brokenModel);
+    private void checkIfAllSnapshotsReport() {
+        if (_deviceSnapshots != null) {
+            final boolean[] snaphotReports = {false};
+            for (final DeviceSnapshot snapshot : _deviceSnapshots) {
+                iterateSensors(new SensorFoundDelegate() {
+                    @Override
+                    public void sensorFound(SensorItemViewModel sensor) {
+                        if (sensor.getSyncData().getDeviceKey().getChipId().equals(snapshot.getChipId())) {
+                            snaphotReports[0] = true;
                         }
                     }
-                }
+                });
+            }
+
+            if (!snaphotReports[0]) {
+                scheduleCertificateUpdate();
             }
         }
-    }
-
-    private boolean checkIfAnyOfflineDeviceModelIsAlreadyAdded() {
-        for (LayoutHolder holder : _sensors) {
-            if (holder instanceof OfflineDeviceFoundViewModel) {
-                return true;
-            }
-        }
-
-        return false;
     }
 
     @NonNull
@@ -223,6 +198,10 @@ public class MainViewModel extends ViewModel<FragmentMainBinding> implements Syn
                                 }
                             });
                         }
+
+                        if (variant.isCloud() && !sensor.isHasCloudSignal()) {
+                            scheduleCertificateUpdate();
+                        }
                     }
                 });
             }
@@ -231,6 +210,46 @@ public class MainViewModel extends ViewModel<FragmentMainBinding> implements Syn
             public void onElapsed() {
             }
         }, -1, 5000);
+    }
+
+    private void scheduleCertificateUpdate() {
+        if (_cloudFingerPrint == null) {
+            _cloudCertificateChecker.check(new CloudCertificateChecker.Listener() {
+                @Override
+                public void onChecked(byte[] sha1Thumbprint) {
+                    _cloudFingerPrint = sha1Thumbprint;
+                    updateCloudFingerprints();
+                }
+
+                @Override
+                public void onError(IOException e) {
+                }
+            });
+        } else {
+            updateCloudFingerprints();
+        }
+    }
+
+    private void updateCloudFingerprints() {
+        if (_deviceSnapshots != null) {
+            for (DeviceSnapshot snapshot : _deviceSnapshots) {
+                snapshot.getRestoreToken();
+                String fingerprint = ByteUtils.bytesToHex(_cloudFingerPrint).toLowerCase();
+                byte[] hashBytes = ByteUtils.createHmacSHA256(snapshot.getRestoreToken(), fingerprint);
+                String hash = ByteUtils.bytesToHex(hashBytes).toLowerCase();
+                _cloudDeviceService.updateCertificateFingerprint(_userId, snapshot.getDeviceToken(), fingerprint, hash, new CloudActionCallback<Void>() {
+                    @Override
+                    public void success(Void data) {
+
+                    }
+
+                    @Override
+                    public void failure(CloudException exception) {
+                        setErrorMessage(exception.getLocalizedMessage());
+                    }
+                });
+            }
+        }
     }
 
     @Override
@@ -248,7 +267,7 @@ public class MainViewModel extends ViewModel<FragmentMainBinding> implements Syn
         activityComponent.inject(this);
     }
 
-    public void rediscover() {
+    void rediscover() {
         _sensors.clear();
         onPause();
         onResume();
@@ -374,8 +393,6 @@ public class MainViewModel extends ViewModel<FragmentMainBinding> implements Syn
             updateSecuredDevicesUI();
         }
 
-        removeOfflineDevices(from);
-
         _threadRunner.runOnUiThread(new Runnable() {
             @Override
             public void run() {
@@ -397,24 +414,6 @@ public class MainViewModel extends ViewModel<FragmentMainBinding> implements Syn
             }
         });
     }
-
-    private void removeOfflineDevices(InetAddress from) {
-        LayoutHolder toDelete = null;
-        for (LayoutHolder holder : _sensors) {
-            if (holder instanceof OfflineDeviceFoundViewModel) {
-                OfflineDeviceFoundViewModel model = (OfflineDeviceFoundViewModel) holder;
-                if (model.getAddress().equals(from)) {
-                    toDelete = holder;
-                    break;
-                }
-            }
-        }
-
-        if (toDelete != null) {
-            _sensors.remove(toDelete);
-        }
-    }
-
 
     @Override
     public void onUnsupportedBoard(InetAddress from, String deviceId) {

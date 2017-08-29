@@ -8,6 +8,7 @@ import dagger.Binds;
 import dagger.Module;
 import dagger.Provides;
 import eu.geekhome.asymptote.services.AddressesPersistenceService;
+import eu.geekhome.asymptote.services.CloudCertificateChecker;
 import eu.geekhome.asymptote.services.CloudDeviceService;
 import eu.geekhome.asymptote.services.CloudUserService;
 import eu.geekhome.asymptote.services.ColorDialogService;
@@ -28,6 +29,7 @@ import eu.geekhome.asymptote.services.impl.AndroidToastService;
 import eu.geekhome.asymptote.services.impl.AndroidUdpService;
 import eu.geekhome.asymptote.services.impl.BrokenOtaServer;
 import eu.geekhome.asymptote.services.impl.ColorOMaticColorDialogService;
+import eu.geekhome.asymptote.services.impl.FirebaseCertificateChecker;
 import eu.geekhome.asymptote.services.impl.FirebaseCloudDeviceService;
 import eu.geekhome.asymptote.services.impl.FirebaseCloudUserService;
 import eu.geekhome.asymptote.services.impl.FragmentBasedNavigationService;
@@ -49,13 +51,13 @@ public class ActivityModule {
 
     @Provides
     @ActivityScope
-    public Activity provideActivity() {
+    Activity provideActivity() {
         return _activity;
     }
 
     @Provides
     @ActivityScope
-    public Context provideContext() {
+    Context provideContext() {
         return _activity;
     }
 
@@ -85,7 +87,7 @@ public class ActivityModule {
 
     @Provides
     @ActivityScope
-    public NavigationService provideNavigationService() {
+    NavigationService provideNavigationService() {
         return new FragmentBasedNavigationService(_activity.getSupportFragmentManager(), _activity);
     }
 
@@ -131,9 +133,9 @@ public class ActivityModule {
 
     @Provides
     @ActivityScope
-    public SyncManager provideSyncManager(Activity activity, LocalDiscoveryService localDiscoveryService,
-                                          AddressesPersistenceService addressesPersistenceService,
-                                          ThreadRunner threadRunner, EmergencyManager emergencyManager) {
+    SyncManager provideSyncManager(Activity activity, LocalDiscoveryService localDiscoveryService,
+                                   AddressesPersistenceService addressesPersistenceService,
+                                   ThreadRunner threadRunner, EmergencyManager emergencyManager) {
         try {
             return new HttpClientSyncManager(activity, localDiscoveryService, addressesPersistenceService,
                     threadRunner, emergencyManager);
@@ -144,7 +146,7 @@ public class ActivityModule {
 
     @Provides
     @ActivityScope
-    public CloudUserService provideCloudUserService() {
+    CloudUserService provideCloudUserService() {
         return new FirebaseCloudUserService(_activity);
     }
 
@@ -152,5 +154,11 @@ public class ActivityModule {
     @ActivityScope
     CloudDeviceService provideCloudDeviceService() {
         return new FirebaseCloudDeviceService();
+    }
+
+    @Provides
+    @ActivityScope
+    CloudCertificateChecker provideCloudChecker() {
+        return new FirebaseCertificateChecker("https://asymptote-769eb.firebaseio.com");
     }
 }

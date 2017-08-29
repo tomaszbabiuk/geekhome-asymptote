@@ -22,8 +22,6 @@ import eu.geekhome.asymptote.dependencyinjection.activity.ActivityComponent;
 import eu.geekhome.asymptote.model.BoardRole;
 import eu.geekhome.asymptote.model.ColorSyncUpdate;
 import eu.geekhome.asymptote.model.DeviceSyncData;
-import eu.geekhome.asymptote.model.Firmware;
-import eu.geekhome.asymptote.model.FirmwareSet;
 import eu.geekhome.asymptote.model.NameSyncUpdate;
 import eu.geekhome.asymptote.model.PWMSyncUpdate;
 import eu.geekhome.asymptote.model.ParamSyncUpdate;
@@ -67,10 +65,8 @@ public class SensorItemViewModel extends BaseObservable implements LayoutHolder 
     private final String _userId;
     private String _token;
 
-    public interface SensorLifecycleListener {
-
+    interface SensorLifecycleListener {
         void recreated(SensorItemViewModel sender);
-
         void locking(SensorItemViewModel sender);
 
     }
@@ -136,7 +132,7 @@ public class SensorItemViewModel extends BaseObservable implements LayoutHolder 
         return _hasWiFiSignal;
     }
 
-    public void setHasWiFiSignal(boolean hasWiFiSignal) {
+    private void setHasWiFiSignal(boolean hasWiFiSignal) {
         _hasWiFiSignal = hasWiFiSignal;
         notifyPropertyChanged(BR.hasWiFiSignal);
     }
@@ -146,7 +142,7 @@ public class SensorItemViewModel extends BaseObservable implements LayoutHolder 
         return _hasCloudSignal;
     }
 
-    public void setHasCloudSignal(boolean hasCloudSignal) {
+    private void setHasCloudSignal(boolean hasCloudSignal) {
         _hasCloudSignal = hasCloudSignal;
         notifyPropertyChanged(BR.hasCloudSignal);
     }
@@ -171,7 +167,7 @@ public class SensorItemViewModel extends BaseObservable implements LayoutHolder 
         return _newFirmwareAvailable;
     }
 
-    public void setNewFirmwareAvailable(boolean value) {
+    private void setNewFirmwareAvailable(boolean value) {
         _newFirmwareAvailable = value;
         notifyPropertyChanged(BR.newFirmwareAvailable);
     }
@@ -181,12 +177,12 @@ public class SensorItemViewModel extends BaseObservable implements LayoutHolder 
         return _active;
     }
 
-    public void setActive(boolean active) {
+    private void setActive(boolean active) {
         _active = active;
         notifyPropertyChanged(BR.active);
     }
 
-    public void setAlive(boolean value) {
+    private void setAlive(boolean value) {
         _isAlive = value;
         notifyPropertyChanged(BR.alive);
     }
@@ -220,7 +216,7 @@ public class SensorItemViewModel extends BaseObservable implements LayoutHolder 
         return _syncData;
     }
 
-    public void setSyncData(DeviceSyncData data, long timestamp) {
+    void setSyncData(DeviceSyncData data, long timestamp) {
         _syncDelayed = false;
         if (isHasWiFiSignal() && data.getSystemInfo().getVariant() == Variant.Firebase) {
             updateLastSeen(data.getSource(), timestamp);
@@ -347,30 +343,6 @@ public class SensorItemViewModel extends BaseObservable implements LayoutHolder 
             if (holder instanceof ControlItemViewModelBase) {
                 ((ControlItemViewModelBase) holder).sync(data);
             }
-//            if (holder instanceof ControlRelayItemViewModel) {
-//                ControlRelayItemViewModel relayModel = (ControlRelayItemViewModel) holder;
-//                relayModel.sync(data);
-//            }
-//
-//            if (holder instanceof ControlImpulseItemViewModel) {
-//                ControlImpulseItemViewModel relayImpulseModel = (ControlImpulseItemViewModel) holder;
-//                relayImpulseModel.sync(data);
-//            }
-//
-//            if (holder instanceof ControlPWMItemViewModel) {
-//                ControlPWMItemViewModel pwmModel = (ControlPWMItemViewModel) holder;
-//                pwmModel.sync(data);
-//            }
-//
-//            if (holder instanceof ControlRGBItemViewModel) {
-//                ControlRGBItemViewModel rgbModel = (ControlRGBItemViewModel) holder;
-//                rgbModel.sync(data);
-//            }
-//
-//            if (holder instanceof ControlThermostatItemViewModel) {
-//                ControlThermostatItemViewModel thermostatModel = (ControlThermostatItemViewModel) holder;
-//                thermostatModel.sync(data.getParams());
-//            }
         }
     }
 
@@ -388,7 +360,7 @@ public class SensorItemViewModel extends BaseObservable implements LayoutHolder 
         setAlive(true);
     }
 
-    public void checkAlive(long now) {
+    void checkAlive(long now) {
         setHasWiFiSignal(now - _lastSeenOnWiFi < 45000);
         setHasCloudSignal(now - _lastSeenOnCloud < 125000);
         if (!isHasWiFiSignal() && !isHasCloudSignal()) {
@@ -498,24 +470,7 @@ public class SensorItemViewModel extends BaseObservable implements LayoutHolder 
 
     }
 
-    public void repair() {
-        final FirmwareSet set = _firmwareRepository.findFirmwareSet(getSyncData().getDeviceKey().getBoardId());
-        if (set == null || set.getWifiFirmware() == null) {
-            //show cannot find firmware dialog
-        } else {
-            _generalDialogService.showYesNoDialog(R.string.restore_wifi_firmware, new Runnable() {
-                @Override
-                public void run() {
-                    Firmware firmware = set.getWifiFirmware();
-                    OtaViewModel otaViewModel = new OtaViewModel(_activityComponent, SensorItemViewModel.this, firmware);
-                    _navigationService.showViewModel(otaViewModel, new ShowBackButtonInToolbarViewParam());
-                }
-            }, null);
-        }
-
-    }
-
-    public void recreateSensor() {
+    private void recreateSensor() {
         if (_sensorLifecycleListener != null) {
             _sensorLifecycleListener.recreated(this);
         }
@@ -534,7 +489,7 @@ public class SensorItemViewModel extends BaseObservable implements LayoutHolder 
         }
     };
 
-    public void requestOtaRestore(String md5) {
+    void requestOtaRestore(String md5) {
         _udpService.requestOtaRestore(getAddress(), getRestoreToken(), md5);
     }
 
@@ -548,10 +503,9 @@ public class SensorItemViewModel extends BaseObservable implements LayoutHolder 
         notifyPropertyChanged(BR.controls);
     }
 
-    public boolean isSyncDelayed() {
+    boolean isSyncDelayed() {
         return _syncDelayed;
     }
-
 
     @Bindable
     public String getToken() {
@@ -561,9 +515,5 @@ public class SensorItemViewModel extends BaseObservable implements LayoutHolder 
     public void setToken(String token) {
         _token = token;
         notifyPropertyChanged(BR.token);
-    }
-
-    public void certificateUpdate() {
-
     }
 }

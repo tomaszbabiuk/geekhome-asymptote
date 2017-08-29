@@ -108,7 +108,7 @@ public class FirebaseCloudDeviceService implements CloudDeviceService {
                         int relays = (int) dataSnapshot.child("relays").getChildrenCount();
                         int relayImpulses = (int) dataSnapshot.child("relayImpulses").getChildrenCount();
                         int pwms = (int) dataSnapshot.child("pwms").getChildrenCount();
-                        int pwmImpulses = (int)dataSnapshot.child("pwmImpulses").getChildrenCount();
+                        int pwmImpulses = (int) dataSnapshot.child("pwmImpulses").getChildrenCount();
                         int params = (int) dataSnapshot.child("params").getChildrenCount();
                         int ota = dataSnapshot.child("ota").getValue(Integer.class);
                         String token = deviceSnapshot.getDeviceToken();
@@ -438,6 +438,34 @@ public class FirebaseCloudDeviceService implements CloudDeviceService {
             });
         }
     }
+
+    @Override
+    public void updateCertificateFingerprint(final String userId, final String token, String fingerprint, String hash, final CloudActionCallback<Void> callback) {
+        final FirebaseDatabase database = FirebaseDatabase.getInstance();
+
+        final Map<String, Object> data = new HashMap<>();
+        data.put("fingerprint", fingerprint);
+        data.put("hash", hash);
+
+        DatabaseReference ordersRef = database
+                .getReference("devices")
+                .child(userId)
+                .child(token)
+                .child("cert");
+
+        ordersRef.updateChildren(data).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if (task.isSuccessful()) {
+                    callback.success(null);
+                } else {
+                    CloudException cex = new CloudException(task.getException(), false);
+                    callback.failure(cex);
+                }
+            }
+        });
+    }
+
 
     private void clearOrders(String userId, String token, OnCompleteListener<Void> callback) {
         final FirebaseDatabase database = FirebaseDatabase.getInstance();

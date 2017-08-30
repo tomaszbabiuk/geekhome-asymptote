@@ -358,9 +358,7 @@ public class HttpClientSyncManager implements SyncManager, LocalDiscoveryService
         DeviceKey key = new DeviceKey(chipId, boardId);
         OtaState ota = OtaState.fromByte(values.getOta());
         DeviceSyncData syncData = new DeviceSyncData(values.isLocked() == 1, systemInformation,
-                key, name, values.getColor(), role, ota, mode, SyncSource.LAN);
-
-        syncData.setState(values.getState());
+                key, name, values.getColor(), role, ota, mode, values.getState(), SyncSource.LAN);
 
         syncData.setRelayStates(new boolean[relays]);
         if (relays > 0) {

@@ -20,11 +20,11 @@ import eu.geekhome.asymptote.model.RelayValue;
 import eu.geekhome.asymptote.model.StateSyncUpdate;
 import eu.geekhome.asymptote.model.SyncUpdate;
 
-public abstract class ControlItemViewModelBase extends BaseObservable {
+abstract class ControlItemViewModelBase extends BaseObservable {
 
     private SensorItemViewModel _sensor;
 
-    public ControlItemViewModelBase(SensorItemViewModel sensor) {
+    ControlItemViewModelBase(SensorItemViewModel sensor) {
         _sensor = sensor;
     }
 
@@ -66,7 +66,7 @@ public abstract class ControlItemViewModelBase extends BaseObservable {
         return null;
     }
 
-    public void pwmChanged(int channel, int duty) {
+    void pwmChanged(int channel, int duty) {
         pwmChangedInternal(channel, duty, getSensor().getUpdates());
     }
 
@@ -93,7 +93,7 @@ public abstract class ControlItemViewModelBase extends BaseObservable {
         return null;
     }
 
-    public void paramChanged(int channel, int value) {
+    void paramChanged(int channel, int value) {
         paramChangedInternal(channel, value, getSensor().getUpdates());
     }
 
@@ -106,7 +106,7 @@ public abstract class ControlItemViewModelBase extends BaseObservable {
         }
     }
 
-    ParamSyncUpdate findParamSyncUpdate(int index, ArrayList<SyncUpdate> updates) {
+    private ParamSyncUpdate findParamSyncUpdate(int index, ArrayList<SyncUpdate> updates) {
         if (updates.size() > 0) {
             for (SyncUpdate syncUpdate : updates) {
                 if (syncUpdate instanceof ParamSyncUpdate) {
@@ -120,7 +120,7 @@ public abstract class ControlItemViewModelBase extends BaseObservable {
         return null;
     }
 
-    public void relayImpulseChanged(int channel, long impulse) {
+    void relayImpulseChanged(int channel, long impulse) {
         relayImpulseChangedInternal(channel, impulse, getSensor().getUpdates());
     }
 
@@ -148,7 +148,7 @@ public abstract class ControlItemViewModelBase extends BaseObservable {
         return null;
     }
 
-    public void relayStateChanged(int channel, boolean state) {
+    void relayStateChanged(int channel, boolean state) {
         relayStateChangedInternal(channel, state, getSensor().getUpdates());
     }
 
@@ -176,7 +176,7 @@ public abstract class ControlItemViewModelBase extends BaseObservable {
         return null;
     }
 
-    public void stateChanged(String value) {
+    void stateChanged(String value) {
         stateChangedInternal(value, getSensor().getUpdates());
     }
 

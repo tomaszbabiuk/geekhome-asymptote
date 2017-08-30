@@ -307,7 +307,8 @@ public class SensorItemViewModel extends BaseObservable implements LayoutHolder 
                 StateSyncUpdate stateSyncUpdate = (StateSyncUpdate) update;
                 String reportedState = data.getState();
                 String updateState = stateSyncUpdate.getValue();
-                if (reportedState.equals(updateState)) {
+                boolean stateChanged = updateState.startsWith("*") && !reportedState.startsWith("*");
+                if (stateChanged) {
                     toDelete.add(update);
                 } else {
                     data.setState(updateState);
@@ -324,7 +325,7 @@ public class SensorItemViewModel extends BaseObservable implements LayoutHolder 
         setNewFirmwareAvailable(!_firmwareRepository.isLatest(data.getSystemInfo()));
         calculateActive();
         notifyPropertyChanged(BR.syncData);
-        syncRelaysAndPWMs(data);
+        syncControls(data);
         setBlocked(hasBlockedUpdates());
     }
 
@@ -338,7 +339,7 @@ public class SensorItemViewModel extends BaseObservable implements LayoutHolder 
         return false;
     }
 
-    private void syncRelaysAndPWMs(DeviceSyncData data) {
+    private void syncControls(DeviceSyncData data) {
         for (LayoutHolder holder : _controls) {
             if (holder instanceof ControlItemViewModelBase) {
                 ((ControlItemViewModelBase) holder).sync(data);

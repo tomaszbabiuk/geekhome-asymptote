@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="text"
+            type="java.lang.String"/>
+
+        <variable
+            name="iconId"
+            type="java.lang.Integer"/>
+
+        <variable
+            name="background"
+            type="android.graphics.drawable.Drawable"/>
+
+        <variable
+            name="onClick"
+            type="android.view.View.OnClickListener"/>
+
+        <variable
+            name="enabled"
+            type="java.lang.Boolean"/>
+
+        <import type="android.view.View"/>
+
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="5dp"
+        android:background="@{background}"
+        android:clickable="true"
+        android:onClick="@{onClick}"
+        android:gravity="center"
+        android:enabled="@{enabled == null ? true : enabled}"
+        android:orientation="horizontal">
+
+        <eu.geekhome.controls.SvgImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            app:svgColor="@color/almost_white"
+            app:svgId="@{iconId}"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/common_small_padding"
+            android:text='@{text}'
+            tools:text="Compound button"
+            android:textColor="@color/white"/>
+    </LinearLayout>
+</layout>

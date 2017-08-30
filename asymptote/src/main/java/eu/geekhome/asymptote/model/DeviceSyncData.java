@@ -33,7 +33,7 @@ public class DeviceSyncData extends BaseObservable {
 
     public DeviceSyncData(boolean locked, SystemInformation systemInformation,
                           DeviceKey deviceKey, String name, int color, BoardRole role,
-                          OtaState ota, BoardMode mode, SyncSource source) {
+                          OtaState ota, BoardMode mode, String state, SyncSource source) {
         _locked = locked;
         _systemInformation = systemInformation;
         _deviceKey = deviceKey;
@@ -44,6 +44,7 @@ public class DeviceSyncData extends BaseObservable {
         _source = source;
         _isSensor = false;
         _ota = ota;
+        _state = state;
     }
 
     @Bindable

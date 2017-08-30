@@ -51,8 +51,8 @@ public class ControlGateItemViewModel extends ValueSync<String> implements Layou
         return context.getString(R.string.please_wait);
     }
 
-    public ControlGateItemViewModel(SensorItemViewModel sensor, Context context,
-                                    String state) {
+    ControlGateItemViewModel(SensorItemViewModel sensor, Context context,
+                             String state) {
         super(sensor, context, -1, state);
     }
 
@@ -85,8 +85,8 @@ public class ControlGateItemViewModel extends ValueSync<String> implements Layou
         getSensor().onRequestFullSync();
     }
 
-    @Override
-    public void setValue(String value) {
-
+    public void reset() {
+        stateChanged("*dorelease");
+        getSensor().onRequestFullSync();
     }
 }

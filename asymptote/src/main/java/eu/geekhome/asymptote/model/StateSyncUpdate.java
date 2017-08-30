@@ -7,7 +7,7 @@ public class StateSyncUpdate extends SyncUpdateBase<String> {
 
     @Override
     public boolean isBlocking() {
-        return false;
+        return true;
     }
 
     @Override

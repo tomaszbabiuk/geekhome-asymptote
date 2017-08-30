@@ -113,15 +113,14 @@ public class FirebaseCloudDeviceService implements CloudDeviceService {
                         int ota = dataSnapshot.child("ota").getValue(Integer.class);
                         String token = deviceSnapshot.getDeviceToken();
                         SystemInformation info = new SystemInformation(boardId, versionMajor, versionMinor, Variant.fromInt(firmwareVariant));
-
-                        DeviceSyncData syncData = new DeviceSyncData(locked, info, key, name, color,
-                                role, OtaState.fromByte((byte) ota), mode, SyncSource.CLOUD);
-
                         String state = "unknown";
                         if (dataSnapshot.child("state").exists()) {
                             state = dataSnapshot.child("state").getValue(String.class);
                         }
-                        syncData.setState(state);
+
+                        DeviceSyncData syncData = new DeviceSyncData(locked, info, key, name, color,
+                                role, OtaState.fromByte((byte) ota), mode, state, SyncSource.CLOUD);
+
 
 
                         if (hasTemperatureSensor) {

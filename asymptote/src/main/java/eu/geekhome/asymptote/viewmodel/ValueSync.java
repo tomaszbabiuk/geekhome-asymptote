@@ -37,9 +37,9 @@ public abstract class ValueSync<T> extends ControlItemViewModelBase {
 
     protected abstract void execute(T value);
 
-    public void syncValue(T value) {
+    void syncValue(T value) {
 
-        if (value != _value && getSensor().isBlocked() && _waitCounter < 3) {
+        if (value.equals(_value) && getSensor().isBlocked() && _waitCounter < 3) {
             _waitCounter++;
         } else {
             _waitCounter = 0;

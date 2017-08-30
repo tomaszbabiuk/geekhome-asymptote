@@ -307,7 +307,7 @@
     <string name="gate_closing_error">Closing error</string>
     <string name="gate_opening">Opening…</string>
     <string name="gate_closing">Closing…</string>
-
+    <string name="reset">Reset</string>
 
 
     <string-array name="signal_turned_on_solutions">

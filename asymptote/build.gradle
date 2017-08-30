@@ -69,9 +69,11 @@ dependencies {
     annotationProcessor 'com.google.dagger:dagger-compiler:2.11'
 
     //from common
-//    compile 'com.android.support:appcompat-v7:26.0.1'
     compile 'com.github.bluejamesbond:textjustify-android:2.1.1'
     compile files('libs/andengine-svg.jar')
+
+    //constraint layout
+    compile 'com.android.support.constraint:constraint-layout:1.0.2'
 }
 
 apply plugin: 'com.google.gms.google-services'

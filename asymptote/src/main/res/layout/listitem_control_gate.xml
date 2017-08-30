@@ -5,6 +5,8 @@
 
     <data>
 
+        <import type="eu.geekhome.asymptote.R"/>
+
         <variable
             name="vm"
             type="eu.geekhome.asymptote.viewmodel.ControlGateItemViewModel"/>
@@ -13,67 +15,69 @@
 
     </data>
 
-    <LinearLayout style="@style/Layout.MatchX.Horizontal">
+    <android.support.constraint.ConstraintLayout
+        style="@style/Layout.MatchX"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="0dp">
 
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_weight="1"
+            android:layout_marginLeft="0dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginTop="8dp"
             android:text="@{vm.message}"
-            android:textColor="@color/white"/>
+            android:textColor="@color/white"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toLeftOf="@+id/linearLayout"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="RtlHardcoded"
+            tools:text="Gate open"/>
 
         <LinearLayout
-            android:layout_width="125dp"
-            android:layout_height="35dp"
-            android:layout_margin="5dp"
-            android:background="@drawable/orange_button_selector"
-            android:clickable="true"
-            android:gravity="center"
-            android:onClick="@{() -> vm.stopRelease()}"
-            android:orientation="horizontal">
+            android:id="@+id/linearLayout"
+            android:layout_width="150dp"
+            style="@style/Layout.Wrapped.Vertical"
+            app:layout_constraintRight_toRightOf="parent">
 
-            <eu.geekhome.controls.SvgImageView
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                app:svgColor="@color/almost_white"
-                app:svgId="@raw/emergencystop"/>
+            <include
+                android:id="@+id/include4"
+                layout="@layout/control_compound_button"
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:layout_marginBottom="@dimen/common_small_padding"
+                android:onClick="@{() -> vm.openClose()}"
+                android:visibility='@{vm.value.equals("open") || vm.value.equals("closed") ? View.VISIBLE : View.GONE}'
+                app:background="@{@drawable/gray_button_selector}"
+                app:enabled='@{vm.value.equals("open") || vm.value.equals("closed")}'
+                app:iconId="@{R.raw.monitor}"
+                app:text='@{(vm.value.equals("open")) ? @string/close : (vm.value.equals("closed")) ? @string/open : @string/na}'/>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/common_small_padding"
-                android:text='@{vm.value.equals("stopped") ? @string/release : @string/stop}'
-                android:textColor="@color/white"/>
-        </LinearLayout>
+            <include
+                android:id="@+id/include3"
+                layout="@layout/control_compound_button"
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:layout_marginBottom="@dimen/common_small_padding"
+                android:visibility='@{!vm.value.equals("stopped") &amp;&amp; !vm.value.equals("openingerror") &amp;&amp; !vm.value.equals("closingerror") ? View.VISIBLE : View.GONE}'
+                app:background="@{@drawable/orange_button_selector}"
+                app:iconId="@{R.raw.emergencystop}"
+                app:onClick="@{() -> vm.stopRelease()}"
+                app:text='@{vm.value.equals("stopped") ? @string/release : @string/stop}'/>
 
-        <LinearLayout
-            android:layout_width="125dp"
-            android:layout_height="35dp"
-            android:layout_margin="5dp"
-            android:background="@drawable/gray_button_selector"
-            android:clickable="true"
-            android:gravity="center"
-            android:onClick="@{() -> vm.openClose()}"
-            android:visibility='@{vm.value.equals("stopped") ? View.GONE : View.VISIBLE}'
-            android:orientation="horizontal">
 
-            <eu.geekhome.controls.SvgImageView
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                app:svgColor="@color/almost_white"
-                app:svgId="@raw/monitor"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/common_small_padding"
-                android:text='@{(vm.value.equals("open")) ? @string/close : (vm.value.equals("closed")) ? @string/open : @string/na}'
-                android:enabled='@{vm.value.equals("open") || vm.value.equals("closed")}'
-                android:textColor="@color/white"/>
+            <include
+                layout="@layout/control_compound_button"
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:onClick="@{() -> vm.reset()}"
+                android:visibility='@{vm.value.equals("closingerror") || vm.value.equals("openingerror") ? View.VISIBLE : View.GONE}'
+                app:background="@{@drawable/orange_button_selector}"
+                app:iconId="@{R.raw.contract}"
+                app:text="@{@string/reset}"/>
         </LinearLayout>
 
 
-    </LinearLayout>
+    </android.support.constraint.ConstraintLayout>
 
 </layout>

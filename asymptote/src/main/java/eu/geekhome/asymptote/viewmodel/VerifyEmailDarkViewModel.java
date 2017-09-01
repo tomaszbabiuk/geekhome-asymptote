@@ -7,13 +7,10 @@ import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
-import javax.inject.Inject;
-
 import eu.geekhome.asymptote.BR;
 import eu.geekhome.asymptote.R;
 import eu.geekhome.asymptote.bindingutils.ViewModel;
 import eu.geekhome.asymptote.databinding.FragmentVerifyEmailDarkBinding;
-import eu.geekhome.asymptote.dependencyinjection.activity.ActivityComponent;
 import eu.geekhome.asymptote.model.CloudUser;
 import eu.geekhome.asymptote.model.UserSnapshot;
 import eu.geekhome.asymptote.services.CloudActionCallback;
@@ -25,16 +22,11 @@ import eu.geekhome.asymptote.services.ToastService;
 import eu.geekhome.asymptote.utils.Ticker;
 
 public class VerifyEmailDarkViewModel extends ViewModel<FragmentVerifyEmailDarkBinding> {
-    @Inject
-    CloudUserService _cloudUserService;
-    @Inject
-    ToastService _toastService;
-    @Inject
-    NavigationService _navigationService;
-    @Inject
-    CloudDeviceService _cloudDeviceService;
-    @Inject
-    Context _context;
+    private final CloudUserService _cloudUserService;
+    private final ToastService _toastService;
+    private final NavigationService _navigationService;
+    private final CloudDeviceService _cloudDeviceService;
+    private final Context _context;
     private String _email;
     private String _password;
     private SplashViewModel _splashViewModel;
@@ -49,7 +41,6 @@ public class VerifyEmailDarkViewModel extends ViewModel<FragmentVerifyEmailDarkB
 
     public void setInstruction(String instruction) {
         _instruction = instruction;
-        notifyPropertyChanged(BR.instruction);
     }
 
     @Bindable
@@ -57,14 +48,20 @@ public class VerifyEmailDarkViewModel extends ViewModel<FragmentVerifyEmailDarkB
         return _emailVerificationInProgress;
     }
 
-    public void setEmailVerificationInProgress(boolean emailVerificationInProgress) {
+    private void setEmailVerificationInProgress(boolean emailVerificationInProgress) {
         _emailVerificationInProgress = emailVerificationInProgress;
         notifyPropertyChanged(BR.emailVerificationInProgress);
     }
 
-    public VerifyEmailDarkViewModel(ActivityComponent activityComponent, String email, String password,
+    public VerifyEmailDarkViewModel(Context context, CloudUserService cloudUserService, CloudDeviceService cloudDeviceService,
+                                    ToastService toastService, NavigationService navigationService,
+                                    String email, String password,
                                     String message, SplashViewModel splashViewModel) {
-        super(activityComponent);
+        _cloudUserService = cloudUserService;
+        _cloudDeviceService = cloudDeviceService;
+        _toastService = toastService;
+        _navigationService = navigationService;
+        _context = context;
         _email = email;
         _password = password;
         _splashViewModel = splashViewModel;
@@ -106,12 +103,7 @@ public class VerifyEmailDarkViewModel extends ViewModel<FragmentVerifyEmailDarkB
         return binding;
     }
 
-    @Override
-    protected void doInject(ActivityComponent activityComponent) {
-        activityComponent.inject(this);
-    }
-
-    public void checkEmailVerified() {
+    private void checkEmailVerified() {
         _splashViewModel.setErrorMessage(null);
         _cloudUserService.refreshUser(new CloudUserService.UserCallback() {
             @Override

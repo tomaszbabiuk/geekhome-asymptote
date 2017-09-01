@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import javax.inject.Inject;
 
 import eu.geekhome.asymptote.R;
+import eu.geekhome.asymptote.bindingutils.InjectedViewModel;
 import eu.geekhome.asymptote.bindingutils.LayoutHolder;
 import eu.geekhome.asymptote.bindingutils.ViewModel;
 import eu.geekhome.asymptote.databinding.FragmentMainsAdvRoleDetailsBinding;
@@ -17,7 +18,7 @@ import eu.geekhome.asymptote.model.ParamSyncUpdate;
 import eu.geekhome.asymptote.model.ParamValue;
 import eu.geekhome.asymptote.services.NavigationService;
 
-public class MainsAdvancedRoleDetailsViewModel extends ViewModel<FragmentMainsAdvRoleDetailsBinding> {
+public class MainsAdvancedRoleDetailsViewModel extends InjectedViewModel<FragmentMainsAdvRoleDetailsBinding> {
     private final ObservableArrayList<LayoutHolder> _interlocks;
     private EditSensorViewModel _parent;
     private SensorItemViewModel _sensor;

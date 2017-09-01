@@ -14,8 +14,9 @@ import eu.geekhome.asymptote.databinding.ActivitySplashBinding;
 import eu.geekhome.asymptote.dependencyinjection.activity.ActivityComponent;
 import eu.geekhome.asymptote.services.NavigationService;
 import eu.geekhome.asymptote.services.PrivacyService;
+import eu.geekhome.asymptote.services.impl.SplashViewModelsFactory;
+import eu.geekhome.asymptote.services.impl.SplashViewModelsFactory;
 import eu.geekhome.asymptote.viewmodel.PrivacyViewModel;
-import eu.geekhome.asymptote.viewmodel.SignInViewModel;
 import eu.geekhome.asymptote.viewmodel.SplashViewModel;
 import eu.geekhome.controls.ScrollViewExt;
 
@@ -32,6 +33,8 @@ public class SplashActivity extends InjectedActivity {
 
     @Inject PrivacyService _privacyService;
     @Inject NavigationService _navigationService;
+    @Inject
+    SplashViewModelsFactory _factory;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,14 +42,14 @@ public class SplashActivity extends InjectedActivity {
 
         boolean showPrivacyAtStart = getIntent().getBooleanExtra(INTENT_SHOW_PRIVACY_AT_START, false);
         if (_privacyService.isAccepted() && !showPrivacyAtStart) {
-            SplashViewModel splashViewModel = new SplashViewModel(_navigationService);
-            _navigationService.showViewModel(new SignInViewModel(getActivityComponent(), splashViewModel));
+            SplashViewModel splashViewModel = _factory.createSplashViewModel();
+            _navigationService.showViewModel(_factory.createSignInViewModel(splashViewModel));
             ActivitySplashBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_splash);
             Animation rotateAnimation = AnimationUtils.loadAnimation(this, R.anim.rotate_around_center_point_linear);
             binding.gearImage.startAnimation(rotateAnimation);
             binding.setVm(splashViewModel);
         } else {
-            final PrivacyViewModel privacyViewModel = new PrivacyViewModel(getActivityComponent(), !showPrivacyAtStart);
+            final PrivacyViewModel privacyViewModel = _factory.createPrivacyViewModel(!showPrivacyAtStart);
             ActivityPrivacyBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_privacy);
             binding.setVm(privacyViewModel);
             binding.privacyScroll.setOnBottomReachedListener(new ScrollViewExt.OnBottomReachedListener() {

@@ -13,7 +13,7 @@ import com.android.databinding.library.baseAdapters.BR;
 import javax.inject.Inject;
 
 import eu.geekhome.asymptote.R;
-import eu.geekhome.asymptote.bindingutils.ViewModel;
+import eu.geekhome.asymptote.bindingutils.InjectedViewModel;
 import eu.geekhome.asymptote.databinding.DialogLockBinding;
 import eu.geekhome.asymptote.dependencyinjection.activity.ActivityComponent;
 import eu.geekhome.asymptote.services.CloudActionCallback;
@@ -26,7 +26,7 @@ import eu.geekhome.asymptote.services.ThreadRunner;
 import eu.geekhome.asymptote.services.ToastService;
 import eu.geekhome.asymptote.validation.ValidationContext;
 
-public class LockViewModel extends ViewModel<DialogLockBinding> {
+public class LockViewModel extends InjectedViewModel<DialogLockBinding> {
     private final MainViewModel _mainViewModel;
     private final SensorItemViewModel _sensor;
     private final ValidationContext _validation = new ValidationContext();

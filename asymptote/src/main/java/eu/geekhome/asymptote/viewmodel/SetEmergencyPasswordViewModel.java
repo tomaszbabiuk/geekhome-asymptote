@@ -10,6 +10,7 @@ import com.android.databinding.library.baseAdapters.BR;
 import javax.inject.Inject;
 
 import eu.geekhome.asymptote.R;
+import eu.geekhome.asymptote.bindingutils.InjectedViewModel;
 import eu.geekhome.asymptote.bindingutils.ViewModel;
 import eu.geekhome.asymptote.databinding.DialogSetEmergencyPasswordBinding;
 import eu.geekhome.asymptote.dependencyinjection.activity.ActivityComponent;
@@ -22,7 +23,7 @@ import eu.geekhome.asymptote.services.ToastService;
 import eu.geekhome.asymptote.utils.KeyboardHelper;
 import eu.geekhome.asymptote.validation.ValidationContext;
 
-public class SetEmergencyPasswordViewModel extends ViewModel<DialogSetEmergencyPasswordBinding> {
+public class SetEmergencyPasswordViewModel extends InjectedViewModel<DialogSetEmergencyPasswordBinding> {
     @Inject
     NavigationService _navigationService;
     @Inject

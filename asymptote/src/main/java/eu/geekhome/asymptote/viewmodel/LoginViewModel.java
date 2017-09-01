@@ -9,12 +9,9 @@ import android.view.ViewGroup;
 
 import com.android.databinding.library.baseAdapters.BR;
 
-import javax.inject.Inject;
-
 import eu.geekhome.asymptote.R;
 import eu.geekhome.asymptote.bindingutils.ViewModel;
 import eu.geekhome.asymptote.databinding.FragmentLoginWithEmailBinding;
-import eu.geekhome.asymptote.dependencyinjection.activity.ActivityComponent;
 import eu.geekhome.asymptote.model.CloudUser;
 import eu.geekhome.asymptote.model.UserSnapshot;
 import eu.geekhome.asymptote.services.CloudActionCallback;
@@ -22,15 +19,17 @@ import eu.geekhome.asymptote.services.CloudDeviceService;
 import eu.geekhome.asymptote.services.CloudException;
 import eu.geekhome.asymptote.services.CloudUserService;
 import eu.geekhome.asymptote.services.NavigationService;
+import eu.geekhome.asymptote.services.impl.SplashViewModelsFactory;
 import eu.geekhome.asymptote.utils.KeyboardHelper;
 import eu.geekhome.asymptote.validation.ValidationContext;
 
 public class LoginViewModel extends ViewModel<FragmentLoginWithEmailBinding> {
     private final ValidationContext _validation = new ValidationContext();
-    @Inject CloudUserService _cloudUserService;
-    @Inject Context _context;
-    @Inject NavigationService _navigationService;
-    @Inject CloudDeviceService _cloudDeviceService;
+    private final CloudUserService _cloudUserService;
+    private final Context _context;
+    private final NavigationService _navigationService;
+    private final CloudDeviceService _cloudDeviceService;
+    private final SplashViewModelsFactory _factory;
     private SplashViewModel _splashViewModel;
     private String _email;
     private String _password;
@@ -61,8 +60,13 @@ public class LoginViewModel extends ViewModel<FragmentLoginWithEmailBinding> {
         notifyPropertyChanged(BR.password);
     }
 
-    public LoginViewModel(ActivityComponent activityComponent, SplashViewModel splashViewModel) {
-        super(activityComponent);
+    public LoginViewModel(SplashViewModelsFactory factory, Context context, NavigationService navigationService,
+                          CloudUserService cloudUserService, CloudDeviceService cloudDeviceService , SplashViewModel splashViewModel) {
+        _factory = factory;
+        _context = context;
+        _navigationService = navigationService;
+        _cloudUserService = cloudUserService;
+        _cloudDeviceService = cloudDeviceService;
         _splashViewModel = splashViewModel;
     }
 
@@ -72,11 +76,6 @@ public class LoginViewModel extends ViewModel<FragmentLoginWithEmailBinding> {
         binding.setVm(this);
         _rootView = binding.getRoot();
         return binding;
-    }
-
-    @Override
-    protected void doInject(ActivityComponent activityComponent) {
-        activityComponent.inject(this);
     }
 
     @Override
@@ -98,7 +97,8 @@ public class LoginViewModel extends ViewModel<FragmentLoginWithEmailBinding> {
                     if (!user.isEmailVerified()) {
                         _splashViewModel.setBusy(false);
                         String verificationMessage = _context.getString(R.string.finish_registration_process, getEmail());
-                        VerifyEmailDarkViewModel verifyViewModel = new VerifyEmailDarkViewModel(getActivityComponent(), getEmail(),
+
+                        VerifyEmailDarkViewModel verifyViewModel = _factory.createVerifyEmailDarkViewModel(getEmail(),
                                 getPassword(), verificationMessage, _splashViewModel);
                         _navigationService.showViewModel(verifyViewModel);
                     } else {

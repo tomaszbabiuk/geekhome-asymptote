@@ -9,13 +9,13 @@ import android.view.ViewGroup;
 import javax.inject.Inject;
 
 import eu.geekhome.asymptote.R;
+import eu.geekhome.asymptote.bindingutils.InjectedViewModel;
 import eu.geekhome.asymptote.bindingutils.LayoutHolder;
-import eu.geekhome.asymptote.bindingutils.ViewModel;
 import eu.geekhome.asymptote.databinding.FragmentCmsBinding;
 import eu.geekhome.asymptote.dependencyinjection.activity.ActivityComponent;
 import eu.geekhome.asymptote.services.NavigationService;
 
-public class CMSViewModel extends ViewModel<FragmentCmsBinding> {
+public class CMSViewModel extends InjectedViewModel<FragmentCmsBinding> {
     private HelpActionBarViewModel _actionBarModel;
     private final ObservableArrayList<LayoutHolder> _sections;
 

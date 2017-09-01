@@ -14,15 +14,15 @@ import javax.inject.Inject;
 
 import eu.geekhome.asymptote.BR;
 import eu.geekhome.asymptote.R;
+import eu.geekhome.asymptote.bindingutils.InjectedViewModel;
 import eu.geekhome.asymptote.bindingutils.LayoutHolder;
-import eu.geekhome.asymptote.bindingutils.ViewModel;
 import eu.geekhome.asymptote.bindingutils.viewparams.ShowBackButtonInToolbarViewParam;
 import eu.geekhome.asymptote.databinding.FragmentTroubleshootingBinding;
 import eu.geekhome.asymptote.dependencyinjection.activity.ActivityComponent;
 import eu.geekhome.asymptote.services.NavigationService;
 import eu.geekhome.asymptote.utils.Ticker;
 
-public class TroubleshootingViewModel extends ViewModel<FragmentTroubleshootingBinding> {
+public class TroubleshootingViewModel extends InjectedViewModel<FragmentTroubleshootingBinding> {
 
     private HelpActionBarViewModel _actionBarModel;
     private String _errorMessage;

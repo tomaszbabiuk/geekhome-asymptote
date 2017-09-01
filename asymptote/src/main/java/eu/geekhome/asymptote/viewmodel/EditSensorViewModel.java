@@ -11,6 +11,7 @@ import javax.inject.Inject;
 
 import eu.geekhome.asymptote.BR;
 import eu.geekhome.asymptote.R;
+import eu.geekhome.asymptote.bindingutils.InjectedViewModel;
 import eu.geekhome.asymptote.bindingutils.LayoutHolder;
 import eu.geekhome.asymptote.bindingutils.ViewModel;
 import eu.geekhome.asymptote.bindingutils.viewparams.ShowBackButtonInToolbarViewParam;
@@ -22,7 +23,7 @@ import eu.geekhome.asymptote.model.NameSyncUpdate;
 import eu.geekhome.asymptote.model.RoleSyncUpdate;
 import eu.geekhome.asymptote.services.NavigationService;
 
-public class EditSensorViewModel extends ViewModel<FragmentEditSensorBinding> {
+public class EditSensorViewModel extends InjectedViewModel<FragmentEditSensorBinding> {
 
     private int _newColor;
     private BoardRole _newRole;

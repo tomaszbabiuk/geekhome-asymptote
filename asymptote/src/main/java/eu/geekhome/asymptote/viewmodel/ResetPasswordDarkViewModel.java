@@ -10,12 +10,9 @@ import android.view.ViewGroup;
 
 import com.android.databinding.library.baseAdapters.BR;
 
-import javax.inject.Inject;
-
 import eu.geekhome.asymptote.R;
 import eu.geekhome.asymptote.bindingutils.ViewModel;
 import eu.geekhome.asymptote.databinding.FragmentResetPasswordDarkBinding;
-import eu.geekhome.asymptote.dependencyinjection.activity.ActivityComponent;
 import eu.geekhome.asymptote.services.CloudActionCallback;
 import eu.geekhome.asymptote.services.CloudException;
 import eu.geekhome.asymptote.services.CloudUserService;
@@ -26,16 +23,21 @@ import eu.geekhome.asymptote.validation.ValidationContext;
 
 public class ResetPasswordDarkViewModel extends ViewModel<FragmentResetPasswordDarkBinding> {
     private final ValidationContext _validation = new ValidationContext();
-    @Inject CloudUserService _cloudUserService;
-    @Inject Context _context;
-    @Inject ToastService _toastService;
+    private final CloudUserService _cloudUserService;
+    private final Context _context;
+    private final ToastService _toastService;
     private String _email;
-    @Inject NavigationService _navigationService;
+    private final NavigationService _navigationService;
     private SplashViewModel _splashViewModel;
 
-    public ResetPasswordDarkViewModel(ActivityComponent activityComponent, SplashViewModel splashViewModel) {
-        super(activityComponent);
+    public ResetPasswordDarkViewModel(Context context, CloudUserService cloudUserService,
+                                      ToastService toastService, NavigationService navigationService,
+                                      SplashViewModel splashViewModel) {
+        _cloudUserService = cloudUserService;
+        _toastService = toastService;
+        _navigationService = navigationService;
         _splashViewModel = splashViewModel;
+        _context = context;
     }
 
     public void resetPassword(@NonNull final View view) {
@@ -77,11 +79,6 @@ public class ResetPasswordDarkViewModel extends ViewModel<FragmentResetPasswordD
         FragmentResetPasswordDarkBinding binding = DataBindingUtil.inflate(inflater, R.layout.fragment_reset_password_dark, container, false);
         binding.setVm(this);
         return binding;
-    }
-
-    @Override
-    protected void doInject(ActivityComponent activityComponent) {
-        activityComponent.inject(this);
     }
 
     @Bindable

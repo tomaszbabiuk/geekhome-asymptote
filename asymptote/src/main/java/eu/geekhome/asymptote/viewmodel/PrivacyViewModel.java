@@ -15,15 +15,15 @@ import eu.geekhome.asymptote.dependencyinjection.activity.ActivityComponent;
 import eu.geekhome.asymptote.services.PrivacyService;
 
 public class PrivacyViewModel extends BaseObservable {
-    @Inject PrivacyService _privacyService;
-    @Inject Activity _activity;
-
+    private final PrivacyService _privacyService;
+    private final Activity _activity;
     private final Spanned _privacyText;
     private boolean _showAgreement;
     private boolean _bottomReached;
 
-    public PrivacyViewModel(ActivityComponent activityComponent, boolean showAgreement) {
-        activityComponent.inject(this);
+    public PrivacyViewModel(PrivacyService privacyService, Activity activity, boolean showAgreement) {
+        _privacyService = privacyService;
+        _activity = activity;
         _showAgreement = showAgreement;
         _privacyText = Html.fromHtml(_activity.getString(R.string.terms_and_privacy_html));
     }

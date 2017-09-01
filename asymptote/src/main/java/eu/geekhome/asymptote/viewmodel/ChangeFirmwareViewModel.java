@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import javax.inject.Inject;
 
 import eu.geekhome.asymptote.R;
+import eu.geekhome.asymptote.bindingutils.InjectedViewModel;
 import eu.geekhome.asymptote.bindingutils.LayoutHolder;
 import eu.geekhome.asymptote.bindingutils.ViewModel;
 import eu.geekhome.asymptote.databinding.FragmentChangeFirmwareBinding;
@@ -20,7 +21,7 @@ import eu.geekhome.asymptote.services.EmergencyManager;
 import eu.geekhome.asymptote.services.FirmwareRepository;
 
 
-public class ChangeFirmwareViewModel extends ViewModel<FragmentChangeFirmwareBinding> {
+public class ChangeFirmwareViewModel extends InjectedViewModel<FragmentChangeFirmwareBinding> {
 
     private ObservableArrayList<LayoutHolder> _firmwares;
     private HelpActionBarViewModel _actionBarModel;

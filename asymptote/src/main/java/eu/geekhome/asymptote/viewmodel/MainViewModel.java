@@ -20,6 +20,7 @@ import javax.inject.Inject;
 
 import eu.geekhome.asymptote.BR;
 import eu.geekhome.asymptote.R;
+import eu.geekhome.asymptote.bindingutils.InjectedViewModel;
 import eu.geekhome.asymptote.bindingutils.LayoutHolder;
 import eu.geekhome.asymptote.bindingutils.ViewModel;
 import eu.geekhome.asymptote.bindingutils.controls.SimpleHeaderDecoration;
@@ -43,7 +44,7 @@ import eu.geekhome.asymptote.services.WiFiHelper;
 import eu.geekhome.asymptote.utils.ByteUtils;
 import eu.geekhome.asymptote.utils.Ticker;
 
-public class MainViewModel extends ViewModel<FragmentMainBinding> implements SyncListener, SensorItemViewModel.SensorLifecycleListener {
+public class MainViewModel extends InjectedViewModel<FragmentMainBinding> implements SyncListener, SensorItemViewModel.SensorLifecycleListener {
     private ArrayList<DeviceSnapshot> _deviceSnapshots;
     private final Hashtable<InetAddress, Byte[]> _firebaseDevices;
     private ObservableArrayList<LayoutHolder> _sensors = new ObservableArrayList<>();

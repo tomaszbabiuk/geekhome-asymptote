@@ -9,6 +9,7 @@ import javax.inject.Inject;
 
 import eu.geekhome.asymptote.BR;
 import eu.geekhome.asymptote.R;
+import eu.geekhome.asymptote.bindingutils.InjectedViewModel;
 import eu.geekhome.asymptote.bindingutils.ViewModel;
 import eu.geekhome.asymptote.bindingutils.viewparams.ShowBackButtonInToolbarViewParam;
 import eu.geekhome.asymptote.databinding.FragmentProfileBinding;
@@ -18,7 +19,7 @@ import eu.geekhome.asymptote.services.CloudException;
 import eu.geekhome.asymptote.services.CloudUserService;
 import eu.geekhome.asymptote.services.NavigationService;
 
-public class ProfileViewModel extends ViewModel<FragmentProfileBinding> {
+public class ProfileViewModel extends InjectedViewModel<FragmentProfileBinding> {
     private final HelpActionBarViewModel _actionBarModel;
     private CloudUser _user;
     private String _errorMessage;

@@ -4,23 +4,23 @@ import android.databinding.DataBindingUtil;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
-import javax.inject.Inject;
-
 import eu.geekhome.asymptote.R;
 import eu.geekhome.asymptote.bindingutils.ViewModel;
 import eu.geekhome.asymptote.bindingutils.viewparams.ShowBackButtonInToolbarViewParam;
 import eu.geekhome.asymptote.databinding.FragmentSignInBinding;
-import eu.geekhome.asymptote.dependencyinjection.activity.ActivityComponent;
 import eu.geekhome.asymptote.services.NavigationService;
+import eu.geekhome.asymptote.services.impl.SplashViewModelsFactory;
 
 public class SignInViewModel extends ViewModel<FragmentSignInBinding> {
     private final SplashViewModel _splashViewModel;
 
-    @Inject NavigationService _navigationService;
+    private final NavigationService _navigationService;
+    private final SplashViewModelsFactory _factory;
 
-    public SignInViewModel(ActivityComponent activityComponent, SplashViewModel splashViewModel) {
-        super(activityComponent);
+    public SignInViewModel(NavigationService navigationService, SplashViewModelsFactory factory, SplashViewModel splashViewModel) {
         _splashViewModel = splashViewModel;
+        _navigationService = navigationService;
+        _factory = factory;
     }
 
     @Override
@@ -30,20 +30,15 @@ public class SignInViewModel extends ViewModel<FragmentSignInBinding> {
         return binding;
     }
 
-    @Override
-    protected void doInject(ActivityComponent activityComponent) {
-        activityComponent.inject(this);
-    }
-
     public void signInWithEmail() {
-        LoginViewModel loginViewModel = new LoginViewModel(getActivityComponent(), _splashViewModel);
+        LoginViewModel loginViewModel = _factory.createLoginViewModel(_splashViewModel);
         _navigationService.showViewModel(loginViewModel);
     }
 
     public void signUp() {
         _splashViewModel.setErrorMessage(null);
-        _navigationService.showViewModel(new SignUpDarkViewModel(getActivityComponent(), _splashViewModel),
-                new ShowBackButtonInToolbarViewParam());
+        SignUpDarkViewModel signUpDarkViewModel = _factory.createSignUpDarkViewModel(_splashViewModel);
+        _navigationService.showViewModel(signUpDarkViewModel, new ShowBackButtonInToolbarViewParam());
     }
 
     public void signInEmergency() {
@@ -51,8 +46,7 @@ public class SignInViewModel extends ViewModel<FragmentSignInBinding> {
     }
 
     public void resetPassword() {
-        ResetPasswordDarkViewModel resetPasswordViewModel = new ResetPasswordDarkViewModel(
-                getActivityComponent(), _splashViewModel);
+        ResetPasswordDarkViewModel resetPasswordViewModel = _factory.createResetPasswordDarkViewModel(_splashViewModel);
         _navigationService.showViewModel(resetPasswordViewModel);
     }
 }

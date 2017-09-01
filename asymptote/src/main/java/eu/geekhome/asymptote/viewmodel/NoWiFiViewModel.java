@@ -9,13 +9,14 @@ import javax.inject.Inject;
 
 import eu.geekhome.asymptote.BR;
 import eu.geekhome.asymptote.R;
+import eu.geekhome.asymptote.bindingutils.InjectedViewModel;
 import eu.geekhome.asymptote.bindingutils.ViewModel;
 import eu.geekhome.asymptote.databinding.FragmentOverlayNowifiBinding;
 import eu.geekhome.asymptote.dependencyinjection.activity.ActivityComponent;
 import eu.geekhome.asymptote.services.NavigationService;
 import eu.geekhome.asymptote.services.WiFiHelper;
 
-public class NoWiFiViewModel extends ViewModel<FragmentOverlayNowifiBinding> {
+public class NoWiFiViewModel extends InjectedViewModel<FragmentOverlayNowifiBinding> {
     @Inject WiFiHelper _wifiHelper;
     @Inject NavigationService _navigationService;
     private boolean _cloudOnlyAllowed;

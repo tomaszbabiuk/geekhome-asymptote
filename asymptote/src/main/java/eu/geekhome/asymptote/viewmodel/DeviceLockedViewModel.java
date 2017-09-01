@@ -7,12 +7,13 @@ import android.view.ViewGroup;
 import javax.inject.Inject;
 
 import eu.geekhome.asymptote.R;
+import eu.geekhome.asymptote.bindingutils.InjectedViewModel;
 import eu.geekhome.asymptote.bindingutils.ViewModel;
 import eu.geekhome.asymptote.databinding.DialogDeviceLockedBinding;
 import eu.geekhome.asymptote.dependencyinjection.activity.ActivityComponent;
 import eu.geekhome.asymptote.services.NavigationService;
 
-public class DeviceLockedViewModel extends ViewModel<DialogDeviceLockedBinding> {
+public class DeviceLockedViewModel extends InjectedViewModel<DialogDeviceLockedBinding> {
     @Inject
     NavigationService _navigationService;
 

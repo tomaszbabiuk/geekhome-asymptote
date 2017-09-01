@@ -6,11 +6,12 @@ import android.databinding.ViewDataBinding;
 import javax.inject.Inject;
 
 import eu.geekhome.asymptote.BR;
+import eu.geekhome.asymptote.bindingutils.InjectedViewModel;
 import eu.geekhome.asymptote.bindingutils.ViewModel;
 import eu.geekhome.asymptote.dependencyinjection.activity.ActivityComponent;
 import eu.geekhome.asymptote.services.NavigationService;
 
-abstract class XStatRoleDetailsViewModelBase<T extends ViewDataBinding> extends ViewModel<T> {
+abstract class XStatRoleDetailsViewModelBase<T extends ViewDataBinding> extends InjectedViewModel<T> {
     private final boolean _reset;
     private final EditSensorViewModel _parent;
     private HelpActionBarViewModel _actionBarModel;

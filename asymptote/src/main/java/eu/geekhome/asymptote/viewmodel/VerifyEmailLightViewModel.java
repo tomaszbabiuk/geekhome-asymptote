@@ -14,6 +14,7 @@ import javax.inject.Inject;
 
 import eu.geekhome.asymptote.BR;
 import eu.geekhome.asymptote.R;
+import eu.geekhome.asymptote.bindingutils.InjectedViewModel;
 import eu.geekhome.asymptote.bindingutils.ViewModel;
 import eu.geekhome.asymptote.databinding.FragmentVerifyEmailLightBinding;
 import eu.geekhome.asymptote.dependencyinjection.activity.ActivityComponent;
@@ -23,7 +24,7 @@ import eu.geekhome.asymptote.services.CloudUserService;
 import eu.geekhome.asymptote.services.NavigationService;
 import eu.geekhome.asymptote.utils.Ticker;
 
-public class VerifyEmailLightViewModel extends ViewModel {
+public class VerifyEmailLightViewModel extends InjectedViewModel<FragmentVerifyEmailLightBinding> {
     private final HelpActionBarViewModel _actionBarModel;
     private String _instruction;
     private Ticker _verificationTicker;
@@ -100,7 +101,7 @@ public class VerifyEmailLightViewModel extends ViewModel {
     }
 
     @Override
-    public ViewDataBinding createBinding(LayoutInflater inflater, ViewGroup container) {
+    public FragmentVerifyEmailLightBinding createBinding(LayoutInflater inflater, ViewGroup container) {
         FragmentVerifyEmailLightBinding binding = DataBindingUtil.inflate(inflater, R.layout.fragment_verify_email_light, container, false);
         binding.setVm(this);
         Animation rotateAnimation = AnimationUtils.loadAnimation(_context, R.anim.rotate_around_center_point_linear);

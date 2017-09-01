@@ -10,37 +10,35 @@ import android.view.ViewGroup;
 
 import com.android.databinding.library.baseAdapters.BR;
 
-import javax.inject.Inject;
-
 import eu.geekhome.asymptote.R;
 import eu.geekhome.asymptote.bindingutils.ViewModel;
 import eu.geekhome.asymptote.databinding.FragmentSignUpDarkBinding;
-import eu.geekhome.asymptote.dependencyinjection.activity.ActivityComponent;
 import eu.geekhome.asymptote.model.CloudUser;
 import eu.geekhome.asymptote.services.CloudException;
 import eu.geekhome.asymptote.services.CloudUserService;
 import eu.geekhome.asymptote.services.NavigationService;
+import eu.geekhome.asymptote.services.impl.SplashViewModelsFactory;
 import eu.geekhome.asymptote.utils.KeyboardHelper;
 import eu.geekhome.asymptote.validation.ValidationContext;
 
 public class SignUpDarkViewModel extends ViewModel<FragmentSignUpDarkBinding> {
-    @Inject
-    CloudUserService _cloudUserService;
-
-    @Inject
-    Context _context;
-
-    @Inject
-    NavigationService _navigationService;
+    private final CloudUserService _cloudUserService;
+    private final Context _context;
+    private final NavigationService _navigationService;
 
     private String _email;
     private final ValidationContext _validation = new ValidationContext();
     private String _password;
     private String _confirmPassword;
+    private SplashViewModelsFactory _factory;
     private SplashViewModel _splashViewModel;
 
-    public SignUpDarkViewModel(ActivityComponent activityComponent, SplashViewModel splashViewModel) {
-        super(activityComponent);
+    public SignUpDarkViewModel(SplashViewModelsFactory factory, Context context, NavigationService navigationService,
+                               CloudUserService cloudUserService, SplashViewModel splashViewModel) {
+        _context = context;
+        _factory = factory;
+        _navigationService = navigationService;
+        _cloudUserService = cloudUserService;
         _splashViewModel = splashViewModel;
     }
 
@@ -55,7 +53,8 @@ public class SignUpDarkViewModel extends ViewModel<FragmentSignUpDarkBinding> {
                 @Override
                 public void success(CloudUser user) {
                     String verificationMessage = _context.getString(R.string.email_verify_success, getEmail());
-                    VerifyEmailDarkViewModel verifyViewModel = new VerifyEmailDarkViewModel(getActivityComponent(), getEmail(),
+
+                    VerifyEmailDarkViewModel verifyViewModel = _factory.createVerifyEmailDarkViewModel(getEmail(),
                             getPassword(), verificationMessage, _splashViewModel);
                     _navigationService.showViewModel(verifyViewModel);
                 }
@@ -76,11 +75,6 @@ public class SignUpDarkViewModel extends ViewModel<FragmentSignUpDarkBinding> {
         FragmentSignUpDarkBinding binding = DataBindingUtil.inflate(inflater, R.layout.fragment_sign_up_dark, container, false);
         binding.setVm(this);
         return binding;
-    }
-
-    @Override
-    protected void doInject(ActivityComponent activityComponent) {
-        activityComponent.inject(this);
     }
 
     @Bindable

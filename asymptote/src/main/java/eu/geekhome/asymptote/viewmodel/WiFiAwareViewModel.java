@@ -4,13 +4,14 @@ import android.databinding.ViewDataBinding;
 
 import javax.inject.Inject;
 
+import eu.geekhome.asymptote.bindingutils.InjectedViewModel;
 import eu.geekhome.asymptote.bindingutils.ViewModel;
 import eu.geekhome.asymptote.dependencyinjection.activity.ActivityComponent;
 import eu.geekhome.asymptote.services.NavigationService;
 import eu.geekhome.asymptote.services.WiFiChangedListener;
 import eu.geekhome.asymptote.services.WiFiHelper;
 
-public abstract class WiFiAwareViewModel<T extends ViewDataBinding> extends ViewModel<T> implements WiFiChangedListener {
+public abstract class WiFiAwareViewModel<T extends ViewDataBinding> extends InjectedViewModel<T> implements WiFiChangedListener {
     @Inject WiFiHelper _wifiHelper;
     @Inject NavigationService _navigationService;
 

@@ -15,11 +15,8 @@ import com.google.firebase.auth.FirebaseAuthUserCollisionException;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.FirebaseDatabase;
 
-import java.util.ArrayList;
-
 import eu.geekhome.asymptote.R;
 import eu.geekhome.asymptote.model.CloudUser;
-import eu.geekhome.asymptote.model.DeviceSnapshot;
 import eu.geekhome.asymptote.services.CloudActionCallback;
 import eu.geekhome.asymptote.services.CloudException;
 import eu.geekhome.asymptote.services.CloudUserService;

@@ -5,8 +5,6 @@ import android.databinding.ViewDataBinding;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
-import eu.geekhome.asymptote.dependencyinjection.activity.ActivityComponent;
-
 public abstract class ViewModel<T extends ViewDataBinding> extends BaseObservable {
     private T _binding;
 

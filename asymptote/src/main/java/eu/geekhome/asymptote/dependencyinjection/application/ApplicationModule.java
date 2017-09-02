@@ -5,20 +5,24 @@ import android.content.Context;
 
 import dagger.Module;
 import dagger.Provides;
-import eu.geekhome.asymptote.services.CloudDeviceService;
-import eu.geekhome.asymptote.services.CloudUserService;
+import eu.geekhome.asymptote.MainActivityComponent;
+import eu.geekhome.asymptote.SplashActivityComponent;
+import eu.geekhome.asymptote.services.CloudCertificateChecker;
 import eu.geekhome.asymptote.services.EmergencyManager;
 import eu.geekhome.asymptote.services.FirmwareRepository;
+import eu.geekhome.asymptote.services.PrivacyService;
 import eu.geekhome.asymptote.services.WiFiHelper;
 import eu.geekhome.asymptote.services.WiFiParamsResolver;
 import eu.geekhome.asymptote.services.impl.AndroidWiFiHelper;
 import eu.geekhome.asymptote.services.impl.AndroidWiFiParamsResolver;
-import eu.geekhome.asymptote.services.impl.FirebaseCloudDeviceService;
-import eu.geekhome.asymptote.services.impl.FirebaseCloudUserService;
+import eu.geekhome.asymptote.services.impl.FirebaseCertificateChecker;
 import eu.geekhome.asymptote.services.impl.MemoryEmergencyManager;
+import eu.geekhome.asymptote.services.impl.PreferencesPrivacyService;
 import eu.geekhome.asymptote.services.impl.ResourcesBasedFirmwareRepository;
 
-@Module
+@Module(subcomponents = {
+        MainActivityComponent.class,
+        SplashActivityComponent.class})
 public class ApplicationModule {
     private Application _application;
 
@@ -28,7 +32,7 @@ public class ApplicationModule {
 
     @Provides
     @ApplicationScope
-    Application provideApplication() {
+    Context provideContext() {
         return _application;
     }
 
@@ -56,4 +60,15 @@ public class ApplicationModule {
         return new AndroidWiFiHelper(_application);
     }
 
+    @Provides
+    @ApplicationScope
+    PrivacyService providePrivacyService() {
+        return new PreferencesPrivacyService(_application);
+    }
+
+    @Provides
+    @ApplicationScope
+    CloudCertificateChecker provideCloudChecker() {
+        return new FirebaseCertificateChecker("https://asymptote-769eb.firebaseio.com");
+    }
 }

@@ -1,34 +1,31 @@
 package eu.geekhome.asymptote;
 
+import android.app.Activity;
 import android.app.Application;
-import android.content.Context;
-import android.support.annotation.UiThread;
 
-import eu.geekhome.asymptote.dependencyinjection.application.ApplicationComponent;
+import javax.inject.Inject;
+
+import dagger.android.DispatchingAndroidInjector;
+import dagger.android.HasActivityInjector;
 import eu.geekhome.asymptote.dependencyinjection.application.ApplicationModule;
-import eu.geekhome.asymptote.dependencyinjection.application.DaggerApplicationComponent;
+import eu.geekhome.asymptote.dependencyinjection.application.DaggerAsymptoteAppComponent;
 
-public class AsymptoteApp extends Application {
-    private ApplicationComponent _applicationComponent;
-
-    public static AsymptoteApp get(Context context) {
-        return (AsymptoteApp) context.getApplicationContext();
-    }
-
-    @UiThread
-    public ApplicationComponent getApplicationComponent() {
-        if (_applicationComponent == null) {
-            _applicationComponent = DaggerApplicationComponent.builder()
-                    .applicationModule(new ApplicationModule(this))
-                    .build();
-        }
-
-        return _applicationComponent;
-    }
+public class AsymptoteApp extends Application implements HasActivityInjector {
+    @Inject
+    DispatchingAndroidInjector<Activity> dispatchingAndroidInjector;
 
     @Override
     public void onCreate() {
-        getApplicationComponent().inject(this);
         super.onCreate();
+        DaggerAsymptoteAppComponent
+                .builder()
+                .applicationModule(new ApplicationModule(this))
+                .build().
+                inject(this);
+    }
+
+    @Override
+    public DispatchingAndroidInjector<Activity> activityInjector() {
+        return dispatchingAndroidInjector;
     }
 }

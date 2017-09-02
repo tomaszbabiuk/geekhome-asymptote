@@ -5,6 +5,7 @@ import android.content.Context;
 
 import javax.inject.Inject;
 
+import eu.geekhome.asymptote.SplashActivity;
 import eu.geekhome.asymptote.services.CloudDeviceService;
 import eu.geekhome.asymptote.services.CloudUserService;
 import eu.geekhome.asymptote.services.NavigationService;
@@ -29,9 +30,9 @@ public class SplashViewModelsFactory {
     private final Activity _activity;
 
     @Inject
-    SplashViewModelsFactory(Context context, Activity activity, CloudUserService cloudUserService, CloudDeviceService cloudDeviceService,
+    SplashViewModelsFactory(SplashActivity activity, CloudUserService cloudUserService, CloudDeviceService cloudDeviceService,
                             ToastService toastService, NavigationService navigationService, PrivacyService privacyService) {
-        _context = context;
+        _context = activity.getApplicationContext();
         _activity = activity;
         _cloudUserService = cloudUserService;
         _cloudDeviceService = cloudDeviceService;

@@ -12,12 +12,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AccelerateDecelerateInterpolator;
 
-import javax.inject.Inject;
-
 import eu.geekhome.asymptote.R;
 import eu.geekhome.asymptote.bindingutils.viewparams.ShowBackButtonInToolbarViewParam;
 import eu.geekhome.asymptote.databinding.FragmentTouchPressBinding;
-import eu.geekhome.asymptote.dependencyinjection.activity.ActivityComponent;
 import eu.geekhome.asymptote.model.WiFiParameters;
 import eu.geekhome.asymptote.services.NavigationService;
 import eu.geekhome.asymptote.services.WiFiHelper;

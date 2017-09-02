@@ -8,12 +8,9 @@ import android.graphics.Color;
 import java.util.Collection;
 import java.util.Locale;
 
-import javax.inject.Inject;
-
 import eu.geekhome.asymptote.BR;
 import eu.geekhome.asymptote.R;
 import eu.geekhome.asymptote.bindingutils.LayoutHolder;
-import eu.geekhome.asymptote.dependencyinjection.activity.ActivityComponent;
 import eu.geekhome.asymptote.model.DeviceSyncData;
 import eu.geekhome.asymptote.services.ColorDialogService;
 import eu.geekhome.asymptote.services.ColorPickedListener;

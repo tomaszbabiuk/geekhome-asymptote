@@ -2,13 +2,14 @@ package eu.geekhome.asymptote;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 
 import java.util.ArrayList;
 
 import javax.inject.Inject;
 
-import eu.geekhome.asymptote.dependencyinjection.activity.ActivityComponent;
+import dagger.android.AndroidInjection;
 import eu.geekhome.asymptote.model.DeviceSnapshot;
 import eu.geekhome.asymptote.model.UserSnapshot;
 import eu.geekhome.asymptote.services.EmergencyManager;
@@ -16,7 +17,7 @@ import eu.geekhome.asymptote.services.NavigationService;
 import eu.geekhome.asymptote.services.impl.MainViewModelsFactory;
 import eu.geekhome.asymptote.viewmodel.MainViewModel;
 
-public class MainActivity extends InjectedActivity {
+public class MainActivity extends AppCompatActivity {
     public static final String INTENT_USER_ID = "INTENT_USER_ID";
     public static final String INTENT_EMERGENCY = "INTENT_EMERGENCY";
     public static final String INTENT_EMERGENCY_PASSWORD = "INTENT_EMERGENCY_PASSWORD";
@@ -52,6 +53,7 @@ public class MainActivity extends InjectedActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        AndroidInjection.inject(this);
         setContentView(R.layout.activity_stack);
 
         String userId = getIntent().getStringExtra(INTENT_USER_ID);
@@ -72,11 +74,6 @@ public class MainActivity extends InjectedActivity {
         _emergencyManager.setPassword(userSnapshot.getEmergencyPassword());
         MainViewModel mainViewModel = _factory.createMainViewModel(userId, userSnapshot);
         _navigationService.showViewModel(mainViewModel);
-    }
-
-    @Override
-    protected void doInject(ActivityComponent activityComponent) {
-        activityComponent.inject(this);
     }
 
     @Override

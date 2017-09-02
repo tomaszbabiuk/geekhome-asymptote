@@ -4,14 +4,15 @@ import android.content.Context;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 
 import javax.inject.Inject;
 
+import dagger.android.AndroidInjection;
 import eu.geekhome.asymptote.databinding.ActivityPrivacyBinding;
 import eu.geekhome.asymptote.databinding.ActivitySplashBinding;
-import eu.geekhome.asymptote.dependencyinjection.activity.ActivityComponent;
 import eu.geekhome.asymptote.services.NavigationService;
 import eu.geekhome.asymptote.services.PrivacyService;
 import eu.geekhome.asymptote.services.impl.SplashViewModelsFactory;
@@ -19,7 +20,7 @@ import eu.geekhome.asymptote.viewmodel.PrivacyViewModel;
 import eu.geekhome.asymptote.viewmodel.SplashViewModel;
 import eu.geekhome.controls.ScrollViewExt;
 
-public class SplashActivity extends InjectedActivity {
+public class SplashActivity extends AppCompatActivity {
 
     public static final String INTENT_SHOW_PRIVACY_AT_START = "INTENT_SHOW_PRIVACY_AT_START";
 
@@ -37,6 +38,7 @@ public class SplashActivity extends InjectedActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        AndroidInjection.inject(this);
 
         boolean showPrivacyAtStart = getIntent().getBooleanExtra(INTENT_SHOW_PRIVACY_AT_START, false);
         if (_privacyService.isAccepted() && !showPrivacyAtStart) {
@@ -57,11 +59,6 @@ public class SplashActivity extends InjectedActivity {
                 }
             });
         }
-    }
-
-    @Override
-    protected void doInject(ActivityComponent activityComponent) {
-        activityComponent.inject(this);
     }
 
     @Override

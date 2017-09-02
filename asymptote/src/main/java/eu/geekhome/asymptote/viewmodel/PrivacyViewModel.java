@@ -6,12 +6,9 @@ import android.databinding.Bindable;
 import android.text.Html;
 import android.text.Spanned;
 
-import javax.inject.Inject;
-
 import eu.geekhome.asymptote.BR;
 import eu.geekhome.asymptote.R;
 import eu.geekhome.asymptote.SplashActivity;
-import eu.geekhome.asymptote.dependencyinjection.activity.ActivityComponent;
 import eu.geekhome.asymptote.services.PrivacyService;
 
 public class PrivacyViewModel extends BaseObservable {

@@ -5,6 +5,7 @@ import android.app.Application;
 
 import javax.inject.Inject;
 
+import dagger.android.AndroidInjector;
 import dagger.android.DispatchingAndroidInjector;
 import dagger.android.HasActivityInjector;
 import eu.geekhome.asymptote.dependencyinjection.application.ApplicationModule;
@@ -12,20 +13,25 @@ import eu.geekhome.asymptote.dependencyinjection.application.DaggerAsymptoteAppC
 
 public class AsymptoteApp extends Application implements HasActivityInjector {
     @Inject
-    DispatchingAndroidInjector<Activity> dispatchingAndroidInjector;
+    DispatchingAndroidInjector<Activity> _dispatchingAndroidInjector;
+
 
     @Override
     public void onCreate() {
         super.onCreate();
-        DaggerAsymptoteAppComponent
+        AndroidInjector<AsymptoteApp> asymptoteAppComponent = createComponent();
+        asymptoteAppComponent.inject(this);
+    }
+
+    protected AndroidInjector<AsymptoteApp> createComponent() {
+        return DaggerAsymptoteAppComponent
                 .builder()
                 .applicationModule(new ApplicationModule(this))
-                .build().
-                inject(this);
+                .build();
     }
 
     @Override
     public DispatchingAndroidInjector<Activity> activityInjector() {
-        return dispatchingAndroidInjector;
+        return _dispatchingAndroidInjector;
     }
 }

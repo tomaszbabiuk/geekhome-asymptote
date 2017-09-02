@@ -25,7 +25,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="0dp"
             android:layout_marginRight="8dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="0dp"
             android:text="@{vm.message}"
             android:textColor="@color/white"
             app:layout_constraintLeft_toLeftOf="parent"
@@ -59,7 +59,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="35dp"
                 android:layout_marginBottom="@dimen/common_small_padding"
-                android:visibility='@{!vm.value.equals("stopped") &amp;&amp; !vm.value.equals("openingerror") &amp;&amp; !vm.value.equals("closingerror") ? View.VISIBLE : View.GONE}'
+                android:visibility='@{!vm.value.equals("openingerror") &amp;&amp; !vm.value.equals("closingerror") ? View.VISIBLE : View.GONE}'
                 app:background="@{@drawable/orange_button_selector}"
                 app:iconId="@{R.raw.emergencystop}"
                 app:onClick="@{() -> vm.stopRelease()}"

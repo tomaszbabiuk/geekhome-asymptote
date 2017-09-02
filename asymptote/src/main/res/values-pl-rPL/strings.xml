@@ -300,7 +300,7 @@
     <string name="open">Otwórz</string>
     <string name="close">Zamknij</string>
     <string name="na">n/d</string>
-    <string name="gate_open">Brama otwara</string>
+    <string name="gate_open">Brama otwarta</string>
     <string name="gate_closed">Brama zamknięta</string>
     <string name="gate_stopped">Brama zablokowana</string>
     <string name="gate_opening_error">Błąd otwierania</string>

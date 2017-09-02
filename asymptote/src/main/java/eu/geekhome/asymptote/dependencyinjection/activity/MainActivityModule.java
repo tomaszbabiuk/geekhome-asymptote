@@ -119,7 +119,7 @@ public class MainActivityModule {
 
     @Provides
     @ActivityScope
-    CloudDeviceService provideCloudDeviceService() {
-        return new FirebaseCloudDeviceService();
+    CloudDeviceService provideCloudDeviceService(MainActivity mainActivity) {
+        return new FirebaseCloudDeviceService(mainActivity);
     }
 }

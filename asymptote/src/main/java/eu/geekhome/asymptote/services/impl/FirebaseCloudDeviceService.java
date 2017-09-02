@@ -1,5 +1,6 @@
 package eu.geekhome.asymptote.services.impl;
 
+import android.app.Activity;
 import android.support.annotation.NonNull;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -53,11 +54,13 @@ import eu.geekhome.asymptote.services.SyncSource;
 import eu.geekhome.asymptote.utils.Base64Utils;
 
 public class FirebaseCloudDeviceService implements CloudDeviceService {
+    private final Activity _activity;
     private SyncListener _syncListener;
     private Hashtable<DeviceSnapshot, ValueEventListener> _deviceListeners = new Hashtable<>();
 
 
-    public FirebaseCloudDeviceService() {
+    public FirebaseCloudDeviceService(Activity activity) {
+        _activity = activity;
     }
 
     private ValueEventListener createDeviceListener(final DeviceSnapshot deviceSnapshot) {
@@ -220,7 +223,7 @@ public class FirebaseCloudDeviceService implements CloudDeviceService {
                 .child("devices")
                 .child(deviceSnapshot.getChipId());
 
-        usersRef.updateChildren(registers).addOnCompleteListener(new OnCompleteListener<Void>() {
+        usersRef.updateChildren(registers).addOnCompleteListener(_activity, new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 if (task.isComplete()) {
@@ -272,7 +275,7 @@ public class FirebaseCloudDeviceService implements CloudDeviceService {
                 .child("devices")
                 .child(key.getChipId())
                 .removeValue()
-                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                .addOnCompleteListener(_activity, new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         if (callback != null) {
@@ -418,7 +421,7 @@ public class FirebaseCloudDeviceService implements CloudDeviceService {
                                 .child(token)
                                 .child("orders");
 
-                        ordersRef.updateChildren(orders).addOnCompleteListener(new OnCompleteListener<Void>() {
+                        ordersRef.updateChildren(orders).addOnCompleteListener(_activity, new OnCompleteListener<Void>() {
                             @Override
                             public void onComplete(@NonNull Task<Void> task) {
                                 if (task.isSuccessful()) {
@@ -452,7 +455,7 @@ public class FirebaseCloudDeviceService implements CloudDeviceService {
                 .child(token)
                 .child("cert");
 
-        ordersRef.updateChildren(data).addOnCompleteListener(new OnCompleteListener<Void>() {
+        ordersRef.updateChildren(data).addOnCompleteListener(_activity, new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 if (task.isSuccessful()) {
@@ -473,6 +476,6 @@ public class FirebaseCloudDeviceService implements CloudDeviceService {
                 .getReference("devices")
                 .child(userId)
                 .child(token)
-                .child("orders").removeValue().addOnCompleteListener(callback);
+                .child("orders").removeValue().addOnCompleteListener(_activity, callback);
     }
 }

@@ -121,6 +121,6 @@ public class SplashActivityModule {
     @Provides
     @ActivityScope
     CloudDeviceService provideCloudDeviceService(SplashActivity splashActivity) {
-        return new FirebaseCloudDeviceService();
+        return new FirebaseCloudDeviceService(splashActivity);
     }
 }

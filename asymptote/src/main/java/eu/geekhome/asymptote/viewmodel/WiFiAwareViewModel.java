@@ -2,24 +2,24 @@ package eu.geekhome.asymptote.viewmodel;
 
 import android.databinding.ViewDataBinding;
 
-import javax.inject.Inject;
-
-import eu.geekhome.asymptote.bindingutils.InjectedViewModel;
 import eu.geekhome.asymptote.bindingutils.ViewModel;
-import eu.geekhome.asymptote.dependencyinjection.activity.ActivityComponent;
 import eu.geekhome.asymptote.services.NavigationService;
 import eu.geekhome.asymptote.services.WiFiChangedListener;
 import eu.geekhome.asymptote.services.WiFiHelper;
+import eu.geekhome.asymptote.services.impl.MainViewModelsFactory;
 
-public abstract class WiFiAwareViewModel<T extends ViewDataBinding> extends InjectedViewModel<T> implements WiFiChangedListener {
-    @Inject WiFiHelper _wifiHelper;
-    @Inject NavigationService _navigationService;
+public abstract class WiFiAwareViewModel<T extends ViewDataBinding> extends ViewModel<T> implements WiFiChangedListener {
+    private final MainViewModelsFactory _factory;
+    private final WiFiHelper _wifiHelper;
+    private final NavigationService _navigationService;
 
     protected abstract boolean isCloudOnlyAllowed();
     protected abstract String getNoWiFiRationale();
 
-    public WiFiAwareViewModel(ActivityComponent activityComponent) {
-        super(activityComponent);
+    public WiFiAwareViewModel(MainViewModelsFactory factory, WiFiHelper wiFiHelper, NavigationService navigationService) {
+        _factory = factory;
+        _wifiHelper = wiFiHelper;
+        _navigationService = navigationService;
     }
 
     @Override
@@ -38,8 +38,7 @@ public abstract class WiFiAwareViewModel<T extends ViewDataBinding> extends Inje
     }
 
     private void showNoWiFiOverlay() {
-        NoWiFiViewModel noWiFiViewModel = new NoWiFiViewModel(getActivityComponent(), isCloudOnlyAllowed(),
-                getNoWiFiRationale());
+        NoWiFiViewModel noWiFiViewModel =  _factory.createNoWiFiViewModel(isCloudOnlyAllowed(), getNoWiFiRationale());
         _navigationService.showOverlayViewModel(noWiFiViewModel);
     }
 

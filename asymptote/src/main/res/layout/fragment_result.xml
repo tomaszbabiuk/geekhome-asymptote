@@ -59,7 +59,7 @@
 
                 <Button
                     style="@style/Touch.NextButton"
-                    android:onClick="@{vm.onDone}"
+                    android:onClick="@{() -> vm.onDone()}"
                     android:text="@string/done"/>
             </LinearLayout>
         </LinearLayout>

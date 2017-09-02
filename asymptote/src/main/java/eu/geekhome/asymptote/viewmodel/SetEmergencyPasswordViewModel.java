@@ -7,13 +7,9 @@ import android.view.ViewGroup;
 
 import com.android.databinding.library.baseAdapters.BR;
 
-import javax.inject.Inject;
-
 import eu.geekhome.asymptote.R;
-import eu.geekhome.asymptote.bindingutils.InjectedViewModel;
 import eu.geekhome.asymptote.bindingutils.ViewModel;
 import eu.geekhome.asymptote.databinding.DialogSetEmergencyPasswordBinding;
-import eu.geekhome.asymptote.dependencyinjection.activity.ActivityComponent;
 import eu.geekhome.asymptote.services.CloudActionCallback;
 import eu.geekhome.asymptote.services.CloudException;
 import eu.geekhome.asymptote.services.CloudUserService;
@@ -23,15 +19,11 @@ import eu.geekhome.asymptote.services.ToastService;
 import eu.geekhome.asymptote.utils.KeyboardHelper;
 import eu.geekhome.asymptote.validation.ValidationContext;
 
-public class SetEmergencyPasswordViewModel extends InjectedViewModel<DialogSetEmergencyPasswordBinding> {
-    @Inject
-    NavigationService _navigationService;
-    @Inject
-    EmergencyManager _emergencyManager;
-    @Inject
-    CloudUserService _cloudUserService;
-    @Inject
-    ToastService _toastService;
+public class SetEmergencyPasswordViewModel extends ViewModel<DialogSetEmergencyPasswordBinding> {
+    private final NavigationService _navigationService;
+    private final EmergencyManager _emergencyManager;
+    private final CloudUserService _cloudUserService;
+    private final ToastService _toastService;
 
     private boolean _rememberPassword;
     private String _password;
@@ -41,9 +33,13 @@ public class SetEmergencyPasswordViewModel extends InjectedViewModel<DialogSetEm
     private boolean _emergency;
 
 
-    public SetEmergencyPasswordViewModel(ActivityComponent activityComponent, MainViewModel mainViewModel,
-                                         String userId) {
-        super(activityComponent);
+    public SetEmergencyPasswordViewModel(NavigationService navigationService, EmergencyManager emergencyManager,
+                                         CloudUserService cloudUserService, ToastService toastService,
+                                         MainViewModel mainViewModel, String userId) {
+        _navigationService = navigationService;
+        _emergencyManager = emergencyManager;
+        _cloudUserService = cloudUserService;
+        _toastService = toastService;
         _mainViewModel = mainViewModel;
         _userId = userId;
         _emergency = _emergencyManager.isEmergency();
@@ -60,11 +56,6 @@ public class SetEmergencyPasswordViewModel extends InjectedViewModel<DialogSetEm
                 R.layout.dialog_set_emergency_password, container, false);
         binding.setVm(this);
         return binding;
-    }
-
-    @Override
-    protected void doInject(ActivityComponent activityComponent) {
-        activityComponent.inject(this);
     }
 
     public void close() {

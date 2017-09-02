@@ -4,34 +4,30 @@ import android.databinding.BaseObservable;
 import android.databinding.Bindable;
 import android.databinding.ViewDataBinding;
 
-import javax.inject.Inject;
-
 import eu.geekhome.asymptote.BR;
 import eu.geekhome.asymptote.R;
 import eu.geekhome.asymptote.bindingutils.LayoutHolder;
-import eu.geekhome.asymptote.dependencyinjection.activity.ActivityComponent;
 import eu.geekhome.asymptote.services.NavigationService;
+import eu.geekhome.asymptote.services.impl.MainViewModelsFactory;
 
 public class SecuredDevicesFoundViewModel extends BaseObservable implements LayoutHolder {
 
     private final MainViewModel _mainViewModel;
-    private final ActivityComponent _activityComponent;
+    private final MainViewModelsFactory _factory;
+    private final NavigationService _navigationService;
     private String _userId;
     private String _addresses;
 
-    @Inject
-    NavigationService _navigationService;
-
-    public SecuredDevicesFoundViewModel(ActivityComponent activityComponent, MainViewModel mainViewModel, String userId) {
-        activityComponent.inject(this);
-        _activityComponent = activityComponent;
+    public SecuredDevicesFoundViewModel(MainViewModelsFactory factory, NavigationService navigationService, MainViewModel mainViewModel, String userId) {
+        _factory = factory;
+        _navigationService = navigationService;
         _mainViewModel = mainViewModel;
         _userId = userId;
     }
 
     public void enterEmergencyPassword() {
         SetEmergencyPasswordViewModel setEmergencyPasswordViewModel =
-                new SetEmergencyPasswordViewModel(_activityComponent, _mainViewModel, _userId);
+                _factory.createSetEmergencyPasswordViewModel(_mainViewModel, _userId);
         _navigationService.showOverlayViewModel(setEmergencyPasswordViewModel);
     }
 
@@ -49,7 +45,7 @@ public class SecuredDevicesFoundViewModel extends BaseObservable implements Layo
         return _addresses;
     }
 
-    public void setAddresses(String addresses) {
+    void setAddresses(String addresses) {
         _addresses = addresses;
         notifyPropertyChanged(BR.addresses);
     }

@@ -20,20 +20,25 @@ import eu.geekhome.asymptote.databinding.FragmentTouchPressBinding;
 import eu.geekhome.asymptote.dependencyinjection.activity.ActivityComponent;
 import eu.geekhome.asymptote.model.WiFiParameters;
 import eu.geekhome.asymptote.services.NavigationService;
+import eu.geekhome.asymptote.services.WiFiHelper;
+import eu.geekhome.asymptote.services.impl.MainViewModelsFactory;
 
 public class TouchPressViewModel extends HelpViewModelBase<FragmentTouchPressBinding> {
     private WiFiParameters _params;
     private boolean _paused;
 
-    @Inject
-    NavigationService _navigationService;
-    @Inject
-    Context _context;
+    private final NavigationService _navigationService;
+    private final Context _context;
+    private final MainViewModelsFactory _factory;
 
 
-    public TouchPressViewModel(ActivityComponent activityComponent, WiFiParameters params) {
-        super(activityComponent);
+    public TouchPressViewModel(Context context, MainViewModelsFactory factory, WiFiHelper wifiHelper,
+                               NavigationService navigationService, WiFiParameters params) {
+        super(factory, wifiHelper, navigationService);
         _params = params;
+        _context = context;
+        _factory = factory;
+        _navigationService = navigationService;
     }
 
     @Override
@@ -109,7 +114,7 @@ public class TouchPressViewModel extends HelpViewModelBase<FragmentTouchPressBin
 
     @SuppressWarnings("unused")
     public void onNext(@NonNull final View view) {
-        TouchProgressViewModel touchProgressViewModel = new TouchProgressViewModel(getActivityComponent(), _params);
+        TouchProgressViewModel touchProgressViewModel = _factory.createTouchProgressViewModel(_params);
         _navigationService.showViewModel(touchProgressViewModel, new ShowBackButtonInToolbarViewParam());
     }
 
@@ -118,10 +123,5 @@ public class TouchPressViewModel extends HelpViewModelBase<FragmentTouchPressBin
         FragmentTouchPressBinding binding = DataBindingUtil.inflate(inflater, R.layout.fragment_touch_press, container, false);
         binding.setVm(this);
         return binding;
-    }
-
-    @Override
-    protected void doInject(ActivityComponent activityComponent) {
-        activityComponent.inject(this);
     }
 }

@@ -15,7 +15,6 @@ import eu.geekhome.asymptote.dependencyinjection.activity.ActivityComponent;
 import eu.geekhome.asymptote.services.NavigationService;
 import eu.geekhome.asymptote.services.PrivacyService;
 import eu.geekhome.asymptote.services.impl.SplashViewModelsFactory;
-import eu.geekhome.asymptote.services.impl.SplashViewModelsFactory;
 import eu.geekhome.asymptote.viewmodel.PrivacyViewModel;
 import eu.geekhome.asymptote.viewmodel.SplashViewModel;
 import eu.geekhome.controls.ScrollViewExt;
@@ -33,8 +32,7 @@ public class SplashActivity extends InjectedActivity {
 
     @Inject PrivacyService _privacyService;
     @Inject NavigationService _navigationService;
-    @Inject
-    SplashViewModelsFactory _factory;
+    @Inject SplashViewModelsFactory _factory;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

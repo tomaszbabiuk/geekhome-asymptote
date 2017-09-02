@@ -7,34 +7,30 @@ import android.databinding.ObservableArrayList;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
-import javax.inject.Inject;
-
 import eu.geekhome.asymptote.BR;
 import eu.geekhome.asymptote.R;
-import eu.geekhome.asymptote.bindingutils.InjectedViewModel;
 import eu.geekhome.asymptote.bindingutils.LayoutHolder;
 import eu.geekhome.asymptote.bindingutils.ViewModel;
 import eu.geekhome.asymptote.bindingutils.viewparams.ShowBackButtonInToolbarViewParam;
 import eu.geekhome.asymptote.databinding.FragmentEditSensorBinding;
-import eu.geekhome.asymptote.dependencyinjection.activity.ActivityComponent;
 import eu.geekhome.asymptote.model.BoardRole;
 import eu.geekhome.asymptote.model.ColorSyncUpdate;
 import eu.geekhome.asymptote.model.NameSyncUpdate;
 import eu.geekhome.asymptote.model.RoleSyncUpdate;
 import eu.geekhome.asymptote.services.NavigationService;
+import eu.geekhome.asymptote.services.impl.MainViewModelsFactory;
 
-public class EditSensorViewModel extends InjectedViewModel<FragmentEditSensorBinding> {
+public class EditSensorViewModel extends ViewModel<FragmentEditSensorBinding> {
 
     private int _newColor;
     private BoardRole _newRole;
     private ObservableArrayList<LayoutHolder> _roles;
     private HelpActionBarViewModel _actionBarModel;
     private final SensorItemViewModel _sensor;
+    private final NavigationService _navigationService;
+    private final Context _context;
+    private final MainViewModelsFactory _factory;
 
-    @Inject
-    NavigationService _navigationService;
-    @Inject
-    Context _context;
 
     @Bindable
     public HelpActionBarViewModel getActionBarModel() {
@@ -57,11 +53,13 @@ public class EditSensorViewModel extends InjectedViewModel<FragmentEditSensorBin
         _newName = value;
     }
 
-    public EditSensorViewModel(ActivityComponent activityComponent, SensorItemViewModel sensor) {
-        super(activityComponent);
+    public EditSensorViewModel(Context context, MainViewModelsFactory factory, NavigationService navigationService, SensorItemViewModel sensor) {
+        _context = context;
+        _factory = factory;
+        _navigationService = navigationService;
         _sensor = sensor;
         _roles = RoleCreator.generateRoles(_context, sensor.getSyncData().getDeviceKey().getBoardId(), this);
-        _actionBarModel = new HelpActionBarViewModel(activityComponent);
+        _actionBarModel = _factory.createHelpActionBarModel();
 
         setNewName(sensor.getSyncData().getName());
         setNewColor(sensor.getSyncData().getColor());
@@ -73,11 +71,6 @@ public class EditSensorViewModel extends InjectedViewModel<FragmentEditSensorBin
         FragmentEditSensorBinding binding = DataBindingUtil.inflate(inflater, R.layout.fragment_edit_sensor, container, false);
         binding.setVm(this);
         return binding;
-    }
-
-    @Override
-    protected void doInject(ActivityComponent activityComponent) {
-        activityComponent.inject(this);
     }
 
     public void chooseColor(int color) {
@@ -99,29 +92,30 @@ public class EditSensorViewModel extends InjectedViewModel<FragmentEditSensorBin
         if (getNewRole() == BoardRole.HEATING_THERMOSTAT) {
             String title = _context.getString(R.string.heating_thermostat_details);
             String instruction = _context.getString(R.string.heating_thermostat_instruction);
-            XStatRoleDetailsViewModelBase details = new ThermostatRoleDetailsViewModel(
-                    getActivityComponent(), this, getSensor(), title, instruction, reset);
+
+            XStatRoleDetailsViewModelBase details = _factory.createThermostatRoleDetailsViewModel(
+                    this, getSensor(), title, instruction, reset);
             _navigationService.showViewModel(details, new ShowBackButtonInToolbarViewParam());
         } else if (getNewRole() == BoardRole.COOLING_THERMOSTAT) {
             String title = _context.getString(R.string.cooling_thermostat_details);
             String instruction = _context.getString(R.string.cooling_thermostat_instruction);
-            XStatRoleDetailsViewModelBase details = new ThermostatRoleDetailsViewModel(
-                    getActivityComponent(), this, getSensor(), title, instruction, reset);
+            XStatRoleDetailsViewModelBase details = _factory.createThermostatRoleDetailsViewModel(
+                    this, getSensor(), title, instruction, reset);
             _navigationService.showViewModel(details, new ShowBackButtonInToolbarViewParam());
         } else if (getNewRole() == BoardRole.DRYING_HYGROSTAT) {
             String title = _context.getString(R.string.drying_hygrostat_details);
             String instruction = _context.getString(R.string.drying_hygrostat_instruction);
-            XStatRoleDetailsViewModelBase details = new HygrostatRoleDetailsViewModel(
-                    getActivityComponent(), this, getSensor(), title, instruction, reset);
+            XStatRoleDetailsViewModelBase details = _factory.createHygrostatRoleDetailsViewModel(
+                    this, getSensor(), title, instruction, reset);
             _navigationService.showViewModel(details, new ShowBackButtonInToolbarViewParam());
         } else if (getNewRole() == BoardRole.HUMIDIFICATION_HYGROSTAT) {
             String title = _context.getString(R.string.humidification_hygrostat_details);
             String instruction = _context.getString(R.string.humidification_hygrostat_instruction);
-            XStatRoleDetailsViewModelBase details = new HygrostatRoleDetailsViewModel(
-                    getActivityComponent(), this, getSensor(), title, instruction, reset);
+            XStatRoleDetailsViewModelBase details = _factory.createHygrostatRoleDetailsViewModel(
+                    this, getSensor(), title, instruction, reset);
             _navigationService.showViewModel(details, new ShowBackButtonInToolbarViewParam());
         } else if (getNewRole().isAdvanced()) {
-            MainsAdvancedRoleDetailsViewModel model = new MainsAdvancedRoleDetailsViewModel(getActivityComponent(),
+            MainsAdvancedRoleDetailsViewModel model = _factory.createMainsAdvancedViewModel(
                     this, getSensor());
             _navigationService.showViewModel(model, new ShowBackButtonInToolbarViewParam());
         } else {

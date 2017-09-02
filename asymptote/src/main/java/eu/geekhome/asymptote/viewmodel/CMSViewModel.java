@@ -6,30 +6,27 @@ import android.databinding.ObservableArrayList;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
-import javax.inject.Inject;
-
 import eu.geekhome.asymptote.R;
-import eu.geekhome.asymptote.bindingutils.InjectedViewModel;
 import eu.geekhome.asymptote.bindingutils.LayoutHolder;
+import eu.geekhome.asymptote.bindingutils.ViewModel;
 import eu.geekhome.asymptote.databinding.FragmentCmsBinding;
-import eu.geekhome.asymptote.dependencyinjection.activity.ActivityComponent;
 import eu.geekhome.asymptote.services.NavigationService;
+import eu.geekhome.asymptote.services.impl.MainViewModelsFactory;
 
-public class CMSViewModel extends InjectedViewModel<FragmentCmsBinding> {
+public class CMSViewModel extends ViewModel<FragmentCmsBinding> {
     private HelpActionBarViewModel _actionBarModel;
     private final ObservableArrayList<LayoutHolder> _sections;
 
-    @Inject
-    NavigationService _navigationService;
+    private final NavigationService _navigationService;
 
     @Bindable
     public HelpActionBarViewModel getActionBarModel() {
         return _actionBarModel;
     }
 
-    public CMSViewModel(ActivityComponent activityComponent, ObservableArrayList<LayoutHolder> sections) {
-        super(activityComponent);
-        _actionBarModel = new HelpActionBarViewModel(activityComponent);
+    public CMSViewModel(MainViewModelsFactory factory, NavigationService navigationService, ObservableArrayList<LayoutHolder> sections) {
+        _navigationService = navigationService;
+        _actionBarModel = factory.createHelpActionBarModel();
         _sections = sections;
     }
 
@@ -38,11 +35,6 @@ public class CMSViewModel extends InjectedViewModel<FragmentCmsBinding> {
         FragmentCmsBinding binding = DataBindingUtil.inflate(inflater, R.layout.fragment_cms, container, false);
         binding.setVm(this);
         return binding;
-    }
-
-    @Override
-    protected void doInject(ActivityComponent activityComponent) {
-        activityComponent.inject(this);
     }
 
     public void onOk() {

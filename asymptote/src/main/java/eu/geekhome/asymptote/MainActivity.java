@@ -13,6 +13,7 @@ import eu.geekhome.asymptote.model.DeviceSnapshot;
 import eu.geekhome.asymptote.model.UserSnapshot;
 import eu.geekhome.asymptote.services.EmergencyManager;
 import eu.geekhome.asymptote.services.NavigationService;
+import eu.geekhome.asymptote.services.impl.MainViewModelsFactory;
 import eu.geekhome.asymptote.viewmodel.MainViewModel;
 
 public class MainActivity extends InjectedActivity {
@@ -26,6 +27,9 @@ public class MainActivity extends InjectedActivity {
 
     @Inject
     EmergencyManager _emergencyManager;
+
+    @Inject
+    MainViewModelsFactory _factory;
 
     public static Intent createOpeningIntent(Context context, String userId, boolean emergency,
                                              UserSnapshot userSnapshot) {
@@ -66,7 +70,8 @@ public class MainActivity extends InjectedActivity {
 
         _emergencyManager.setEmergency(emergency);
         _emergencyManager.setPassword(userSnapshot.getEmergencyPassword());
-        _navigationService.showViewModel(new MainViewModel(getActivityComponent(), userId, userSnapshot));
+        MainViewModel mainViewModel = _factory.createMainViewModel(userId, userSnapshot);
+        _navigationService.showViewModel(mainViewModel);
     }
 
     @Override

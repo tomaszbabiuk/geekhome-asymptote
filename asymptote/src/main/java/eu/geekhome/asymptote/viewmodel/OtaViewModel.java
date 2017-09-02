@@ -13,12 +13,9 @@ import java.net.InetAddress;
 import java.security.SecureRandom;
 import java.util.Calendar;
 
-import javax.inject.Inject;
-
 import eu.geekhome.asymptote.BR;
 import eu.geekhome.asymptote.R;
 import eu.geekhome.asymptote.databinding.FragmentOtaBinding;
-import eu.geekhome.asymptote.dependencyinjection.activity.ActivityComponent;
 import eu.geekhome.asymptote.model.BoardId;
 import eu.geekhome.asymptote.model.CloudFingerprintSyncUpdate;
 import eu.geekhome.asymptote.model.CloudPasswordSyncUpdate;
@@ -40,6 +37,7 @@ import eu.geekhome.asymptote.services.OtaServer;
 import eu.geekhome.asymptote.services.SyncListener;
 import eu.geekhome.asymptote.services.SyncManager;
 import eu.geekhome.asymptote.services.WiFiHelper;
+import eu.geekhome.asymptote.services.impl.MainViewModelsFactory;
 import eu.geekhome.asymptote.utils.ByteUtils;
 import eu.geekhome.asymptote.utils.Ticker;
 
@@ -53,21 +51,14 @@ public class OtaViewModel extends WiFiAwareViewModel<FragmentOtaBinding> impleme
     private Firmware _firmware;
     private boolean _restoreTokenUsed;
     private final HelpActionBarViewModel _actionBarModel;
-
-    @Inject
-    OtaServer _otaServer;
-    @Inject
-    NavigationService _navigationService;
-    @Inject
-    Context _context;
-    @Inject
-    SyncManager _syncManager;
-    @Inject
-    WiFiHelper _wifiHelper;
-    @Inject
-    CloudDeviceService _cloudDeviceService;
-    @Inject
-    CloudCertificateChecker _certificateChecker;
+    private final OtaServer _otaServer;
+    private final NavigationService _navigationService;
+    private final Context _context;
+    private final SyncManager _syncManager;
+    private final WiFiHelper _wifiHelper;
+    private final CloudDeviceService _cloudDeviceService;
+    private final CloudCertificateChecker _certificateChecker;
+    private final MainViewModelsFactory _factory;
 
     @Bindable
     public String getErrorMessage() {
@@ -84,12 +75,24 @@ public class OtaViewModel extends WiFiAwareViewModel<FragmentOtaBinding> impleme
         return _actionBarModel;
     }
 
-    OtaViewModel(ActivityComponent activityComponent, SensorItemViewModel sensor, Firmware firmware) {
-        super(activityComponent);
+    public OtaViewModel(Context context, MainViewModelsFactory factory, OtaServer otaServer,
+                        NavigationService navigationService, SyncManager syncManager,
+                        WiFiHelper wifiHelper, CloudDeviceService cloudDeviceService,
+                        CloudCertificateChecker cloudCertificateChecker,
+                        SensorItemViewModel sensor, Firmware firmware) {
+        super(factory, wifiHelper, navigationService);
+        _context = context;
+        _navigationService = navigationService;
+        _wifiHelper = wifiHelper;
+        _certificateChecker = cloudCertificateChecker;
+        _factory = factory;
+        _otaServer = otaServer;
+        _syncManager = syncManager;
+        _cloudDeviceService = cloudDeviceService;
         _firmware = firmware;
         _sensor = sensor;
         _previousVariant = _sensor.getSyncData().getSystemInfo().getVariant();
-        _actionBarModel = new HelpActionBarViewModel(activityComponent);
+        _actionBarModel = _factory.createHelpActionBarModel();
         _serverStartedAt = 0;
         setOtaPhase(OtaPhase.ServerStarting);
     }
@@ -309,11 +312,6 @@ public class OtaViewModel extends WiFiAwareViewModel<FragmentOtaBinding> impleme
     }
 
     @Override
-    protected void doInject(ActivityComponent activityComponent) {
-        activityComponent.inject(this);
-    }
-
-    @Override
     public void onAfterSync(InetAddress from, DeviceSyncData syncData, long timestamp, String token) {
         if (getOtaPhase() == OtaPhase.InProgress && _sensor.getSyncData().getDeviceKey().getDeviceId().equals(syncData.getDeviceKey().getDeviceId())) {
             int newVersionMajor = syncData.getSystemInfo().getVersionMajor();
@@ -360,7 +358,7 @@ public class OtaViewModel extends WiFiAwareViewModel<FragmentOtaBinding> impleme
         } else {
             String title = _context.getString(R.string.ota_failed);
             String status = _context.getString(R.string.ota_elapsed);
-            ResultViewModel result = new ResultViewModel(getActivityComponent(), title, status, false);
+            ResultViewModel result = _factory.createResultViewModel(title, status, false);
             _navigationService.goBackTo(MainViewModel.class);
             _navigationService.showViewModel(result);
         }
@@ -374,7 +372,7 @@ public class OtaViewModel extends WiFiAwareViewModel<FragmentOtaBinding> impleme
     private void processFailure(DeviceSyncData syncData) {
         String title = _context.getString(R.string.ota_failed);
         String status = syncData.getOta().getErrorCode();
-        ResultViewModel result = new ResultViewModel(getActivityComponent(), title, status, false);
+        ResultViewModel result = _factory.createResultViewModel(title, status, false);
         _navigationService.goBackTo(MainViewModel.class);
         _navigationService.showViewModel(result);
     }
@@ -383,7 +381,7 @@ public class OtaViewModel extends WiFiAwareViewModel<FragmentOtaBinding> impleme
         String title = _context.getString(R.string.ota_done);
         String status = _context.getString(R.string.ota_device_updated, _sensor.getSyncData().getDeviceKey().getDeviceId(),
                 syncData.getSystemInfo().getVersionMajor(), syncData.getSystemInfo().getVersionMinor());
-        ResultViewModel result = new ResultViewModel(getActivityComponent(), title, status, true);
+        ResultViewModel result = _factory.createResultViewModel(title, status, true);
         _navigationService.goBackTo(MainViewModel.class);
         _navigationService.showViewModel(result);
     }

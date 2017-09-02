@@ -10,19 +10,17 @@ import android.support.annotation.PluralsRes;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
-import javax.inject.Inject;
-
 import eu.geekhome.asymptote.BR;
 import eu.geekhome.asymptote.R;
-import eu.geekhome.asymptote.bindingutils.InjectedViewModel;
 import eu.geekhome.asymptote.bindingutils.LayoutHolder;
+import eu.geekhome.asymptote.bindingutils.ViewModel;
 import eu.geekhome.asymptote.bindingutils.viewparams.ShowBackButtonInToolbarViewParam;
 import eu.geekhome.asymptote.databinding.FragmentTroubleshootingBinding;
-import eu.geekhome.asymptote.dependencyinjection.activity.ActivityComponent;
 import eu.geekhome.asymptote.services.NavigationService;
+import eu.geekhome.asymptote.services.impl.MainViewModelsFactory;
 import eu.geekhome.asymptote.utils.Ticker;
 
-public class TroubleshootingViewModel extends InjectedViewModel<FragmentTroubleshootingBinding> {
+public class TroubleshootingViewModel extends ViewModel<FragmentTroubleshootingBinding> {
 
     private HelpActionBarViewModel _actionBarModel;
     private String _errorMessage;
@@ -31,10 +29,9 @@ public class TroubleshootingViewModel extends InjectedViewModel<FragmentTroubles
     private int _blinkerPos;
     private Ticker _blinker;
 
-    @Inject
-    NavigationService _navigationService;
-    @Inject
-    Context _context;
+    private final NavigationService _navigationService;
+    private final Context _context;
+    private final MainViewModelsFactory _factory;
 
     @NonNull
     private Ticker createBlinker() {
@@ -72,16 +69,13 @@ public class TroubleshootingViewModel extends InjectedViewModel<FragmentTroubles
         return _actionBarModel;
     }
 
-    public TroubleshootingViewModel(ActivityComponent activityComponent) {
-        super(activityComponent);
-        _actionBarModel = new HelpActionBarViewModel(activityComponent);
+    public TroubleshootingViewModel(Context context, MainViewModelsFactory factory, NavigationService navigationService) {
+        _context = context;
+        _factory = factory;
+        _navigationService = navigationService;
+        _actionBarModel = _factory.createHelpActionBarModel();
         _signals = createSignals();
         setSelectedSignalType(SignalItemViewModel.Type.OneBlink);
-    }
-
-    @Override
-    protected void doInject(ActivityComponent activityComponent) {
-        activityComponent.inject(this);
     }
 
     private ObservableArrayList<LayoutHolder> createSignals() {
@@ -172,7 +166,7 @@ public class TroubleshootingViewModel extends InjectedViewModel<FragmentTroubles
                 addSection(R.plurals.solutions, R.array.signal_turned_on_solutions, sections);
                 break;
         }
-        CMSViewModel repairDetailsModel = new CMSViewModel(getActivityComponent(), sections);
+        CMSViewModel repairDetailsModel = _factory.createCmsViewModel(sections);
         _navigationService.showViewModel(repairDetailsModel, new ShowBackButtonInToolbarViewParam());
     }
 

@@ -3,36 +3,30 @@ package eu.geekhome.asymptote.viewmodel;
 import android.databinding.Bindable;
 import android.databinding.ViewDataBinding;
 
-import javax.inject.Inject;
-
 import eu.geekhome.asymptote.BR;
-import eu.geekhome.asymptote.bindingutils.InjectedViewModel;
 import eu.geekhome.asymptote.bindingutils.ViewModel;
-import eu.geekhome.asymptote.dependencyinjection.activity.ActivityComponent;
 import eu.geekhome.asymptote.services.NavigationService;
+import eu.geekhome.asymptote.services.impl.MainViewModelsFactory;
 
-abstract class XStatRoleDetailsViewModelBase<T extends ViewDataBinding> extends InjectedViewModel<T> {
+abstract class XStatRoleDetailsViewModelBase<T extends ViewDataBinding> extends ViewModel<T> {
     private final boolean _reset;
     private final EditSensorViewModel _parent;
     private HelpActionBarViewModel _actionBarModel;
     private String _title;
     private String _instruction;
     private SensorItemViewModel _sensor;
+    private final NavigationService _navigationService;
 
-    @Inject
-    NavigationService _navigationService;
-
-
-    public XStatRoleDetailsViewModelBase(ActivityComponent activityComponent, EditSensorViewModel parent,
-                                         SensorItemViewModel sensor,
-                                         String title, String instruction, boolean reset) {
-        super(activityComponent);
+    XStatRoleDetailsViewModelBase(MainViewModelsFactory factory, NavigationService navigationService,
+                                  EditSensorViewModel parent, SensorItemViewModel sensor,
+                                  String title, String instruction, boolean reset) {
+        _navigationService = navigationService;
         _parent = parent;
         _sensor = sensor;
         _reset = reset;
         setTitle(title);
         setInstruction(instruction);
-        _actionBarModel = new HelpActionBarViewModel(activityComponent);
+        _actionBarModel = factory.createHelpActionBarModel();
     }
 
     @Bindable

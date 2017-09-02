@@ -1,31 +1,29 @@
 package eu.geekhome.asymptote.viewmodel;
 
-import javax.inject.Inject;
-
 import eu.geekhome.asymptote.R;
 import eu.geekhome.asymptote.bindingutils.viewparams.ShowBackButtonInToolbarViewParam;
-import eu.geekhome.asymptote.dependencyinjection.activity.ActivityComponent;
 import eu.geekhome.asymptote.services.EmergencyManager;
 import eu.geekhome.asymptote.services.GeneralDialogService;
 import eu.geekhome.asymptote.services.NavigationService;
+import eu.geekhome.asymptote.services.impl.MainViewModelsFactory;
 
 public class MainActionBarViewModel {
-    private final ActivityComponent _activityComponent;
+    private final NavigationService _navigationService;
+    private final GeneralDialogService _dialogService;
+    private final EmergencyManager _emergencyManager;
+    private final MainViewModelsFactory _factory;
 
-    @Inject
-    NavigationService _navigationService;
-    @Inject
-    GeneralDialogService _dialogService;
-    @Inject
-    EmergencyManager _emergencyManager;
+    public MainActionBarViewModel(MainViewModelsFactory factory, NavigationService navigationService,
+                                  GeneralDialogService generalDialogService, EmergencyManager emergencyManager) {
 
-    public MainActionBarViewModel(ActivityComponent activityComponent) {
-        activityComponent.inject(this);
-        _activityComponent = activityComponent;
+        _factory = factory;
+        _navigationService = navigationService;
+        _dialogService = generalDialogService;
+        _emergencyManager = emergencyManager;
     }
 
     public void pairSensor() {
-        TouchConfigurationViewModel configModel = new TouchConfigurationViewModel(_activityComponent);
+        TouchConfigurationViewModel configModel = _factory.createTouchConfigurationViewModel();
         _navigationService.showViewModel(configModel, new ShowBackButtonInToolbarViewParam());
     }
 
@@ -33,12 +31,13 @@ public class MainActionBarViewModel {
         if (_emergencyManager.isEmergency()) {
             _dialogService.showOKDialog(R.string.cannot_access_profile_when_emergency, null);
         } else {
-            _navigationService.showViewModel(new ProfileViewModel(_activityComponent),
-                    new ShowBackButtonInToolbarViewParam());
+            ProfileViewModel profileViewModel = _factory.createProfileViewModel();
+            _navigationService.showViewModel(profileViewModel, new ShowBackButtonInToolbarViewParam());
         }
     }
 
     public void showTroubleshooting() {
-        _navigationService.showViewModel(new TroubleshootingViewModel(_activityComponent), new ShowBackButtonInToolbarViewParam());
+        TroubleshootingViewModel troubleshootingViewModel = _factory.createTroubleshootingViewModel();
+        _navigationService.showViewModel(troubleshootingViewModel, new ShowBackButtonInToolbarViewParam());
     }
 }

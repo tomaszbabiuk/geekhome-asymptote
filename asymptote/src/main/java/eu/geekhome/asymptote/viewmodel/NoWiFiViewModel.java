@@ -5,25 +5,22 @@ import android.databinding.DataBindingUtil;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
-import javax.inject.Inject;
-
 import eu.geekhome.asymptote.BR;
 import eu.geekhome.asymptote.R;
-import eu.geekhome.asymptote.bindingutils.InjectedViewModel;
 import eu.geekhome.asymptote.bindingutils.ViewModel;
 import eu.geekhome.asymptote.databinding.FragmentOverlayNowifiBinding;
-import eu.geekhome.asymptote.dependencyinjection.activity.ActivityComponent;
 import eu.geekhome.asymptote.services.NavigationService;
 import eu.geekhome.asymptote.services.WiFiHelper;
 
-public class NoWiFiViewModel extends InjectedViewModel<FragmentOverlayNowifiBinding> {
-    @Inject WiFiHelper _wifiHelper;
-    @Inject NavigationService _navigationService;
+public class NoWiFiViewModel extends ViewModel<FragmentOverlayNowifiBinding> {
+    private final WiFiHelper _wifiHelper;
+    private final NavigationService _navigationService;
     private boolean _cloudOnlyAllowed;
     private String _rationale;
 
-    public NoWiFiViewModel(ActivityComponent activityComponent, boolean cloudOnlyAllowed, String rationale) {
-        super(activityComponent);
+    public NoWiFiViewModel(WiFiHelper wiFiHelper, NavigationService navigationService, boolean cloudOnlyAllowed, String rationale) {
+        _wifiHelper = wiFiHelper;
+        _navigationService = navigationService;
         setCloudOnlyAllowed(cloudOnlyAllowed);
         setRationale(rationale);
     }
@@ -33,11 +30,6 @@ public class NoWiFiViewModel extends InjectedViewModel<FragmentOverlayNowifiBind
         FragmentOverlayNowifiBinding binding = DataBindingUtil.inflate(inflater, R.layout.fragment_overlay_nowifi, container, false);
         binding.setModel(this);
         return binding;
-    }
-
-    @Override
-    protected void doInject(ActivityComponent activityComponent) {
-        activityComponent.inject(this);
     }
 
     public void refresh() {
@@ -61,7 +53,7 @@ public class NoWiFiViewModel extends InjectedViewModel<FragmentOverlayNowifiBind
         return _cloudOnlyAllowed;
     }
 
-    public void setCloudOnlyAllowed(boolean cloudOnlyAllowed) {
+    private void setCloudOnlyAllowed(boolean cloudOnlyAllowed) {
         _cloudOnlyAllowed = cloudOnlyAllowed;
         notifyPropertyChanged(BR.cloudOnlyAllowed);
     }
@@ -77,7 +69,7 @@ public class NoWiFiViewModel extends InjectedViewModel<FragmentOverlayNowifiBind
         return _rationale;
     }
 
-    public void setRationale(String rationale) {
+    private void setRationale(String rationale) {
         _rationale = rationale;
         notifyPropertyChanged(BR.rationale);
     }

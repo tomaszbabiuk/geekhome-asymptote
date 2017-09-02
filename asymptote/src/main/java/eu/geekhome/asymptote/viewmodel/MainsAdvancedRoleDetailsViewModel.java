@@ -6,36 +6,33 @@ import android.databinding.ObservableArrayList;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
-import javax.inject.Inject;
-
 import eu.geekhome.asymptote.R;
-import eu.geekhome.asymptote.bindingutils.InjectedViewModel;
 import eu.geekhome.asymptote.bindingutils.LayoutHolder;
 import eu.geekhome.asymptote.bindingutils.ViewModel;
 import eu.geekhome.asymptote.databinding.FragmentMainsAdvRoleDetailsBinding;
-import eu.geekhome.asymptote.dependencyinjection.activity.ActivityComponent;
 import eu.geekhome.asymptote.model.ParamSyncUpdate;
 import eu.geekhome.asymptote.model.ParamValue;
 import eu.geekhome.asymptote.services.NavigationService;
+import eu.geekhome.asymptote.services.impl.MainViewModelsFactory;
 
-public class MainsAdvancedRoleDetailsViewModel extends InjectedViewModel<FragmentMainsAdvRoleDetailsBinding> {
+public class MainsAdvancedRoleDetailsViewModel extends ViewModel<FragmentMainsAdvRoleDetailsBinding> {
     private final ObservableArrayList<LayoutHolder> _interlocks;
     private EditSensorViewModel _parent;
     private SensorItemViewModel _sensor;
     private ObservableArrayList<LayoutHolder> _workingModes;
     private HelpActionBarViewModel _actionBarModel;
+    private final NavigationService _navigationService;
+    private final MainViewModelsFactory _factory;
 
-    @Inject
-    NavigationService _navigationService;
-
-    public MainsAdvancedRoleDetailsViewModel(ActivityComponent activityComponent, EditSensorViewModel parent,
-                                             SensorItemViewModel sensor) {
-        super(activityComponent);
+    public MainsAdvancedRoleDetailsViewModel(MainViewModelsFactory factory, NavigationService navigationService,
+                                             EditSensorViewModel parent, SensorItemViewModel sensor) {
+        _factory = factory;
+        _navigationService = navigationService;
         _workingModes = generateWorkingModes(sensor);
         _interlocks = generateInterlocks(sensor);
         _parent = parent;
         _sensor = sensor;
-        _actionBarModel = new HelpActionBarViewModel(getActivityComponent());
+        _actionBarModel = _factory.createHelpActionBarModel();
     }
 
     @Bindable
@@ -51,7 +48,7 @@ public class MainsAdvancedRoleDetailsViewModel extends InjectedViewModel<Fragmen
         if (channels > 0) {
             for (int i = 0; i < sensor.getSyncData().getRelayStates().length; i++) {
                 long value = newRole ? 0 : sensor.getSyncData().getParams()[i * 2];
-                RelayWorkingModeItemViewModel impulseModel = new RelayWorkingModeItemViewModel(getActivityComponent(), value, i);
+                RelayWorkingModeItemViewModel impulseModel =  _factory.createRelayWorkingModeItem(value, i);
                 result.add(impulseModel);
             }
         }
@@ -81,11 +78,6 @@ public class MainsAdvancedRoleDetailsViewModel extends InjectedViewModel<Fragmen
         binding.setVm(this);
 
         return binding;
-    }
-
-    @Override
-    protected void doInject(ActivityComponent activityComponent) {
-        activityComponent.inject(this);
     }
 
     public void onDone() {

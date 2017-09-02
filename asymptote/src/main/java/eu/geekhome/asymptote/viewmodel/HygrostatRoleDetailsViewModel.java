@@ -11,9 +11,10 @@ import org.jetbrains.annotations.NotNull;
 import eu.geekhome.asymptote.BR;
 import eu.geekhome.asymptote.R;
 import eu.geekhome.asymptote.databinding.FragmentHygrostatRoleDetailsBinding;
-import eu.geekhome.asymptote.dependencyinjection.activity.ActivityComponent;
 import eu.geekhome.asymptote.model.ParamSyncUpdate;
 import eu.geekhome.asymptote.model.ParamValue;
+import eu.geekhome.asymptote.services.NavigationService;
+import eu.geekhome.asymptote.services.impl.MainViewModelsFactory;
 import me.bendik.simplerangeview.SimpleRangeView;
 
 public class HygrostatRoleDetailsViewModel extends XStatRoleDetailsViewModelBase<FragmentHygrostatRoleDetailsBinding> {
@@ -24,10 +25,10 @@ public class HygrostatRoleDetailsViewModel extends XStatRoleDetailsViewModelBase
     private int _valueIndex;
 
 
-    public HygrostatRoleDetailsViewModel(ActivityComponent activityComponent, EditSensorViewModel parent,
-                                         SensorItemViewModel sensor, String title, String instruction,
-                                         boolean reset) {
-        super(activityComponent, parent, sensor, title, instruction, reset);
+    public HygrostatRoleDetailsViewModel(MainViewModelsFactory factory, NavigationService navigationService,
+                                         EditSensorViewModel parent, SensorItemViewModel sensor,
+                                         String title, String instruction, boolean reset) {
+        super(factory, navigationService, parent, sensor, title, instruction, reset);
 
 
         long value = isReset() ? -1 : getSensor().getSyncData().getParams()[0];
@@ -63,11 +64,6 @@ public class HygrostatRoleDetailsViewModel extends XStatRoleDetailsViewModelBase
         });
 
         return binding;
-    }
-
-    @Override
-    protected void doInject(ActivityComponent activityComponent) {
-        activityComponent.inject(this);
     }
 
     public void onDone() {

@@ -3,9 +3,11 @@ package eu.geekhome.asymptote.viewmodel;
 import android.databinding.Bindable;
 import android.databinding.ViewDataBinding;
 
-import eu.geekhome.asymptote.dependencyinjection.activity.ActivityComponent;
+import eu.geekhome.asymptote.services.NavigationService;
+import eu.geekhome.asymptote.services.WiFiHelper;
+import eu.geekhome.asymptote.services.impl.MainViewModelsFactory;
 
-public abstract class HelpViewModelBase<T extends ViewDataBinding> extends WiFiAwareViewModel<T> {
+abstract class HelpViewModelBase<T extends ViewDataBinding> extends WiFiAwareViewModel<T> {
     private HelpActionBarViewModel _actionBarModel;
 
     @Bindable
@@ -13,9 +15,9 @@ public abstract class HelpViewModelBase<T extends ViewDataBinding> extends WiFiA
         return _actionBarModel;
     }
 
-    public HelpViewModelBase(ActivityComponent activityComponent) {
-        super(activityComponent);
-        _actionBarModel = new HelpActionBarViewModel(activityComponent);
+    HelpViewModelBase(MainViewModelsFactory factory, WiFiHelper wifiHelper, NavigationService navigationService) {
+        super(factory, wifiHelper, navigationService);
+        _actionBarModel = factory.createHelpActionBarModel();
     }
 
     @Override

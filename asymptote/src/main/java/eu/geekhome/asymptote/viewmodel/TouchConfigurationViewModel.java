@@ -9,30 +9,26 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import javax.inject.Inject;
-
 import eu.geekhome.asymptote.R;
-import eu.geekhome.asymptote.dependencyinjection.activity.ActivityComponent;
-import eu.geekhome.asymptote.services.WiFiParamsResolver;
-import eu.geekhome.asymptote.utils.KeyboardHelper;
-import eu.geekhome.asymptote.validation.ValidationContext;
 import eu.geekhome.asymptote.bindingutils.viewparams.ShowBackButtonInToolbarViewParam;
 import eu.geekhome.asymptote.databinding.FragmentTouchConfigurationBinding;
 import eu.geekhome.asymptote.model.WiFiParameters;
 import eu.geekhome.asymptote.services.NavigationService;
+import eu.geekhome.asymptote.services.WiFiHelper;
+import eu.geekhome.asymptote.services.WiFiParamsResolver;
+import eu.geekhome.asymptote.services.impl.MainViewModelsFactory;
+import eu.geekhome.asymptote.utils.KeyboardHelper;
+import eu.geekhome.asymptote.validation.ValidationContext;
 
 public class TouchConfigurationViewModel extends HelpViewModelBase {
     private static String Password;
+    private final MainViewModelsFactory _factory;
     private WiFiParameters _params;
     private boolean _rememberPassword;
     private final ValidationContext _validation = new ValidationContext();
 
-    @Inject
-    NavigationService _navigationService;
-    @Inject
-    Context _context;
-    @Inject
-    WiFiParamsResolver _wiFiParamsResolver;
+    private final NavigationService _navigationService;
+    private final Context _context;
 
 
     @Override
@@ -40,19 +36,18 @@ public class TouchConfigurationViewModel extends HelpViewModelBase {
         return _context.getString(R.string.rationale_nowifi_adding_devices);
     }
 
-    public TouchConfigurationViewModel(ActivityComponent activityComponent) {
-        super(activityComponent);
-        _params = _wiFiParamsResolver.resolve();
+    public TouchConfigurationViewModel(Context context, MainViewModelsFactory factory, WiFiHelper wifiHelper,
+                                       WiFiParamsResolver wiFiParamsResolver, NavigationService navigationService) {
+        super(factory, wifiHelper, navigationService);
+        _context = context;
+        _factory = factory;
+        _navigationService = navigationService;
+        _params = wiFiParamsResolver.resolve();
         if (_params == null) {
             _params = new WiFiParameters("emu_ssid", null, "emu_bssid", false);
         }
 
         loadPassword();
-    }
-
-    @Override
-    protected void doInject(ActivityComponent activityComponent) {
-        activityComponent.inject(this);
     }
 
     private void loadPassword() {
@@ -71,7 +66,7 @@ public class TouchConfigurationViewModel extends HelpViewModelBase {
             KeyboardHelper.hideKeyboard(view);
 
             savePasswordIfChosen();
-            TouchPressViewModel touchPressViewModel = new TouchPressViewModel(getActivityComponent(), getParams());
+            TouchPressViewModel touchPressViewModel = _factory.createTouchPressViewModel(getParams());
             _navigationService.showViewModel(touchPressViewModel, new ShowBackButtonInToolbarViewParam());
         }
     }

@@ -17,32 +17,35 @@ import com.espressif.iot.esptouch.IEsptouchResult;
 import java.net.InetAddress;
 import java.util.List;
 
-import javax.inject.Inject;
-
 import eu.geekhome.asymptote.R;
 import eu.geekhome.asymptote.databinding.FragmentTouchProgressBinding;
-import eu.geekhome.asymptote.dependencyinjection.activity.ActivityComponent;
 import eu.geekhome.asymptote.model.WiFiParameters;
 import eu.geekhome.asymptote.services.AddressesPersistenceService;
 import eu.geekhome.asymptote.services.NavigationService;
+import eu.geekhome.asymptote.services.WiFiHelper;
+import eu.geekhome.asymptote.services.impl.MainViewModelsFactory;
 
 public class TouchProgressViewModel extends HelpViewModelBase<FragmentTouchProgressBinding> {
+    private final MainViewModelsFactory _factory;
     private boolean _blocked;
     private boolean _hasResult;
     private final WiFiParameters _params;
     private Runnable _cancelRunnable;
 
-    @Inject
-    NavigationService _navigationService;
-    @Inject
-    AddressesPersistenceService _addressesPersistenceService;
-    @Inject
-    Context _context;
+    private final NavigationService _navigationService;
+    private final AddressesPersistenceService _addressesPersistenceService;
+    private final Context _context;
 
-    public TouchProgressViewModel(ActivityComponent activityComponent, WiFiParameters params) {
-        super(activityComponent);
+    public TouchProgressViewModel(Context context, MainViewModelsFactory factory,
+                                  NavigationService navigationService, WiFiHelper wifiHelper,
+                                  AddressesPersistenceService addressesPersistenceService, WiFiParameters params) {
+        super(factory, wifiHelper, navigationService);
+        _factory = factory;
         _params = params;
         _hasResult = false;
+        _context = context;
+        _addressesPersistenceService = addressesPersistenceService;
+        _navigationService = navigationService;
     }
 
     @Override
@@ -78,11 +81,6 @@ public class TouchProgressViewModel extends HelpViewModelBase<FragmentTouchProgr
         FragmentTouchProgressBinding binding = DataBindingUtil.inflate(inflater, R.layout.fragment_touch_progress, container, false);
         binding.setVm(this);
         return binding;
-    }
-
-    @Override
-    protected void doInject(ActivityComponent activityComponent) {
-        activityComponent.inject(this);
     }
 
     @Bindable
@@ -147,12 +145,12 @@ public class TouchProgressViewModel extends HelpViewModelBase<FragmentTouchProgr
         return true;
     }
 
-    public void blockInterface(Runnable cancelRunnable) {
+    private void blockInterface(Runnable cancelRunnable) {
         _cancelRunnable = cancelRunnable;
         setBlocked(true);
     }
 
-    public void releaseInterface() {
+    private void releaseInterface() {
         getBinding().imageRefreshOuter.clearAnimation();
         setBlocked(false);
     }
@@ -160,7 +158,7 @@ public class TouchProgressViewModel extends HelpViewModelBase<FragmentTouchProgr
     private void processFailure() {
         String status = _context.getString(R.string.pairing_failed);
         String title = _context.getString(R.string.pair_device);
-        ResultViewModel model = new ResultViewModel(getActivityComponent(), title, status, false);
+        ResultViewModel model = _factory.createResultViewModel(title, status, false);
         _navigationService.goBackTo(MainViewModel.class);
         _navigationService.showViewModel(model);
     }
@@ -170,7 +168,7 @@ public class TouchProgressViewModel extends HelpViewModelBase<FragmentTouchProgr
 
         String status = String.format(_context.getString(R.string.device_paired), inetAddress);
         String title = _context.getString(R.string.pair_device);
-        ResultViewModel model = new ResultViewModel(getActivityComponent(), title, status, true);
+        ResultViewModel model = _factory.createResultViewModel(title, status, true);
         _navigationService.goBackTo(MainViewModel.class);
         _navigationService.showViewModel(model);
     }

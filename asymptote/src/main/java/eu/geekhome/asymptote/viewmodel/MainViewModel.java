@@ -16,16 +16,12 @@ import java.util.Calendar;
 import java.util.Hashtable;
 import java.util.Map;
 
-import javax.inject.Inject;
-
 import eu.geekhome.asymptote.BR;
 import eu.geekhome.asymptote.R;
-import eu.geekhome.asymptote.bindingutils.InjectedViewModel;
 import eu.geekhome.asymptote.bindingutils.LayoutHolder;
 import eu.geekhome.asymptote.bindingutils.ViewModel;
 import eu.geekhome.asymptote.bindingutils.controls.SimpleHeaderDecoration;
 import eu.geekhome.asymptote.databinding.FragmentMainBinding;
-import eu.geekhome.asymptote.dependencyinjection.activity.ActivityComponent;
 import eu.geekhome.asymptote.model.BoardId;
 import eu.geekhome.asymptote.model.DeviceSnapshot;
 import eu.geekhome.asymptote.model.DeviceSyncData;
@@ -41,10 +37,12 @@ import eu.geekhome.asymptote.services.SyncListener;
 import eu.geekhome.asymptote.services.SyncManager;
 import eu.geekhome.asymptote.services.ThreadRunner;
 import eu.geekhome.asymptote.services.WiFiHelper;
+import eu.geekhome.asymptote.services.impl.MainViewModelsFactory;
 import eu.geekhome.asymptote.utils.ByteUtils;
 import eu.geekhome.asymptote.utils.Ticker;
 
-public class MainViewModel extends InjectedViewModel<FragmentMainBinding> implements SyncListener, SensorItemViewModel.SensorLifecycleListener {
+public class MainViewModel extends ViewModel<FragmentMainBinding> implements SyncListener, SensorItemViewModel.SensorLifecycleListener {
+    private final MainViewModelsFactory _factory;
     private ArrayList<DeviceSnapshot> _deviceSnapshots;
     private final Hashtable<InetAddress, Byte[]> _firebaseDevices;
     private ObservableArrayList<LayoutHolder> _sensors = new ObservableArrayList<>();
@@ -61,22 +59,14 @@ public class MainViewModel extends InjectedViewModel<FragmentMainBinding> implem
     private boolean _reloadDevices = false;
     private byte[] _cloudFingerPrint;
 
-    @Inject
-    NavigationService _navigationService;
-    @Inject
-    ThreadRunner _threadRunner;
-    @Inject
-    SyncManager _syncManager;
-    @Inject
-    WiFiHelper _wifiHelper;
-    @Inject
-    EmergencyManager _emergencyManager;
-    @Inject
-    Context _context;
-    @Inject
-    CloudDeviceService _cloudDeviceService;
-    @Inject
-    CloudCertificateChecker _cloudCertificateChecker;
+    private final NavigationService _navigationService;
+    private final ThreadRunner _threadRunner;
+    private final SyncManager _syncManager;
+    private final WiFiHelper _wifiHelper;
+    private final EmergencyManager _emergencyManager;
+    private final Context _context;
+    private final CloudDeviceService _cloudDeviceService;
+    private final CloudCertificateChecker _cloudCertificateChecker;
 
     private interface SensorFoundDelegate {
         void sensorFound(SensorItemViewModel sensor);
@@ -102,13 +92,25 @@ public class MainViewModel extends InjectedViewModel<FragmentMainBinding> implem
         return _sensors;
     }
 
-    public MainViewModel(ActivityComponent activityComponent, String userId, UserSnapshot userSnapshot) {
-        super(activityComponent);
-        _actionBarModel = new MainActionBarViewModel(activityComponent);
+    public MainViewModel(Context context, MainViewModelsFactory factory, NavigationService navigationService,
+                         ThreadRunner threadRunner, SyncManager syncManager, WiFiHelper wifiHelper,
+                         EmergencyManager emergencyManager, CloudDeviceService cloudDeviceService,
+                         CloudCertificateChecker cloudCertificateChecker, String userId,
+                         UserSnapshot userSnapshot) {
+        _factory = factory;
+        _actionBarModel = _factory.createMainActionBarViewModel();
         _userId = userId;
+        _navigationService = navigationService;
+        _threadRunner = threadRunner;
+        _syncManager = syncManager;
+        _wifiHelper = wifiHelper;
+        _emergencyManager = emergencyManager;
+        _context = context;
+        _cloudDeviceService = cloudDeviceService;
+        _cloudCertificateChecker = cloudCertificateChecker;
         _notAuthorizedDialogShown = false;
         _discoveryViewModel = new DiscoveryViewModel();
-        _securedDevicesFoundViewModel = new SecuredDevicesFoundViewModel(activityComponent, this, userId);
+        _securedDevicesFoundViewModel = _factory.createSecuredDevicesFoundViewModel(this, userId);
         _deviceSnapshots = userSnapshot.getDeviceSnapshots();
         _firebaseDevices = new Hashtable<>();
     }
@@ -263,11 +265,6 @@ public class MainViewModel extends InjectedViewModel<FragmentMainBinding> implem
         return binding;
     }
 
-    @Override
-    protected void doInject(ActivityComponent activityComponent) {
-        activityComponent.inject(this);
-    }
-
     void rediscover() {
         _sensors.clear();
         onPause();
@@ -399,7 +396,7 @@ public class MainViewModel extends InjectedViewModel<FragmentMainBinding> implem
             public void run() {
                 SensorItemViewModel sensor = findSensorOnTheList(syncData.getDeviceKey().getDeviceId());
                 if (sensor == null) {
-                    final SensorItemViewModel newSensor = new SensorItemViewModel(getActivityComponent(),
+                    final SensorItemViewModel newSensor = _factory.createSensorItemViewModel(
                             MainViewModel.this, from, syncData, timestamp, _userId, token);
                     _sensors.add(newSensor);
                 } else {
@@ -493,7 +490,7 @@ public class MainViewModel extends InjectedViewModel<FragmentMainBinding> implem
                     if (!_notAuthorizedDialogShown) {
                         _notAuthorizedDialogShown = true;
                         SetEmergencyPasswordViewModel setEmergencyPasswordViewModel =
-                                new SetEmergencyPasswordViewModel(getActivityComponent(), MainViewModel.this, _userId);
+                                _factory.createSetEmergencyPasswordViewModel(MainViewModel.this, _userId);
                         _navigationService.showOverlayViewModel(setEmergencyPasswordViewModel);
                     }
                 }
@@ -515,7 +512,7 @@ public class MainViewModel extends InjectedViewModel<FragmentMainBinding> implem
     @Override
     public void locking(final SensorItemViewModel sender) {
         if (_emergencyManager.getPassword() == null) {
-            LockViewModel lockViewModel = new LockViewModel(getActivityComponent(), this, sender);
+            LockViewModel lockViewModel = _factory.createLockViewModel(this, sender);
             _navigationService.showOverlayViewModel(lockViewModel);
         } else {
             _syncManager.lock(sender.getSyncData().getSystemInfo().getVariant(), sender.getAddress(), new SyncManager.SyncCallback() {

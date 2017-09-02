@@ -3,28 +3,21 @@ package eu.geekhome.asymptote.viewmodel;
 import android.content.Context;
 import android.content.Intent;
 
-import java.util.ArrayList;
-
-import javax.inject.Inject;
-
 import eu.geekhome.asymptote.R;
-import eu.geekhome.asymptote.dependencyinjection.activity.ActivityComponent;
 import eu.geekhome.asymptote.model.CloudUser;
-import eu.geekhome.asymptote.model.DeviceSnapshot;
 import eu.geekhome.asymptote.services.CloudException;
 import eu.geekhome.asymptote.services.CloudUserService;
 import eu.geekhome.asymptote.services.ToastService;
 
 public class HelpActionBarViewModel {
-    @Inject
-    Context _context;
-    @Inject
-    ToastService _toastService;
-    @Inject
-    CloudUserService _cloudUserService;
+    private final Context _context;
+    private final ToastService _toastService;
+    private final CloudUserService _cloudUserService;
 
-    public HelpActionBarViewModel(ActivityComponent activityComponent) {
-        activityComponent.inject(this);
+    public HelpActionBarViewModel(Context context, ToastService toastService, CloudUserService cloudUserService) {
+        _context = context;
+        _toastService = toastService;
+        _cloudUserService = cloudUserService;
     }
 
     public void onHelp() {

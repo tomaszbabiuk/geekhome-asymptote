@@ -11,9 +11,10 @@ import org.jetbrains.annotations.NotNull;
 import eu.geekhome.asymptote.BR;
 import eu.geekhome.asymptote.R;
 import eu.geekhome.asymptote.databinding.FragmentThermostatRoleDetailsBinding;
-import eu.geekhome.asymptote.dependencyinjection.activity.ActivityComponent;
 import eu.geekhome.asymptote.model.ParamSyncUpdate;
 import eu.geekhome.asymptote.model.ParamValue;
+import eu.geekhome.asymptote.services.NavigationService;
+import eu.geekhome.asymptote.services.impl.MainViewModelsFactory;
 import me.bendik.simplerangeview.SimpleRangeView;
 
 public class ThermostatRoleDetailsViewModel extends XStatRoleDetailsViewModelBase<FragmentThermostatRoleDetailsBinding> {
@@ -24,10 +25,11 @@ public class ThermostatRoleDetailsViewModel extends XStatRoleDetailsViewModelBas
     private int _hysteresis;
     private int _valueIndex;
 
-    public ThermostatRoleDetailsViewModel(ActivityComponent activityComponent, EditSensorViewModel parent,
-                                          SensorItemViewModel sensor, String title, String instruction,
+    public ThermostatRoleDetailsViewModel(MainViewModelsFactory factory, NavigationService navigationService,
+                                          EditSensorViewModel parent, SensorItemViewModel sensor,
+                                          String title, String instruction,
                                           boolean reset) {
-        super(activityComponent, parent, sensor, title, instruction, reset);
+        super(factory, navigationService, parent, sensor, title, instruction, reset);
         long value = isReset() ? -1 : getSensor().getSyncData().getParams()[0] - 27315;
         long hysteresis = isReset() ? -1 : getSensor().getSyncData().getParams()[1];
         long min = isReset() ? -1 : getSensor().getSyncData().getParams()[2] - 27315;
@@ -62,11 +64,6 @@ public class ThermostatRoleDetailsViewModel extends XStatRoleDetailsViewModelBas
         return binding;
     }
 
-    @Override
-    protected void doInject(ActivityComponent activityComponent) {
-        activityComponent.inject(this);
-    }
-
     public void onDone() {
         getSensor().setBlocked(true);
         getParent().commit();
@@ -79,7 +76,7 @@ public class ThermostatRoleDetailsViewModel extends XStatRoleDetailsViewModelBas
         getNavigationService().goBackTo(MainViewModel.class);
     }
 
-    public void paramChanged(int paramIndex, long paramValue) {
+    private void paramChanged(int paramIndex, long paramValue) {
         getSensor().getUpdates().add(new ParamSyncUpdate(new ParamValue(paramIndex, paramValue)));
     }
 
@@ -93,7 +90,7 @@ public class ThermostatRoleDetailsViewModel extends XStatRoleDetailsViewModelBas
         return _rangeStart;
     }
 
-    public void setRangeStart(int value) {
+    private void setRangeStart(int value) {
         _rangeStart = value;
         notifyPropertyChanged(BR.rangeStart);
     }
@@ -103,7 +100,7 @@ public class ThermostatRoleDetailsViewModel extends XStatRoleDetailsViewModelBas
         return _rangeEnd;
     }
 
-    public void setRangeEnd(int value) {
+    private void setRangeEnd(int value) {
         _rangeEnd = value;
         notifyPropertyChanged(BR.rangeEnd);
     }

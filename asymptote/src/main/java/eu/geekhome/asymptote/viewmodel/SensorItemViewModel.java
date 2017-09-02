@@ -11,14 +11,11 @@ import android.view.animation.AnimationUtils;
 import java.net.InetAddress;
 import java.util.ArrayList;
 
-import javax.inject.Inject;
-
 import eu.geekhome.asymptote.BR;
 import eu.geekhome.asymptote.R;
 import eu.geekhome.asymptote.bindingutils.LayoutHolder;
 import eu.geekhome.asymptote.bindingutils.viewparams.ShowBackButtonInToolbarViewParam;
 import eu.geekhome.asymptote.databinding.ListitemSensorBinding;
-import eu.geekhome.asymptote.dependencyinjection.activity.ActivityComponent;
 import eu.geekhome.asymptote.model.BoardRole;
 import eu.geekhome.asymptote.model.ColorSyncUpdate;
 import eu.geekhome.asymptote.model.DeviceSyncData;
@@ -43,9 +40,9 @@ import eu.geekhome.asymptote.services.SyncSource;
 import eu.geekhome.asymptote.services.ThreadRunner;
 import eu.geekhome.asymptote.services.UdpService;
 import eu.geekhome.asymptote.services.WiFiHelper;
+import eu.geekhome.asymptote.services.impl.MainViewModelsFactory;
 
 public class SensorItemViewModel extends BaseObservable implements LayoutHolder {
-    private final ActivityComponent _activityComponent;
     private String _restoreToken;
     private boolean _syncDelayed;
     private final SensorLifecycleListener _sensorLifecycleListener;
@@ -65,41 +62,47 @@ public class SensorItemViewModel extends BaseObservable implements LayoutHolder 
     private final String _userId;
     private String _token;
 
-    interface SensorLifecycleListener {
+    public interface SensorLifecycleListener {
         void recreated(SensorItemViewModel sender);
         void locking(SensorItemViewModel sender);
 
     }
 
-    @Inject
-    FirmwareRepository _firmwareRepository;
-    @Inject
-    WiFiHelper _wifiHelper;
-    @Inject
-    UdpService _udpService;
-    @Inject
-    Context _context;
-    @Inject
-    ThreadRunner _threadRunner;
-    @Inject
-    GeneralDialogService _generalDialogService;
-    @Inject
-    NavigationService _navigationService;
-    @Inject
-    SyncManager _syncManager;
-    @Inject
-    CloudDeviceService _cloudDeviceService;
-    @Inject
-    EmergencyManager _emergencyManager;
-    @Inject
-    ControlsCreator _controlsCreator;
+    private final FirmwareRepository _firmwareRepository;
+    private final WiFiHelper _wifiHelper;
+    private final UdpService _udpService;
+    private final Context _context;
+    private final ThreadRunner _threadRunner;
+    private final GeneralDialogService _generalDialogService;
+    private final NavigationService _navigationService;
+    private final SyncManager _syncManager;
+    private final CloudDeviceService _cloudDeviceService;
+    private final EmergencyManager _emergencyManager;
+    private final ControlsCreator _controlsCreator;
+    private final MainViewModelsFactory _factory;
 
-    public SensorItemViewModel(ActivityComponent activityComponent, SensorLifecycleListener sensorLifecycleListener,
+    public SensorItemViewModel(Context context, MainViewModelsFactory factory, FirmwareRepository firmwareRepository,
+                               WiFiHelper wifiHelper, UdpService udpService, ThreadRunner threadRunner,
+                               GeneralDialogService generalDialogService, NavigationService navigationService,
+                               SyncManager syncManager, CloudDeviceService cloudDeviceService,
+                               EmergencyManager emergencyManager, ControlsCreator controlsCreator,
+                               SensorLifecycleListener sensorLifecycleListener,
                                InetAddress address, DeviceSyncData syncData,
                                long timestamp, String userId, String token) {
-        activityComponent.inject(this);
-        _activityComponent = activityComponent;
+        _context = context;
+        _factory = factory;
+        _firmwareRepository = firmwareRepository;
+        _wifiHelper = wifiHelper;
+        _udpService = udpService;
+        _threadRunner = threadRunner;
+        _generalDialogService = generalDialogService;
+        _navigationService = navigationService;
+        _syncManager = syncManager;
+        _cloudDeviceService = cloudDeviceService;
+        _emergencyManager = emergencyManager;
+        _controlsCreator = controlsCreator;
         _sensorLifecycleListener = sensorLifecycleListener;
+        _syncData = syncData;
         _token = token;
         _lastRole = syncData.getRole();
         _controls = _controlsCreator.createControls(syncData, this);
@@ -371,7 +374,7 @@ public class SensorItemViewModel extends BaseObservable implements LayoutHolder 
     }
 
     public void edit() {
-        EditSensorViewModel renameModel = new EditSensorViewModel(_activityComponent, this);
+        EditSensorViewModel renameModel = _factory.createEditSensorViewModel(this);
         _navigationService.showViewModel(renameModel, new ShowBackButtonInToolbarViewParam());
     }
 
@@ -379,7 +382,7 @@ public class SensorItemViewModel extends BaseObservable implements LayoutHolder 
         if (!getSyncData().isLocked() && getSyncData().getSystemInfo().getVariant().isWifi()) {
             _generalDialogService.showOKDialog(R.string.device_locked_not_upgradable, null);
         } else {
-            ChangeFirmwareViewModel changeFirmwareModel = new ChangeFirmwareViewModel(_activityComponent, this);
+            ChangeFirmwareViewModel changeFirmwareModel = _factory.createChangeFirmwareViewModel(this);
             _navigationService.showViewModel(changeFirmwareModel, new ShowBackButtonInToolbarViewParam());
         }
     }
@@ -391,7 +394,7 @@ public class SensorItemViewModel extends BaseObservable implements LayoutHolder 
     }
 
     public void unlock() {
-        DeviceLockedViewModel uvm = new DeviceLockedViewModel(_activityComponent);
+        DeviceLockedViewModel uvm = _factory.createDeviceLockedViewModel();
         _navigationService.showOverlayViewModel(uvm);
     }
 

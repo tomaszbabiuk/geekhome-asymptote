@@ -10,12 +10,9 @@ import android.view.animation.AnimationUtils;
 
 import com.android.databinding.library.baseAdapters.BR;
 
-import javax.inject.Inject;
-
 import eu.geekhome.asymptote.R;
-import eu.geekhome.asymptote.bindingutils.InjectedViewModel;
+import eu.geekhome.asymptote.bindingutils.ViewModel;
 import eu.geekhome.asymptote.databinding.DialogLockBinding;
-import eu.geekhome.asymptote.dependencyinjection.activity.ActivityComponent;
 import eu.geekhome.asymptote.services.CloudActionCallback;
 import eu.geekhome.asymptote.services.CloudException;
 import eu.geekhome.asymptote.services.CloudUserService;
@@ -26,7 +23,7 @@ import eu.geekhome.asymptote.services.ThreadRunner;
 import eu.geekhome.asymptote.services.ToastService;
 import eu.geekhome.asymptote.validation.ValidationContext;
 
-public class LockViewModel extends InjectedViewModel<DialogLockBinding> {
+public class LockViewModel extends ViewModel<DialogLockBinding> {
     private final MainViewModel _mainViewModel;
     private final SensorItemViewModel _sensor;
     private final ValidationContext _validation = new ValidationContext();
@@ -35,26 +32,27 @@ public class LockViewModel extends InjectedViewModel<DialogLockBinding> {
     private boolean _rememberPassword;
     private boolean _blocked;
 
-    @Inject
-    NavigationService _navigationService;
-    @Inject
-    SyncManager _syncManager;
-    @Inject
-    ToastService _toastService;
-    @Inject
-    CloudUserService _cloudUserService;
-    @Inject
-    Context _context;
-    @Inject
-    ThreadRunner _threadRunner;
-    @Inject
-    EmergencyManager _emergencyManager;
+    private final NavigationService _navigationService;
+    private final SyncManager _syncManager;
+    private final ToastService _toastService;
+    private final CloudUserService _cloudUserService;
+    private final Context _context;
+    private final ThreadRunner _threadRunner;
+    private final EmergencyManager _emergencyManager;
 
 
-    public LockViewModel(ActivityComponent activityComponent, MainViewModel mainViewModel, SensorItemViewModel sensor) {
-        super(activityComponent);
+    public LockViewModel(NavigationService navigationService, SyncManager syncManager, ToastService toastService,
+                         CloudUserService cloudUserService, Context context, ThreadRunner threadRunner,
+                         EmergencyManager emergencyManager, MainViewModel mainViewModel, SensorItemViewModel sensor) {
         _mainViewModel = mainViewModel;
         _sensor = sensor;
+        _navigationService = navigationService;
+        _syncManager = syncManager;
+        _toastService = toastService;
+        _cloudUserService = cloudUserService;
+        _context = context;
+        _threadRunner = threadRunner;
+        _emergencyManager = emergencyManager;
     }
 
     @Bindable
@@ -69,11 +67,6 @@ public class LockViewModel extends InjectedViewModel<DialogLockBinding> {
         Animation rotateAnimation = AnimationUtils.loadAnimation(_context, R.anim.rotate_around_center_point_linear);
         binding.gearImage.startAnimation(rotateAnimation);
         return binding;
-    }
-
-    @Override
-    protected void doInject(ActivityComponent activityComponent) {
-        activityComponent.inject(this);
     }
 
     public void close() {

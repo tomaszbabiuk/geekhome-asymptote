@@ -5,29 +5,25 @@ import android.databinding.DataBindingUtil;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
-import javax.inject.Inject;
-
 import eu.geekhome.asymptote.BR;
 import eu.geekhome.asymptote.R;
-import eu.geekhome.asymptote.bindingutils.InjectedViewModel;
 import eu.geekhome.asymptote.bindingutils.ViewModel;
 import eu.geekhome.asymptote.bindingutils.viewparams.ShowBackButtonInToolbarViewParam;
 import eu.geekhome.asymptote.databinding.FragmentProfileBinding;
-import eu.geekhome.asymptote.dependencyinjection.activity.ActivityComponent;
 import eu.geekhome.asymptote.model.CloudUser;
 import eu.geekhome.asymptote.services.CloudException;
 import eu.geekhome.asymptote.services.CloudUserService;
 import eu.geekhome.asymptote.services.NavigationService;
+import eu.geekhome.asymptote.services.impl.MainViewModelsFactory;
 
-public class ProfileViewModel extends InjectedViewModel<FragmentProfileBinding> {
+public class ProfileViewModel extends ViewModel<FragmentProfileBinding> {
     private final HelpActionBarViewModel _actionBarModel;
     private CloudUser _user;
     private String _errorMessage;
 
-    @Inject
-    CloudUserService _cloudUserService;
-    @Inject
-    NavigationService _navigationService;
+    private final CloudUserService _cloudUserService;
+    private final NavigationService _navigationService;
+    private final MainViewModelsFactory _factory;
 
     @Bindable
     public HelpActionBarViewModel getActionBarModel() {
@@ -54,14 +50,11 @@ public class ProfileViewModel extends InjectedViewModel<FragmentProfileBinding> 
         notifyPropertyChanged(BR.errorMessage);
     }
 
-    public ProfileViewModel(ActivityComponent activityComponent) {
-        super(activityComponent);
-        _actionBarModel = new HelpActionBarViewModel(activityComponent);
-    }
-
-    @Override
-    protected void doInject(ActivityComponent activityComponent) {
-        activityComponent.inject(this);
+    public ProfileViewModel(MainViewModelsFactory factory, NavigationService navigationService, CloudUserService cloudUserService) {
+        _factory = factory;
+        _navigationService = navigationService;
+        _cloudUserService = cloudUserService;
+        _actionBarModel = _factory.createHelpActionBarModel();
     }
 
     @Override
@@ -89,14 +82,14 @@ public class ProfileViewModel extends InjectedViewModel<FragmentProfileBinding> 
 
     public void changePassword() {
         setErrorMessage(null);
-        _navigationService.showViewModel(new ChangePasswordViewModel(getActivityComponent()),
-                new ShowBackButtonInToolbarViewParam());
+        ChangePasswordViewModel changePasswordViewModel = _factory.createChangePasswordViewModel();
+        _navigationService.showViewModel(changePasswordViewModel, new ShowBackButtonInToolbarViewParam());
     }
 
     public void changeEmail() {
         setErrorMessage(null);
-        _navigationService.showViewModel(new ChangeEmailViewModel(getActivityComponent()),
-                new ShowBackButtonInToolbarViewParam());
+        ChangeEmailViewModel changeEmailViewModel = _factory.createChangeEmailViewModel();
+        _navigationService.showViewModel(changeEmailViewModel, new ShowBackButtonInToolbarViewParam());
     }
 
     public void logout() {

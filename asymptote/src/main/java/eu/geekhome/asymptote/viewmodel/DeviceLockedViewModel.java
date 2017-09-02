@@ -4,26 +4,16 @@ import android.databinding.DataBindingUtil;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
-import javax.inject.Inject;
-
 import eu.geekhome.asymptote.R;
-import eu.geekhome.asymptote.bindingutils.InjectedViewModel;
 import eu.geekhome.asymptote.bindingutils.ViewModel;
 import eu.geekhome.asymptote.databinding.DialogDeviceLockedBinding;
-import eu.geekhome.asymptote.dependencyinjection.activity.ActivityComponent;
 import eu.geekhome.asymptote.services.NavigationService;
 
-public class DeviceLockedViewModel extends InjectedViewModel<DialogDeviceLockedBinding> {
-    @Inject
-    NavigationService _navigationService;
+public class DeviceLockedViewModel extends ViewModel<DialogDeviceLockedBinding> {
+    private final NavigationService _navigationService;
 
-    public DeviceLockedViewModel(ActivityComponent activityComponent) {
-        super(activityComponent);
-    }
-
-    @Override
-    protected void doInject(ActivityComponent activityComponent) {
-
+    public DeviceLockedViewModel(NavigationService navigationService) {
+        _navigationService = navigationService;
     }
 
     @Override

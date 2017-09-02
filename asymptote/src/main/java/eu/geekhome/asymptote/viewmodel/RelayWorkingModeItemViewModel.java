@@ -6,20 +6,17 @@ import android.databinding.ViewDataBinding;
 
 import com.android.databinding.library.baseAdapters.BR;
 
-import javax.inject.Inject;
-
 import eu.geekhome.asymptote.R;
 import eu.geekhome.asymptote.bindingutils.LayoutHolder;
-import eu.geekhome.asymptote.dependencyinjection.activity.ActivityComponent;
 import eu.geekhome.asymptote.services.GeneralDialogService;
 
 public class RelayWorkingModeItemViewModel extends BaseObservable implements LayoutHolder {
-    @Inject GeneralDialogService _generalDialogService;
+    private final GeneralDialogService _generalDialogService;
     private long _impulse;
     private int _channel;
 
-    public RelayWorkingModeItemViewModel(ActivityComponent activityComponent, long impulse, int channel) {
-        activityComponent.inject(this);
+    public RelayWorkingModeItemViewModel(GeneralDialogService generalDialogService, long impulse, int channel) {
+        _generalDialogService = generalDialogService;
         _impulse = impulse;
         _channel = channel;
     }

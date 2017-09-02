@@ -2,36 +2,32 @@ package eu.geekhome.asymptote.viewmodel;
 
 import android.databinding.Bindable;
 import android.databinding.DataBindingUtil;
-import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
-
-import javax.inject.Inject;
 
 import eu.geekhome.asymptote.BR;
 import eu.geekhome.asymptote.R;
 import eu.geekhome.asymptote.databinding.FragmentResultBinding;
-import eu.geekhome.asymptote.dependencyinjection.activity.ActivityComponent;
 import eu.geekhome.asymptote.services.NavigationService;
+import eu.geekhome.asymptote.services.WiFiHelper;
+import eu.geekhome.asymptote.services.impl.MainViewModelsFactory;
 
 public class ResultViewModel extends HelpViewModelBase<FragmentResultBinding> {
     private String _title;
     private String _status;
     private boolean _success;
+    private final NavigationService _navigationService;
 
-    @Inject
-    NavigationService _navigationService;
-
-    public ResultViewModel(ActivityComponent activityComponent, String title, String status, boolean success) {
-        super(activityComponent);
-
+    public ResultViewModel(MainViewModelsFactory factory, WiFiHelper wifiHelper, NavigationService navigationService,
+                           String title, String status, boolean success) {
+        super(factory, wifiHelper, navigationService);
+        _navigationService = navigationService;
         setTitle(title);
         setStatus(status);
         setSuccess(success);
     }
 
-    public void onDone(@NonNull View view) {
+    public void onDone() {
         _navigationService.goBackTo(MainViewModel.class);
     }
 
@@ -40,11 +36,6 @@ public class ResultViewModel extends HelpViewModelBase<FragmentResultBinding> {
         FragmentResultBinding binding = DataBindingUtil.inflate(inflater, R.layout.fragment_result, container, false);
         binding.setVm(this);
         return binding;
-    }
-
-    @Override
-    protected void doInject(ActivityComponent activityComponent) {
-        activityComponent.inject(this);
     }
 
     @Bindable

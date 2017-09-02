@@ -10,31 +10,28 @@ import android.view.ViewGroup;
 
 import com.android.databinding.library.baseAdapters.BR;
 
-import javax.inject.Inject;
-
 import eu.geekhome.asymptote.R;
 import eu.geekhome.asymptote.databinding.FragmentChangePasswordBinding;
-import eu.geekhome.asymptote.dependencyinjection.activity.ActivityComponent;
 import eu.geekhome.asymptote.services.CloudActionCallback;
 import eu.geekhome.asymptote.services.CloudException;
 import eu.geekhome.asymptote.services.CloudUserService;
+import eu.geekhome.asymptote.services.NavigationService;
 import eu.geekhome.asymptote.services.ToastService;
+import eu.geekhome.asymptote.services.WiFiHelper;
+import eu.geekhome.asymptote.services.impl.MainViewModelsFactory;
 import eu.geekhome.asymptote.utils.KeyboardHelper;
 import eu.geekhome.asymptote.validation.ValidationContext;
 
 public class ChangePasswordViewModel extends HelpViewModelBase<FragmentChangePasswordBinding> {
+    private final NavigationService _navigationService;
     private String _oldPassword;
     private String _newPassword;
     private String _confirmNewPassword;
     private String _errorMessage;
     private final ValidationContext _validation = new ValidationContext();
-
-    @Inject
-    CloudUserService _cloudUserService;
-    @Inject
-    ToastService _toastService;
-    @Inject
-    Context _context;
+    private final CloudUserService _cloudUserService;
+    private final ToastService _toastService;
+    private final Context _context;
 
     @Bindable
     public String getErrorMessage() {
@@ -56,13 +53,14 @@ public class ChangePasswordViewModel extends HelpViewModelBase<FragmentChangePas
         return null;
     }
 
-    public ChangePasswordViewModel(ActivityComponent activityComponent) {
-        super(activityComponent);
-    }
-
-    @Override
-    protected void doInject(ActivityComponent activityComponent) {
-        activityComponent.inject(this);
+    public ChangePasswordViewModel(Context context, MainViewModelsFactory factory, WiFiHelper wifiHelper,
+                                   NavigationService navigationService, ToastService toastService,
+                                   CloudUserService cloudUserService) {
+        super(factory, wifiHelper, navigationService);
+        _context = context;
+        _toastService = toastService;
+        _cloudUserService = cloudUserService;
+        _navigationService = navigationService;
     }
 
     public void done(@NonNull final View view) {

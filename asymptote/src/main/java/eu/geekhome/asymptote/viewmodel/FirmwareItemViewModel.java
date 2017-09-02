@@ -3,13 +3,11 @@ package eu.geekhome.asymptote.viewmodel;
 import android.databinding.Bindable;
 import android.databinding.ViewDataBinding;
 
-import javax.inject.Inject;
-
 import eu.geekhome.asymptote.R;
 import eu.geekhome.asymptote.bindingutils.LayoutHolder;
-import eu.geekhome.asymptote.dependencyinjection.activity.ActivityComponent;
 import eu.geekhome.asymptote.model.Firmware;
 import eu.geekhome.asymptote.services.NavigationService;
+import eu.geekhome.asymptote.services.impl.MainViewModelsFactory;
 
 public class FirmwareItemViewModel extends SelectableItemViewModel implements LayoutHolder {
     private final SensorItemViewModel _sensor;
@@ -18,16 +16,15 @@ public class FirmwareItemViewModel extends SelectableItemViewModel implements La
     private final FirmwareItemViewModel.Context _firmwareContext;
     private final boolean _available;
     private final Firmware _firmware;
-    private final ActivityComponent _activityComponent;
+    private final MainViewModelsFactory _factory;
+    private final NavigationService _navigationService;
 
-    @Inject
-    NavigationService _navigationService;
-
-    public FirmwareItemViewModel(ActivityComponent activityComponent, Firmware firmware, SensorItemViewModel sensor,
+    public FirmwareItemViewModel(MainViewModelsFactory factory, NavigationService navigationService,
+                                 Firmware firmware, SensorItemViewModel sensor,
                                  String name, String description, FirmwareItemViewModel.Context context,
                                  boolean available) {
-        activityComponent.inject(this);
-        _activityComponent = activityComponent;
+        _navigationService = navigationService;
+        _factory = factory;
         _firmware = firmware;
         _sensor = sensor;
         _name = name;
@@ -72,7 +69,7 @@ public class FirmwareItemViewModel extends SelectableItemViewModel implements La
     }
 
     public void change() {
-        OtaViewModel otaViewModel = new OtaViewModel(_activityComponent, _sensor, _firmware);
+        OtaViewModel otaViewModel = _factory.createOtaViewModel(_sensor, _firmware);
         _navigationService.showViewModel(otaViewModel);
     }
 

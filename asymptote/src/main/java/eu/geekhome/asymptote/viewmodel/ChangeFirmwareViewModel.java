@@ -7,32 +7,27 @@ import android.databinding.ObservableArrayList;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
-import javax.inject.Inject;
-
 import eu.geekhome.asymptote.R;
-import eu.geekhome.asymptote.bindingutils.InjectedViewModel;
 import eu.geekhome.asymptote.bindingutils.LayoutHolder;
 import eu.geekhome.asymptote.bindingutils.ViewModel;
 import eu.geekhome.asymptote.databinding.FragmentChangeFirmwareBinding;
-import eu.geekhome.asymptote.dependencyinjection.activity.ActivityComponent;
 import eu.geekhome.asymptote.model.FirmwareSet;
 import eu.geekhome.asymptote.model.Variant;
 import eu.geekhome.asymptote.services.EmergencyManager;
 import eu.geekhome.asymptote.services.FirmwareRepository;
+import eu.geekhome.asymptote.services.impl.MainViewModelsFactory;
 
 
-public class ChangeFirmwareViewModel extends InjectedViewModel<FragmentChangeFirmwareBinding> {
+public class ChangeFirmwareViewModel extends ViewModel<FragmentChangeFirmwareBinding> {
 
     private ObservableArrayList<LayoutHolder> _firmwares;
     private HelpActionBarViewModel _actionBarModel;
     private final SensorItemViewModel _sensor;
 
-    @Inject
-    FirmwareRepository _firmwareRepository;
-    @Inject
-    EmergencyManager _emergencyManager;
-    @Inject
-    Context _context;
+    private final FirmwareRepository _firmwareRepository;
+    private final EmergencyManager _emergencyManager;
+    private final Context _context;
+    private final MainViewModelsFactory _factory;
 
     @Bindable
     public HelpActionBarViewModel getActionBarModel() {
@@ -44,11 +39,16 @@ public class ChangeFirmwareViewModel extends InjectedViewModel<FragmentChangeFir
         return _sensor;
     }
 
-    public ChangeFirmwareViewModel(ActivityComponent activityComponent, SensorItemViewModel sensor) {
-        super(activityComponent);
+    public ChangeFirmwareViewModel(Context context, MainViewModelsFactory factory,
+                                   FirmwareRepository firmwareRepository, EmergencyManager emergencyManager,
+                                   SensorItemViewModel sensor) {
+        _context = context;
+        _factory = factory;
+        _firmwareRepository = firmwareRepository;
+        _emergencyManager = emergencyManager;
         _sensor = sensor;
         _firmwares = createFirmwares();
-        _actionBarModel = new HelpActionBarViewModel(activityComponent);
+        _actionBarModel = _factory.createHelpActionBarModel();
     }
 
     private ObservableArrayList<LayoutHolder> createFirmwares() {
@@ -61,21 +61,21 @@ public class ChangeFirmwareViewModel extends InjectedViewModel<FragmentChangeFir
             FirmwareItemViewModel.Context wifiFirmwareContext =
                     _sensor.getSyncData().getSystemInfo().getVariant() != Variant.WiFi ? FirmwareItemViewModel.Context.Change :
                             isLatest ? FirmwareItemViewModel.Context.Actual : FirmwareItemViewModel.Context.Update;
-            FirmwareItemViewModel wifiItem = new FirmwareItemViewModel(getActivityComponent(), set.getWifiFirmware(),
+            FirmwareItemViewModel wifiItem = _factory.createFirmwareItemViewModel(set.getWifiFirmware(),
                     _sensor, "LAN", _context.getString(R.string.wifi_firmware_desc),
                     wifiFirmwareContext, true);
 
             FirmwareItemViewModel.Context firebaseFirmwareContext =
                     _sensor.getSyncData().getSystemInfo().getVariant() != Variant.Firebase ? FirmwareItemViewModel.Context.Change :
                             isLatest ? FirmwareItemViewModel.Context.Actual : FirmwareItemViewModel.Context.Update;
-            FirmwareItemViewModel firebaseItem = new FirmwareItemViewModel(getActivityComponent(), set.getFirebaseFirmware(),
+            FirmwareItemViewModel firebaseItem = _factory.createFirmwareItemViewModel(set.getFirebaseFirmware(),
                     _sensor, "IoT", _context.getString(R.string.iot_firmware_desc),
                     firebaseFirmwareContext, !_emergencyManager.isEmergency());
 
             FirmwareItemViewModel.Context hybridFirmwareContext =
                     _sensor.getSyncData().getSystemInfo().getVariant() != Variant.Hybrid ? FirmwareItemViewModel.Context.Change :
                             isLatest ? FirmwareItemViewModel.Context.Actual : FirmwareItemViewModel.Context.Update;
-            FirmwareItemViewModel hybridItem = new FirmwareItemViewModel(getActivityComponent(), set.getHybridFirmware(),
+            FirmwareItemViewModel hybridItem = _factory.createFirmwareItemViewModel( set.getHybridFirmware(),
                     _sensor, "LAN+IoT", _context.getString(R.string.hybrid_firmware_desc),
                     hybridFirmwareContext, !_emergencyManager.isEmergency());
 
@@ -110,11 +110,6 @@ public class ChangeFirmwareViewModel extends InjectedViewModel<FragmentChangeFir
         FragmentChangeFirmwareBinding binding = DataBindingUtil.inflate(inflater, R.layout.fragment_change_firmware, container, false);
         binding.setVm(this);
         return binding;
-    }
-
-    @Override
-    protected void doInject(ActivityComponent activityComponent) {
-        activityComponent.inject(this);
     }
 
     @Bindable

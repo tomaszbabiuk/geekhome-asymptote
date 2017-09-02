@@ -10,31 +10,27 @@ import android.view.ViewGroup;
 
 import com.android.databinding.library.baseAdapters.BR;
 
-import javax.inject.Inject;
-
 import eu.geekhome.asymptote.R;
 import eu.geekhome.asymptote.bindingutils.viewparams.ShowBackButtonInToolbarViewParam;
 import eu.geekhome.asymptote.databinding.FragmentChangeEmailBinding;
-import eu.geekhome.asymptote.dependencyinjection.activity.ActivityComponent;
 import eu.geekhome.asymptote.services.CloudActionCallback;
 import eu.geekhome.asymptote.services.CloudException;
 import eu.geekhome.asymptote.services.CloudUserService;
 import eu.geekhome.asymptote.services.NavigationService;
+import eu.geekhome.asymptote.services.WiFiHelper;
+import eu.geekhome.asymptote.services.impl.MainViewModelsFactory;
 import eu.geekhome.asymptote.utils.KeyboardHelper;
 import eu.geekhome.asymptote.validation.ValidationContext;
 
 public class ChangeEmailViewModel extends HelpViewModelBase<FragmentChangeEmailBinding> {
     private final ValidationContext _validation = new ValidationContext();
+    private final MainViewModelsFactory _factory;
+    private final CloudUserService _cloudUserService;
+    private final Context _context;
+    private final NavigationService _navigationService;
     private String _password;
     private String _email;
     private String _errorMessage;
-
-    @Inject
-    CloudUserService _cloudUserService;
-    @Inject
-    Context _context;
-    @Inject
-    NavigationService _navigationService;
 
     @Bindable
     public String getErrorMessage() {
@@ -56,13 +52,13 @@ public class ChangeEmailViewModel extends HelpViewModelBase<FragmentChangeEmailB
         return null;
     }
 
-    public ChangeEmailViewModel(ActivityComponent activityComponent) {
-        super(activityComponent);
-    }
-
-    @Override
-    protected void doInject(ActivityComponent activityComponent) {
-        activityComponent.inject(this);
+    public ChangeEmailViewModel(Context context, MainViewModelsFactory factory, WiFiHelper wifiHelper,
+                                NavigationService navigationService, CloudUserService cloudUserService) {
+        super(factory, wifiHelper, navigationService);
+        _context = context;
+        _factory = factory;
+        _navigationService = navigationService;
+        _cloudUserService = cloudUserService;
     }
 
     public void next(@NonNull final View view) {
@@ -73,7 +69,8 @@ public class ChangeEmailViewModel extends HelpViewModelBase<FragmentChangeEmailB
             _cloudUserService.changeEmail(getPassword(), getEmail(), new CloudActionCallback<Void>() {
                 @Override
                 public void success(Void data) {
-                    VerifyEmailLightViewModel verifyEmailLightViewModel = new VerifyEmailLightViewModel(getActivityComponent(), getEmail());
+                    VerifyEmailLightViewModel verifyEmailLightViewModel =
+                            _factory.createVerifyEmailLightViewModel(getEmail());
                     _navigationService.showViewModel(verifyEmailLightViewModel, new ShowBackButtonInToolbarViewParam());
                 }
 

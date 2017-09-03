@@ -12,6 +12,7 @@
     </data>
 
     <LinearLayout
+        android:id="@+id/instr_fragment_privacy"
         style="@style/Touch.Background">
 
         <View style="@style/Common.DarkLine.Horizontal"/>

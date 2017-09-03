@@ -15,6 +15,7 @@
     </data>
 
     <eu.geekhome.asymptote.validation.controls.ValidationLinearLayout
+        android:id="@+id/instr_fragment_login_with_email"
         style="@style/Splash.CenterContainer"
         tools:validationContext="@{vm.validation}"
         android:padding="@dimen/common_medium_padding">
@@ -30,6 +31,7 @@
 
             <android.support.design.widget.TextInputEditText
                 style="@style/Splash.TextInput"
+                android:id="@+id/instr_text_login_email"
                 android:hint="@string/email"
                 android:inputType="textEmailAddress"
                 android:text="@={vm.email}"
@@ -41,6 +43,7 @@
 
             <android.support.design.widget.TextInputEditText
                 style="@style/Splash.TextInput"
+                android:id="@+id/instr_text_login_password"
                 android:hint="@string/password"
                 android:inputType="textPassword"
                 android:text="@={vm.password}"
@@ -48,6 +51,7 @@
         </android.support.design.widget.TextInputLayout>
 
         <TextView
+            android:id="@+id/instr_text_login_sign_in"
             style="@style/Common.Button.Orange"
             android:layout_width="match_parent"
             android:onClick="@{() -> vm.signInWithEmail()}"

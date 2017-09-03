@@ -6,7 +6,6 @@ import android.support.test.filters.LargeTest;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 
-import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -21,11 +20,10 @@ import eu.geekhome.asymptote.services.PrivacyService;
 import it.cosenonjaviste.daggermock.DaggerMockRule;
 
 import static android.support.test.espresso.Espresso.onView;
+import static android.support.test.espresso.action.ViewActions.*;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
-import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
-import static android.support.test.espresso.matcher.ViewMatchers.withId;
-import static android.support.test.espresso.matcher.ViewMatchers.withText;
-import static org.mockito.Mockito.*;
+import static android.support.test.espresso.matcher.ViewMatchers.*;
+import static org.mockito.Mockito.when;
 
 @RunWith(AndroidJUnit4.class)
 @LargeTest
@@ -52,29 +50,68 @@ public class SplashTests {
 
     @Rule
     public ActivityTestRule<SplashActivity> mActivityRule = new ActivityTestRule<>(
-            SplashActivity.class, false, false);
+            SplashActivity.class, true, false);
 
-    @Before
-    public void setupMocks() {
+    private void startSplashActivity() {
+        Intent startSplashIntent = new Intent(getApp(), SplashActivity.class);
+        startSplashIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        getApp().startActivity(startSplashIntent);
     }
 
     @Test
     public void shouldShowConditionsWhenPrivacyPolicyNotAccepted() {
         when(_privacyService.isAccepted()).thenReturn(false);
-        Intent startSplashIntent = new Intent(getApp(), SplashActivity.class);
-        startSplashIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        getApp().startActivity(startSplashIntent);
+        startSplashActivity();
 
-        onView(withId(R.id.instr_button_disagree)).check(matches(isDisplayed()));
+        onView(withId(R.id.instr_fragment_privacy)).check(matches(isDisplayed()));
     }
 
     @Test
     public void shouldShowSigningWhenPrivacyPolicyAccepted() {
         when(_privacyService.isAccepted()).thenReturn(true);
-        Intent startSplashIntent = new Intent(getApp(), SplashActivity.class);
-        startSplashIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        getApp().startActivity(startSplashIntent);
+        startSplashActivity();
 
-        onView(withId(R.id.instr_button_sign_in)).check(matches(isDisplayed()));
+        onView(withId(R.id.instr_fragment_sign_in)).check(matches(isDisplayed()));
+    }
+
+    @Test
+    public void shouldShowResetPassword() {
+        when(_privacyService.isAccepted()).thenReturn(true);
+        startSplashActivity();
+
+        onView(withId(R.id.instr_button_goto_reset_password)).perform(click());
+        onView(withId(R.id.instr_fragment_reset_password_dark)).check(matches(isDisplayed()));
+    }
+
+    @Test
+    public void shouldStartEmergencyMode() {
+        when(_privacyService.isAccepted()).thenReturn(true);
+        startSplashActivity();
+
+        onView(withId(R.id.instr_button_emergency_mode)).perform(click());
+        onView(withId(R.id.instr_fragment_main)).check(matches(isDisplayed()));
+    }
+
+    @Test
+    public void shouldStartSignIn() {
+        when(_privacyService.isAccepted()).thenReturn(true);
+        startSplashActivity();
+
+        onView(withId(R.id.instr_button_sign_in)).perform(click());
+        onView(withId(R.id.instr_fragment_login_with_email)).check(matches(isDisplayed()));
+    }
+
+    @Test
+    public void shouldSignInWithEmail() {
+        when(_privacyService.isAccepted()).thenReturn(true);
+        startSplashActivity();
+
+        onView(withId(R.id.instr_button_sign_in)).perform(click());
+        onView(withId(R.id.instr_text_login_email)).perform(typeText("testdude@test.test"));
+        onView(withId(R.id.instr_text_login_password)).perform(scrollTo(), typeText("yolo!"));
+        onView(withId(R.id.instr_fragment_login_with_email)).perform(scrollTo(), click());
+
+
+        onView(withId(R.id.instr_text_login_sign_in)).perform(click());
     }
 }

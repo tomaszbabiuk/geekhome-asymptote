@@ -15,6 +15,7 @@
     </data>
 
     <LinearLayout
+        android:id="@+id/instr_fragment_sign_in"
         style="@style/Splash.CenterContainer">
 
         <LinearLayout
@@ -29,18 +30,21 @@
                 android:text="@string/sign_in_with_email"/>
 
             <TextView
+                android:id="@+id/instr_button_emergency_mode"
                 style="@style/Common.Button.Gray"
                 android:layout_width="match_parent"
                 android:onClick="@{() -> vm.signInEmergency()}"
                 android:text="@string/emergency_mode"/>
 
             <TextView
+                android:id="@+id/instr_button_sign_up"
                 style="@style/Common.Button.Gray"
                 android:layout_width="match_parent"
                 android:onClick="@{() -> vm.signUp()}"
                 android:text="@string/sign_up"/>
 
             <TextView
+                android:id="@+id/instr_button_forgot_password"
                 style="@style/Layout.MatchX"
                 android:layout_marginTop="@dimen/common_medium_padding"
                 android:gravity="center_horizontal"
@@ -49,6 +53,7 @@
                 android:textColor="@color/silver"/>
 
             <TextView
+                android:id="@+id/instr_button_goto_reset_password"
                 style="@style/Common.LinkButton.Orange.Centered"
                 android:onClick="@{() -> vm.resetPassword()}"
                 android:text="@string/reset_password"/>

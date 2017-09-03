@@ -47,9 +47,9 @@ public class ResourcesBasedFirmwareRepository extends ResourcesBasedFirmwareRepo
         Firmware sonoffBasicHybrid = new Firmware(Variant.Hybrid, "sonoffbasic/firmware_hybrid.bin", "", 1, 4);
         FirmwareSet sonoffBasicSet = new FirmwareSet(sonoffBasicWifi, sonoffBasicFirebase, sonoffBasicHybrid);
         put(BoardId.SonoffBASIC, sonoffBasicSet);
-        Firmware electrodragon2RelSpdtWifi = new Firmware(Variant.WiFi, "electrodragon2rel_spdt/firmware_wifi.bin", "", 1, 5);
-        Firmware electrodragon2RelSpdtFirebase = new Firmware(Variant.Firebase, "electrodragon2rel_spdt/firmware_firebase.bin", "", 1, 5);
-        Firmware electrodragon2RelSpdtHybrid = new Firmware(Variant.Hybrid, "electrodragon2rel_spdt/firmware_hybrid.bin", "", 1, 5);
+        Firmware electrodragon2RelSpdtWifi = new Firmware(Variant.WiFi, "electrodragon2rel_spdt/firmware_wifi.bin", "", 1, 3);
+        Firmware electrodragon2RelSpdtFirebase = new Firmware(Variant.Firebase, "electrodragon2rel_spdt/firmware_firebase.bin", "", 1, 3);
+        Firmware electrodragon2RelSpdtHybrid = new Firmware(Variant.Hybrid, "electrodragon2rel_spdt/firmware_hybrid.bin", "", 1, 3);
         FirmwareSet electrodragon2RelSpdtSet = new FirmwareSet(electrodragon2RelSpdtWifi, electrodragon2RelSpdtFirebase, electrodragon2RelSpdtHybrid);
         put(BoardId.Elecrodragon2REL_SPDT, electrodragon2RelSpdtSet);
     }

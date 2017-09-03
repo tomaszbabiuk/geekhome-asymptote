@@ -12,6 +12,7 @@
     </data>
 
     <LinearLayout
+        android:id="@+id/instr_fragment_main"
         style="@style/Layout.MatchXY.Vertical">
 
         <include

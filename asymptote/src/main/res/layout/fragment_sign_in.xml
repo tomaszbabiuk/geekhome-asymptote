@@ -22,6 +22,7 @@
             android:padding="@dimen/common_medium_padding">
 
             <TextView
+                android:id="@+id/instr_button_sign_in"
                 style="@style/Common.Button.Orange"
                 android:layout_width="match_parent"
                 android:onClick="@{() -> vm.signInWithEmail()}"

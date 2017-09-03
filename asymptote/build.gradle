@@ -28,7 +28,8 @@ android {
         targetSdkVersion 25
         versionCode 7
         versionName "1.32"
-        testInstrumentationRunner "eu.geekhome.asymptote.espresso.MockTestRunner"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        //multiDexEnabled true
     }
 
     productFlavors {
@@ -88,6 +89,7 @@ dependencies {
     androidTestCompile 'com.android.support.test:runner:1.0.1'
     androidTestCompile 'com.google.code.findbugs:jsr305:3.0.1'
     androidTestCompile 'org.mockito:mockito-android:2.8.47'
+    androidTestCompile 'com.github.fabioCollini:DaggerMock:0.7.0'
 }
 
 apply plugin: 'com.google.gms.google-services'

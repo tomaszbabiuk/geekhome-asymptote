@@ -45,6 +45,7 @@
 
                 <Button
                     style="@style/Touch.CancelButton"
+                    android:id="@+id/instr_button_disagree"
                     android:onClick="@{() -> vm.disagree()}"
                     android:text="@string/disagree"/>
 

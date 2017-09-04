@@ -23,6 +23,7 @@
                 style="@style/Splash.Background">
 
                 <TextView
+                    android:id="@+id/inst_text_error"
                     style="@style/Touch.ErrorMessage"
                     android:text="@{vm.errorMessage}"
                     android:visibility="@{vm.errorMessage != null ? View.VISIBLE : View.GONE}"

@@ -12,6 +12,8 @@ import eu.geekhome.asymptote.BR;
 import eu.geekhome.asymptote.R;
 import eu.geekhome.asymptote.bindingutils.LayoutHolder;
 import eu.geekhome.asymptote.model.DeviceSyncData;
+import eu.geekhome.asymptote.model.PWMValue;
+import eu.geekhome.asymptote.model.RGBValue;
 import eu.geekhome.asymptote.services.ColorDialogService;
 import eu.geekhome.asymptote.services.ColorPickedListener;
 import eu.geekhome.asymptote.services.FavoriteColorsService;
@@ -84,9 +86,8 @@ public class ControlRGBItemViewModel extends ControlItemViewModelBase implements
         setValueGreen(green);
         setValueBlue(blue);
 
-        pwmChanged(_channelRed, red);
-        pwmChanged(_channelGreen, green);
-        pwmChanged(_channelBlue, blue);
+        rgbChanged(new RGBValue(new PWMValue(_channelRed, red), new PWMValue(_channelGreen, green),
+                new PWMValue(_channelBlue, blue)));
 
         if (_channelWhite != -1) {
             //handle RGBW

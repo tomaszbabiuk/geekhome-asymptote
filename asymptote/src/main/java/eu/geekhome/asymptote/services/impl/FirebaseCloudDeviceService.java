@@ -37,6 +37,7 @@ import eu.geekhome.asymptote.model.OtaState;
 import eu.geekhome.asymptote.model.PWMImpulseSyncUpdate;
 import eu.geekhome.asymptote.model.PWMSyncUpdate;
 import eu.geekhome.asymptote.model.ParamSyncUpdate;
+import eu.geekhome.asymptote.model.RGBSyncUpdate;
 import eu.geekhome.asymptote.model.RelayImpulseSyncUpdate;
 import eu.geekhome.asymptote.model.RelaySyncUpdate;
 import eu.geekhome.asymptote.model.RestoreTokenSyncUpdate;
@@ -392,6 +393,19 @@ public class FirebaseCloudDeviceService implements CloudDeviceService {
                                 PWMSyncUpdate pwmUpdate = (PWMSyncUpdate) update;
                                 String ix = String.format("pwms/%02X", pwmUpdate.getValue().getChannel());
                                 orders.put(ix, pwmUpdate.getValue().getDuty());
+                            }
+
+                            if (update instanceof RGBSyncUpdate) {
+                                RGBSyncUpdate rgbUpdate = (RGBSyncUpdate) update;
+                                int redChannel = rgbUpdate.getValue().getRed().getChannel();
+                                int greenChannel = rgbUpdate.getValue().getGreen().getChannel();
+                                int blueChannel = rgbUpdate.getValue().getBlue().getChannel();
+                                int redDuty = rgbUpdate.getValue().getRed().getDuty();
+                                int greenDuty = rgbUpdate.getValue().getGreen().getDuty();
+                                int blueDuty = rgbUpdate.getValue().getBlue().getDuty();
+                                String ix = String.format("rgbs/%02X%02X%02X", redChannel, greenChannel, blueChannel);
+                                String val = String.format("%02X%02X%02X", redDuty, greenDuty, blueDuty);
+                                orders.put(ix, val);
                             }
 
                             if (update instanceof PWMImpulseSyncUpdate) {

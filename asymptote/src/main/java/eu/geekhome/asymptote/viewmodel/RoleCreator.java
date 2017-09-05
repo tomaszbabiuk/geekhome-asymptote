@@ -8,9 +8,9 @@ import eu.geekhome.asymptote.bindingutils.LayoutHolder;
 import eu.geekhome.asymptote.model.BoardId;
 import eu.geekhome.asymptote.model.BoardRole;
 
-public class RoleCreator {
+class RoleCreator {
 
-    public static ObservableArrayList<LayoutHolder> generateRoles(Context context, BoardId boardId, EditSensorViewModel editModel) {
+    static ObservableArrayList<LayoutHolder> generateRoles(Context context, BoardId boardId, EditSensorViewModel editModel) {
         switch (boardId) {
             case SonoffTOUCH:
                 return createRolesForSonoffTouch(context, editModel);
@@ -24,6 +24,7 @@ public class RoleCreator {
             case H801 :
                 return createRolesForH801(context, editModel);
             case H802 :
+            case ElectrodragonLed:
                 return createRolesForH802(context, editModel);
             case SonoffSC:
                 return createRolesForSonoffSC(context, editModel);
@@ -32,6 +33,7 @@ public class RoleCreator {
             case SonoffDUAL:
                 return createRolesForSonoffDual(context, editModel);
             case Elecrodragon2REL_SPDT:
+            case ElectrodragonVDC:
             case Elecrodragon2REL:
                 return createRolesForElectrodragonSPDT(context, editModel);
             default :

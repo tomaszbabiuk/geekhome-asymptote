@@ -69,7 +69,12 @@ public enum BoardId {
 
     //1-ch remote switch
     //geekhome slave device (1-ch output)
-    SonoffBASIC(0x0C);
+    SonoffBASIC(0x0C),
+
+    ElectrodragonVDC(0x0D),
+    ElectrodragonVDC_MOD(0x0E),
+
+    ElectrodragonLed(0x0F);
 
 
     private int _id;

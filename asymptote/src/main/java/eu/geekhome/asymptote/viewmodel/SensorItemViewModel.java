@@ -22,6 +22,7 @@ import eu.geekhome.asymptote.model.DeviceSyncData;
 import eu.geekhome.asymptote.model.NameSyncUpdate;
 import eu.geekhome.asymptote.model.PWMSyncUpdate;
 import eu.geekhome.asymptote.model.ParamSyncUpdate;
+import eu.geekhome.asymptote.model.RGBSyncUpdate;
 import eu.geekhome.asymptote.model.RelayImpulseSyncUpdate;
 import eu.geekhome.asymptote.model.RelaySyncUpdate;
 import eu.geekhome.asymptote.model.RoleSyncUpdate;
@@ -258,6 +259,26 @@ public class SensorItemViewModel extends BaseObservable implements LayoutHolder 
                     toDelete.add(update);
                 } else {
                     data.getPwmDuties()[channel] = updateDuty;
+                }
+            } else if (update instanceof RGBSyncUpdate) {
+                RGBSyncUpdate pwmUpdate = (RGBSyncUpdate) update;
+                int redChannel = pwmUpdate.getValue().getRed().getChannel();
+                int greenChannel = pwmUpdate.getValue().getGreen().getChannel();
+                int blueChannel = pwmUpdate.getValue().getBlue().getChannel();
+                int reportedRedDuty = data.getPwmDuties()[redChannel];
+                int reportedGreenDuty = data.getPwmDuties()[greenChannel];
+                int reportedBlueDuty = data.getPwmDuties()[blueChannel];
+                int updateRedDuty = pwmUpdate.getValue().getRed().getDuty();
+                int updateGreenDuty = pwmUpdate.getValue().getGreen().getDuty();
+                int updateBlueDuty = pwmUpdate.getValue().getBlue().getDuty();
+                if (reportedRedDuty == updateRedDuty &&
+                    reportedGreenDuty == updateGreenDuty &&
+                    reportedBlueDuty == updateBlueDuty) {
+                    toDelete.add(update);
+                } else {
+                    data.getPwmDuties()[redChannel] = updateRedDuty;
+                    data.getPwmDuties()[greenChannel] = updateGreenDuty;
+                    data.getPwmDuties()[blueChannel] = updateBlueDuty;
                 }
             } else if (update instanceof ParamSyncUpdate) {
                 ParamSyncUpdate paramUpdate = (ParamSyncUpdate) update;

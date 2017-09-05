@@ -14,6 +14,8 @@ import eu.geekhome.asymptote.model.PWMSyncUpdate;
 import eu.geekhome.asymptote.model.PWMValue;
 import eu.geekhome.asymptote.model.ParamSyncUpdate;
 import eu.geekhome.asymptote.model.ParamValue;
+import eu.geekhome.asymptote.model.RGBSyncUpdate;
+import eu.geekhome.asymptote.model.RGBValue;
 import eu.geekhome.asymptote.model.RelayImpulseSyncUpdate;
 import eu.geekhome.asymptote.model.RelaySyncUpdate;
 import eu.geekhome.asymptote.model.RelayValue;
@@ -63,6 +65,35 @@ abstract class ControlItemViewModelBase extends BaseObservable {
             }
         }
 
+        return null;
+    }
+
+    void rgbChanged(RGBValue rgbValue) {
+        rgbChangedInernal(rgbValue, getSensor().getUpdates());
+    }
+
+    private void rgbChangedInernal(RGBValue rgbValue, ArrayList<SyncUpdate> updates) {
+        RGBSyncUpdate pwmUpdate = findRGBUpdate(rgbValue, updates);
+        if (pwmUpdate == null) {
+            updates.add(new RGBSyncUpdate(rgbValue));
+        } else {
+            pwmUpdate.setValue(rgbValue);
+        }
+    }
+
+    private RGBSyncUpdate findRGBUpdate(RGBValue rgbValueToFind, ArrayList<SyncUpdate> updates) {
+        if (updates.size() > 0) {
+            for (SyncUpdate syncUpdate : updates) {
+                if (syncUpdate instanceof RGBSyncUpdate) {
+                    RGBValue rgbValue = ((RGBSyncUpdate) syncUpdate).getValue();
+                    if (rgbValue.getRed().getChannel() == rgbValueToFind.getRed().getChannel() &&
+                        rgbValue.getGreen().getChannel() == rgbValueToFind.getGreen().getChannel() &&
+                        rgbValue.getBlue().getChannel() == rgbValueToFind.getBlue().getChannel()) {
+                        return (RGBSyncUpdate) syncUpdate;
+                    }
+                }
+            }
+        }
         return null;
     }
 

@@ -97,11 +97,18 @@ public class ControlsCreator {
                 }
 
                 if (syncData.getRole() == BoardRole.MULTI_PWM) {
+                    String[] names = {"R", "G", "B", "W" , ""};
+
+                    if (syncData.getPwmDuties().length == 5) {
+                        names[3] = "W1";
+                        names[4] = "W2";
+                    }
+
                     if (syncData.getPwmDuties() != null) {
                         if (syncData.getPwmDuties().length > 0) {
                             for (int i = 0; i < syncData.getPwmDuties().length; i++) {
                                 ControlPWMItemViewModel pwmModel = new ControlPWMItemViewModel(sensorModel, _context, i,
-                                        syncData.getPwmDuties()[i]);
+                                        syncData.getPwmDuties()[i], names[i]);
                                 result.add(pwmModel);
                             }
                         }
@@ -109,6 +116,13 @@ public class ControlsCreator {
                 }
 
                 if (syncData.getRole() == BoardRole.RGB_1PWM || syncData.getRole() == BoardRole.RGB_2PWM) {
+                    String[] names = {"R", "G", "B", "W" , ""};
+
+                    if (syncData.getPwmDuties().length == 5) {
+                        names[3] = "W1";
+                        names[4] = "W2";
+                    }
+
                     if (syncData.getPwmDuties().length > 0) {
                         ControlRGBItemViewModel rgbModel = new ControlRGBItemViewModel(sensorModel, _colorDialogService,
                                 _favoriteColorsService, 0, 1, 2, -1,
@@ -117,12 +131,12 @@ public class ControlsCreator {
                     }
 
                     ControlPWMItemViewModel pwmW1Model = new ControlPWMItemViewModel(sensorModel, _context, 3,
-                            syncData.getPwmDuties()[3]);
+                            syncData.getPwmDuties()[3], names[3]);
                     result.add(pwmW1Model);
 
                     if (syncData.getRole() == BoardRole.RGB_2PWM) {
                         ControlPWMItemViewModel pwmW2Model = new ControlPWMItemViewModel(sensorModel, _context, 4,
-                                syncData.getPwmDuties()[4]);
+                                syncData.getPwmDuties()[4], names[5]);
                         result.add(pwmW2Model);
                     }
                 }

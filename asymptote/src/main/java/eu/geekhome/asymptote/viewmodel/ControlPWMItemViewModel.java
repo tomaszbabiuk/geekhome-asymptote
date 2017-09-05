@@ -1,6 +1,7 @@
 package eu.geekhome.asymptote.viewmodel;
 
 import android.content.Context;
+import android.databinding.Bindable;
 import android.databinding.ViewDataBinding;
 
 import eu.geekhome.asymptote.R;
@@ -8,6 +9,8 @@ import eu.geekhome.asymptote.bindingutils.LayoutHolder;
 import eu.geekhome.asymptote.model.DeviceSyncData;
 
 public class ControlPWMItemViewModel extends ValueSync<Integer> implements LayoutHolder {
+
+    private final String _name;
 
     @Override
     public void sync(DeviceSyncData data) {
@@ -34,9 +37,11 @@ public class ControlPWMItemViewModel extends ValueSync<Integer> implements Layou
     protected String composeWaitMessage(Context context, Integer value) {
         return context.getString(R.string.please_wait);
     }
-    public ControlPWMItemViewModel(SensorItemViewModel sensor, Context context,
-                                   int channel, int initialValue) {
+
+    ControlPWMItemViewModel(SensorItemViewModel sensor, Context context,
+                            int channel, int initialValue, String name) {
         super(sensor, context, channel, initialValue);
+        _name = name;
     }
 
     @Override
@@ -46,5 +51,10 @@ public class ControlPWMItemViewModel extends ValueSync<Integer> implements Layou
 
     @Override
     public void onBinding(ViewDataBinding binding) {
+    }
+
+    @Bindable
+    public String getName() {
+        return _name;
     }
 }

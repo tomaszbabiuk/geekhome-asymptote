@@ -13,6 +13,10 @@
             name="channel"
             type="java.lang.Integer"/>
 
+        <variable
+            name="name"
+            type="java.lang.String"/>
+
         <import type="android.view.View"/>
 
 
@@ -22,7 +26,7 @@
 
         <TextView
             style="@style/SensorList.Text.PwmChannel"
-            android:text="W1"
+            android:text="@{name}"
             android:layout_width="40dp"
             tools:ignore="HardcodedText"/>
 

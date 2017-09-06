@@ -310,6 +310,7 @@
     <string name="reset">Resetuj</string>
     <string name="remove_this_color_question">Czy usunąć ten kolor z listy?</string>
     <string name="cannot_remove_selected_color">Kolor zaznaczony nie może zostać usunięty. Możesz usuwać pozostałe kolory.</string>
+    <string name="user_message">Uwaga, wariant oprogramowania IoT (łączenie tylko i wyłącznie przez chmurę) przestanie być wspierany w następnych wersjach oprogramowania. Jeżeli posiadają państwo jakieś urządzenie pracujące w tym wariancie, bardzo prosimy o rozważenie zmiany wariantu na wariant LAN lub LAN+IoT. Chcemy, aby system geekHOME był jak najprostszy i planujemy zwiększać poziom bezpieczeństwa wariantu LAN+IoT (tak, aby w przyszłości inne warianty oprogramowania nie były potrzebne).</string>
 
     <string-array name="signal_turned_on_solutions">
         <item>Poczekaj na bardziej znaczący sygnał. Przykładowo, gdy urządzenie nie zna naszej sieci WiFi i próbuje nawiązać połączenie dioda stanu świeci się w sposób ciągły (nie miga) przez kilka sekund, a następnie miga dwukrotnie kilka razy i znowu zaświeca się, aby ponowić próbę. Te dwa mrugnięcia są tym bardziej znaczącym sygnałem w tym przypadku.</item>

@@ -249,8 +249,6 @@ public class OtaViewModel extends WiFiAwareViewModel<FragmentOtaBinding> impleme
                         RestoreTokenSyncUpdate restoreTokenSyncUpdate = new RestoreTokenSyncUpdate(restoreToken);
                         CloudUsernameSyncUpdate usernameSyncUpdate = new CloudUsernameSyncUpdate(_sensor.getUserId());
                         CloudPasswordSyncUpdate passwordSyncUpdate = new CloudPasswordSyncUpdate(deviceToken);
-                        //TEMP
-                        sha1Thumbprint[0] = 0;
                         String fingerprint = ByteUtils.bytesToHex(sha1Thumbprint).toLowerCase();
                         CloudFingerprintSyncUpdate cloudFingerprintSyncUpdate = new CloudFingerprintSyncUpdate(fingerprint);
                         _sensor.getUpdates().add(hashSyncUpdate);

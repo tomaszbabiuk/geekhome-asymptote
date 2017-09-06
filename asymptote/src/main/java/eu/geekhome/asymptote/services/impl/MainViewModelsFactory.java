@@ -27,6 +27,7 @@ import eu.geekhome.asymptote.services.SyncManager;
 import eu.geekhome.asymptote.services.ThreadRunner;
 import eu.geekhome.asymptote.services.ToastService;
 import eu.geekhome.asymptote.services.UdpService;
+import eu.geekhome.asymptote.services.UserMessageAcknowledgeService;
 import eu.geekhome.asymptote.services.WiFiHelper;
 import eu.geekhome.asymptote.services.WiFiParamsResolver;
 import eu.geekhome.asymptote.viewmodel.CMSViewModel;
@@ -80,8 +81,7 @@ public class MainViewModelsFactory {
     private GeneralDialogService _generalDialogService;
     private EmergencyManager _emergencyManager;
     private ControlsCreator _controlsCreator;
-    private ColorDialogService _colorDialogService;
-    private FavoriteColorsService _favoriteColorsService;
+    private UserMessageAcknowledgeService _userMessageAcknowledgeService;
 
     @Inject
     MainViewModelsFactory(Context context, CloudUserService cloudUserService, CloudDeviceService cloudDeviceService,
@@ -91,7 +91,8 @@ public class MainViewModelsFactory {
                           CloudCertificateChecker cloudCertificateChecker, SyncManager syncManager,
                           FirmwareRepository firmwareRepository, UdpService udpService,
                           ThreadRunner threadRunner, GeneralDialogService generalDialogService,
-                          EmergencyManager emergencyManager, ControlsCreator controlsCreator, ColorDialogService colorDialogService, FavoriteColorsService favoriteColorsService) {
+                          EmergencyManager emergencyManager, ControlsCreator controlsCreator,
+                          UserMessageAcknowledgeService userMessageAcknowledgeService) {
         _context = context;
         _cloudUserService = cloudUserService;
         _cloudDeviceService = cloudDeviceService;
@@ -109,8 +110,7 @@ public class MainViewModelsFactory {
         _generalDialogService = generalDialogService;
         _emergencyManager = emergencyManager;
         _controlsCreator = controlsCreator;
-        _colorDialogService = colorDialogService;
-        _favoriteColorsService = favoriteColorsService;
+        _userMessageAcknowledgeService = userMessageAcknowledgeService;
     }
 
     public HelpActionBarViewModel createHelpActionBarModel() {
@@ -183,7 +183,8 @@ public class MainViewModelsFactory {
 
     public MainViewModel createMainViewModel(String userId, UserSnapshot userSnapshot) {
         return new MainViewModel(_context, this, _navigationService, _threadRunner, _syncManager,
-                _wifiHelper, _emergencyManager, _cloudDeviceService, _cloudCertificateChecker, userId, userSnapshot);
+                _wifiHelper, _emergencyManager, _cloudDeviceService, _cloudCertificateChecker,
+                _userMessageAcknowledgeService, _generalDialogService, userId, userSnapshot);
     }
 
     public SetEmergencyPasswordViewModel createSetEmergencyPasswordViewModel(MainViewModel mainViewModel, String userId) {

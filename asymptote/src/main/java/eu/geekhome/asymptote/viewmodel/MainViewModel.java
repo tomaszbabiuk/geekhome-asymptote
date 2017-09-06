@@ -32,17 +32,23 @@ import eu.geekhome.asymptote.services.CloudCertificateChecker;
 import eu.geekhome.asymptote.services.CloudDeviceService;
 import eu.geekhome.asymptote.services.CloudException;
 import eu.geekhome.asymptote.services.EmergencyManager;
+import eu.geekhome.asymptote.services.GeneralDialogService;
 import eu.geekhome.asymptote.services.NavigationService;
 import eu.geekhome.asymptote.services.SyncListener;
 import eu.geekhome.asymptote.services.SyncManager;
 import eu.geekhome.asymptote.services.ThreadRunner;
+import eu.geekhome.asymptote.services.UserMessageAcknowledgeService;
 import eu.geekhome.asymptote.services.WiFiHelper;
 import eu.geekhome.asymptote.services.impl.MainViewModelsFactory;
+import eu.geekhome.asymptote.services.impl.PreferencesUserMessageAcknowledgeService;
 import eu.geekhome.asymptote.utils.ByteUtils;
 import eu.geekhome.asymptote.utils.Ticker;
 
 public class MainViewModel extends ViewModel<FragmentMainBinding> implements SyncListener, SensorItemViewModel.SensorLifecycleListener {
     private final MainViewModelsFactory _factory;
+    private final UserMessageAcknowledgeService _userMessageAcknowledgeService;
+    private final GeneralDialogService _generalDialogService;
+    private boolean _showUserMessage;
     private ArrayList<DeviceSnapshot> _deviceSnapshots;
     private final Hashtable<InetAddress, Byte[]> _firebaseDevices;
     private ObservableArrayList<LayoutHolder> _sensors = new ObservableArrayList<>();
@@ -95,9 +101,13 @@ public class MainViewModel extends ViewModel<FragmentMainBinding> implements Syn
     public MainViewModel(Context context, MainViewModelsFactory factory, NavigationService navigationService,
                          ThreadRunner threadRunner, SyncManager syncManager, WiFiHelper wifiHelper,
                          EmergencyManager emergencyManager, CloudDeviceService cloudDeviceService,
-                         CloudCertificateChecker cloudCertificateChecker, String userId,
-                         UserSnapshot userSnapshot) {
+                         CloudCertificateChecker cloudCertificateChecker,
+                         UserMessageAcknowledgeService userMessageAcknowledgeService,
+                         GeneralDialogService generalDialogService,
+                         String userId, UserSnapshot userSnapshot) {
         _factory = factory;
+        _userMessageAcknowledgeService = userMessageAcknowledgeService;
+        _generalDialogService = generalDialogService;
         _actionBarModel = _factory.createMainActionBarViewModel();
         _userId = userId;
         _navigationService = navigationService;
@@ -113,6 +123,7 @@ public class MainViewModel extends ViewModel<FragmentMainBinding> implements Syn
         _securedDevicesFoundViewModel = _factory.createSecuredDevicesFoundViewModel(this, userId);
         _deviceSnapshots = userSnapshot.getDeviceSnapshots();
         _firebaseDevices = new Hashtable<>();
+        _showUserMessage = !context.getString(R.string.user_message).isEmpty() && !userMessageAcknowledgeService.isAcknowledge();
     }
 
     @NonNull
@@ -313,6 +324,16 @@ public class MainViewModel extends ViewModel<FragmentMainBinding> implements Syn
 
         _aliveTicker = createAliveTicker();
         _cloudDeviceService.setSyncListener(this);
+
+        if (_showUserMessage) {
+            _showUserMessage = false;
+            _generalDialogService.showOKDialog(R.string.user_message, new Runnable() {
+                @Override
+                public void run() {
+                    _userMessageAcknowledgeService.setAcknowledged();
+                }
+            });
+        }
     }
 
     @Override

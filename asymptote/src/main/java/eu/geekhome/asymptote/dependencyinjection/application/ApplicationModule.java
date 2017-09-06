@@ -11,6 +11,7 @@ import eu.geekhome.asymptote.services.CloudCertificateChecker;
 import eu.geekhome.asymptote.services.EmergencyManager;
 import eu.geekhome.asymptote.services.FirmwareRepository;
 import eu.geekhome.asymptote.services.PrivacyService;
+import eu.geekhome.asymptote.services.UserMessageAcknowledgeService;
 import eu.geekhome.asymptote.services.WiFiHelper;
 import eu.geekhome.asymptote.services.WiFiParamsResolver;
 import eu.geekhome.asymptote.services.impl.AndroidWiFiHelper;
@@ -18,6 +19,7 @@ import eu.geekhome.asymptote.services.impl.AndroidWiFiParamsResolver;
 import eu.geekhome.asymptote.services.impl.FirebaseCertificateChecker;
 import eu.geekhome.asymptote.services.impl.MemoryEmergencyManager;
 import eu.geekhome.asymptote.services.impl.PreferencesPrivacyService;
+import eu.geekhome.asymptote.services.impl.PreferencesUserMessageAcknowledgeService;
 import eu.geekhome.asymptote.services.impl.ResourcesBasedFirmwareRepository;
 
 @Module(subcomponents = {
@@ -32,43 +34,49 @@ public class ApplicationModule {
 
     @Provides
     @ApplicationScope
-    protected Context provideContext() {
+    Context provideContext() {
         return _application;
     }
 
     @Provides
     @ApplicationScope
-    protected FirmwareRepository provideFirmwareRepository() {
+    FirmwareRepository provideFirmwareRepository() {
         return new ResourcesBasedFirmwareRepository();
     }
 
     @Provides
     @ApplicationScope
-    protected EmergencyManager provideEmergencyManager() {
+    EmergencyManager provideEmergencyManager() {
         return new MemoryEmergencyManager(false, null);
     }
 
     @Provides
     @ApplicationScope
-    protected WiFiParamsResolver provideWiFiParamsResolver(WiFiHelper wiFiHelper) {
+    WiFiParamsResolver provideWiFiParamsResolver(WiFiHelper wiFiHelper) {
         return new AndroidWiFiParamsResolver(wiFiHelper);
     }
 
     @Provides
     @ApplicationScope
-    protected WiFiHelper provideWiFiHelper() {
+    WiFiHelper provideWiFiHelper() {
         return new AndroidWiFiHelper(_application);
     }
 
     @Provides
     @ApplicationScope
-    protected PrivacyService providePrivacyService() {
+    PrivacyService providePrivacyService() {
         return new PreferencesPrivacyService(_application);
     }
 
     @Provides
     @ApplicationScope
-    protected CloudCertificateChecker provideCloudChecker() {
+    CloudCertificateChecker provideCloudChecker() {
         return new FirebaseCertificateChecker("https://asymptote-769eb.firebaseio.com");
+    }
+
+    @Provides
+    @ApplicationScope
+    UserMessageAcknowledgeService provideUserMessageAcknowledgeService() {
+        return new PreferencesUserMessageAcknowledgeService(_application);
     }
 }

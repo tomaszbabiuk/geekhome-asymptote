@@ -308,6 +308,8 @@
     <string name="gate_opening">Opening…</string>
     <string name="gate_closing">Closing…</string>
     <string name="reset">Reset</string>
+    <string name="remove_this_color_question">Remove this color from the list?</string>
+    <string name="cannot_remove_selected_color">Selected color cannot be removed. You can remove other colors.</string>
 
 
     <string-array name="signal_turned_on_solutions">

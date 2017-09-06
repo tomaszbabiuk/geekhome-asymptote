@@ -7,5 +7,6 @@ import eu.geekhome.asymptote.services.impl.RankedColor;
 
 public interface FavoriteColorsService {
     void colorPicked(String setId, int color);
+    void colorRemoved(String setId, int color);
     ArrayList<RankedColor> getFavoriteColors(String setId);
 }

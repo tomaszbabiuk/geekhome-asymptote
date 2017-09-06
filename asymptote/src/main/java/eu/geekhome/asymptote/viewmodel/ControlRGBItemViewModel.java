@@ -17,6 +17,7 @@ import eu.geekhome.asymptote.model.RGBValue;
 import eu.geekhome.asymptote.services.ColorDialogService;
 import eu.geekhome.asymptote.services.ColorPickedListener;
 import eu.geekhome.asymptote.services.FavoriteColorsService;
+import eu.geekhome.asymptote.services.GeneralDialogService;
 import eu.geekhome.asymptote.services.impl.RankedColor;
 
 public class ControlRGBItemViewModel extends ControlItemViewModelBase implements LayoutHolder {
@@ -25,6 +26,7 @@ public class ControlRGBItemViewModel extends ControlItemViewModelBase implements
     private final FavoriteColorsService _favoriteColorsService;
 
     private final ObservableArrayList<LayoutHolder> _favoriteColors;
+    private final GeneralDialogService _generalDialogService;
     private int _channelRed;
     private int _channelGreen;
     private int _channelBlue;
@@ -33,11 +35,12 @@ public class ControlRGBItemViewModel extends ControlItemViewModelBase implements
     private int _valueGreen;
     private int _valueBlue;
 
-    public ControlRGBItemViewModel(SensorItemViewModel sensor, ColorDialogService colorDialogService,
-                                   FavoriteColorsService favoriteColorsService,
-                                   int channelRed, int channelGreen, int channelBlue, int channelWhite,
-                                   int valueRed, int valueGreen, int valueBlue) {
+    ControlRGBItemViewModel(SensorItemViewModel sensor, ColorDialogService colorDialogService,
+                            FavoriteColorsService favoriteColorsService, GeneralDialogService generalDialogService,
+                            int channelRed, int channelGreen, int channelBlue, int channelWhite,
+                            int valueRed, int valueGreen, int valueBlue) {
         super(sensor);
+        _generalDialogService = generalDialogService;
         _favoriteColors = new ObservableArrayList<>();
         _favoriteColorsService = favoriteColorsService;
         _colorDialogService = colorDialogService;
@@ -115,7 +118,7 @@ public class ControlRGBItemViewModel extends ControlItemViewModelBase implements
             for (RankedColor rankedColor : rankedColors) {
                 boolean selected = rankedColor.getColor() == selectedColor;
                 if (_favoriteColors.size() < i + 1) {
-                    FavoriteColorItemViewModel model = new FavoriteColorItemViewModel(this, rankedColor.getColor());
+                    FavoriteColorItemViewModel model = new FavoriteColorItemViewModel(_generalDialogService, this, rankedColor.getColor());
                     _favoriteColors.add(model);
                     model.setSelected(selected);
                 } else {
@@ -140,7 +143,7 @@ public class ControlRGBItemViewModel extends ControlItemViewModelBase implements
         return _valueRed;
     }
 
-    public void setValueRed(int valueRed) {
+    private void setValueRed(int valueRed) {
         _valueRed = valueRed;
         notifyPropertyChanged(BR.valueRed);
     }
@@ -150,7 +153,7 @@ public class ControlRGBItemViewModel extends ControlItemViewModelBase implements
         return _valueGreen;
     }
 
-    public void setValueGreen(int valueGreen) {
+    private void setValueGreen(int valueGreen) {
         _valueGreen = valueGreen;
         notifyPropertyChanged(BR.valueGreen);
     }
@@ -160,7 +163,7 @@ public class ControlRGBItemViewModel extends ControlItemViewModelBase implements
         return _valueBlue;
     }
 
-    public void setValueBlue(int valueBlue) {
+    private void setValueBlue(int valueBlue) {
         _valueBlue = valueBlue;
         notifyPropertyChanged(BR.valueBlue);
     }
@@ -181,5 +184,11 @@ public class ControlRGBItemViewModel extends ControlItemViewModelBase implements
             rankedColors.add(new RankedColor(selectedColor));
         }
         mergeFavoriteColors(rankedColors, selectedColor);
+    }
+
+    void colorRemoved(FavoriteColorItemViewModel colorItemViewModel) {
+        String setId = composeSetId(getSensor().getSyncData().getDeviceKey().getDeviceId());
+        _favoriteColorsService.colorRemoved(setId, colorItemViewModel.getColor());
+        _favoriteColors.remove(colorItemViewModel);
     }
 }

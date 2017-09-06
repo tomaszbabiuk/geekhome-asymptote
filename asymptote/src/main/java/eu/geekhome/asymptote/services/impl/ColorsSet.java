@@ -6,27 +6,41 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 
-public class ColorsSet {
+class ColorsSet {
     @SerializedName("key")
     private String _key;
 
-    @SerializedName("role")
+    @SerializedName("colors")
     private ArrayList<RankedColor> _rankedColors;
 
-    public ColorsSet() {
+    private ColorsSet() {
         _rankedColors = new ArrayList<>();
     }
 
-    public ColorsSet(String key) {
+    ColorsSet(String key) {
         this();
         _key = key;
+    }
+
+    public void remove(int color) {
+        RankedColor toRemove = null;
+        for (RankedColor rankedColor : _rankedColors) {
+            if (rankedColor.getColor() == color) {
+                toRemove = rankedColor;
+                break;
+            }
+        }
+
+        if (toRemove != null) {
+            _rankedColors.remove(toRemove);
+        }
     }
 
     public String getKey() {
         return _key;
     }
 
-    public void rankColor(int color) {
+    void rankColor(int color) {
         for (RankedColor rankedColor : _rankedColors) {
             if (rankedColor.getColor() == color) {
                 rankedColor.incrementRank();
@@ -37,11 +51,11 @@ public class ColorsSet {
         _rankedColors.add(new RankedColor(color));
     }
 
-    public ArrayList<RankedColor> getRankedColors() {
+    ArrayList<RankedColor> getRankedColors() {
         return _rankedColors;
     }
 
-    public ArrayList<RankedColor> sort() {
+    ArrayList<RankedColor> sort() {
         Collections.sort(_rankedColors, new Comparator<RankedColor>() {
             @Override
             public int compare(RankedColor o1, RankedColor o2) {

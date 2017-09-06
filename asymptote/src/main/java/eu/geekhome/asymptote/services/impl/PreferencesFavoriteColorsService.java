@@ -43,6 +43,16 @@ public class PreferencesFavoriteColorsService implements eu.geekhome.asymptote.s
         save();
     }
 
+    public void colorRemoved(String setId, int color) {
+        for (ColorsSet set : _colorsSets) {
+            if (set.getKey().equals(setId)) {
+                set.remove(color);
+                save();
+                return;
+            }
+        }
+    }
+
     @Override
     public ArrayList<RankedColor> getFavoriteColors(String setId) {
         for (ColorsSet set : _colorsSets) {

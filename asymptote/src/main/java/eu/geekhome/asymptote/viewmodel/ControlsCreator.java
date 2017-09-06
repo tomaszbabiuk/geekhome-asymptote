@@ -12,6 +12,7 @@ import eu.geekhome.asymptote.model.BoardRole;
 import eu.geekhome.asymptote.model.DeviceSyncData;
 import eu.geekhome.asymptote.services.ColorDialogService;
 import eu.geekhome.asymptote.services.FavoriteColorsService;
+import eu.geekhome.asymptote.services.GeneralDialogService;
 
 @ActivityScope
 public class ControlsCreator {
@@ -19,15 +20,18 @@ public class ControlsCreator {
     private final Context _context;
     private final FavoriteColorsService _favoriteColorsService;
     private final ColorDialogService _colorDialogService;
+    private final GeneralDialogService _generalDialogService;
 
     @Inject
-    public ControlsCreator(Context context, FavoriteColorsService favoriteColorsService, ColorDialogService colorDialogService) {
+    public ControlsCreator(Context context, FavoriteColorsService favoriteColorsService,
+                           ColorDialogService colorDialogService, GeneralDialogService generalDialogService) {
         _context = context;
         _favoriteColorsService = favoriteColorsService;
         _colorDialogService = colorDialogService;
+        _generalDialogService = generalDialogService;
     }
 
-    public ObservableArrayList<LayoutHolder> createControls(DeviceSyncData syncData, SensorItemViewModel sensorModel) {
+    ObservableArrayList<LayoutHolder> createControls(DeviceSyncData syncData, SensorItemViewModel sensorModel) {
         ObservableArrayList<LayoutHolder> result = new ObservableArrayList<>();
         if (syncData.getRole() != BoardRole.GeekHOME) {
             if (syncData.getRole() == BoardRole.HEATING_THERMOSTAT) {
@@ -125,7 +129,7 @@ public class ControlsCreator {
 
                     if (syncData.getPwmDuties().length > 0) {
                         ControlRGBItemViewModel rgbModel = new ControlRGBItemViewModel(sensorModel, _colorDialogService,
-                                _favoriteColorsService, 0, 1, 2, -1,
+                                _favoriteColorsService, _generalDialogService, 0, 1, 2, -1,
                                 syncData.getPwmDuties()[0], syncData.getPwmDuties()[1], syncData.getPwmDuties()[2]);
                         result.add(rgbModel);
                     }
@@ -144,7 +148,7 @@ public class ControlsCreator {
                 if (syncData.getRole() == BoardRole.RGBW) {
                     if (syncData.getPwmDuties().length > 0) {
                         ControlRGBItemViewModel rgbModel = new ControlRGBItemViewModel(sensorModel, _colorDialogService,
-                                _favoriteColorsService, 0, 1, 2, 3,
+                                _favoriteColorsService, _generalDialogService, 0, 1, 2, 3,
                                 syncData.getPwmDuties()[0], syncData.getPwmDuties()[1], syncData.getPwmDuties()[2]);
                         result.add(rgbModel);
                     }

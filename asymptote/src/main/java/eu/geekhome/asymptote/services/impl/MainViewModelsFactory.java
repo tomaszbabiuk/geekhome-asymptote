@@ -16,7 +16,9 @@ import eu.geekhome.asymptote.services.AddressesPersistenceService;
 import eu.geekhome.asymptote.services.CloudCertificateChecker;
 import eu.geekhome.asymptote.services.CloudDeviceService;
 import eu.geekhome.asymptote.services.CloudUserService;
+import eu.geekhome.asymptote.services.ColorDialogService;
 import eu.geekhome.asymptote.services.EmergencyManager;
+import eu.geekhome.asymptote.services.FavoriteColorsService;
 import eu.geekhome.asymptote.services.FirmwareRepository;
 import eu.geekhome.asymptote.services.GeneralDialogService;
 import eu.geekhome.asymptote.services.NavigationService;
@@ -31,9 +33,12 @@ import eu.geekhome.asymptote.viewmodel.CMSViewModel;
 import eu.geekhome.asymptote.viewmodel.ChangeEmailViewModel;
 import eu.geekhome.asymptote.viewmodel.ChangeFirmwareViewModel;
 import eu.geekhome.asymptote.viewmodel.ChangePasswordViewModel;
+import eu.geekhome.asymptote.viewmodel.ControlPWMItemViewModel;
+import eu.geekhome.asymptote.viewmodel.ControlRGBItemViewModel;
 import eu.geekhome.asymptote.viewmodel.ControlsCreator;
 import eu.geekhome.asymptote.viewmodel.DeviceLockedViewModel;
 import eu.geekhome.asymptote.viewmodel.EditSensorViewModel;
+import eu.geekhome.asymptote.viewmodel.FavoriteColorItemViewModel;
 import eu.geekhome.asymptote.viewmodel.FirmwareItemViewModel;
 import eu.geekhome.asymptote.viewmodel.HelpActionBarViewModel;
 import eu.geekhome.asymptote.viewmodel.HygrostatRoleDetailsViewModel;
@@ -75,6 +80,8 @@ public class MainViewModelsFactory {
     private GeneralDialogService _generalDialogService;
     private EmergencyManager _emergencyManager;
     private ControlsCreator _controlsCreator;
+    private ColorDialogService _colorDialogService;
+    private FavoriteColorsService _favoriteColorsService;
 
     @Inject
     MainViewModelsFactory(Context context, CloudUserService cloudUserService, CloudDeviceService cloudDeviceService,
@@ -84,7 +91,7 @@ public class MainViewModelsFactory {
                           CloudCertificateChecker cloudCertificateChecker, SyncManager syncManager,
                           FirmwareRepository firmwareRepository, UdpService udpService,
                           ThreadRunner threadRunner, GeneralDialogService generalDialogService,
-                          EmergencyManager emergencyManager, ControlsCreator controlsCreator) {
+                          EmergencyManager emergencyManager, ControlsCreator controlsCreator, ColorDialogService colorDialogService, FavoriteColorsService favoriteColorsService) {
         _context = context;
         _cloudUserService = cloudUserService;
         _cloudDeviceService = cloudDeviceService;
@@ -102,6 +109,8 @@ public class MainViewModelsFactory {
         _generalDialogService = generalDialogService;
         _emergencyManager = emergencyManager;
         _controlsCreator = controlsCreator;
+        _colorDialogService = colorDialogService;
+        _favoriteColorsService = favoriteColorsService;
     }
 
     public HelpActionBarViewModel createHelpActionBarModel() {

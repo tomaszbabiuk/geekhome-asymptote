@@ -308,6 +308,8 @@
     <string name="gate_opening">Otwieranie…</string>
     <string name="gate_closing">Zamykanie…</string>
     <string name="reset">Resetuj</string>
+    <string name="remove_this_color_question">Czy usunąć ten kolor z listy?</string>
+    <string name="cannot_remove_selected_color">Kolor zaznaczony nie może zostać usunięty. Możesz usuwać pozostałe kolory.</string>
 
     <string-array name="signal_turned_on_solutions">
         <item>Poczekaj na bardziej znaczący sygnał. Przykładowo, gdy urządzenie nie zna naszej sieci WiFi i próbuje nawiązać połączenie dioda stanu świeci się w sposób ciągły (nie miga) przez kilka sekund, a następnie miga dwukrotnie kilka razy i znowu zaświeca się, aby ponowić próbę. Te dwa mrugnięcia są tym bardziej znaczącym sygnałem w tym przypadku.</item>

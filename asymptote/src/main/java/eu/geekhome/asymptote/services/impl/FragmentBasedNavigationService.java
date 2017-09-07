@@ -62,6 +62,7 @@ public class FragmentBasedNavigationService implements NavigationService {
 
     @Override
     public void goBack() {
+        _overlayClass = null;
         _fragmentManager.popBackStack();
     }
 

@@ -32,16 +32,16 @@ class RoleCreator {
                 return createRolesForSonoff4CH(context, editModel);
             case SonoffDUAL:
                 return createRolesForSonoffDual(context, editModel);
-            case Elecrodragon2REL_SPDT:
-            case ElectrodragonVDC:
+//            case Elecrodragon2REL_SPDT:
+//            case ElectrodragonVDC:
             case Elecrodragon2REL:
-                return createRolesForElectrodragonSPDT(context, editModel);
+                return createRolesForElectrodragon2REL(context, editModel);
             default :
                 return new ObservableArrayList<>();
         }
     }
 
-    private static ObservableArrayList<LayoutHolder> createRolesForElectrodragonSPDT(Context context, EditSensorViewModel editModel) {
+    private static ObservableArrayList<LayoutHolder> createRolesForElectrodragon2REL(Context context, EditSensorViewModel editModel) {
         ObservableArrayList<LayoutHolder> roles = new ObservableArrayList<>();
         RoleItemViewModel mainsRole = new RoleItemViewModel(editModel,
                 BoardRole.MAINS2,
@@ -51,13 +51,13 @@ class RoleCreator {
                 BoardRole.MAINS2_ADV,
                 context.getString(R.string.role_mains_switch_advanced),
                 context.getString(R.string.role_mains_desc));
-        RoleItemViewModel gate = new RoleItemViewModel(editModel,
-                BoardRole.GATE,
-                context.getString(R.string.role_gate),
-                context.getString(R.string.role_gate_desc));
+//        RoleItemViewModel gate = new RoleItemViewModel(editModel,
+//                BoardRole.GATE,
+//                context.getString(R.string.role_gate),
+//                context.getString(R.string.role_gate_desc));
         roles.add(mainsRole);
         roles.add(mainsRoleAdvanced);
-        roles.add(gate);
+//        roles.add(gate);
         //roles.add(slave);
 
         return roles;

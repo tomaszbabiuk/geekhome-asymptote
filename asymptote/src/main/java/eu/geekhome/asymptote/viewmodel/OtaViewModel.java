@@ -168,19 +168,21 @@ public class OtaViewModel extends WiFiAwareViewModel<FragmentOtaBinding> impleme
 
             _cloudDeviceService.setSyncListener(this);
 
-            _cloudDeviceService.getUserSnapshot(_sensor.getUserId(), new CloudActionCallback<UserSnapshot>() {
-                @Override
-                public void success(UserSnapshot userSnapshot) {
-                    for (final DeviceSnapshot deviceSnapshot : userSnapshot.getDeviceSnapshots()) {
-                        _cloudDeviceService.registerForDeviceSyncEvents(_sensor.getUserId(), deviceSnapshot);
+            if (_sensor.getUserId() != null) {
+                _cloudDeviceService.getUserSnapshot(_sensor.getUserId(), new CloudActionCallback<UserSnapshot>() {
+                    @Override
+                    public void success(UserSnapshot userSnapshot) {
+                        for (final DeviceSnapshot deviceSnapshot : userSnapshot.getDeviceSnapshots()) {
+                            _cloudDeviceService.registerForDeviceSyncEvents(_sensor.getUserId(), deviceSnapshot);
+                        }
                     }
-                }
 
-                @Override
-                public void failure(CloudException exception) {
-                    setErrorMessage(exception.getLocalizedMessage());
-                }
-            });
+                    @Override
+                    public void failure(CloudException exception) {
+                        setErrorMessage(exception.getLocalizedMessage());
+                    }
+                });
+            }
         }
     }
 
@@ -194,7 +196,9 @@ public class OtaViewModel extends WiFiAwareViewModel<FragmentOtaBinding> impleme
         _syncManager.setSyncListener(null);
 
         _cloudDeviceService.setSyncListener(null);
-        _cloudDeviceService.unregisterFromDeviceSyncEvents(_sensor.getUserId());
+        if (_sensor.getUserId() != null) {
+            _cloudDeviceService.unregisterFromDeviceSyncEvents(_sensor.getUserId());
+        }
 
         super.onPause();
     }

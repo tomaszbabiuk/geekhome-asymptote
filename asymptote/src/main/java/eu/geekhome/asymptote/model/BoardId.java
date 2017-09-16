@@ -72,7 +72,7 @@ public enum BoardId {
     SonoffBASIC(0x0C),
 
     ElectrodragonVDC(0x0D),
-    ElectrodragonVDC_MOD(0x0E),
+    geekGATE(0x0E),
 
     ElectrodragonLed(0x0F);
 

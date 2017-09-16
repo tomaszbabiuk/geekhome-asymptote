@@ -69,6 +69,7 @@
     <string name="error_resetting_password" formatted="false">We were not able to reset your password: %s.</string>
     <string name="reset_password_success" formatted="false">An email with password reset instruction has been sent to %s email address. Please check your email and click reset link.</string>
     <string name="email_verify_success" formatted="false">An email with verification code has been sent to %s email address. Please check your email and click verification link.</string>
+    <string name="support_email_error" formatted="false">There\'s been a problem with requesting support: %s. Please send support request to %s manually.</string>
     <string name="verify_email_instruction">Please logout and sign in to finish registration process.</string>
     <string name="later">Later</string>
     <string name="change_password">Change password</string>

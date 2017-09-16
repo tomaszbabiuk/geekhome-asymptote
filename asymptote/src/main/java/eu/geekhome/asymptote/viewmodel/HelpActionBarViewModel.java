@@ -1,5 +1,6 @@
 package eu.geekhome.asymptote.viewmodel;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 
@@ -14,8 +15,8 @@ public class HelpActionBarViewModel {
     private final ToastService _toastService;
     private final CloudUserService _cloudUserService;
 
-    public HelpActionBarViewModel(Context context, ToastService toastService, CloudUserService cloudUserService) {
-        _context = context;
+    public HelpActionBarViewModel(Activity activity, ToastService toastService, CloudUserService cloudUserService) {
+        _context = activity;
         _toastService = toastService;
         _cloudUserService = cloudUserService;
     }
@@ -28,7 +29,7 @@ public class HelpActionBarViewModel {
             }
 
             private void prepareEmail(CloudUser user) {
-                String subject = user != null ? _context.getString(R.string.ask_for_support_with_uid, user.getId()) :
+                String subject = user != null && user.getId() != null ? _context.getString(R.string.ask_for_support_with_uid, user.getId()) :
                         _context.getString(R.string.ask_for_support);
 
                 Intent emailIntent = new Intent(Intent.ACTION_SEND);
@@ -45,7 +46,9 @@ public class HelpActionBarViewModel {
 
             @Override
             public void failure(CloudException exception) {
-                prepareEmail(null);
+                String message = _context.getString(R.string.support_email_error, exception,
+                        _context.getString(R.string.ask_for_support));
+                _toastService.makeToast(message, true);
             }
         });
 

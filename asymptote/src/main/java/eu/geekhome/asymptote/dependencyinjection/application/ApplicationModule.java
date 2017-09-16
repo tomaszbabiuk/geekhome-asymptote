@@ -22,6 +22,7 @@ import eu.geekhome.asymptote.services.impl.PreferencesPrivacyService;
 import eu.geekhome.asymptote.services.impl.PreferencesUserMessageAcknowledgeService;
 import eu.geekhome.asymptote.services.impl.ResourcesBasedFirmwareRepository;
 
+@SuppressWarnings("WeakerAccess")
 @Module(subcomponents = {
         MainActivityComponent.class,
         SplashActivityComponent.class})
@@ -34,49 +35,49 @@ public class ApplicationModule {
 
     @Provides
     @ApplicationScope
-    Context provideContext() {
+    protected Context provideContext() {
         return _application;
     }
 
     @Provides
     @ApplicationScope
-    FirmwareRepository provideFirmwareRepository() {
+    protected FirmwareRepository provideFirmwareRepository() {
         return new ResourcesBasedFirmwareRepository();
     }
 
     @Provides
     @ApplicationScope
-    EmergencyManager provideEmergencyManager() {
+    protected EmergencyManager provideEmergencyManager() {
         return new MemoryEmergencyManager(false, null);
     }
 
     @Provides
     @ApplicationScope
-    WiFiParamsResolver provideWiFiParamsResolver(WiFiHelper wiFiHelper) {
+    protected WiFiParamsResolver provideWiFiParamsResolver(WiFiHelper wiFiHelper) {
         return new AndroidWiFiParamsResolver(wiFiHelper);
     }
 
     @Provides
     @ApplicationScope
-    WiFiHelper provideWiFiHelper() {
+    protected WiFiHelper provideWiFiHelper() {
         return new AndroidWiFiHelper(_application);
     }
 
     @Provides
     @ApplicationScope
-    PrivacyService providePrivacyService() {
+    protected PrivacyService providePrivacyService() {
         return new PreferencesPrivacyService(_application);
     }
 
     @Provides
     @ApplicationScope
-    CloudCertificateChecker provideCloudChecker() {
+    protected CloudCertificateChecker provideCloudChecker() {
         return new FirebaseCertificateChecker("https://asymptote-769eb.firebaseio.com");
     }
 
     @Provides
     @ApplicationScope
-    UserMessageAcknowledgeService provideUserMessageAcknowledgeService() {
+    protected UserMessageAcknowledgeService provideUserMessageAcknowledgeService() {
         return new PreferencesUserMessageAcknowledgeService(_application);
     }
 }

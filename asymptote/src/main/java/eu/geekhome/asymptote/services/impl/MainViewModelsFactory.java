@@ -7,6 +7,7 @@ import java.net.InetAddress;
 
 import javax.inject.Inject;
 
+import eu.geekhome.asymptote.MainActivity;
 import eu.geekhome.asymptote.bindingutils.LayoutHolder;
 import eu.geekhome.asymptote.model.DeviceSyncData;
 import eu.geekhome.asymptote.model.Firmware;
@@ -16,9 +17,7 @@ import eu.geekhome.asymptote.services.AddressesPersistenceService;
 import eu.geekhome.asymptote.services.CloudCertificateChecker;
 import eu.geekhome.asymptote.services.CloudDeviceService;
 import eu.geekhome.asymptote.services.CloudUserService;
-import eu.geekhome.asymptote.services.ColorDialogService;
 import eu.geekhome.asymptote.services.EmergencyManager;
-import eu.geekhome.asymptote.services.FavoriteColorsService;
 import eu.geekhome.asymptote.services.FirmwareRepository;
 import eu.geekhome.asymptote.services.GeneralDialogService;
 import eu.geekhome.asymptote.services.NavigationService;
@@ -34,12 +33,9 @@ import eu.geekhome.asymptote.viewmodel.CMSViewModel;
 import eu.geekhome.asymptote.viewmodel.ChangeEmailViewModel;
 import eu.geekhome.asymptote.viewmodel.ChangeFirmwareViewModel;
 import eu.geekhome.asymptote.viewmodel.ChangePasswordViewModel;
-import eu.geekhome.asymptote.viewmodel.ControlPWMItemViewModel;
-import eu.geekhome.asymptote.viewmodel.ControlRGBItemViewModel;
 import eu.geekhome.asymptote.viewmodel.ControlsCreator;
 import eu.geekhome.asymptote.viewmodel.DeviceLockedViewModel;
 import eu.geekhome.asymptote.viewmodel.EditSensorViewModel;
-import eu.geekhome.asymptote.viewmodel.FavoriteColorItemViewModel;
 import eu.geekhome.asymptote.viewmodel.FirmwareItemViewModel;
 import eu.geekhome.asymptote.viewmodel.HelpActionBarViewModel;
 import eu.geekhome.asymptote.viewmodel.HygrostatRoleDetailsViewModel;
@@ -68,6 +64,7 @@ public class MainViewModelsFactory {
     private final ToastService _toastService;
     private final NavigationService _navigationService;
     private final CloudDeviceService _cloudDeviceService;
+    private final MainActivity _activity;
     private final Context _context;
     private final WiFiHelper _wifiHelper;
     private final AddressesPersistenceService _addressesPersistenceService;
@@ -84,7 +81,7 @@ public class MainViewModelsFactory {
     private UserMessageAcknowledgeService _userMessageAcknowledgeService;
 
     @Inject
-    MainViewModelsFactory(Context context, CloudUserService cloudUserService, CloudDeviceService cloudDeviceService,
+    MainViewModelsFactory(MainActivity activity, Context context, CloudUserService cloudUserService, CloudDeviceService cloudDeviceService,
                           ToastService toastService, NavigationService navigationService,
                           WiFiHelper wifiHelper, AddressesPersistenceService addressesPersistenceService,
                           WiFiParamsResolver wiFiParamsResolver, OtaServer otaServer,
@@ -93,6 +90,7 @@ public class MainViewModelsFactory {
                           ThreadRunner threadRunner, GeneralDialogService generalDialogService,
                           EmergencyManager emergencyManager, ControlsCreator controlsCreator,
                           UserMessageAcknowledgeService userMessageAcknowledgeService) {
+        _activity = activity;
         _context = context;
         _cloudUserService = cloudUserService;
         _cloudDeviceService = cloudDeviceService;
@@ -114,7 +112,7 @@ public class MainViewModelsFactory {
     }
 
     public HelpActionBarViewModel createHelpActionBarModel() {
-        return new HelpActionBarViewModel(_context, _toastService, _cloudUserService);
+        return new HelpActionBarViewModel(_activity, _toastService, _cloudUserService);
     }
 
     public NoWiFiViewModel createNoWiFiViewModel(boolean cloudOnlyAllowed, String rationale) {

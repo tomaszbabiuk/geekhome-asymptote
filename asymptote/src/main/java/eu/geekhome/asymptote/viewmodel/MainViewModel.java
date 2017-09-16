@@ -40,7 +40,6 @@ import eu.geekhome.asymptote.services.ThreadRunner;
 import eu.geekhome.asymptote.services.UserMessageAcknowledgeService;
 import eu.geekhome.asymptote.services.WiFiHelper;
 import eu.geekhome.asymptote.services.impl.MainViewModelsFactory;
-import eu.geekhome.asymptote.services.impl.PreferencesUserMessageAcknowledgeService;
 import eu.geekhome.asymptote.utils.ByteUtils;
 import eu.geekhome.asymptote.utils.Ticker;
 

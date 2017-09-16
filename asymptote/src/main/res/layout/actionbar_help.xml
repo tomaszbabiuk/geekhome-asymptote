@@ -30,6 +30,7 @@
 
             <eu.geekhome.controls.SvgImageView
                 style="@style/ActionBar.Image"
+                android:id="@+id/instr_button_help"
                 android:onClick="@{() -> vm.onHelp()}"
                 app:svgId="@raw/at"/>
 

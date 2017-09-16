@@ -68,6 +68,7 @@
     <string name="error_resetting_password" formatted="false">Wystąpił problem z resetowaniem hasła: %s.</string>
     <string name="reset_password_success" formatted="false">Na podany adres email %s została wysłana wiadomość z instrukcją jak zresetować hasło. Odbierz pocztę i kliknij na linku do resetowania hasła.</string>
     <string name="email_verify_success" formatted="false">Na podany adres email %s została wysłana wiadomość z kodem weryfikacyjnym. Odbierz pocztę i kliknij na linku weryfikacyjnym.</string>
+    <string name="support_email_error" formatted="false">Nieudana próba wysłania maila z prośbą o wsparcie : %s. Proszę skontaktuj się z supportem wysyłąc ręcznie maila na adres %s.</string>
     <string name="verify_email_instruction">Aby dokończyć proces rejestracji prosimy się wylogować i zalogować ponownie.</string>
     <string name="later">Później</string>
     <string name="change_password">Zmień hasło</string>
@@ -154,7 +155,7 @@
     <string name="role_mains_switch">Włącznik sieciowy</string>
     <string name="role_mains_switch_advanced">Włącznik sieciowy (zaawansowany)</string>
     <string name="role_gate">Sterownik bramy</string>
-    <string name="role_gate_desc">Kontroluje bramę garażową lub wjazdową wyposażoną w styki P.P. i STOP. Brama musi być wyposażona w kontaktron.</string>
+    <string name="role_gate_desc">Kontroluje bramę garażową lub wjazdową wyposażoną w styki OPEN (P.P.) i STOP. Stan bramy odczytywany jest ze styków kontaktronu.</string>
     <string name="role_mains_desc">Włącznik zdalny (IoT lub WiFi)</string>
     <string name="role_light_switch">Włącznik światła</string>
     <string name="role_light_switch_desc">Zdalny włącznik światła (IoT lub WiFi). Włącza światło gdy zostatnie dotknięty.</string>

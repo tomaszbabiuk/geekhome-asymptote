@@ -4,6 +4,7 @@
         xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <import type="android.view.View"/>
 
         <variable
@@ -19,30 +20,38 @@
             layout="@layout/actionbar_main"
             app:vm="@{vm.actionBarModel}"/>
 
-        <TextView style="@style/Touch.ErrorMessage"
-                  tools:text="[error message]"
-                  android:text="@{vm.errorMessage}"
-                  android:visibility="@{vm.errorMessage != null ? View.VISIBLE : View.GONE}"/>
+        <TextView
+            style="@style/Touch.ErrorMessage"
+            android:text="@{vm.errorMessage}"
+            android:visibility="@{vm.errorMessage != null ? View.VISIBLE : View.GONE}"
+            tools:text="[error message]"/>
 
         <RelativeLayout style="@style/Layout.MatchX1">
 
             <eu.geekhome.asymptote.bindingutils.controls.VerticalRecyclerView
-                style="@style/Layout.MatchXY"
                 android:id="@+id/recycler"
-                android:background="@color/light_gray"
-                app:items="@{vm.sensors}"
+                style="@style/Layout.MatchXY"
+                android:layout_alignParentStart="true"
                 android:layout_alignParentTop="true"
-                android:layout_alignParentStart="true"/>
+                android:background="@color/light_gray"
+                app:items="@{vm.sensors}"/>
 
-            <FrameLayout
-                style="@style/Main.ActionButton"
-                android:onClick="@{() -> vm.actionBarModel.pairSensor()}">
 
-                <eu.geekhome.controls.SvgImageView
-                    style="@style/Main.ActionIcon"/>
-            </FrameLayout>
+            <LinearLayout
+                style="@style/Layout.MatchX.Vertical"
+                android:layout_alignParentBottom="true">
+
+                <FrameLayout style="@style/Main.ActionButton">
+
+                    <eu.geekhome.controls.SvgImageView
+                        style="@style/Main.ActionIcon"/>
+                </FrameLayout>
+
+                <include
+                    layout="@layout/listitem_secured_devices_found"
+                    app:vm="@{vm.securedDevicesFoundViewModel}"/>
+            </LinearLayout>
+
         </RelativeLayout>
-
-
     </LinearLayout>
 </layout>

@@ -93,6 +93,11 @@ public class MainViewModel extends ViewModel<FragmentMainBinding> implements Syn
     }
 
     @Bindable
+    public SecuredDevicesFoundViewModel getSecuredDevicesFoundViewModel() {
+        return _securedDevicesFoundViewModel;
+    }
+
+    @Bindable
     public ObservableArrayList<LayoutHolder> getSensors() {
         return _sensors;
     }
@@ -500,11 +505,6 @@ public class MainViewModel extends ViewModel<FragmentMainBinding> implements Syn
             _threadRunner.runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    if (!_sensors.contains(_securedDevicesFoundViewModel)) {
-                        if (_sensors.size() > 0) {
-                            //_sensors.add(_securedDevicesFoundViewModel);
-                        }
-                    }
                     if (!_notAuthorizedDialogShown) {
                         _notAuthorizedDialogShown = true;
                         SetEmergencyPasswordViewModel setEmergencyPasswordViewModel =
@@ -513,11 +513,7 @@ public class MainViewModel extends ViewModel<FragmentMainBinding> implements Syn
                     }
                 }
             });
-        } else {
-            _sensors.remove(_securedDevicesFoundViewModel);
         }
-
-
     }
 
     @Override

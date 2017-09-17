@@ -36,6 +36,7 @@ import eu.geekhome.asymptote.services.NavigationService;
 import eu.geekhome.asymptote.services.OtaServer;
 import eu.geekhome.asymptote.services.SyncListener;
 import eu.geekhome.asymptote.services.SyncManager;
+import eu.geekhome.asymptote.services.ThreadRunner;
 import eu.geekhome.asymptote.services.WiFiHelper;
 import eu.geekhome.asymptote.services.impl.MainViewModelsFactory;
 import eu.geekhome.asymptote.utils.ByteUtils;
@@ -48,6 +49,7 @@ public class OtaViewModel extends WiFiAwareViewModel<FragmentOtaBinding> impleme
     private final SensorItemViewModel _sensor;
     private Ticker _conductTicker;
     private String _errorMessage;
+    private final ThreadRunner _threadRunner;
     private Firmware _firmware;
     private boolean _restoreTokenUsed;
     private final HelpActionBarViewModel _actionBarModel;
@@ -79,6 +81,7 @@ public class OtaViewModel extends WiFiAwareViewModel<FragmentOtaBinding> impleme
                         NavigationService navigationService, SyncManager syncManager,
                         WiFiHelper wifiHelper, CloudDeviceService cloudDeviceService,
                         CloudCertificateChecker cloudCertificateChecker,
+                        ThreadRunner threadRunner,
                         SensorItemViewModel sensor, Firmware firmware) {
         super(factory, wifiHelper, navigationService);
         _context = context;
@@ -89,6 +92,7 @@ public class OtaViewModel extends WiFiAwareViewModel<FragmentOtaBinding> impleme
         _otaServer = otaServer;
         _syncManager = syncManager;
         _cloudDeviceService = cloudDeviceService;
+        _threadRunner = threadRunner;
         _firmware = firmware;
         _sensor = sensor;
         _previousVariant = _sensor.getSyncData().getSystemInfo().getVariant();
@@ -102,7 +106,7 @@ public class OtaViewModel extends WiFiAwareViewModel<FragmentOtaBinding> impleme
         return new Ticker(new Ticker.Listener() {
             @Override
             public void onTick() {
-                Variant variant = getOtaPhase() == OtaPhase.InProgress
+                Variant variant = (getOtaPhase() == OtaPhase.InProgress || getOtaPhase() == OtaPhase.Finished)
                         ? _firmware.getVariant()
                         : _sensor.getSyncData().getSystemInfo().getVariant();
                 _syncManager.sync(variant, _sensor.getAddress(), new SyncManager.SyncCallback() {
@@ -116,7 +120,7 @@ public class OtaViewModel extends WiFiAwareViewModel<FragmentOtaBinding> impleme
                 });
 
                 boolean isProgressPhase = _otaPhase == OtaPhase.WaitingForDevice || _otaPhase == OtaPhase.InProgress;
-                boolean timeElapsed = Calendar.getInstance().getTimeInMillis() > _serverStartedAt + 120 * 1000;
+                boolean timeElapsed = Calendar.getInstance().getTimeInMillis() > _serverStartedAt + 160 * 1000;
                 if (isProgressPhase && timeElapsed) {
                     processTimeElapsed();
                 }
@@ -133,7 +137,7 @@ public class OtaViewModel extends WiFiAwareViewModel<FragmentOtaBinding> impleme
         return _otaPhase;
     }
 
-    private void setOtaPhase(OtaPhase value) {
+    private void setOtaPhase(final OtaPhase value) {
         _otaPhase = value;
         notifyPropertyChanged(BR.otaPhase);
     }
@@ -325,14 +329,14 @@ public class OtaViewModel extends WiFiAwareViewModel<FragmentOtaBinding> impleme
             boolean differentMinorVersion = newVersionMinor != prevVersionMinor;
             boolean differentVariant = newVariant != _previousVariant;
             if (differentMajorVersion || differentMinorVersion || differentVariant) {
-                setOtaPhase(OtaPhase.Done);
+                setOtaPhase(OtaPhase.Finished);
                 if (newVariant == Variant.WiFi && _previousVariant.isCloud()) {
                     removeDeviceFromFirebaseAndCallSuccess(syncData);
                 } else {
                     processSuccess(syncData);
                 }
             } else if (syncData.getOta().isError()) {
-                setOtaPhase(OtaPhase.Done);
+                setOtaPhase(OtaPhase.Finished);
                 processFailure(syncData);
             }
         }
@@ -371,21 +375,31 @@ public class OtaViewModel extends WiFiAwareViewModel<FragmentOtaBinding> impleme
         _sensor.requestOtaRestore(md5);
     }
 
-    private void processFailure(DeviceSyncData syncData) {
-        String title = _context.getString(R.string.ota_failed);
-        String status = syncData.getOta().getErrorCode();
-        ResultViewModel result = _factory.createResultViewModel(title, status, false);
-        _navigationService.goBackTo(MainViewModel.class);
-        _navigationService.showViewModel(result);
+    private void processFailure(final DeviceSyncData syncData) {
+        _threadRunner.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                String title = _context.getString(R.string.ota_failed);
+                String status = syncData.getOta().getErrorCode();
+                ResultViewModel result = _factory.createResultViewModel(title, status, false);
+                _navigationService.goBackTo(MainViewModel.class);
+                _navigationService.showViewModel(result);
+            }
+        });
     }
 
     private void processSuccess(final DeviceSyncData syncData) {
-        String title = _context.getString(R.string.ota_done);
-        String status = _context.getString(R.string.ota_device_updated, _sensor.getSyncData().getDeviceKey().getDeviceId(),
-                syncData.getSystemInfo().getVersionMajor(), syncData.getSystemInfo().getVersionMinor());
-        ResultViewModel result = _factory.createResultViewModel(title, status, true);
-        _navigationService.goBackTo(MainViewModel.class);
-        _navigationService.showViewModel(result);
+        _threadRunner.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                String title = _context.getString(R.string.ota_done);
+                String status = _context.getString(R.string.ota_device_updated, _sensor.getSyncData().getDeviceKey().getDeviceId(),
+                        syncData.getSystemInfo().getVersionMajor(), syncData.getSystemInfo().getVersionMinor());
+                ResultViewModel result = _factory.createResultViewModel(title, status, true);
+                _navigationService.goBackTo(MainViewModel.class);
+                _navigationService.showViewModel(result);
+            }
+        });
     }
 
     private void removeDeviceFromFirebaseAndCallSuccess(final DeviceSyncData syncData) {

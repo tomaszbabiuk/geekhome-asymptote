@@ -24,6 +24,7 @@
     <string name="no_email_client_installed">There are no email clients installed.</string>
     <string name="step_no" formatted="false">Step %d of %d</string>
     <string name="done">Done</string>
+    <string name="finished">Finished</string>
     <string name="device_paired" formatted="false">Device paired, IP: %s</string>
     <string name="pairing_failed">Pairing failed</string>
     <string name="note_discovery">Discovering geekHOME sensors in your LAN network and cloud</string>
@@ -281,7 +282,7 @@
     <string name="offline_device_found">This device is in your local area network but is not able to connect to the internet:</string>
     <string name="device_invalid_password" formatted="false">%s - invalid password\n</string>
     <string name="remember_password_when_logged">Remember password when I\'m logged in</string>
-    <string name="sign_in_to_install">You must be signed in to install this firmware</string>
+    <string name="sign_in_to_install">This is emergency mode. Changing firmware is unavailable.</string>
     <string name="restore_wifi_firmware">Do you want to restore WiFi firmware on this device?</string>
     <string name="wifi_firmware_desc">Stock firmware, best reliability. Can work without internet connection. Security level is high.</string>
     <string name="iot_firmware_desc">Alternative firmware, reliability limited to your internet connection and cloud vendor (Google Firebase). Security level is high.</string>
@@ -312,6 +313,9 @@
     <string name="remove_this_color_question">Remove this color from the list?</string>
     <string name="cannot_remove_selected_color">Selected color cannot be removed. You can remove other colors.</string>
     <string name="user_message">Warning, the IoT variant is now deprecated and will be removed in next release. Please migrate any IoT only devices to LAN+IoT.</string>
+    <string name="variant_deprecated">This variant is deprecated!</string>
+    <string name="please_update_to_latest_version">Please update this device to latest version.</string>
+    <string name="signin_and_update_to_latest_version">Please sign in and update this device to latest version.</string>
 
 
     <string-array name="signal_turned_on_solutions">

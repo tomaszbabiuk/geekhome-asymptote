@@ -9,7 +9,7 @@ public enum OtaPhase {
     WaitingForDevice(R.string.ota_waiting_for_device),
     ServerError(R.string.ota_server_error),
     InProgress(R.string.ota_int_progress),
-    Done(R.string.done);
+    Finished(R.string.finished);
 
     private int _instructionResourceId;
 

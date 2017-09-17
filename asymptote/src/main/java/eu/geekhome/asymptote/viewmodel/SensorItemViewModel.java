@@ -400,11 +400,15 @@ public class SensorItemViewModel extends BaseObservable implements LayoutHolder 
     }
 
     public void changeFirmware() {
-        if (!getSyncData().isLocked() && getSyncData().getSystemInfo().getVariant().isWifi()) {
-            _generalDialogService.showOKDialog(R.string.device_locked_not_upgradable, null);
+        if (isEmergency()) {
+            _generalDialogService.showOKDialog(R.string.sign_in_to_install, null);
         } else {
-            ChangeFirmwareViewModel changeFirmwareModel = _factory.createChangeFirmwareViewModel(this);
-            _navigationService.showViewModel(changeFirmwareModel, new ShowBackButtonInToolbarViewParam());
+            if (!getSyncData().isLocked() && getSyncData().getSystemInfo().getVariant().isWifi()) {
+                _generalDialogService.showOKDialog(R.string.device_locked_not_upgradable, null);
+            } else {
+                ChangeFirmwareViewModel changeFirmwareModel = _factory.createChangeFirmwareViewModel(this);
+                _navigationService.showViewModel(changeFirmwareModel, new ShowBackButtonInToolbarViewParam());
+            }
         }
     }
 

@@ -14,15 +14,13 @@ public class FirmwareItemViewModel extends SelectableItemViewModel implements La
     private final String _name;
     private final String _description;
     private final FirmwareItemViewModel.Context _firmwareContext;
-    private final boolean _available;
     private final Firmware _firmware;
     private final MainViewModelsFactory _factory;
     private final NavigationService _navigationService;
 
     public FirmwareItemViewModel(MainViewModelsFactory factory, NavigationService navigationService,
                                  Firmware firmware, SensorItemViewModel sensor,
-                                 String name, String description, FirmwareItemViewModel.Context context,
-                                 boolean available) {
+                                 String name, String description, FirmwareItemViewModel.Context context) {
         _navigationService = navigationService;
         _factory = factory;
         _firmware = firmware;
@@ -30,7 +28,6 @@ public class FirmwareItemViewModel extends SelectableItemViewModel implements La
         _name = name;
         _description = description;
         _firmwareContext = context;
-        _available = available;
     }
 
     @Override
@@ -71,11 +68,6 @@ public class FirmwareItemViewModel extends SelectableItemViewModel implements La
     public void change() {
         OtaViewModel otaViewModel = _factory.createOtaViewModel(_sensor, _firmware);
         _navigationService.showViewModel(otaViewModel);
-    }
-
-    @Bindable
-    public boolean isAvailable() {
-        return _available;
     }
 
     public enum Context {

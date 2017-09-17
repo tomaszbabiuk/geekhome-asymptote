@@ -82,13 +82,6 @@
                     android:textColor="@color/light_gray"
                     android:visibility="@{vm.context == FirmwareItemViewModel.Context.Actual ? View.VISIBLE : View.GONE}"/>
 
-                <TextView
-                    style="@style/Common.Text.Medium"
-                    android:gravity="center_vertical"
-                    android:text="@string/sign_in_to_install"
-                    android:textColor="@color/light_gray"
-                    android:visibility="@{vm.available ? View.GONE : View.VISIBLE}"/>
-
             </LinearLayout>
 
             <Button
@@ -104,7 +97,7 @@
                 android:layout_gravity="top"
                 android:onClick="@{() -> vm.change()}"
                 android:text="@string/change"
-                android:visibility="@{vm.context == FirmwareItemViewModel.Context.Change &amp;&amp; vm.available ? View.VISIBLE : View.GONE}"/>
+                android:visibility="@{vm.context == FirmwareItemViewModel.Context.Change ? View.VISIBLE : View.GONE}"/>
 
         </LinearLayout>
 
@@ -116,6 +109,15 @@
             android:text="@string/variant_installed"
             android:textColor="@color/orange"
             android:visibility="@{vm.selected ? View.VISIBLE : View.GONE}"/>
+
+        <TextView
+            style="@style/Common.Text.Medium"
+            android:layout_marginBottom="@dimen/common_small_padding"
+            android:layout_marginStart="@dimen/common_small_padding"
+            android:gravity="center_vertical"
+            android:text="@string/variant_deprecated"
+            android:textColor="@color/orange"
+            android:visibility="@{vm.firmware.variant.deprecated ? View.VISIBLE : View.GONE}"/>
     </LinearLayout>
 
 </layout>

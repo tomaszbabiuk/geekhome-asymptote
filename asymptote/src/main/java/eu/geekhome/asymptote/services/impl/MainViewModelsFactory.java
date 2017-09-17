@@ -150,7 +150,8 @@ public class MainViewModelsFactory {
 
     public OtaViewModel createOtaViewModel(SensorItemViewModel sensor, Firmware firmware) {
         return new OtaViewModel(_context, this, _otaServer, _navigationService,
-                _syncManager, _wifiHelper, _cloudDeviceService, _cloudCertificateChecker, sensor, firmware);
+                _syncManager, _wifiHelper, _cloudDeviceService, _cloudCertificateChecker, _threadRunner,
+                sensor, firmware);
     }
 
     public ProfileViewModel createProfileViewModel() {
@@ -204,7 +205,7 @@ public class MainViewModelsFactory {
     }
 
     public ChangeFirmwareViewModel createChangeFirmwareViewModel(SensorItemViewModel sensor) {
-        return new ChangeFirmwareViewModel(_context, this, _firmwareRepository, _emergencyManager, sensor);
+        return new ChangeFirmwareViewModel(_context, this, _firmwareRepository, sensor);
     }
 
     public EditSensorViewModel createEditSensorViewModel(SensorItemViewModel sensor) {
@@ -213,8 +214,8 @@ public class MainViewModelsFactory {
 
     public FirmwareItemViewModel createFirmwareItemViewModel(Firmware firmware, SensorItemViewModel sensor,
                                                              String name, String description,
-                                                             FirmwareItemViewModel.Context firmwareContext, boolean available) {
-        return new FirmwareItemViewModel(this, _navigationService, firmware, sensor, name, description, firmwareContext, available);
+                                                             FirmwareItemViewModel.Context firmwareContext) {
+        return new FirmwareItemViewModel(this, _navigationService, firmware, sensor, name, description, firmwareContext);
     }
 
     public ThermostatRoleDetailsViewModel createThermostatRoleDetailsViewModel(EditSensorViewModel editSensorViewModel,

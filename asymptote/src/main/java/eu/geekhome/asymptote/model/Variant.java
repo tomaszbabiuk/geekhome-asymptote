@@ -5,23 +5,25 @@ import android.support.annotation.RawRes;
 import eu.geekhome.asymptote.R;
 
 public enum Variant {
-    WiFi((byte)0x00, R.raw.wifi, true, false),
-    Firebase((byte)0x01, R.raw.cloud, false, true),
-    Hybrid((byte)0x02, R.raw.hybrid, true, true),
-    Unknown((byte)0xFF, R.raw.at, false, false);
+    WiFi((byte)0x00, R.raw.wifi, true, false, false),
+    Firebase((byte)0x01, R.raw.cloud, false, true, true),
+    Hybrid((byte)0x02, R.raw.hybrid, true, true, false),
+    Unknown((byte)0xFF, R.raw.at, false, false, false);
 
 
     private byte _id;
     private final int _iconId;
     private boolean _wifi;
     private boolean _cloud;
+    private final boolean _deprecated;
 
 
-    Variant(byte id, @RawRes int iconId, boolean wifi, boolean cloud) {
+    Variant(byte id, @RawRes int iconId, boolean wifi, boolean cloud, boolean deprecated) {
         _id = id;
         _iconId = iconId;
         _wifi = wifi;
         _cloud = cloud;
+        _deprecated = deprecated;
     }
 
     public int getId() {
@@ -48,5 +50,9 @@ public enum Variant {
 
     public boolean isCloud() {
         return _cloud;
+    }
+
+    public boolean isDeprecated() {
+        return _deprecated;
     }
 }

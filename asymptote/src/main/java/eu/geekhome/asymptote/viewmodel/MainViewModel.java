@@ -502,9 +502,7 @@ public class MainViewModel extends ViewModel<FragmentMainBinding> implements Syn
                 public void run() {
                     if (!_sensors.contains(_securedDevicesFoundViewModel)) {
                         if (_sensors.size() > 0) {
-                            _sensors.add(1, _securedDevicesFoundViewModel);
-                        } else {
-                            _sensors.add(_securedDevicesFoundViewModel);
+                            //_sensors.add(_securedDevicesFoundViewModel);
                         }
                     }
                     if (!_notAuthorizedDialogShown) {

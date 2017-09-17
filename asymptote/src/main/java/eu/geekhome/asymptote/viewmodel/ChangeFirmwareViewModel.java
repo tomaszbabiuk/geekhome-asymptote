@@ -25,7 +25,6 @@ public class ChangeFirmwareViewModel extends ViewModel<FragmentChangeFirmwareBin
     private final SensorItemViewModel _sensor;
 
     private final FirmwareRepository _firmwareRepository;
-    private final EmergencyManager _emergencyManager;
     private final Context _context;
     private final MainViewModelsFactory _factory;
 
@@ -40,12 +39,11 @@ public class ChangeFirmwareViewModel extends ViewModel<FragmentChangeFirmwareBin
     }
 
     public ChangeFirmwareViewModel(Context context, MainViewModelsFactory factory,
-                                   FirmwareRepository firmwareRepository, EmergencyManager emergencyManager,
+                                   FirmwareRepository firmwareRepository,
                                    SensorItemViewModel sensor) {
         _context = context;
         _factory = factory;
         _firmwareRepository = firmwareRepository;
-        _emergencyManager = emergencyManager;
         _sensor = sensor;
         _firmwares = createFirmwares();
         _actionBarModel = _factory.createHelpActionBarModel();
@@ -63,21 +61,21 @@ public class ChangeFirmwareViewModel extends ViewModel<FragmentChangeFirmwareBin
                             isLatest ? FirmwareItemViewModel.Context.Actual : FirmwareItemViewModel.Context.Update;
             FirmwareItemViewModel wifiItem = _factory.createFirmwareItemViewModel(set.getWifiFirmware(),
                     _sensor, "LAN", _context.getString(R.string.wifi_firmware_desc),
-                    wifiFirmwareContext, true);
+                    wifiFirmwareContext);
 
             FirmwareItemViewModel.Context firebaseFirmwareContext =
                     _sensor.getSyncData().getSystemInfo().getVariant() != Variant.Firebase ? FirmwareItemViewModel.Context.Change :
                             isLatest ? FirmwareItemViewModel.Context.Actual : FirmwareItemViewModel.Context.Update;
             FirmwareItemViewModel firebaseItem = _factory.createFirmwareItemViewModel(set.getFirebaseFirmware(),
                     _sensor, "IoT", _context.getString(R.string.iot_firmware_desc),
-                    firebaseFirmwareContext, !_emergencyManager.isEmergency());
+                    firebaseFirmwareContext);
 
             FirmwareItemViewModel.Context hybridFirmwareContext =
                     _sensor.getSyncData().getSystemInfo().getVariant() != Variant.Hybrid ? FirmwareItemViewModel.Context.Change :
                             isLatest ? FirmwareItemViewModel.Context.Actual : FirmwareItemViewModel.Context.Update;
             FirmwareItemViewModel hybridItem = _factory.createFirmwareItemViewModel( set.getHybridFirmware(),
                     _sensor, "LAN+IoT", _context.getString(R.string.hybrid_firmware_desc),
-                    hybridFirmwareContext, !_emergencyManager.isEmergency());
+                    hybridFirmwareContext);
 
 
             switch (_sensor.getSyncData().getSystemInfo().getVariant()) {

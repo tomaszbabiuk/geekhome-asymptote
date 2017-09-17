@@ -91,18 +91,18 @@
                             tools:text="[Sensor name]"/>
 
                         <FrameLayout
-                            android:layout_gravity="top"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_gravity="top"
                             android:onClick="@{() -> vm.changeFirmware()}">
 
                             <eu.geekhome.controls.SvgImageView
-                                style="@style/SensorList.ActionIcon.Cart" />
+                                style="@style/SensorList.ActionIcon.Cart"/>
 
                             <eu.geekhome.controls.SvgImageView
                                 style="@style/SensorList.ActionIcon.CartDot"
-                                app:svgColor="@color/light_gray"
-                                android:visibility="@{vm.newFirmwareAvailable ? View.VISIBLE : View.GONE}"/>
+                                android:visibility="@{vm.newFirmwareAvailable ? View.VISIBLE : View.GONE}"
+                                app:svgColor="@color/light_gray"/>
                         </FrameLayout>
 
                         <eu.geekhome.controls.SvgImageView
@@ -151,8 +151,30 @@
                         android:visibility="@{vm.syncData.role == BoardRole.GeekHOME ? View.GONE : View.VISIBLE}"
                         app:items="@{vm.controls}"/>
 
-                </LinearLayout>
+                    <LinearLayout
+                        style="@style/Layout.MatchX.Vertical"
+                        android:background="@color/red"
+                        android:visibility="@{vm.newFirmwareAvailable ? View.VISIBLE : View.GONE}">
 
+                        <TextView
+                            style="@style/Layout.MatchX"
+                            android:onClick="@{() -> vm.changeFirmware()}"
+                            android:text="@string/please_update_to_latest_version"
+                            android:textAppearance="?android:attr/textAppearanceSmall"
+                            android:textColor="@color/white"
+                            android:visibility="@{vm.emergency ? View.GONE : View.VISIBLE}"
+                            tools:visibility="visible"/>
+
+                        <TextView
+                            style="@style/Layout.MatchX"
+                            android:text="@string/signin_and_update_to_latest_version"
+                            android:textAppearance="?android:attr/textAppearanceSmall"
+                            android:textColor="@color/white"
+                            android:visibility="@{vm.emergency ? View.VISIBLE : View.GONE}"
+                            tools:visibility="visible"/>
+                    </LinearLayout>
+
+                </LinearLayout>
             </LinearLayout>
 
             <LinearLayout

@@ -18,21 +18,13 @@ public class ControlThermostatItemViewModel extends ValueSync<Integer>  implemen
     private String _inactiveMessage;
 
     public ControlThermostatItemViewModel(SensorItemViewModel sensor, Context context,
-                                          int channel, long[] initialParams, String activeMessage, String inactiveMessage) {
-        super(sensor, context, channel, (int)initialParams[0]);
-        sync(initialParams);
+                                          int channel, DeviceSyncData syncData, String activeMessage, String inactiveMessage) {
+        super(sensor, context, channel, (int)syncData.getParams()[0]);
+        sync(syncData);
         setActiveMessage(activeMessage);
         setInactiveMessage(inactiveMessage);
     }
 
-    public void sync(long[] params) {
-        setMin((int)(params[2]));
-        setMax((int)(params[3]));
-        setValueIndex(Math.round((params[0] - params[2])/50));
-        setValue((int)params[0]);
-        long delta = _max -_min;
-        setMaxIndex(Math.round(delta/50));
-    }
 
     @Override
     public int getItemLayoutId() {
@@ -129,6 +121,11 @@ public class ControlThermostatItemViewModel extends ValueSync<Integer>  implemen
 
     @Override
     public void sync(DeviceSyncData data) {
-
+        setMin((int)(data.getParams()[2]));
+        setMax((int)(data.getParams()[3]));
+        setValueIndex(Math.round((data.getParams()[0] - data.getParams()[2])/50));
+        setValue((int)data.getParams()[0]);
+        long delta = _max -_min;
+        setMaxIndex(Math.round(delta/50));
     }
 }

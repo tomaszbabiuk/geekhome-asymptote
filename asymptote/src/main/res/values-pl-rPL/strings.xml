@@ -174,9 +174,9 @@
     <string name="heating_thermostat_instruction">Włącza przekaźnik, gdy temperatura spadnie poniżej zadanej wartości.</string>
     <string name="cooling_thermostat_details">Szczegóły termostatu (chłodzenie)</string>
     <string name="cooling_thermostat_instruction">Włącza przekaźnik, gdy temperatura przekroczy zadaną wartość.</string>
-    <string name="drying_hygrostat_details">Szczegłówy hygrostatu (osuszanie)</string>
+    <string name="drying_hygrostat_details">Szczegłówy higrostatu (osuszanie)</string>
     <string name="drying_hygrostat_instruction">Włącza przekaźnik, gdy wilgotność spadnie poniżej zadanej wartości.</string>
-    <string name="humidification_hygrostat_details">Szczegóły hygrostatu (nawilżanie)</string>
+    <string name="humidification_hygrostat_details">Szczegóły higrostatu (nawilżanie)</string>
     <string name="humidification_hygrostat_instruction">Włącza przekaźnik, gdy wilgotność przekroczy zadaną wartość.</string>
     <string name="temperature_range_in_C">Zakres temperatur (°C)</string>
     <string name="humidity_range_in_pc">Zakres wilgotności (%)</string>
@@ -315,7 +315,7 @@
     <string name="user_message">Uwaga, wariant oprogramowania IoT (łączenie tylko i wyłącznie przez chmurę) przestanie być wspierany w następnych wersjach oprogramowania. Jeżeli posiadają państwo jakieś urządzenie pracujące w tym wariancie, bardzo prosimy o rozważenie zmiany wariantu na wariant LAN lub LAN+IoT. Chcemy, aby system geekHOME był jak najprostszy i planujemy zwiększać poziom bezpieczeństwa wariantu LAN+IoT (tak, aby w przyszłości inne warianty oprogramowania nie były potrzebne).</string>
     <string name="variant_deprecated">Ten wariant nie jest już wspierany!</string>
     <string name="please_update_to_latest_version">Prosimy o uaktualnienie oprogramowania dla tego urządzenia do najnowszej wersji.</string>
-    <string name="signin_and_update_to_latest_version">Prosimy o zalogowanie i uaktualnienie oprogramowania dla tego urządzenia do najnowszej wersji.</string>
+    <string name="signin_and_update_to_latest_version">Prosimy o zalogowanie się i uaktualnienie oprogramowania dla tego urządzenia do najnowszej wersji.</string>
 
     <string-array name="signal_turned_on_solutions">
         <item>Poczekaj na bardziej znaczący sygnał. Przykładowo, gdy urządzenie nie zna naszej sieci WiFi i próbuje nawiązać połączenie dioda stanu świeci się w sposób ciągły (nie miga) przez kilka sekund, a następnie miga dwukrotnie kilka razy i znowu zaświeca się, aby ponowić próbę. Te dwa mrugnięcia są tym bardziej znaczącym sygnałem w tym przypadku.</item>

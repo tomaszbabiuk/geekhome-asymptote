@@ -67,10 +67,19 @@ public class ThermostatRoleDetailsViewModel extends XStatRoleDetailsViewModelBas
     public void onDone() {
         getSensor().setBlocked(true);
         getParent().commit();
-        paramChanged(0, celsiusToIntegerKelvins(getValue()));
-        paramChanged(1, getHysteresis() * 100);
-        paramChanged(2, celsiusToIntegerKelvins(getRangeStart() * 5 - 25));
-        paramChanged(3, celsiusToIntegerKelvins(getRangeEnd() * 5 - 25));
+        long param0 = celsiusToIntegerKelvins(getValue());
+        long param1 = getHysteresis() * 100;
+        long param2 = celsiusToIntegerKelvins(getRangeStart() * 5 - 25);
+        long param3 = celsiusToIntegerKelvins(getRangeEnd() * 5 - 25);
+        paramChanged(0, param0);
+        paramChanged(1, param1);
+        paramChanged(2, param2);
+        paramChanged(3, param3);
+
+        getSensor().getSyncData().getParams()[0] = param0;
+        getSensor().getSyncData().getParams()[1] = param1;
+        getSensor().getSyncData().getParams()[2] = param2;
+        getSensor().getSyncData().getParams()[3] = param3;
         getSensor().onRequestFullSync();
 
         getNavigationService().goBackTo(MainViewModel.class);

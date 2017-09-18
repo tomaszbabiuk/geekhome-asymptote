@@ -5,9 +5,9 @@ import eu.geekhome.asymptote.model.FirmwareSet;
 import eu.geekhome.asymptote.model.Variant;
 public class ResourcesBasedFirmwareRepository extends ResourcesBasedFirmwareRepositoryBase {
     public ResourcesBasedFirmwareRepository() {
-        Firmware sonoffTHWifi = new Firmware(Variant.WiFi, "sonoffth/firmware_wifi.bin", "2f52d40819fb0e7db5ea4d9f7187aba5", 1, 4);
-        Firmware sonoffTHFirebase = new Firmware(Variant.Firebase, "sonoffth/firmware_firebase.bin", "0234e5c91ca389ad94d977899390830a", 1, 4);
-        Firmware sonoffTHHybrid = new Firmware(Variant.Hybrid, "sonoffth/firmware_hybrid.bin", "a42d8174c60afa3a877f360a07b3bfb5", 1, 4);
+        Firmware sonoffTHWifi = new Firmware(Variant.WiFi, "sonoffth/firmware_wifi.bin", "da5088e0c3723d6bc6f6260f5ac93d75", 1, 5);
+        Firmware sonoffTHFirebase = new Firmware(Variant.Firebase, "sonoffth/firmware_firebase.bin", "35694eba97783666e1ac561c4ec784c4", 1, 5);
+        Firmware sonoffTHHybrid = new Firmware(Variant.Hybrid, "sonoffth/firmware_hybrid.bin", "22e4114a96cec043858950604eab6cb5", 1, 5);
         FirmwareSet sonoffTHSet = new FirmwareSet(sonoffTHWifi, sonoffTHFirebase, sonoffTHHybrid);
         put(BoardId.SonoffTH_None, sonoffTHSet);
         put(BoardId.SonoffTH_AM2301, sonoffTHSet);

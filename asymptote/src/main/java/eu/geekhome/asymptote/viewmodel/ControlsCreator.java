@@ -37,25 +37,25 @@ public class ControlsCreator {
             if (syncData.getRole() == BoardRole.HEATING_THERMOSTAT) {
                 String activeMessage = _context.getString(R.string.heating_on);
                 String inactiveMessage = _context.getString(R.string.heating_off);
-                result.add(new ControlThermostatItemViewModel(sensorModel, _context, 0, syncData.getParams(), activeMessage, inactiveMessage));
+                result.add(new ControlThermostatItemViewModel(sensorModel, _context, 0, syncData, activeMessage, inactiveMessage));
             }
 
             if (syncData.getRole() == BoardRole.COOLING_THERMOSTAT) {
                 String activeMessage = _context.getString(R.string.cooling_on);
                 String inactiveMessage = _context.getString(R.string.cooling_off);
-                result.add(new ControlThermostatItemViewModel(sensorModel, _context, 0, syncData.getParams(), activeMessage, inactiveMessage));
+                result.add(new ControlThermostatItemViewModel(sensorModel, _context, 0, syncData, activeMessage, inactiveMessage));
             }
 
             if (syncData.getRole() == BoardRole.DRYING_HYGROSTAT) {
                 String activeMessage = _context.getString(R.string.drying_on);
                 String inactiveMessage = _context.getString(R.string.drying_off);
-                result.add(new ControlHygrostatItemViewModel(sensorModel, _context, 0, syncData.getParams(), activeMessage, inactiveMessage));
+                result.add(new ControlHygrostatItemViewModel(sensorModel, _context, 0, syncData, activeMessage, inactiveMessage));
             }
 
             if (syncData.getRole() == BoardRole.HUMIDIFICATION_HYGROSTAT) {
                 String activeMessage = _context.getString(R.string.humidification_on);
                 String inactiveMessage = _context.getString(R.string.humidification_off);
-                result.add(new ControlHygrostatItemViewModel(sensorModel, _context, 0, syncData.getParams(), activeMessage, inactiveMessage));
+                result.add(new ControlHygrostatItemViewModel(sensorModel, _context, 0, syncData, activeMessage, inactiveMessage));
             }
 
             if (syncData.getRole() == BoardRole.GATE) {
@@ -101,7 +101,7 @@ public class ControlsCreator {
                 }
 
                 if (syncData.getRole() == BoardRole.MULTI_PWM) {
-                    String[] names = {"R", "G", "B", "W" , ""};
+                    String[] names = {"R", "G", "B", "W", ""};
 
                     if (syncData.getPwmDuties().length == 5) {
                         names[3] = "W1";
@@ -120,7 +120,7 @@ public class ControlsCreator {
                 }
 
                 if (syncData.getRole() == BoardRole.RGB_1PWM || syncData.getRole() == BoardRole.RGB_2PWM) {
-                    String[] names = {"R", "G", "B", "W" , ""};
+                    String[] names = {"R", "G", "B", "W", ""};
 
                     if (syncData.getPwmDuties().length == 5) {
                         names[3] = "W1";
@@ -152,6 +152,14 @@ public class ControlsCreator {
                                 syncData.getPwmDuties()[0], syncData.getPwmDuties()[1], syncData.getPwmDuties()[2]);
                         result.add(rgbModel);
                     }
+                }
+            } else if (syncData.getRelayStates().length > 1) {
+                result.add(new ControlSeparatorViewModel());
+
+                for (int i = 1; i < syncData.getRelayStates().length; i++) {
+                    ControlRelayItemViewModel relayModel = new ControlRelayItemViewModel(sensorModel, _context, i,
+                            syncData.getRelayStates()[i]);
+                    result.add(relayModel);
                 }
             }
         }

@@ -44,6 +44,7 @@
                 <FrameLayout style="@style/Main.ActionButton">
 
                     <eu.geekhome.controls.SvgImageView
+                        android:onClick="@{() -> vm.actionBarModel.pairSensor()}"
                         style="@style/Main.ActionIcon"/>
                 </FrameLayout>
 

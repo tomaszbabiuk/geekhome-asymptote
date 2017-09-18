@@ -16,11 +16,15 @@ class RoleCreator {
                 return createRolesForSonoffTouch(context, editModel);
             case SonoffTH_AM2301:
                 return createRolesForSonoffTH_AM2301(context, editModel);
+            case Electrodragon2REL_AM2301:
+                return createRolesForElectrodragon2REL_AM2301(context, editModel);
             case SonoffBASIC:
             case SonoffTH_None:
                 return createRolesForSonoffTHNoneOrBasic(context, editModel);
             case SonoffTH_DS18B20:
                 return createRolesForSonoffTH_DS18B20(context, editModel);
+            case Electrodragon2REL_DS18B20:
+                return createRolesForElectrodragon2REL_DS18B20(context, editModel);
             case H801 :
                 return createRolesForH801(context, editModel);
             case H802 :
@@ -34,12 +38,14 @@ class RoleCreator {
                 return createRolesForSonoffDual(context, editModel);
             case geekGATE:
                 return createRolesForGeekGate(context, editModel);
-            case Elecrodragon2REL:
+            case Electrodragon2REL_None:
                 return createRolesForElectrodragon2REL(context, editModel);
             default :
                 return new ObservableArrayList<>();
         }
     }
+
+
 
     private static ObservableArrayList<LayoutHolder> createRolesForGeekGate(Context context, EditSensorViewModel editModel) {
         ObservableArrayList<LayoutHolder> roles = new ObservableArrayList<>();
@@ -94,13 +100,8 @@ class RoleCreator {
                 BoardRole.MAINS4_ADV,
                 context.getString(R.string.role_mains_switch_advanced),
                 context.getString(R.string.role_mains_desc));
-//        RoleItemViewModel slave = new RoleItemViewModel(editModel,
-//                BoardRole.GeekHOME,
-//                context.getString(R.string.role_geekhome),
-//                context.getResources().getQuantityString(R.plurals.digital_output_ports, 1, 1));
         roles.add(mainsRole);
         roles.add(mainsRoleAdvanced);
-        //roles.add(slave);
 
         return roles;
     }
@@ -112,22 +113,7 @@ class RoleCreator {
                 context.getString(R.string.role_multisensor),
                 context.getString(R.string.role_multisensor_desc));
 
-        String multiPortsDesc =
-                context.getResources().getQuantityString(R.plurals.temperature_ports, 1, 1) +
-                        "\r\n" +
-                        context.getResources().getQuantityString(R.plurals.humidity_ports, 1, 1) +
-                        "\r\n" +
-                        context.getResources().getQuantityString(R.plurals.luminosity_ports, 1, 1) +
-                        "\r\n" +
-                        context.getResources().getQuantityString(R.plurals.noise_ports, 1, 1) +
-                        "\r\n" +
-                        context.getResources().getQuantityString(R.plurals.noise_ports, 1, 1);
-//        RoleItemViewModel slave = new RoleItemViewModel(editModel,
-//                BoardRole.GeekHOME,
-//                context.getString(R.string.role_geekhome),
-//                multiPortsDesc);
         roles.add(multisensorRole);
-        //roles.add(slave);
 
         return roles;
     }
@@ -150,18 +136,40 @@ class RoleCreator {
                 BoardRole.COOLING_THERMOSTAT,
                 context.getString(R.string.role_cooling_thermostat),
                 context.getString(R.string.role_cooling_thermostat_desc));
-//        RoleItemViewModel slave = new RoleItemViewModel(editModel,
-//                BoardRole.GeekHOME,
-//                context.getString(R.string.role_geekhome),
-//                context.getResources().getQuantityString(R.plurals.digital_output_ports, 1, 1));
         roles.add(mainsRelayRole);
         roles.add(mainsRoleAdvanced);
         roles.add(heatingThermostatRole);
         roles.add(coolingThermostatRole);
-        //roles.add(slave);
 
         return roles;
     }
+
+    private static ObservableArrayList<LayoutHolder> createRolesForElectrodragon2REL_DS18B20(Context context, EditSensorViewModel editModel) {
+        ObservableArrayList<LayoutHolder> roles = new ObservableArrayList<>();
+        RoleItemViewModel mainsRelayRole = new RoleItemViewModel(editModel,
+                BoardRole.MAINS2,
+                context.getString(R.string.role_mains_switch),
+                context.getString(R.string.role_mains_desc));
+        RoleItemViewModel mainsRoleAdvanced = new RoleItemViewModel(editModel,
+                BoardRole.MAINS2_ADV,
+                context.getString(R.string.role_mains_switch_advanced),
+                context.getString(R.string.role_mains_desc));
+        RoleItemViewModel heatingThermostatRole = new RoleItemViewModel(editModel,
+                BoardRole.HEATING_THERMOSTAT,
+                context.getString(R.string.role_heating_thermostat),
+                context.getString(R.string.role_heating_thermostat_desc));
+        RoleItemViewModel coolingThermostatRole = new RoleItemViewModel(editModel,
+                BoardRole.COOLING_THERMOSTAT,
+                context.getString(R.string.role_cooling_thermostat),
+                context.getString(R.string.role_cooling_thermostat_desc));
+        roles.add(mainsRelayRole);
+        roles.add(mainsRoleAdvanced);
+        roles.add(heatingThermostatRole);
+        roles.add(coolingThermostatRole);
+
+        return roles;
+    }
+
 
     private static ObservableArrayList<LayoutHolder> createRolesForSonoffTH_AM2301(Context context, EditSensorViewModel editModel) {
         ObservableArrayList<LayoutHolder> roles = new ObservableArrayList<>();
@@ -189,17 +197,48 @@ class RoleCreator {
                 BoardRole.DRYING_HYGROSTAT,
                 context.getString(R.string.role_drying_hygrostat),
                 context.getString(R.string.role_drying_hygrostat_desc));
-//        RoleItemViewModel slave = new RoleItemViewModel(editModel,
-//                BoardRole.GeekHOME,
-//                context.getString(R.string.role_geekhome),
-//                context.getResources().getQuantityString(R.plurals.digital_output_ports, 1, 1));
         roles.add(mainsRelayRole);
         roles.add(mainsRoleAdvanced);
         roles.add(heatingThermostatRole);
         roles.add(coolingThermostatRole);
         roles.add(dryingHygrostatRole);
         roles.add(humidificationHygrostatRole);
-        //roles.add(slave);
+
+        return roles;
+    }
+
+    private static ObservableArrayList<LayoutHolder> createRolesForElectrodragon2REL_AM2301(Context context, EditSensorViewModel editModel) {
+        ObservableArrayList<LayoutHolder> roles = new ObservableArrayList<>();
+        RoleItemViewModel mainsRelayRole = new RoleItemViewModel(editModel,
+                BoardRole.MAINS2,
+                context.getString(R.string.role_mains_switch),
+                context.getString(R.string.role_mains_desc));
+        RoleItemViewModel mainsRoleAdvanced = new RoleItemViewModel(editModel,
+                BoardRole.MAINS2_ADV,
+                context.getString(R.string.role_mains_switch_advanced),
+                context.getString(R.string.role_mains_desc));
+        RoleItemViewModel heatingThermostatRole = new RoleItemViewModel(editModel,
+                BoardRole.HEATING_THERMOSTAT,
+                context.getString(R.string.role_heating_thermostat),
+                context.getString(R.string.role_heating_thermostat_desc));
+        RoleItemViewModel coolingThermostatRole = new RoleItemViewModel(editModel,
+                BoardRole.COOLING_THERMOSTAT,
+                context.getString(R.string.role_cooling_thermostat),
+                context.getString(R.string.role_cooling_thermostat_desc));
+        RoleItemViewModel humidificationHygrostatRole = new RoleItemViewModel(editModel,
+                BoardRole.HUMIDIFICATION_HYGROSTAT,
+                context.getString(R.string.role_humidification_hygrostat),
+                context.getString(R.string.role_humidification_hygrostat_desc));
+        RoleItemViewModel dryingHygrostatRole = new RoleItemViewModel(editModel,
+                BoardRole.DRYING_HYGROSTAT,
+                context.getString(R.string.role_drying_hygrostat),
+                context.getString(R.string.role_drying_hygrostat_desc));
+        roles.add(mainsRelayRole);
+        roles.add(mainsRoleAdvanced);
+        roles.add(heatingThermostatRole);
+        roles.add(coolingThermostatRole);
+        roles.add(dryingHygrostatRole);
+        roles.add(humidificationHygrostatRole);
 
         return roles;
     }
@@ -246,13 +285,8 @@ class RoleCreator {
                 BoardRole.MULTI_PWM,
                 context.getString(R.string.role_pwm_multichannel),
                 context.getString(R.string.role_pwm_multichannel_desc));
-//        RoleItemViewModel slave = new RoleItemViewModel(editModel,
-//                BoardRole.GeekHOME,
-//                context.getString(R.string.role_geekhome),
-//                context.getResources().getQuantityString(R.plurals.channels_pwm, 5, 5));
         roles.add(rgbRole);
         roles.add(dummyRole2);
-        //roles.add(slave);
 
         return roles;
     }
@@ -271,14 +305,9 @@ class RoleCreator {
                 BoardRole.MULTI_PWM,
                 context.getString(R.string.role_pwm_multichannel),
                 context.getString(R.string.role_pwm_multichannel_desc));
-//        RoleItemViewModel slave = new RoleItemViewModel(editModel,
-//                BoardRole.GeekHOME,
-//                context.getString(R.string.role_geekhome),
-//                context.getResources().getQuantityString(R.plurals.channels_pwm, 4, 4));
         roles.add(rgbwRole);
         roles.add(rgbRole);
         roles.add(multichannelPWM);
-        //roles.add(slave);
 
         return roles;
     }

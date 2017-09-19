@@ -160,6 +160,8 @@
     <string name="role_mains_desc">Włącznik zdalny (IoT lub WiFi)</string>
     <string name="role_light_switch">Włącznik światła</string>
     <string name="role_light_switch_desc">Zdalny włącznik światła (IoT lub WiFi). Włącza światło gdy zostatnie dotknięty.</string>
+    <string name="role_light_switch_traditional">Włącznik światła (tradycyjny)</string>
+    <string name="role_light_switch_traditional_desc">Współpracuje z tradycyjnym włącznikiem światła (typu włącz/wyłącz lub dzwonkowym)</string>
     <string name="controlled_by_geekhome">To urządzenie jest kontrolowane przez serwer automatyki GeekHOME. Aby sterować nim tą aplikacją, edytuj urządzenie i zmień jego rolę.</string>
     <string name="role_cooling_thermostat">Termostat (chłodzenie)</string>
     <string name="role_cooling_thermostat_desc">Włącza przekaźnik, gdy temperatura jest zbyt wysoka.</string>
@@ -316,6 +318,9 @@
     <string name="variant_deprecated">Ten wariant nie jest już wspierany!</string>
     <string name="please_update_to_latest_version">Prosimy o uaktualnienie oprogramowania dla tego urządzenia do najnowszej wersji.</string>
     <string name="signin_and_update_to_latest_version">Prosimy o zalogowanie się i uaktualnienie oprogramowania dla tego urządzenia do najnowszej wersji.</string>
+    <string name="SPDT_switch">wł/wył</string>
+    <string name="SPDT_NO_switch">dzwonkowy</string>
+    <string name="light_switch_type">Typ łącznika</string>
 
     <string-array name="signal_turned_on_solutions">
         <item>Poczekaj na bardziej znaczący sygnał. Przykładowo, gdy urządzenie nie zna naszej sieci WiFi i próbuje nawiązać połączenie dioda stanu świeci się w sposób ciągły (nie miga) przez kilka sekund, a następnie miga dwukrotnie kilka razy i znowu zaświeca się, aby ponowić próbę. Te dwa mrugnięcia są tym bardziej znaczącym sygnałem w tym przypadku.</item>

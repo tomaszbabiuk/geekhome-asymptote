@@ -1,0 +1,62 @@
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View"/>
+
+        <variable
+            name="vm"
+            type="eu.geekhome.asymptote.viewmodel.SwitchModeItemViewModel"/>
+
+        <import type="eu.geekhome.asymptote.utils.ValueConverter"/>
+    </data>
+
+
+    <LinearLayout
+        style="@style/Layout.MatchX.Horizontal"
+        android:padding="@dimen/common_small_padding">
+
+        <TextView
+            style="@style/SensorEdit.ChannelNumber"
+            android:layout_gravity="center_vertical"
+            android:text='@{vm.channel + ":"}'
+            tools:text="1:"/>
+
+        <LinearLayout
+            style="@style/SensorEdit.LightSwitchRectangle"
+            android:background="@{vm.mode == 0 ? @drawable/rectangle_orange : @drawable/rectangle_silver}"
+            android:onClick="@{() -> vm.setMode(0)}"
+            android:padding="@dimen/common_small_padding"
+            tools:background="@drawable/rectangle_orange">
+
+            <eu.geekhome.controls.SvgImageView
+                style="@style/SensorEdit.LightSwitchIcon"
+                app:svgId="@raw/switch_spdt"/>
+
+            <TextView
+                style="@style/SensorEdit.LightSwitchText"
+                android:text="@string/SPDT_switch"/>
+        </LinearLayout>
+
+        <LinearLayout
+            style="@style/SensorEdit.LightSwitchRectangle"
+            android:background="@{vm.mode == 1 ? @drawable/rectangle_orange : @drawable/rectangle_silver}"
+            android:onClick="@{() -> vm.setMode(1)}"
+            android:padding="@dimen/common_small_padding"
+            tools:background="@drawable/rectangle_orange">
+
+            <eu.geekhome.controls.SvgImageView
+                style="@style/SensorEdit.LightSwitchIcon"
+                app:svgId="@raw/switch_spdt_no"/>
+
+            <TextView
+                style="@style/SensorEdit.LightSwitchText"
+                android:text="@string/SPDT_NO_switch"/>
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+</layout>

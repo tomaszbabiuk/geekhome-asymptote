@@ -14,7 +14,7 @@ public class RelayInterlockItemViewModel extends BaseObservable implements Layou
     private long _lockGroup;
     private int _totalChannels;
 
-    public RelayInterlockItemViewModel(int channel, long lockGroup, int totalChannels) {
+    RelayInterlockItemViewModel(int channel, long lockGroup, int totalChannels) {
         _channel = channel;
         _lockGroup = lockGroup;
         _totalChannels = totalChannels;

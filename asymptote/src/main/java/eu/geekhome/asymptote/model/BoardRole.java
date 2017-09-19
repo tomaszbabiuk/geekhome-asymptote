@@ -26,6 +26,7 @@ public enum BoardRole {
     MAINS2_ADV(17, R.raw.power_off, R.raw.power_on, true, false, true),
     MAINS4_ADV(18, R.raw.power_off, R.raw.power_on, true, false, true),
     GATE(19, R.raw.garagedoor, R.raw.garagedoor_open, false, true, false),
+    LIGHT_SWITCH_TRADITIONAL(20, R.raw.lightswitchdouble_off, R.raw.lightswitchdouble_on, true, false, false),
 
     GeekHOME(255, R.raw.robot, R.raw.robot, false, false, false);
 

@@ -155,6 +155,8 @@
     <string name="role_rgbw_controller_desc">Controls RGBW tape/panel.</string>
     <string name="role_mains_switch">Mains switch</string>
     <string name="role_mains_switch_advanced">Mains switch (advanced)</string>
+    <string name="role_light_switch_traditional">Light switch traditional</string>
+    <string name="role_light_switch_traditional_desc">Cooperates with traditional light switches (traditional on/off and bell type)</string>
     <string name="role_gate">Gate controller</string>
     <string name="role_gate_desc">Controls electronic garage door or estate gate with toggle and stop inputs. The door/gate must be equipped with a contactron.</string>
     <string name="role_mains_desc">IoT/WiFi switch.</string>
@@ -316,6 +318,9 @@
     <string name="variant_deprecated">This variant is deprecated!</string>
     <string name="please_update_to_latest_version">Please update this device to latest version.</string>
     <string name="signin_and_update_to_latest_version">Please sign in and update this device to latest version.</string>
+    <string name="SPDT_switch">on/off</string>
+    <string name="SPDT_NO_switch">impulse</string>
+    <string name="light_switch_type">Light switch type</string>
 
 
     <string-array name="signal_turned_on_solutions">

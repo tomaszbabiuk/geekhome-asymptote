@@ -68,8 +68,13 @@ class RoleCreator {
                 BoardRole.MAINS2_ADV,
                 context.getString(R.string.role_mains_switch_advanced),
                 context.getString(R.string.role_mains_desc));
+        RoleItemViewModel lightSwitchTraditional = new RoleItemViewModel(editModel,
+                BoardRole.LIGHT_SWITCH_TRADITIONAL,
+                context.getString(R.string.role_light_switch_traditional),
+                context.getString(R.string.role_light_switch_traditional_desc));
         roles.add(mainsRole);
         roles.add(mainsRoleAdvanced);
+        roles.add(lightSwitchTraditional);
 
         return roles;
     }
@@ -154,6 +159,10 @@ class RoleCreator {
                 BoardRole.MAINS2_ADV,
                 context.getString(R.string.role_mains_switch_advanced),
                 context.getString(R.string.role_mains_desc));
+        RoleItemViewModel lightSwitchTraditional = new RoleItemViewModel(editModel,
+                BoardRole.LIGHT_SWITCH_TRADITIONAL,
+                context.getString(R.string.role_light_switch_traditional),
+                context.getString(R.string.role_light_switch_traditional_desc));
         RoleItemViewModel heatingThermostatRole = new RoleItemViewModel(editModel,
                 BoardRole.HEATING_THERMOSTAT,
                 context.getString(R.string.role_heating_thermostat),
@@ -164,6 +173,7 @@ class RoleCreator {
                 context.getString(R.string.role_cooling_thermostat_desc));
         roles.add(mainsRelayRole);
         roles.add(mainsRoleAdvanced);
+        roles.add(lightSwitchTraditional);
         roles.add(heatingThermostatRole);
         roles.add(coolingThermostatRole);
 
@@ -217,6 +227,10 @@ class RoleCreator {
                 BoardRole.MAINS2_ADV,
                 context.getString(R.string.role_mains_switch_advanced),
                 context.getString(R.string.role_mains_desc));
+        RoleItemViewModel lightSwitchTraditional = new RoleItemViewModel(editModel,
+                BoardRole.LIGHT_SWITCH_TRADITIONAL,
+                context.getString(R.string.role_light_switch_traditional),
+                context.getString(R.string.role_light_switch_traditional_desc));
         RoleItemViewModel heatingThermostatRole = new RoleItemViewModel(editModel,
                 BoardRole.HEATING_THERMOSTAT,
                 context.getString(R.string.role_heating_thermostat),
@@ -235,6 +249,7 @@ class RoleCreator {
                 context.getString(R.string.role_drying_hygrostat_desc));
         roles.add(mainsRelayRole);
         roles.add(mainsRoleAdvanced);
+        roles.add(lightSwitchTraditional);
         roles.add(heatingThermostatRole);
         roles.add(coolingThermostatRole);
         roles.add(dryingHygrostatRole);

@@ -51,17 +51,22 @@ public class ResourcesBasedFirmwareRepository extends ResourcesBasedFirmwareRepo
         Firmware electrodragon2RelFirebase = new Firmware(Variant.Firebase, "electrodragon2rel/firmware_firebase.bin", "f265ae4ff6653fd7489984ce38a76339", 1, 4);
         Firmware electrodragon2RelHybrid = new Firmware(Variant.Hybrid, "electrodragon2rel/firmware_hybrid.bin", "8ee8b374ccfb7a79ff48da0077df966f", 1, 4);
         FirmwareSet electrodragon2RelSet = new FirmwareSet(electrodragon2RelWifi, electrodragon2RelFirebase, electrodragon2RelHybrid);
-        put(BoardId.Elecrodragon2REL, electrodragon2RelSet);
+        put(BoardId.Electrodragon2REL_None, electrodragon2RelSet);
+        put(BoardId.Electrodragon2REL_DS18B20, electrodragon2RelSet);
+        put(BoardId.Electrodragon2REL_AM2301, electrodragon2RelSet);
+
         Firmware electrodragon2RelSpdtWifi = new Firmware(Variant.WiFi, "electrodragon2rel_spdt/firmware_wifi.bin", "c48d7d7a54cda3333ea7234f6a24eaf1", 1, 4);
         Firmware electrodragon2RelSpdtFirebase = new Firmware(Variant.Firebase, "electrodragon2rel_spdt/firmware_firebase.bin", "a9b2853c2cdf83e188b53b8f0977c349", 1, 4);
         Firmware electrodragon2RelSpdtHybrid = new Firmware(Variant.Hybrid, "electrodragon2rel_spdt/firmware_hybrid.bin", "0be3d83660cc390fb0769607f00c82dc", 1, 4);
         FirmwareSet electrodragon2RelSpdtSet = new FirmwareSet(electrodragon2RelSpdtWifi, electrodragon2RelSpdtFirebase, electrodragon2RelSpdtHybrid);
         put(BoardId.Elecrodragon2REL_SPDT, electrodragon2RelSpdtSet);
+
         Firmware electrodragonLedWifi = new Firmware(Variant.WiFi, "electrodragon_led/firmware_wifi.bin", "f00002872b815f697ea40cc016edc380", 1, 4);
         Firmware electrodragonLedFirebase = new Firmware(Variant.Firebase, "electrodragon_led/firmware_firebase.bin", "e95a9e2e1a406826eb185d62b69596df", 1, 4);
         Firmware electrodragonLedHybrid = new Firmware(Variant.Hybrid, "electrodragon_led/firmware_hybrid.bin", "1e74fa237d7b905e6672514b447bcd9f", 1, 4);
         FirmwareSet electrodragonLedSet = new FirmwareSet(electrodragonLedWifi, electrodragonLedFirebase, electrodragonLedHybrid);
         put(BoardId.ElectrodragonLed, electrodragonLedSet);
+
         Firmware geekGateWifi = new Firmware(Variant.WiFi, "geekgate/firmware_wifi.bin", "77e8eee7679e5624ebc930c72f819300", 1, 4);
         Firmware geekGateFirebase = new Firmware(Variant.Firebase, "geekgate/firmware_firebase.bin", "6559dee7a23a9bd553a26414f29623f2", 1, 4);
         Firmware geekGateHybrid = new Firmware(Variant.Hybrid, "geekgate/firmware_hybrid.bin", "b9a3fec7478934998bed2dcc87f3cb72", 1, 4);

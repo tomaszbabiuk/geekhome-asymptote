@@ -39,6 +39,7 @@ import eu.geekhome.asymptote.viewmodel.EditSensorViewModel;
 import eu.geekhome.asymptote.viewmodel.FirmwareItemViewModel;
 import eu.geekhome.asymptote.viewmodel.HelpActionBarViewModel;
 import eu.geekhome.asymptote.viewmodel.HygrostatRoleDetailsViewModel;
+import eu.geekhome.asymptote.viewmodel.LightsSwitchTraditionalRoleDetailsViewModel;
 import eu.geekhome.asymptote.viewmodel.LockViewModel;
 import eu.geekhome.asymptote.viewmodel.MainActionBarViewModel;
 import eu.geekhome.asymptote.viewmodel.MainViewModel;
@@ -51,6 +52,7 @@ import eu.geekhome.asymptote.viewmodel.ResultViewModel;
 import eu.geekhome.asymptote.viewmodel.SecuredDevicesFoundViewModel;
 import eu.geekhome.asymptote.viewmodel.SensorItemViewModel;
 import eu.geekhome.asymptote.viewmodel.SetEmergencyPasswordViewModel;
+import eu.geekhome.asymptote.viewmodel.SwitchModeItemViewModel;
 import eu.geekhome.asymptote.viewmodel.ThermostatRoleDetailsViewModel;
 import eu.geekhome.asymptote.viewmodel.TouchConfigurationViewModel;
 import eu.geekhome.asymptote.viewmodel.TouchPressViewModel;
@@ -236,5 +238,14 @@ public class MainViewModelsFactory {
 
     public RelayWorkingModeItemViewModel createRelayWorkingModeItem(long impulse, int channel) {
         return new RelayWorkingModeItemViewModel(_generalDialogService, impulse, channel);
+    }
+
+    public SwitchModeItemViewModel createSwitchModeItemViewModel(long mode, int channel) {
+        return new SwitchModeItemViewModel(channel, mode);
+    }
+
+    public LightsSwitchTraditionalRoleDetailsViewModel createLightsSwitchTraditionalRoleDetailsViewModel(EditSensorViewModel editSensorViewModel,
+                                                                                                         SensorItemViewModel sensor) {
+        return new LightsSwitchTraditionalRoleDetailsViewModel(this, _navigationService, editSensorViewModel, sensor);
     }
 }

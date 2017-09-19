@@ -34,6 +34,13 @@ public class ControlsCreator {
     ObservableArrayList<LayoutHolder> createControls(DeviceSyncData syncData, SensorItemViewModel sensorModel) {
         ObservableArrayList<LayoutHolder> result = new ObservableArrayList<>();
         if (syncData.getRole() != BoardRole.GeekHOME) {
+//            if (syncData.getRole() == BoardRole.LIGHT_SWITCH_TRADITIONAL) {
+//                for (int i = 0; i < syncData.getRelayStates().length; i++) {
+//                    ControlRelayItemViewModel relayModel = new ControlRelayItemViewModel(sensorModel, _context, i,
+//                            syncData.getRelayStates()[i]);
+//                    result.add(relayModel);
+//                }
+//            }
             if (syncData.getRole() == BoardRole.HEATING_THERMOSTAT) {
                 String activeMessage = _context.getString(R.string.heating_on);
                 String inactiveMessage = _context.getString(R.string.heating_off);

@@ -89,10 +89,13 @@ public class EditSensorViewModel extends ViewModel<FragmentEditSensorBinding> {
 
     public void onNext() {
         boolean reset = !getNewRole().equals(getSensor().getSyncData().getRole());
-        if (getNewRole() == BoardRole.HEATING_THERMOSTAT) {
+        if (getNewRole() == BoardRole.LIGHT_SWITCH_TRADITIONAL) {
+            LightsSwitchTraditionalRoleDetailsViewModel model =
+                    _factory.createLightsSwitchTraditionalRoleDetailsViewModel(this, getSensor());
+            _navigationService.showViewModel(model, new ShowBackButtonInToolbarViewParam());
+        } else if (getNewRole() == BoardRole.HEATING_THERMOSTAT) {
             String title = _context.getString(R.string.heating_thermostat_details);
             String instruction = _context.getString(R.string.heating_thermostat_instruction);
-
             XStatRoleDetailsViewModelBase details = _factory.createThermostatRoleDetailsViewModel(
                     this, getSensor(), title, instruction, reset);
             _navigationService.showViewModel(details, new ShowBackButtonInToolbarViewParam());

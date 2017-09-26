@@ -13,7 +13,7 @@ public class RoleItemViewModel extends SelectableItemViewModel implements Layout
     private String _name;
     private String _description;
 
-    public RoleItemViewModel(EditSensorViewModel editModel, BoardRole role, String name, String description) {
+    RoleItemViewModel(EditSensorViewModel editModel, BoardRole role, String name, String description) {
         _editModel = editModel;
         _role = role;
         _name = name;

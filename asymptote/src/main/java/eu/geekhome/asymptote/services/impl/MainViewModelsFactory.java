@@ -33,9 +33,11 @@ import eu.geekhome.asymptote.viewmodel.CMSViewModel;
 import eu.geekhome.asymptote.viewmodel.ChangeEmailViewModel;
 import eu.geekhome.asymptote.viewmodel.ChangeFirmwareViewModel;
 import eu.geekhome.asymptote.viewmodel.ChangePasswordViewModel;
+import eu.geekhome.asymptote.viewmodel.ChooseTriggerViewModel;
 import eu.geekhome.asymptote.viewmodel.ControlsCreator;
 import eu.geekhome.asymptote.viewmodel.DeviceLockedViewModel;
 import eu.geekhome.asymptote.viewmodel.EditSensorViewModel;
+import eu.geekhome.asymptote.viewmodel.EditTriggersViewModel;
 import eu.geekhome.asymptote.viewmodel.FirmwareItemViewModel;
 import eu.geekhome.asymptote.viewmodel.HelpActionBarViewModel;
 import eu.geekhome.asymptote.viewmodel.HygrostatRoleDetailsViewModel;
@@ -247,5 +249,13 @@ public class MainViewModelsFactory {
     public LightsSwitchTraditionalRoleDetailsViewModel createLightsSwitchTraditionalRoleDetailsViewModel(EditSensorViewModel editSensorViewModel,
                                                                                                          SensorItemViewModel sensor) {
         return new LightsSwitchTraditionalRoleDetailsViewModel(this, _navigationService, editSensorViewModel, sensor);
+    }
+
+    public EditTriggersViewModel createEditTriggersViewModel(SensorItemViewModel sensor) {
+        return new EditTriggersViewModel(this, _navigationService, sensor);
+    }
+
+    public ChooseTriggerViewModel createChooseTriggerViewModel(SensorItemViewModel sensor) {
+        return new ChooseTriggerViewModel(_navigationService, sensor);
     }
 }

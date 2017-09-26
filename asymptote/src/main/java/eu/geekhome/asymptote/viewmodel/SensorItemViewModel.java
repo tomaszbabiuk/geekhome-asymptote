@@ -399,6 +399,11 @@ public class SensorItemViewModel extends BaseObservable implements LayoutHolder 
         _navigationService.showViewModel(renameModel, new ShowBackButtonInToolbarViewParam());
     }
 
+    public void triggers() {
+        EditTriggersViewModel triggersModel = _factory.createEditTriggersViewModel(this);
+        _navigationService.showViewModel(triggersModel, new ShowBackButtonInToolbarViewParam());
+    }
+
     public void changeFirmware() {
         if (isEmergency()) {
             _generalDialogService.showOKDialog(R.string.sign_in_to_install, null);

@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View"/>
+
+        <import type="eu.geekhome.asymptote.utils.SensorColorMatcher"/>
+
+        <variable
+            name="vm"
+            type="eu.geekhome.asymptote.viewmodel.EditTriggersViewModel"/>
+    </data>
+
+    <LinearLayout
+        style="@style/Layout.MatchXY.Vertical">
+
+        <include
+            layout="@layout/actionbar_help"
+            tools:vm="@{vm.actionBarModel}"/>
+
+        <ScrollView
+            style="@style/Layout.MatchX1"
+            android:fillViewport="true">
+
+            <LinearLayout style="@style/SensorEdit.Background">
+
+                <View style="@style/Common.OrangeSeparator.Horizontal"/>
+
+                <TextView
+                    style="@style/Common.Text.Big"
+                    android:layout_marginTop="@dimen/common_medium_padding"
+                    android:gravity="center_horizontal"
+                    android:text="@string/triggers_settings"/>
+
+                <View style="@style/Common.OrangeSeparator.Horizontal.Thin"/>
+
+                <View style="@style/Common.OrangeTriangle"/>
+
+                <TextView
+                    style="@style/Profile.InstructionText"
+                    android:visibility="@{vm.triggers.size() == 0 ? View.VISIBLE : View.GONE}"
+                    android:text="@string/no_triggers"/>
+
+                <RelativeLayout style="@style/Layout.MatchX1.Vertical"
+                                android:paddingEnd="@dimen/common_normal_padding"
+                                android:paddingStart="@dimen/common_normal_padding">
+
+                    <eu.geekhome.asymptote.bindingutils.controls.VerticalRecyclerView
+                        android:id="@+id/recycler"
+                        style="@style/Layout.MatchXY"
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentTop="true"
+                        app:items="@{vm.triggers}"/>
+
+                    <LinearLayout
+                        style="@style/Layout.MatchX.Vertical"
+                        android:layout_alignParentBottom="true">
+
+                        <FrameLayout style="@style/Main.ActionButton">
+
+                            <eu.geekhome.controls.SvgImageView
+                                android:onClick="@{() -> vm.addTrigger()}"
+                                app:svgId="@raw/add"
+                                style="@style/Main.ActionIcon"/>
+                        </FrameLayout>
+
+                    </LinearLayout>
+
+                </RelativeLayout>
+
+
+            </LinearLayout>
+        </ScrollView>
+
+        <View style="@style/Common.OrangeSeparator.Horizontal"/>
+
+
+    </LinearLayout>
+</layout>

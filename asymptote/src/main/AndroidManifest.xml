@@ -37,13 +37,13 @@
             android:theme="@style/Theme.GeekTheme">
         </activity>
 
-        <receiver android:name=".GeekhomeAppWidgetProvider" >
-            <intent-filter>
-                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
-            </intent-filter>
-            <meta-data android:name="android.appwidget.provider"
-                       android:resource="@xml/appwidget_info" />
-        </receiver>
+        <!--<receiver android:name=".GeekhomeAppWidgetProvider" >-->
+            <!--<intent-filter>-->
+                <!--<action android:name="android.appwidget.action.APPWIDGET_UPDATE" />-->
+            <!--</intent-filter>-->
+            <!--<meta-data android:name="android.appwidget.provider"-->
+                       <!--android:resource="@xml/appwidget_info" />-->
+        <!--</receiver>-->
     </application>
 
 </manifest>

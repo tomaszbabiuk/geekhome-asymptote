@@ -321,6 +321,14 @@
     <string name="SPDT_switch">wł/wył</string>
     <string name="SPDT_NO_switch">dzwonkowy</string>
     <string name="light_switch_type">Typ łącznika</string>
+    <string name="triggers_settings">Ustawienia wyzwalaczy</string>
+    <string name="choose_trigger">Wybierz typ wyzwalacza</string>
+    <string name="exact_time_trigger_name">Data i godzina</string>
+    <string name="exact_time_trigger_desc">Zmienia stan urządzenia o ustalonej dacie i godzinie</string>
+    <string name="scheduled_trigger_name">Terminarz</string>
+    <string name="scheduled_trigger_desc">Pozwala zdefiniować tygodniowy grafik zmiany stanu</string>
+    <string name="no_triggers">Brak wyzwalaczy</string>
+
 
     <string-array name="signal_turned_on_solutions">
         <item>Poczekaj na bardziej znaczący sygnał. Przykładowo, gdy urządzenie nie zna naszej sieci WiFi i próbuje nawiązać połączenie dioda stanu świeci się w sposób ciągły (nie miga) przez kilka sekund, a następnie miga dwukrotnie kilka razy i znowu zaświeca się, aby ponowić próbę. Te dwa mrugnięcia są tym bardziej znaczącym sygnałem w tym przypadku.</item>

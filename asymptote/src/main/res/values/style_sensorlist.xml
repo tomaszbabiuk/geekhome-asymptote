@@ -179,6 +179,11 @@
         <item name="svgId">@raw/gear</item>
     </style>
 
+    <style name="SensorList.ActionIcon.Triggers" parent="SensorList.ActionIcon">
+        <item name="svgColor">@color/almost_white</item>
+        <item name="svgId">@raw/clock</item>
+    </style>
+
     <style name="SensorList.ActionIcon.Locked" parent="SensorList.ActionIcon">
         <item name="svgColor">@color/almost_white</item>
         <item name="svgId">@raw/locked</item>

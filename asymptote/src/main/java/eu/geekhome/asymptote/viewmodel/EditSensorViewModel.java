@@ -168,15 +168,15 @@ public class EditSensorViewModel extends ViewModel<FragmentEditSensorBinding> {
         return _roles;
     }
 
-    public void nameChanged(String newName) {
+    private void nameChanged(String newName) {
         _sensor.getUpdates().add(new NameSyncUpdate(newName));
     }
 
-    public void colorChanged(int newColor) {
+    private void colorChanged(int newColor) {
         _sensor.getUpdates().add(new ColorSyncUpdate(newColor));
     }
 
-    public void roleChanged(BoardRole role) {
+    private void roleChanged(BoardRole role) {
         _sensor.getUpdates().add(new RoleSyncUpdate(role));
     }
 }

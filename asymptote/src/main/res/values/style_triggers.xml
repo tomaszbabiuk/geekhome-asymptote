@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="triggers_icon_sice">65dp</dimen>
+
+    <style name="Triggers" />
+
+    <style name="Triggers.Icon">
+        <item name="android:layout_width">@dimen/triggers_icon_sice</item>
+        <item name="android:layout_height">@dimen/triggers_icon_sice</item>
+        <item name="svgColor">@color/almost_black</item>
+    </style>
+
+</resources>

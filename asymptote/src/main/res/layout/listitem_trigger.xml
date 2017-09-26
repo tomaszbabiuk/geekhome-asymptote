@@ -1,0 +1,57 @@
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View"/>
+
+        <variable
+            name="vm"
+            type="eu.geekhome.asymptote.viewmodel.TriggerItemViewModel"/>
+    </data>
+
+    <LinearLayout
+        style="@style/SensorList.Layout.ControlListItem"
+        android:background="@{vm.selected ? @drawable/rectangle_orange : null}"
+        android:onClick="@{() -> vm.selectTrigger()}">
+
+        <eu.geekhome.controls.SvgImageView
+            style="@style/Triggers.Icon"
+            app:svgColor="@color/black"
+            app:svgId="@{vm.triggerType.iconId}"/>
+
+
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/common_small_padding"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:orientation="vertical">
+
+            <TextView
+                style="@style/Common.Text.Big"
+                android:gravity="center_vertical"
+                android:text="@{vm.triggerType.nameResId}"
+                android:textColor="@{vm.selected ? @color/black : @color/light_gray}"
+                tools:text="Trigger name"/>
+
+            <TextView
+                style="@style/Common.Text.Medium"
+                android:gravity="center_vertical"
+                android:text="@{vm.triggerType.descriptionResId}"
+                android:textColor="@{vm.selected ? @color/black : @color/light_gray}"
+                tools:text="Trigger description"/>
+        </LinearLayout>
+
+        <eu.geekhome.controls.SvgImageView
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            app:svgColor="@{vm.selected ? @color/orange : @color/silver}"
+            app:svgId="@raw/checkmark"/>
+
+    </LinearLayout>
+
+</layout>

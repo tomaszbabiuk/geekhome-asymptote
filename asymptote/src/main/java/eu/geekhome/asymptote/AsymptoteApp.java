@@ -5,7 +5,6 @@ import android.app.Application;
 
 import javax.inject.Inject;
 
-import dagger.android.AndroidInjector;
 import dagger.android.DispatchingAndroidInjector;
 import dagger.android.HasActivityInjector;
 import eu.geekhome.asymptote.dependencyinjection.application.ApplicationModule;

@@ -5,7 +5,7 @@ import android.databinding.Bindable;
 
 import com.android.databinding.library.baseAdapters.BR;
 
-public class SelectableItemViewModel extends BaseObservable {
+class SelectableItemViewModel extends BaseObservable {
     private boolean _selected;
 
     @Bindable

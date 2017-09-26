@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View"/>
+
+        <import type="eu.geekhome.asymptote.validation.MinLengthParams"/>
+        <import type="eu.geekhome.asymptote.viewmodel.TriggerType"/>
+
+        <variable
+            name="vm"
+            type="eu.geekhome.asymptote.viewmodel.ChooseTriggerViewModel"/>
+    </data>
+
+    <FrameLayout style="@style/Common.Dialog.TransparencyLayer">
+
+        <LinearLayout
+            style="@style/Common.Dialog"
+            android:layout_gravity="center_vertical">
+
+            <TextView
+                style="@style/Common.Text.FormLabel"
+                android:text="@string/choose_trigger"/>
+
+            <eu.geekhome.asymptote.bindingutils.controls.VerticalRecyclerView
+                style="@style/Layout.MatchX1"
+                android:background="@color/white"
+                app:items="@{vm.triggers}"/>
+
+            <LinearLayout style="@style/Layout.MatchX.Horizontal">
+                <TextView
+                    style="@style/Common.Button.Gray"
+                    android:onClick="@{() -> vm.close()}"
+                    android:text="@string/cancel"/>
+
+                <TextView
+                    style="@style/Common.Button.Orange"
+                    android:onClick="@{() -> vm.ok()}"
+                    android:text="@string/ok"/>
+            </LinearLayout>
+        </LinearLayout>
+    </FrameLayout>
+</layout>

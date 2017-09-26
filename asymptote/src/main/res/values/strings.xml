@@ -321,6 +321,15 @@
     <string name="SPDT_switch">on/off</string>
     <string name="SPDT_NO_switch">impulse</string>
     <string name="light_switch_type">Light switch type</string>
+    <string name="triggers_settings">Triggers settings</string>
+    <string name="exact_time_trigger">Exact time</string>
+    <string name="scheduler_trigger">Scheduler</string>
+    <string name="choose_trigger">Choose trigger</string>
+    <string name="exact_time_trigger_name">Exact date and time</string>
+    <string name="exact_time_trigger_desc">Changes device state at defined date and time</string>
+    <string name="scheduled_trigger_name">Scheduler</string>
+    <string name="scheduled_trigger_desc">Changes device state according to weekly schedule</string>
+    <string name="no_triggers">No triggers</string>
 
 
     <string-array name="signal_turned_on_solutions">

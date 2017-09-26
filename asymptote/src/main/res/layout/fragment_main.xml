@@ -45,6 +45,7 @@
 
                     <eu.geekhome.controls.SvgImageView
                         android:onClick="@{() -> vm.actionBarModel.pairSensor()}"
+                        app:svgId="@raw/pair"
                         style="@style/Main.ActionIcon"/>
                 </FrameLayout>
 

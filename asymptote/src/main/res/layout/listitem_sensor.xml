@@ -109,6 +109,10 @@
                             style="@style/SensorList.ActionIcon.Settings"
                             android:onClick="@{() -> vm.edit()}"/>
 
+                        <eu.geekhome.controls.SvgImageView
+                            style="@style/SensorList.ActionIcon.Triggers"
+                            android:onClick="@{() -> vm.triggers()}"/>
+
                         <LinearLayout
                             style="@style/Layout.Wrapped.Horizontal"
                             android:layout_gravity="top"

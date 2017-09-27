@@ -6,7 +6,7 @@ import android.support.annotation.StringRes;
 import eu.geekhome.asymptote.R;
 
 public enum TriggerType {
-    ExactTime(R.raw.calendar, R.string.exact_time_trigger_name, R.string.exact_time_trigger_desc),
+    ExactTime(R.raw.calendar, R.string.datetime_trigger_name, R.string.datetime_trigger_desc),
     Scheduler(R.raw.calendar2, R.string.scheduled_trigger_name, R.string.scheduled_trigger_desc);
 
     private final int _iconId;

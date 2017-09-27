@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="WheelItemTextSize">24sp</dimen>
+    <dimen name="WheelItemSpace">12dp</dimen>
+    <dimen name="WheelIndicatorSize">2dp</dimen>
+    <dimen name="WheelMargins">8dp</dimen>
+    <dimen name="wheel_spacing">30dp</dimen>
+    <dimen name="wheelSelectorHeight">40dp</dimen>
+
+    <string name="picker_today">Today</string>
+    <string name="picker_am">AM</string>
+    <string name="picker_pm">PM</string>
+
+    <color name="picker_background">#3F51B5</color>
+    <color name="picker_button_background_selected">#3F51B5</color>
+    <color name="picker_button_background">@android:color/white</color>
+    <color name="picker_button_background_innactive">#BDBDBD</color>
+    <color name="picker_default_text_color">#999</color>
+    <color name="picker_default_selected_text_color">@android:color/black</color>
+    <color name="picker_default_selector_color">#646464</color>
+
+    <declare-styleable name="WheelPicker">
+        <attr name="wheel_data" format="reference"/>
+        <attr name="wheel_selected_item_position" format="integer"/>
+        <attr name="wheel_item_text_size" format="dimension"/>
+        <attr name="wheel_item_text_color" format="color"/>
+        <attr name="wheel_selected_item_text_color" format="color"/>
+        <attr name="wheel_same_width" format="boolean"/>
+        <attr name="wheel_maximum_width_text" format="string"/>
+        <attr name="wheel_maximum_width_text_position" format="integer"/>
+        <attr name="wheel_visible_item_count" format="integer"/>
+        <attr name="wheel_item_space" format="dimension"/>
+        <attr name="wheel_cyclic" format="boolean"/>
+        <attr name="wheel_indicator" format="boolean"/>
+        <attr name="wheel_indicator_color" format="color"/>
+        <attr name="wheel_indicator_size" format="dimension"/>
+        <attr name="wheel_curtain" format="boolean"/>
+        <attr name="wheel_curtain_color" format="color"/>
+        <attr name="wheel_atmospheric" format="boolean"/>
+        <attr name="wheel_curved" format="boolean"/>
+        <attr name="wheel_item_align" format="enum">
+            <enum name="center" value="0"/>
+            <enum name="left" value="1"/>
+            <enum name="right" value="2"/>
+        </attr>
+    </declare-styleable>
+
+    <declare-styleable name="SingleDateAndTimePicker">
+        <attr name="picker_textColor" format="color"/>
+        <attr name="picker_selectedTextColor" format="color"/>
+        <attr name="picker_textSize" format="dimension"/>
+        <attr name="picker_curved" format="boolean"/>
+        <attr name="picker_cyclic" format="boolean"/>
+        <attr name="picker_mustBeOnFuture" format="boolean"/>
+        <attr name="picker_visibleItemCount" format="integer"/>
+        <attr name="picker_selectorColor" format="integer"/>
+        <attr name="picker_selectorHeight" format="dimension"/>
+        <attr name="picker_displayDays" format="boolean"/>
+        <attr name="picker_displayMinutes" format="boolean"/>
+        <attr name="picker_displayHours" format="boolean"/>
+    </declare-styleable>
+</resources>

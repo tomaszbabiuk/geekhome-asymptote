@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View"/>
+
+        <variable
+            name="vm"
+            type="eu.geekhome.asymptote.viewmodel.EditDateTimeTriggerViewModel"/>
+    </data>
+
+    <LinearLayout
+        style="@style/Layout.MatchXY.Vertical">
+
+        <include
+            layout="@layout/actionbar_help"
+            tools:vm="@{vm.actionBarModel}"/>
+
+        <View style="@style/Common.OrangeSeparator.Horizontal"/>
+
+        <ScrollView
+            style="@style/Layout.MatchX1"
+            android:fillViewport="true">
+
+            <LinearLayout
+                style="@style/SensorEdit.Background"
+                android:paddingStart="@dimen/common_medium_padding">
+
+                <TextView
+                    style="@style/Common.Text.Big"
+                    android:layout_marginTop="@dimen/common_medium_padding"
+                    android:gravity="center_horizontal"
+                    android:text="@string/datetime_trigger"/>
+
+                <View style="@style/Common.OrangeSeparator.Horizontal.Thin"/>
+
+                <View style="@style/Common.OrangeTriangle"/>
+
+                <com.github.florent37.singledateandtimepicker.SingleDateAndTimePicker
+                    android:id="@+id/picker"
+                    android:layout_width="wrap_content"
+                    android:layout_height="230dp"
+                    app:picker_curved="true"
+                    app:picker_cyclic="true"
+                    app:picker_mustBeOnFuture="true"
+                    app:picker_visibleItemCount="7"/>
+
+                <android.support.v7.widget.SwitchCompat
+                    style="@style/Triggers.Switch"
+                    android:checked="@={vm.onOffValue}"
+                    android:text='@{vm.onOffValue ? @string/change_state_to_on : @string/change_state_to_off}'/>
+
+            </LinearLayout>
+        </ScrollView>
+
+        <View style="@style/Common.OrangeSeparator.Horizontal"/>
+
+        <LinearLayout style="@style/ActionBar.BottomLayout">
+
+            <Button
+                style="@style/Touch.NextButton"
+                android:onClick="@{() -> vm.done()}"
+                android:text="@{vm.editMode ? @string/edit : @string/add}"/>
+        </LinearLayout>
+
+    </LinearLayout>
+</layout>

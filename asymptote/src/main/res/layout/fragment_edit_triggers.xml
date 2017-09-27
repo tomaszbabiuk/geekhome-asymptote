@@ -7,8 +7,6 @@
 
         <import type="android.view.View"/>
 
-        <import type="eu.geekhome.asymptote.utils.SensorColorMatcher"/>
-
         <variable
             name="vm"
             type="eu.geekhome.asymptote.viewmodel.EditTriggersViewModel"/>

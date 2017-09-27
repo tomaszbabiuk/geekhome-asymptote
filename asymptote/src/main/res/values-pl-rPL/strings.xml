@@ -85,7 +85,7 @@
     <string name="not_verified">nie zweryfikowano</string>
     <string name="logout">Wyloguj się</string>
     <string name="sign_in">Zaloguj się</string>
-    <string name="sign_in_with_email">Zaloguj się mailem</string>
+    <string name="sign_in_with_email">Zaloguj się</string>
     <string name="sign_up">Zarejestruj się</string>
     <string name="unable_to_signin" formatted="false">Nie można się zalogować: %s</string>
     <string name="terms_and_privacy">Warunki i prywatność</string>
@@ -323,11 +323,17 @@
     <string name="light_switch_type">Typ łącznika</string>
     <string name="triggers_settings">Ustawienia wyzwalaczy</string>
     <string name="choose_trigger">Wybierz typ wyzwalacza</string>
-    <string name="exact_time_trigger_name">Data i godzina</string>
-    <string name="exact_time_trigger_desc">Zmienia stan urządzenia o ustalonej dacie i godzinie</string>
+    <string name="datetime_trigger_name">Data i godzina</string>
+    <string name="datetime_trigger_desc">Zmienia stan urządzenia o ustalonej dacie i godzinie</string>
     <string name="scheduled_trigger_name">Terminarz</string>
     <string name="scheduled_trigger_desc">Pozwala zdefiniować tygodniowy grafik zmiany stanu</string>
     <string name="no_triggers">Brak wyzwalaczy</string>
+    <string name="datetime_trigger">Wyzwalacz \"Data i godzina\"</string>
+    <string name="change_state_to_on">Zmień stan na wł</string>
+    <string name="change_state_to_off">Zmień stan na wył</string>
+    <string name="edit">Edytuj</string>
+    <string name="add">Dodaj</string>
+    <string name="date_and_time">Data i czas</string>
 
 
     <string-array name="signal_turned_on_solutions">
@@ -342,76 +348,5 @@
         <item quantity="one">Rozwiązanie</item>
         <item quantity="few">Rozwiązania</item>
         <item quantity="other">Rozwiązań</item>
-    </plurals>
-
-    <plurals name="relays">
-        <item quantity="one">%d przekaźnik</item>
-        <item quantity="few">%d przekaźniki</item>
-        <item quantity="other">%d przekaźników</item>
-    </plurals>
-    <plurals name="thermometers">
-        <item quantity="one">%d termometr</item>
-        <item quantity="few">%d termometry</item>
-        <item quantity="other">%d termometrów</item>
-    </plurals>
-    <plurals name="hygrometers">
-        <item quantity="one">%d higrometr</item>
-        <item quantity="few">%d higrometry</item>
-        <item quantity="other">%d higrometrów</item>
-    </plurals>
-    <plurals name="lux_meters">
-        <item quantity="one">%d luxometer</item>
-        <item quantity="few">%d luxometry</item>
-        <item quantity="other">%d luxometrów</item>
-    </plurals>
-    <plurals name="dust_meters">
-        <item quantity="one">%d miernik pyłu</item>
-        <item quantity="few">%d mierniki pyłu</item>
-        <item quantity="other">%d mierników pyłu</item>
-    </plurals>
-    <plurals name="noise_meters">
-        <item quantity="one">%d miernik hałasu</item>
-        <item quantity="few">%d mierniki hałasu</item>
-        <item quantity="other">%d mierników hałasu</item>
-    </plurals>
-    <plurals name="digital_output_ports">
-        <item quantity="one">%d cyfrowy port wyjścia</item>
-        <item quantity="few">%d cyfrwych portów wyjścia</item>
-        <item quantity="other">%d cyfrowych portów wyjścia</item>
-    </plurals>
-    <plurals name="temperature_ports">
-        <item quantity="one">%d port temperaturowy</item>
-        <item quantity="few">%d porty temperaturowe</item>
-        <item quantity="other">%d portów temperaturowych</item>
-    </plurals>
-    <plurals name="humidity_ports">
-        <item quantity="one">%d port wilgotności</item>
-        <item quantity="few">%d porty wilgotności</item>
-        <item quantity="other">%d portów wilgotności</item>
-    </plurals>
-    <plurals name="luminosity_ports">
-        <item quantity="one">%d port natężenia światła</item>
-        <item quantity="few">%d porty natężenia światła</item>
-        <item quantity="other">%d portów natężenia światła</item>
-    </plurals>
-    <plurals name="dust_ports">
-        <item quantity="one">%d port kurzu</item>
-        <item quantity="few">%d porty kurzu</item>
-        <item quantity="other">%d portów kurzu</item>
-    </plurals>
-    <plurals name="noise_ports">
-        <item quantity="one">%d port hałasu</item>
-        <item quantity="few">%d porty hałasu</item>
-        <item quantity="other">%d portów hałasu</item>
-    </plurals>
-    <plurals name="channels_pwm" tools:ignore="MissingQuantity">
-        <item quantity="one">%d kanał PWM</item>
-        <item quantity="few">%d kanały PWM</item>
-        <item quantity="other">%d kanałów PWM</item>
-    </plurals>
-    <plurals name="channels_rgb">
-        <item quantity="one">%d kanał RGB</item>
-        <item quantity="few">%d kanały RGB</item>
-        <item quantity="other">%d kanałów RGB</item>
     </plurals>
 </resources>

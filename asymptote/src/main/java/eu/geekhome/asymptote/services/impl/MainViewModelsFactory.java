@@ -36,6 +36,7 @@ import eu.geekhome.asymptote.viewmodel.ChangePasswordViewModel;
 import eu.geekhome.asymptote.viewmodel.ChooseTriggerViewModel;
 import eu.geekhome.asymptote.viewmodel.ControlsCreator;
 import eu.geekhome.asymptote.viewmodel.DeviceLockedViewModel;
+import eu.geekhome.asymptote.viewmodel.EditDateTimeTriggerViewModel;
 import eu.geekhome.asymptote.viewmodel.EditSensorViewModel;
 import eu.geekhome.asymptote.viewmodel.EditTriggersViewModel;
 import eu.geekhome.asymptote.viewmodel.FirmwareItemViewModel;
@@ -256,6 +257,10 @@ public class MainViewModelsFactory {
     }
 
     public ChooseTriggerViewModel createChooseTriggerViewModel(SensorItemViewModel sensor) {
-        return new ChooseTriggerViewModel(_navigationService, sensor);
+        return new ChooseTriggerViewModel(this, _navigationService, sensor);
+    }
+
+    public EditDateTimeTriggerViewModel createEditDateTimeTriggerViewModel(SensorItemViewModel sensor) {
+        return new EditDateTimeTriggerViewModel(this, _navigationService, sensor);
     }
 }

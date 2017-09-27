@@ -86,7 +86,7 @@
     <string name="not_verified">not verified</string>
     <string name="logout">Logout</string>
     <string name="sign_in">Sign in</string>
-    <string name="sign_in_with_email">Sign in with email</string>
+    <string name="sign_in_with_email">Sign in</string>
     <string name="sign_up">Sign up</string>
     <string name="unable_to_signin" formatted="false">Unable to sign in: %s</string>
     <string name="terms_and_privacy">Terms and privacy policy</string>
@@ -325,11 +325,17 @@
     <string name="exact_time_trigger">Exact time</string>
     <string name="scheduler_trigger">Scheduler</string>
     <string name="choose_trigger">Choose trigger</string>
-    <string name="exact_time_trigger_name">Exact date and time</string>
-    <string name="exact_time_trigger_desc">Changes device state at defined date and time</string>
+    <string name="datetime_trigger_name">Date and time</string>
+    <string name="datetime_trigger_desc">Changes device state on defined date and time</string>
     <string name="scheduled_trigger_name">Scheduler</string>
     <string name="scheduled_trigger_desc">Changes device state according to weekly schedule</string>
     <string name="no_triggers">No triggers</string>
+    <string name="datetime_trigger">Datetime trigger</string>
+    <string name="change_state_to_on">Change state to on</string>
+    <string name="change_state_to_off">Change state to off</string>
+    <string name="edit">Edit</string>
+    <string name="add">Add</string>
+    <string name="date_and_time">Date and time</string>
 
 
     <string-array name="signal_turned_on_solutions">
@@ -344,61 +350,5 @@
     <plurals name="solutions">
         <item quantity="one">Solution</item>
         <item quantity="other">Solutions</item>
-    </plurals>
-    <plurals name="relays">
-        <item quantity="one">%d relay</item>
-        <item quantity="other">%d relays</item>
-    </plurals>
-    <plurals name="thermometers">
-        <item quantity="one">%d thermometer</item>
-        <item quantity="other">%d thermometers</item>
-    </plurals>
-    <plurals name="hygrometers">
-        <item quantity="one">%d hygrometer</item>
-        <item quantity="other">%d hygrometers</item>
-    </plurals>
-    <plurals name="lux_meters">
-        <item quantity="one">%d lux meter</item>
-        <item quantity="other">%d lux meters</item>
-    </plurals>
-    <plurals name="dust_meters">
-        <item quantity="one">%d dust meter</item>
-        <item quantity="other">%d dust meters</item>
-    </plurals>
-    <plurals name="noise_meters">
-        <item quantity="one">%d noise meter</item>
-        <item quantity="other">%d noise meters</item>
-    </plurals>
-    <plurals name="digital_output_ports">
-        <item quantity="one">%d digital output port</item>
-        <item quantity="other">%d digital output ports</item>
-    </plurals>
-    <plurals name="temperature_ports">
-        <item quantity="one">%d temperature port</item>
-        <item quantity="other">%d temperature ports</item>
-    </plurals>
-    <plurals name="humidity_ports">
-        <item quantity="one">%d humidity port</item>
-        <item quantity="other">%d humidity ports</item>
-    </plurals>
-    <plurals name="luminosity_ports">
-        <item quantity="one">%d luminosity port</item>
-        <item quantity="other">%d luminosity ports</item>
-    </plurals>
-    <plurals name="dust_ports">
-        <item quantity="one">%d dust port</item>
-        <item quantity="other">%d dust ports</item>
-    </plurals>
-    <plurals name="noise_ports">
-        <item quantity="one">%d noise port</item>
-        <item quantity="other">%d noise ports</item>
-    </plurals>
-    <plurals name="channels_pwm">
-        <item quantity="one">%d PWM channel</item>
-        <item quantity="other">%d PWM channels</item>
-    </plurals>
-    <plurals name="channels_rgb">
-        <item quantity="one">%d RGB channel</item>
-        <item quantity="other">%d RGB channels</item>
     </plurals>
 </resources>

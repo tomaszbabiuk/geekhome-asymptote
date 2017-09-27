@@ -10,4 +10,11 @@
         <item name="svgColor">@color/almost_black</item>
     </style>
 
+    <style name="Triggers.Switch" parent="Layout.MatchX">
+        <item name="android:textAppearance">?android:attr/textAppearanceMedium</item>
+        <item name="android:textColor">@color/light_gray</item>
+        <item name="showText">false</item>
+        <item name="trackTint">@color/silver</item>
+        <item name="thumbTint">@color/orange</item>
+    </style>
 </resources>

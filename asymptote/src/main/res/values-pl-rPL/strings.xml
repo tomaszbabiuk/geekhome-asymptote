@@ -333,7 +333,10 @@
     <string name="change_state_to_off">Zmień stan na wył</string>
     <string name="edit">Edytuj</string>
     <string name="add">Dodaj</string>
-    <string name="date_and_time">Data i czas</string>
+    <string name="date">Data</string>
+    <string name="time">Czas</string>
+    <string name="channel">Kanał</string>
+    <string name="value">Wartość</string>
 
 
     <string-array name="signal_turned_on_solutions">

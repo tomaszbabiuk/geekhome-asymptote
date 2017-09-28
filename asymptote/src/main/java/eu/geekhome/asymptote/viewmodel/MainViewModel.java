@@ -428,7 +428,7 @@ public class MainViewModel extends ViewModel<FragmentMainBinding> implements Syn
                     sensor.setAddress(from);
                     sensor.setSyncData(syncData, timestamp);
                     if (sensor.getUpdates().size() > 0) {
-                        sensor.onRequestFullSync();
+                        sensor.requestFullSync();
                     }
                     if (token != null) {
                         sensor.setToken(token);

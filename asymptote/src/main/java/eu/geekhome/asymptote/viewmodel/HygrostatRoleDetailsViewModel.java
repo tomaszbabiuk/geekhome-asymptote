@@ -73,7 +73,7 @@ public class HygrostatRoleDetailsViewModel extends XStatRoleDetailsViewModelBase
         paramChanged(1, getHysteresis() * 100);
         paramChanged(2, getRangeStart() * 10 * 100);
         paramChanged(3, getRangeEnd() * 10 * 100);
-        getSensor().onRequestFullSync();
+        getSensor().requestFullSync();
 
         getNavigationService().goBackTo(MainViewModel.class);
     }

@@ -6,7 +6,11 @@ import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.Spinner;
+
+import java.util.ArrayList;
 
 @SuppressWarnings("unused")
 public class BindingAdapters {
@@ -40,5 +44,12 @@ public class BindingAdapters {
     @BindingAdapter("android:src")
     public static void setImageResource(ImageView imageView, int resource){
         imageView.setImageResource(resource);
+    }
+
+    @BindingAdapter({"items"})
+    public static void setItems(Spinner spinner, ArrayList<String> items) {
+        ArrayAdapter<String> itemsAdapter =
+                new ArrayAdapter<>(spinner.getContext(), android.R.layout.simple_list_item_1, items);
+        spinner.setAdapter(itemsAdapter);
     }
 }

@@ -17,7 +17,7 @@ public class ControlRelayItemViewModel extends ValueSync<Boolean> implements Lay
     @Override
     protected void execute(Boolean value) {
         relayStateChanged(getChannel(), value);
-        getSensor().onRequestFullSync();
+        getSensor().requestFullSync();
     }
 
     @Override

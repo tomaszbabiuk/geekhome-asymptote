@@ -45,6 +45,7 @@ public class MixedAdapter extends BaseDataBoundAdapter {
         LayoutHolder item = mItems.get(position);
         item.onBinding(holder.binding);
         holder.binding.setVariable(BR.vm, item);
+        holder.binding.executePendingBindings();
     }
 
     @Override

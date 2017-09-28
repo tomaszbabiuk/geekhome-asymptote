@@ -335,7 +335,10 @@
     <string name="change_state_to_off">Change state to off</string>
     <string name="edit">Edit</string>
     <string name="add">Add</string>
-    <string name="date_and_time">Date and time</string>
+    <string name="date">Date</string>
+    <string name="time">Time</string>
+    <string name="channel">Channel</string>
+    <string name="value">Value</string>
 
 
     <string-array name="signal_turned_on_solutions">

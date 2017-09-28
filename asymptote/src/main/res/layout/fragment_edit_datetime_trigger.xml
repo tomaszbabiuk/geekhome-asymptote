@@ -6,6 +6,7 @@
     <data>
 
         <import type="android.view.View"/>
+        <import type="eu.geekhome.asymptote.utils.ValueConverter"/>
 
         <variable
             name="vm"
@@ -27,6 +28,7 @@
 
             <LinearLayout
                 style="@style/SensorEdit.Background"
+                android:paddingEnd="@dimen/common_medium_padding"
                 android:paddingStart="@dimen/common_medium_padding">
 
                 <TextView
@@ -39,20 +41,71 @@
 
                 <View style="@style/Common.OrangeTriangle"/>
 
-                <com.github.florent37.singledateandtimepicker.SingleDateAndTimePicker
-                    android:id="@+id/picker"
-                    android:layout_width="wrap_content"
-                    android:layout_height="230dp"
-                    app:picker_curved="true"
-                    app:picker_cyclic="true"
-                    app:picker_mustBeOnFuture="true"
-                    app:picker_visibleItemCount="7"/>
+                <LinearLayout
+                    style="@style/Layout.MatchX.Horizontal">
 
-                <android.support.v7.widget.SwitchCompat
-                    style="@style/Triggers.Switch"
-                    android:checked="@={vm.onOffValue}"
-                    android:text='@{vm.onOffValue ? @string/change_state_to_on : @string/change_state_to_off}'/>
+                    <TextView
+                        style="@style/Triggers.Label"
+                        android:text='@{@string/date + ": "}'
+                        tools:text="Date: "/>
 
+                    <TextView
+                        style="@style/Triggers.PickButton"
+                        android:onClick="@{() -> vm.onPickDate()}"
+                        android:text="@{ValueConverter.daysToText(vm.date)}"
+                        tools:text="11-07-34"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    style="@style/Layout.MatchX.Horizontal">
+
+                    <TextView
+                        style="@style/Triggers.Label"
+                        android:text='@{@string/time + ": "}'
+                        tools:text="Time: "/>
+
+                    <TextView
+                        style="@style/Triggers.PickButton"
+                        android:onClick="@{() -> vm.onPickTime()}"
+                        android:text="@{ValueConverter.secondsToText(vm.time)}"
+                        tools:text="05:56:34"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        style="@style/Triggers.Label"
+                        android:text='@{@string/channel + ": "}'
+                        tools:text="Channel: "/>
+
+
+                    <android.support.v7.widget.AppCompatSpinner
+                        style="@style/Triggers.Spinner"
+                        app:items="@{vm.channels}"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        style="@style/Triggers.Label"
+                        android:text='@{@string/value + ": "}'
+                        tools:text="Value: "/>
+
+
+                    <android.support.v7.widget.AppCompatSpinner
+                        style="@style/Triggers.Spinner"
+                        app:items="@{vm.states}"/>
+
+                </LinearLayout>
             </LinearLayout>
         </ScrollView>
 

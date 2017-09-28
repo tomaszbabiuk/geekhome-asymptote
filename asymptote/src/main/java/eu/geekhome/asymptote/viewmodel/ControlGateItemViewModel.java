@@ -17,7 +17,7 @@ public class ControlGateItemViewModel extends ValueSync<String> implements Layou
     @Override
     protected void execute(String value) {
         stateChanged(value);
-        getSensor().onRequestFullSync();
+        getSensor().requestFullSync();
     }
 
     @Override
@@ -68,11 +68,11 @@ public class ControlGateItemViewModel extends ValueSync<String> implements Layou
     public void openClose() {
         if (getValue().equals("closed")) {
             stateChanged("*doopen");
-            getSensor().onRequestFullSync();
+            getSensor().requestFullSync();
         }
         if (getValue().equals("open")) {
             stateChanged("*doclose");
-            getSensor().onRequestFullSync();
+            getSensor().requestFullSync();
         }
     }
 
@@ -82,11 +82,11 @@ public class ControlGateItemViewModel extends ValueSync<String> implements Layou
         } else {
             stateChanged("*dostop");
         }
-        getSensor().onRequestFullSync();
+        getSensor().requestFullSync();
     }
 
     public void reset() {
         stateChanged("*dorelease");
-        getSensor().onRequestFullSync();
+        getSensor().requestFullSync();
     }
 }

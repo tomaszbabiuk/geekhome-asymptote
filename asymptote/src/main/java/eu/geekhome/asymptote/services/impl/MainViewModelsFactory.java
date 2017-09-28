@@ -261,6 +261,6 @@ public class MainViewModelsFactory {
     }
 
     public EditDateTimeTriggerViewModel createEditDateTimeTriggerViewModel(SensorItemViewModel sensor) {
-        return new EditDateTimeTriggerViewModel(this, _navigationService, sensor);
+        return new EditDateTimeTriggerViewModel(this, _navigationService, _generalDialogService, sensor);
     }
 }

@@ -124,7 +124,7 @@ public class EditSensorViewModel extends ViewModel<FragmentEditSensorBinding> {
         } else {
             getSensor().setBlocked(true);
             commit();
-            getSensor().onRequestFullSync();
+            getSensor().requestFullSync();
             _navigationService.goBack();
         }
     }

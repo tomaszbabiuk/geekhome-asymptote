@@ -55,6 +55,13 @@ public class ValueConverter {
         return String.format(Locale.US, "%02d:%02d:%02d", hourOfDay, minutes, secs);
     }
 
+    public static String daysToText(Long value) {
+        long year = Math.abs(value / (31 * 12));
+        long month = Math.abs(value % (31 * 12) / 31);
+        long day = Math.abs(value % 31);
+        return String.format(Locale.US, "%04d-%02d-%02d", year, month, day);
+    }
+
     public static String secondsToPrettyText(Long value) {
         if (value > 3600) {
             return String.format(Locale.US,"> %dh", value /3600);

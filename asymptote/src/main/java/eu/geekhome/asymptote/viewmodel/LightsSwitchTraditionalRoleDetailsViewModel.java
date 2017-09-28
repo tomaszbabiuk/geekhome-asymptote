@@ -77,7 +77,7 @@ public class LightsSwitchTraditionalRoleDetailsViewModel extends ViewModel<Fragm
             paramChanged(model.getChannel(), model.getMode());
         }
 
-        getSensor().onRequestFullSync();
+        getSensor().requestFullSync();
 
         _navigationService.goBackTo(MainViewModel.class);
     }

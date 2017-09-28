@@ -453,7 +453,7 @@ public class SensorItemViewModel extends BaseObservable implements LayoutHolder 
         return _updates;
     }
 
-    protected void onRequestFullSync() {
+    protected void requestFullSync() {
         setBlocked(hasBlockedUpdates());
 
         boolean syncWiFi = _wifiHelper.isWifiConnected() &&
@@ -519,7 +519,7 @@ public class SensorItemViewModel extends BaseObservable implements LayoutHolder 
     private Runnable requestSyncRunnable = new Runnable() {
         @Override
         public void run() {
-            onRequestFullSync();
+            requestFullSync();
         }
     };
 

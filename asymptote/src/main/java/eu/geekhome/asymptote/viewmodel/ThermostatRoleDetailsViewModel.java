@@ -80,7 +80,7 @@ public class ThermostatRoleDetailsViewModel extends XStatRoleDetailsViewModelBas
         getSensor().getSyncData().getParams()[1] = param1;
         getSensor().getSyncData().getParams()[2] = param2;
         getSensor().getSyncData().getParams()[3] = param3;
-        getSensor().onRequestFullSync();
+        getSensor().requestFullSync();
 
         getNavigationService().goBackTo(MainViewModel.class);
     }

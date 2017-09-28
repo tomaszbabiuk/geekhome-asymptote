@@ -15,8 +15,8 @@ public class ControlImpulseItemViewModel extends ControlRelayItemViewModel imple
     private boolean _blocked;
 
 
-    public ControlImpulseItemViewModel(SensorItemViewModel sensor, Context context, int channel,
-                                       boolean initialValue, long impulseSetting, long impulseNow) {
+    ControlImpulseItemViewModel(SensorItemViewModel sensor, Context context, int channel,
+                                boolean initialValue, long impulseSetting, long impulseNow) {
         super(sensor, context, channel, initialValue);
         _setting = impulseSetting;
         _impulse = impulseNow;
@@ -50,7 +50,7 @@ public class ControlImpulseItemViewModel extends ControlRelayItemViewModel imple
         return _setting;
     }
 
-    public void setSetting(long setting) {
+    private void setSetting(long setting) {
         _setting = setting;
         notifyPropertyChanged(BR.setting);
     }
@@ -64,14 +64,14 @@ public class ControlImpulseItemViewModel extends ControlRelayItemViewModel imple
         setBlocked(true);
 
         relayImpulseChanged(getChannel(), getSetting());
-        getSensor().onRequestFullSync();
+        getSensor().requestFullSync();
     }
 
     public void stop() {
         setBlocked(true);
 
         relayImpulseChanged(getChannel(), 0);
-        getSensor().onRequestFullSync();
+        getSensor().requestFullSync();
     }
 
     public void toggleDelay() {
@@ -79,17 +79,17 @@ public class ControlImpulseItemViewModel extends ControlRelayItemViewModel imple
             if (getImpulse() == 0) {
                 //disarm and off
                 relayImpulseChanged(getChannel(), 0);
-                getSensor().onRequestFullSync();
+                getSensor().requestFullSync();
             }
         } else {
             if (getImpulse() == 0) {
                 //arm
                 relayImpulseChanged(getChannel(), getSetting());
-                getSensor().onRequestFullSync();
+                getSensor().requestFullSync();
             } else {
                 //stop
                 relayImpulseChanged(getChannel(), 0);
-                getSensor().onRequestFullSync();
+                getSensor().requestFullSync();
             }
 
         }
@@ -104,13 +104,13 @@ public class ControlImpulseItemViewModel extends ControlRelayItemViewModel imple
             } else {
                 relayImpulseChanged(getChannel(), 10000);
             }
-            getSensor().onRequestFullSync();
+            getSensor().requestFullSync();
         } else if (getValue()) {
             relayImpulseChanged(getChannel(), 0);
-            getSensor().onRequestFullSync();
+            getSensor().requestFullSync();
         } else {
             relayImpulseChanged(getChannel(), getSetting());
-            getSensor().onRequestFullSync();
+            getSensor().requestFullSync();
         }
     }
 

@@ -94,7 +94,7 @@ public class MainsAdvancedRoleDetailsViewModel extends ViewModel<FragmentMainsAd
             paramChanged(model.getChannel() * 2 + 1, model.getLockGroup());
         }
 
-        getSensor().onRequestFullSync();
+        getSensor().requestFullSync();
 
         _navigationService.goBackTo(MainViewModel.class);
     }

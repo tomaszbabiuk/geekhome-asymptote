@@ -96,10 +96,10 @@ public class ControlRGBItemViewModel extends ControlItemViewModelBase implements
             //handle RGBW
             int white = (int) Math.round(0.2126 * red + 0.7152 * green + 0.0722 * blue);
             pwmChanged(_channelWhite, white);
-            getSensor().onRequestFullSync();
+            getSensor().requestFullSync();
         } else {
             //handle RGB
-            getSensor().onRequestFullSync();
+            getSensor().requestFullSync();
         }
 
         Collection<RankedColor> rankedColors = _favoriteColorsService.getFavoriteColors(setId);

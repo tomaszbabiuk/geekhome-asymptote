@@ -17,4 +17,32 @@
         <item name="trackTint">@color/silver</item>
         <item name="thumbTint">@color/orange</item>
     </style>
+
+    <style name="Triggers.Label">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:gravity">end</item>
+        <item name="android:layout_gravity">center_vertical</item>
+        <item name="android:textAppearance">?android:textAppearanceMedium</item>
+    </style>
+
+    <style name="Triggers.Spinner">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">35dp</item>
+        <item name="android:layout_weight">1</item>
+    </style>
+
+    <style name="Triggers.PickButton">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_margin">@dimen/common_small_padding</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:layout_height">35dp</item>
+        <item name="android:layout_gravity">center_vertical</item>
+        <item name="android:background">@drawable/orange_button_selector</item>
+        <item name="android:gravity">center</item>
+        <item name="android:padding">@dimen/common_small_padding</item>
+        <item name="android:textAppearance">?android:attr/textAppearanceMedium</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
 </resources>

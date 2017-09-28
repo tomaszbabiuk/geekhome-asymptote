@@ -233,7 +233,7 @@ public class OtaViewModel extends WiFiAwareViewModel<FragmentOtaBinding> impleme
         OtaHostSyncUpdate hostSyncUpdate = new OtaHostSyncUpdate(host);
         _sensor.getUpdates().add(hashSyncUpdate);
         _sensor.getUpdates().add(hostSyncUpdate);
-        _sensor.onRequestFullSync();
+        _sensor.requestFullSync();
         _sensor.getUpdates().clear();
         setOtaPhase(OtaPhase.WaitingForDevice);
     }
@@ -265,7 +265,7 @@ public class OtaViewModel extends WiFiAwareViewModel<FragmentOtaBinding> impleme
                         _sensor.getUpdates().add(usernameSyncUpdate);
                         _sensor.getUpdates().add(passwordSyncUpdate);
                         _sensor.getUpdates().add(cloudFingerprintSyncUpdate);
-                        _sensor.onRequestFullSync();
+                        _sensor.requestFullSync();
                         _sensor.getUpdates().clear();
                         _cloudDeviceService.registerForDeviceSyncEvents(_sensor.getUserId(), deviceSnapshot);
                         setOtaPhase(OtaPhase.WaitingForDevice);

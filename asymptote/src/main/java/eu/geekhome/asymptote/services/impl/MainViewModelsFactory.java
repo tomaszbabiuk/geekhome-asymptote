@@ -259,8 +259,8 @@ public class MainViewModelsFactory {
         return new EditAutomationsViewModel(this, _navigationService, sensor);
     }
 
-    public ChooseTriggerViewModel createChooseTriggerViewModel(AutomationAddedListener listener, SensorItemViewModel sensor) {
-        return new ChooseTriggerViewModel(this, _navigationService, listener, sensor);
+    public ChooseTriggerViewModel createChooseTriggerViewModel(AutomationAddedListener listener, int index, SensorItemViewModel sensor) {
+        return new ChooseTriggerViewModel(this, _navigationService, listener, index, sensor);
     }
 
     public EditAutomationDateTimeRelayValueViewModel createEditDateTimeTriggerViewModel(AutomationAddedListener listener, SensorItemViewModel sensor, int index) {

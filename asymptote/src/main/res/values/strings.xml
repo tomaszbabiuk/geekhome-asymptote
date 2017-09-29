@@ -329,7 +329,7 @@
     <string name="datetime_trigger_desc">Changes device state on defined date and time</string>
     <string name="scheduled_trigger_name">Scheduler</string>
     <string name="scheduled_trigger_desc">Changes device state according to weekly schedule</string>
-    <string name="no_triggers">No triggers</string>
+    <string name="no_automations">No automations</string>
     <string name="datetime_trigger">Datetime trigger</string>
     <string name="change_state_to_on">Change state to on</string>
     <string name="change_state_to_off">Change state to off</string>

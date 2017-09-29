@@ -12,9 +12,8 @@ import eu.geekhome.asymptote.databinding.FragmentEditAutomationDatetimeRelayBind
 import eu.geekhome.asymptote.model.Automation;
 import eu.geekhome.asymptote.model.DateTimeTrigger;
 import eu.geekhome.asymptote.model.RelayValue;
-import eu.geekhome.asymptote.services.GeneralDialogService;
-import eu.geekhome.asymptote.services.NavigationService;
 import eu.geekhome.asymptote.services.AutomationAddedListener;
+import eu.geekhome.asymptote.services.NavigationService;
 import eu.geekhome.asymptote.services.impl.MainViewModelsFactory;
 
 public class EditAutomationDateTimeRelayValueViewModel extends ViewModel<FragmentEditAutomationDatetimeRelayBinding> {
@@ -72,12 +71,12 @@ public class EditAutomationDateTimeRelayValueViewModel extends ViewModel<Fragmen
 
     public void done() {
         if (_listener != null) {
-            //RelayValue relayValue = new RelayValue(_editRelayValueViewModel.getChannels())
-            //Automation<DateTimeTrigger, RelayValue> automation = new Automation<>();
-//            RelayValue value = new RelayValue(0, true);
-//            DateTimeTriggerValue<RelayValue> triggerValue = new DateTimeTriggerValue<>(_index, getDate(), getTime(), value);
-//            _listener.onAutomationAdded(triggerValue);
+            RelayValue relayValue = _editRelayValueViewModel.buildRelayValue();
+            DateTimeTrigger dateTimeTrigger = _editDateTimeViewModel.buildDataTimeTrigger();
+            Automation<DateTimeTrigger, RelayValue> automation = new Automation<>(_index, dateTimeTrigger, relayValue);
+            _listener.onAutomationAdded(automation);
         }
+
         _navigationService.goBack();
     }
 

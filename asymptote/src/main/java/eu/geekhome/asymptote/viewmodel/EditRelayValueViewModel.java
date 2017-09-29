@@ -1,20 +1,20 @@
 package eu.geekhome.asymptote.viewmodel;
 
 import android.content.Context;
+import android.databinding.BaseObservable;
 import android.databinding.Bindable;
-import android.databinding.DataBindingUtil;
-import android.view.LayoutInflater;
-import android.view.ViewGroup;
 
 import java.util.ArrayList;
 
+import eu.geekhome.asymptote.BR;
 import eu.geekhome.asymptote.R;
-import eu.geekhome.asymptote.bindingutils.ViewModel;
-import eu.geekhome.asymptote.databinding.ControlEditRelayValueBinding;
+import eu.geekhome.asymptote.model.RelayValue;
 
-public class EditRelayValueViewModel extends ViewModel<ControlEditRelayValueBinding> {
+public class EditRelayValueViewModel  extends BaseObservable {
     private ArrayList<String> _channels;
-    private ArrayList<String> _states;
+    private ArrayList<String> _values;
+    private String _selectedValue;
+    private String _selectedChannel;
 
     public EditRelayValueViewModel(Context context, SensorItemViewModel sensor) {
         _channels = new ArrayList<>();
@@ -22,16 +22,9 @@ public class EditRelayValueViewModel extends ViewModel<ControlEditRelayValueBind
         for (int i=0; i<channelsCount; i++) {
             _channels.add(context.getString(R.string.channel_no, i));
         }
-        _states = new ArrayList<>();
-        _states.add(context.getString(R.string.on));
-        _states.add(context.getString(R.string.off));
-    }
-
-    @Override
-    public ControlEditRelayValueBinding createBinding(LayoutInflater inflater, ViewGroup container) {
-        ControlEditRelayValueBinding binding = DataBindingUtil.inflate(inflater, R.layout.control_edit_relay_value, container, false);
-        binding.setVm(this);
-        return binding;
+        _values = new ArrayList<>();
+        _values.add(context.getString(R.string.on));
+        _values.add(context.getString(R.string.off));
     }
 
     @Bindable
@@ -40,7 +33,33 @@ public class EditRelayValueViewModel extends ViewModel<ControlEditRelayValueBind
     }
 
     @Bindable
-    public ArrayList<String> getStates() {
-        return _states;
+    public ArrayList<String> getValues() {
+        return _values;
+    }
+
+    RelayValue buildRelayValue() {
+        int channel = getChannels().indexOf(getSelectedChannel());
+        boolean state = getValues().indexOf(getSelectedValue()) == 0;
+        return new RelayValue(channel, state);
+    }
+
+    @Bindable
+    public String getSelectedValue() {
+        return _selectedValue;
+    }
+
+    public void setSelectedValue(String selectedValue) {
+        _selectedValue = selectedValue;
+        notifyPropertyChanged(BR.selectedValue);
+    }
+
+    @Bindable
+    public String getSelectedChannel() {
+        return _selectedChannel;
+    }
+
+    public void setSelectedChannel(String selectedChannel) {
+        _selectedChannel = selectedChannel;
+        notifyPropertyChanged(BR.selectedChannel);
     }
 }

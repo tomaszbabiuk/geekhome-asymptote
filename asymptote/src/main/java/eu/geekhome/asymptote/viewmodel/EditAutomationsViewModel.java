@@ -10,7 +10,6 @@ import eu.geekhome.asymptote.R;
 import eu.geekhome.asymptote.bindingutils.LayoutHolder;
 import eu.geekhome.asymptote.bindingutils.ViewModel;
 import eu.geekhome.asymptote.databinding.FragmentEditAutomationsBinding;
-import eu.geekhome.asymptote.databinding.FragmentEditTriggersBinding;
 import eu.geekhome.asymptote.model.Automation;
 import eu.geekhome.asymptote.services.NavigationService;
 import eu.geekhome.asymptote.services.AutomationAddedListener;
@@ -18,7 +17,7 @@ import eu.geekhome.asymptote.services.impl.MainViewModelsFactory;
 
 public class EditAutomationsViewModel extends ViewModel<FragmentEditAutomationsBinding> implements AutomationAddedListener {
 
-    private ObservableArrayList<LayoutHolder> _triggers;
+    private ObservableArrayList<LayoutHolder> _automations;
     private HelpActionBarViewModel _actionBarModel;
     private final SensorItemViewModel _sensor;
     private final NavigationService _navigationService;
@@ -38,7 +37,7 @@ public class EditAutomationsViewModel extends ViewModel<FragmentEditAutomationsB
         _factory = factory;
         _navigationService = navigationService;
         _sensor = sensor;
-        _triggers = new ObservableArrayList<>();
+        _automations = new ObservableArrayList<>();
         _actionBarModel = _factory.createHelpActionBarModel();
     }
 
@@ -50,13 +49,18 @@ public class EditAutomationsViewModel extends ViewModel<FragmentEditAutomationsB
     }
 
     @Bindable
-    public ObservableArrayList<LayoutHolder> getTriggers() {
-        return _triggers;
+    public ObservableArrayList<LayoutHolder> getAutomations() {
+        return _automations;
     }
 
     public void addTrigger() {
-        ChooseTriggerViewModel viewModel = _factory.createChooseTriggerViewModel(this, _sensor);
+        int index = findFirstFreeIndex();
+        ChooseTriggerViewModel viewModel = _factory.createChooseTriggerViewModel(this, index, _sensor);
         _navigationService.showOverlayViewModel(viewModel);
+    }
+
+    private int findFirstFreeIndex() {
+        return 0;
     }
 
     @Override

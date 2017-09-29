@@ -39,8 +39,8 @@
 
                 <TextView
                     style="@style/Profile.InstructionText"
-                    android:visibility="@{vm.triggers.size() == 0 ? View.VISIBLE : View.GONE}"
-                    android:text="@string/no_triggers"/>
+                    android:visibility="@{vm.automations.size() == 0 ? View.VISIBLE : View.GONE}"
+                    android:text="@string/no_automations"/>
 
                 <RelativeLayout style="@style/Layout.MatchX1.Vertical"
                                 android:paddingEnd="@dimen/common_normal_padding"

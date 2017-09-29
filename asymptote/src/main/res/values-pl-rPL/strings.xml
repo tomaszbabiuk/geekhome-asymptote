@@ -327,7 +327,7 @@
     <string name="datetime_trigger_desc">Zmienia stan urządzenia o ustalonej dacie i godzinie</string>
     <string name="scheduled_trigger_name">Terminarz</string>
     <string name="scheduled_trigger_desc">Pozwala zdefiniować tygodniowy grafik zmiany stanu</string>
-    <string name="no_triggers">Brak wyzwalaczy</string>
+    <string name="no_automations">Brak automatyzacji</string>
     <string name="datetime_trigger">Wyzwalacz \"Data i godzina\"</string>
     <string name="change_state_to_on">Zmień stan na wł</string>
     <string name="change_state_to_off">Zmień stan na wył</string>

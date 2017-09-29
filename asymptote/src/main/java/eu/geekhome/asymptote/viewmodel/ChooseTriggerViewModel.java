@@ -22,16 +22,19 @@ public class ChooseTriggerViewModel extends ViewModel<DialogChooseTriggerBinding
     private final MainViewModelsFactory _factory;
     private final NavigationService _navigationService;
     private final AutomationAddedListener _listener;
+    private final int _index;
     private final SensorItemViewModel _sensor;
 
     private TriggerType _selectedTriggerType;
     private ObservableArrayList<LayoutHolder> _triggerTypes;
 
 
-    public ChooseTriggerViewModel(MainViewModelsFactory factory, NavigationService navigationService, AutomationAddedListener listener, SensorItemViewModel sensor) {
+    public ChooseTriggerViewModel(MainViewModelsFactory factory, NavigationService navigationService,
+                                  AutomationAddedListener listener, int index, SensorItemViewModel sensor) {
         _factory = factory;
         _navigationService = navigationService;
         _listener = listener;
+        _index = index;
         _sensor = sensor;
         _triggerTypes = createTriggerTypes(sensor);
         selectTrigger(TriggerType.DateTimeOfRelay);
@@ -63,7 +66,7 @@ public class ChooseTriggerViewModel extends ViewModel<DialogChooseTriggerBinding
         _navigationService.goBack();
         switch (getSelectedTriggerType()) {
             case DateTimeOfRelay:
-                EditAutomationDateTimeRelayValueViewModel editTriggerModel = _factory.createEditDateTimeTriggerViewModel(_listener, _sensor, 0);
+                EditAutomationDateTimeRelayValueViewModel editTriggerModel = _factory.createEditDateTimeTriggerViewModel(_listener, _sensor, _index);
                 _navigationService.showViewModel(editTriggerModel, new ShowBackButtonInToolbarViewParam());
                 break;
         }

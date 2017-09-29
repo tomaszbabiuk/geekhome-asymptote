@@ -29,8 +29,10 @@
                 tools:text="Channel: "/>
 
 
-            <android.support.v7.widget.AppCompatSpinner
+            <Spinner
+                android:id="@+id/channels_spinner"
                 style="@style/Triggers.Spinner"
+                app:selectedValue="@={vm.selectedChannel}"
                 app:items="@{vm.channels}"/>
 
         </LinearLayout>
@@ -46,9 +48,11 @@
                 tools:text="Value: "/>
 
 
-            <android.support.v7.widget.AppCompatSpinner
+            <Spinner
+                android:id="@+id/values_spinner"
                 style="@style/Triggers.Spinner"
-                app:items="@{vm.states}"/>
+                app:selectedValue="@={vm.selectedValue}"
+                app:items="@{vm.values}"/>
 
         </LinearLayout>
     </LinearLayout>

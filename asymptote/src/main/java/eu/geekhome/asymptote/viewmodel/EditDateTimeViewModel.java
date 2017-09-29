@@ -11,6 +11,7 @@ import eu.geekhome.asymptote.BR;
 import eu.geekhome.asymptote.R;
 import eu.geekhome.asymptote.bindingutils.ViewModel;
 import eu.geekhome.asymptote.databinding.ControlEditDatetimeBinding;
+import eu.geekhome.asymptote.model.DateTimeTrigger;
 import eu.geekhome.asymptote.services.GeneralDialogService;
 
 public class EditDateTimeViewModel extends ViewModel<ControlEditDatetimeBinding> {
@@ -88,5 +89,9 @@ public class EditDateTimeViewModel extends ViewModel<ControlEditDatetimeBinding>
     public void setDate(long date) {
         _date = date;
         notifyPropertyChanged(BR.date);
+    }
+
+    DateTimeTrigger buildDataTimeTrigger() {
+        return new DateTimeTrigger(getDate(), getTime());
     }
 }

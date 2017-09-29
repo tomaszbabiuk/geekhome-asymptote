@@ -1,0 +1,36 @@
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View"/>
+
+        <variable
+            name="vm"
+            type="eu.geekhome.asymptote.viewmodel.TriggerDateTimeRelayItemViewModel"/>
+
+        <import type="eu.geekhome.asymptote.utils.ValueConverter"/>
+    </data>
+
+
+    <LinearLayout
+        style="@style/Layout.MatchX.Horizontal">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text=""
+            tools:text="Change channel 0 at 2017-08-01 to on"/>
+
+        <eu.geekhome.controls.SvgImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            app:svgColor="@color/silver"
+            app:svgId="@raw/trashbin"/>
+
+    </LinearLayout>
+
+
+</layout>

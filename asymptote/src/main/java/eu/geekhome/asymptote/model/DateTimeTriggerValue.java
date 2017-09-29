@@ -1,23 +1,32 @@
 package eu.geekhome.asymptote.model;
 
-
-import java.util.Date;
-
 public class DateTimeTriggerValue<T> {
 
-    private final Date _date;
+    private final long _dateMark;
+    private final long _timeMark;
     private final T _value;
+    private final int _index;
 
-    public DateTimeTriggerValue(Date date, T value) {
-        _date = date;
+    public DateTimeTriggerValue(int index, long dateMark, long timeMark, T value) {
+        _index = index;
+        _dateMark = dateMark;
+        _timeMark = timeMark;
         _value = value;
     }
 
-    public Date getDate() {
-        return _date;
+    public long getDateMark() {
+        return _dateMark;
+    }
+
+    public long getTimeMark() {
+        return _timeMark;
     }
 
     public T getValue() {
         return _value;
+    }
+
+    public int getIndex() {
+        return _index;
     }
 }

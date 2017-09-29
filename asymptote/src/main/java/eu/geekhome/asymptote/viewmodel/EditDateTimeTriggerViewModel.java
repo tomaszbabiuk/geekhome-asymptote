@@ -11,15 +11,21 @@ import eu.geekhome.asymptote.BR;
 import eu.geekhome.asymptote.R;
 import eu.geekhome.asymptote.bindingutils.ViewModel;
 import eu.geekhome.asymptote.databinding.FragmentEditDatetimeTriggerBinding;
+import eu.geekhome.asymptote.model.DateTimeTriggerValue;
+import eu.geekhome.asymptote.model.RelayValue;
 import eu.geekhome.asymptote.services.GeneralDialogService;
 import eu.geekhome.asymptote.services.NavigationService;
+import eu.geekhome.asymptote.services.TriggerAddedListener;
 import eu.geekhome.asymptote.services.impl.MainViewModelsFactory;
 
 public class EditDateTimeTriggerViewModel extends ViewModel<FragmentEditDatetimeTriggerBinding> {
 
+
     private HelpActionBarViewModel _actionBarModel;
     private final GeneralDialogService _generalDialogService;
+    private final TriggerAddedListener _listener;
     private final SensorItemViewModel _sensor;
+    private final int _index;
     private final NavigationService _navigationService;
     private final MainViewModelsFactory _factory;
     private ArrayList<String> _channels;
@@ -39,11 +45,14 @@ public class EditDateTimeTriggerViewModel extends ViewModel<FragmentEditDatetime
     }
 
     public EditDateTimeTriggerViewModel(MainViewModelsFactory factory, NavigationService navigationService,
-                                        GeneralDialogService generalDialogService, SensorItemViewModel sensor) {
+                                        GeneralDialogService generalDialogService, TriggerAddedListener listener,
+                                        SensorItemViewModel sensor, int index) {
         _factory = factory;
         _navigationService = navigationService;
         _generalDialogService = generalDialogService;
+        _listener = listener;
         _sensor = sensor;
+        _index = index;
         _actionBarModel = _factory.createHelpActionBarModel();
         _channels = new ArrayList<>();
         _channels.add("Channel 1");
@@ -71,14 +80,12 @@ public class EditDateTimeTriggerViewModel extends ViewModel<FragmentEditDatetime
     }
 
     public void done() {
-//        Date date = getBinding().picker.getDate();
-//        RelayValue value = new RelayValue(0, isOnOffValue());
-//        DateTimeTriggerValue<RelayValue> triggerValue = new DateTimeTriggerValue<>(date, value);
-//        DateTimeTriggerSyncUpdate<RelayValue> update = new DateTimeTriggerSyncUpdate<>(triggerValue);
-//        _sensor.getUpdates().add(update);
-//        _sensor.requestFullSync();
-//
-//        _navigationService.goBack();
+        if (_listener != null) {
+            RelayValue value = new RelayValue(0, true);
+            DateTimeTriggerValue<RelayValue> triggerValue = new DateTimeTriggerValue<>(_index, getDate(), getTime(), value);
+            _listener.onTriggerAdded(triggerValue);
+        }
+        _navigationService.goBack();
     }
 
     public void onPickTime() {

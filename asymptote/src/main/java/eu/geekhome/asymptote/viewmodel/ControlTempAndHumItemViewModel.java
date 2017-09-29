@@ -8,7 +8,7 @@ import eu.geekhome.asymptote.model.DeviceSyncData;
 
 public class ControlTempAndHumItemViewModel extends ControlItemViewModelBase implements LayoutHolder {
 
-    public ControlTempAndHumItemViewModel(SensorItemViewModel sensor) {
+    ControlTempAndHumItemViewModel(SensorItemViewModel sensor) {
         super(sensor);
     }
 

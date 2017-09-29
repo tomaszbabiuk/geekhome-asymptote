@@ -1,6 +1,5 @@
 package eu.geekhome.asymptote.viewmodel;
 
-import android.content.Context;
 import android.databinding.Bindable;
 import android.databinding.DataBindingUtil;
 import android.databinding.ObservableArrayList;
@@ -11,10 +10,13 @@ import eu.geekhome.asymptote.R;
 import eu.geekhome.asymptote.bindingutils.LayoutHolder;
 import eu.geekhome.asymptote.bindingutils.ViewModel;
 import eu.geekhome.asymptote.databinding.FragmentEditTriggersBinding;
+import eu.geekhome.asymptote.model.DateTimeTriggerValue;
+import eu.geekhome.asymptote.model.RelayValue;
 import eu.geekhome.asymptote.services.NavigationService;
+import eu.geekhome.asymptote.services.TriggerAddedListener;
 import eu.geekhome.asymptote.services.impl.MainViewModelsFactory;
 
-public class EditTriggersViewModel extends ViewModel<FragmentEditTriggersBinding> {
+public class EditTriggersViewModel extends ViewModel<FragmentEditTriggersBinding> implements TriggerAddedListener {
 
     private ObservableArrayList<LayoutHolder> _triggers;
     private HelpActionBarViewModel _actionBarModel;
@@ -53,8 +55,18 @@ public class EditTriggersViewModel extends ViewModel<FragmentEditTriggersBinding
     }
 
     public void addTrigger() {
-        ChooseTriggerViewModel viewModel = _factory.createChooseTriggerViewModel(_sensor);
+        ChooseTriggerViewModel viewModel = _factory.createChooseTriggerViewModel(this, _sensor);
         _navigationService.showOverlayViewModel(viewModel);
     }
 
+    @Override
+    public void onTriggerAdded(Object trigger) {
+        if (trigger instanceof DateTimeTriggerValue) {
+            DateTimeTriggerValue dateTimeTrigger = (DateTimeTriggerValue)trigger;
+            if (dateTimeTrigger.getValue() instanceof RelayValue) {
+                DateTimeTriggerValue<RelayValue> triggerDateTimeRelayValue = (DateTimeTriggerValue<RelayValue>)dateTimeTrigger
+                TriggerDateTimeRelayItemViewModel model = new TriggerDateTimeRelayItemViewModel(triggerDateTimeRelayValue);
+            }
+        }
+    }
 }

@@ -8,7 +8,7 @@
 
         <variable
             name="vm"
-            type="eu.geekhome.asymptote.viewmodel.TriggerItemViewModel"/>
+            type="eu.geekhome.asymptote.viewmodel.TriggerTypeItemViewModel"/>
     </data>
 
     <LinearLayout

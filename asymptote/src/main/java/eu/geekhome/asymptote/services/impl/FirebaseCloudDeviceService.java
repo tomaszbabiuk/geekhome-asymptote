@@ -27,6 +27,8 @@ import eu.geekhome.asymptote.model.CloudFingerprintSyncUpdate;
 import eu.geekhome.asymptote.model.CloudPasswordSyncUpdate;
 import eu.geekhome.asymptote.model.CloudUsernameSyncUpdate;
 import eu.geekhome.asymptote.model.ColorSyncUpdate;
+import eu.geekhome.asymptote.model.DateTimeTriggerSyncUpdate;
+import eu.geekhome.asymptote.model.DateTimeTriggerValue;
 import eu.geekhome.asymptote.model.DeviceKey;
 import eu.geekhome.asymptote.model.DeviceSnapshot;
 import eu.geekhome.asymptote.model.DeviceSyncData;
@@ -40,6 +42,7 @@ import eu.geekhome.asymptote.model.ParamSyncUpdate;
 import eu.geekhome.asymptote.model.RGBSyncUpdate;
 import eu.geekhome.asymptote.model.RelayImpulseSyncUpdate;
 import eu.geekhome.asymptote.model.RelaySyncUpdate;
+import eu.geekhome.asymptote.model.RelayValue;
 import eu.geekhome.asymptote.model.RestoreTokenSyncUpdate;
 import eu.geekhome.asymptote.model.RoleSyncUpdate;
 import eu.geekhome.asymptote.model.StateSyncUpdate;
@@ -423,6 +426,19 @@ public class FirebaseCloudDeviceService implements CloudDeviceService {
                             if (update instanceof StateSyncUpdate) {
                                 StateSyncUpdate stateUpdate = (StateSyncUpdate) update;
                                 orders.put("state", stateUpdate.getValue());
+                            }
+
+                            if (update instanceof DateTimeTriggerSyncUpdate) {
+                                DateTimeTriggerSyncUpdate triggerUpdate = (DateTimeTriggerSyncUpdate) update;
+                                DateTimeTriggerValue triggerValue = (DateTimeTriggerValue) triggerUpdate.getValue();
+                                if (triggerValue.getValue() instanceof RelayValue) {
+                                    RelayValue relayValue = (RelayValue) triggerUpdate.getValue();
+                                    String ix = String.format("triggers/%02X/", triggerValue.getIndex());
+                                    orders.put(ix + "date", triggerValue.getDateMark());
+                                    orders.put(ix + "time", triggerValue.getTimeMark());
+                                    orders.put(ix + "val", relayValue.getState() ? 1 : 0);
+                                    orders.put(ix + "channel", relayValue.getChannel());
+                                }
                             }
                         }
                         orders.put("timestamp", ServerValue.TIMESTAMP);

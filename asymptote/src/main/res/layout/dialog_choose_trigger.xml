@@ -28,7 +28,7 @@
             <eu.geekhome.asymptote.bindingutils.controls.VerticalRecyclerView
                 style="@style/Layout.MatchX1"
                 android:background="@color/white"
-                app:items="@{vm.triggers}"/>
+                app:items="@{vm.triggerTypes}"/>
 
             <LinearLayout style="@style/Layout.MatchX.Horizontal">
                 <TextView

@@ -25,6 +25,7 @@ import eu.geekhome.asymptote.services.OtaServer;
 import eu.geekhome.asymptote.services.SyncManager;
 import eu.geekhome.asymptote.services.ThreadRunner;
 import eu.geekhome.asymptote.services.ToastService;
+import eu.geekhome.asymptote.services.TriggerAddedListener;
 import eu.geekhome.asymptote.services.UdpService;
 import eu.geekhome.asymptote.services.UserMessageAcknowledgeService;
 import eu.geekhome.asymptote.services.WiFiHelper;
@@ -256,11 +257,13 @@ public class MainViewModelsFactory {
         return new EditTriggersViewModel(this, _navigationService, sensor);
     }
 
-    public ChooseTriggerViewModel createChooseTriggerViewModel(SensorItemViewModel sensor) {
-        return new ChooseTriggerViewModel(this, _navigationService, sensor);
+    public ChooseTriggerViewModel createChooseTriggerViewModel(TriggerAddedListener listener, SensorItemViewModel sensor) {
+        return new ChooseTriggerViewModel(this, _navigationService, listener, sensor);
     }
 
-    public EditDateTimeTriggerViewModel createEditDateTimeTriggerViewModel(SensorItemViewModel sensor) {
-        return new EditDateTimeTriggerViewModel(this, _navigationService, _generalDialogService, sensor);
+    public EditDateTimeTriggerViewModel createEditDateTimeTriggerViewModel(TriggerAddedListener listener, SensorItemViewModel sensor, int index) {
+        return new EditDateTimeTriggerViewModel(this, _navigationService, _generalDialogService, listener, sensor, index);
     }
+
+
 }

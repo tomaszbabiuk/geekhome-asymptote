@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View"/>
+
+        <import type="eu.geekhome.asymptote.utils.ValueConverter"/>
+
+        <variable
+            name="vm"
+            type="eu.geekhome.asymptote.viewmodel.EditRelayValueViewModel"/>
+    </data>
+
+    <LinearLayout
+        style="@style/Layout.MatchX.Vertical">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                style="@style/Triggers.Label"
+                android:text='@{@string/channel + ": "}'
+                tools:text="Channel: "/>
+
+
+            <android.support.v7.widget.AppCompatSpinner
+                style="@style/Triggers.Spinner"
+                app:items="@{vm.channels}"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                style="@style/Triggers.Label"
+                android:text='@{@string/value + ": "}'
+                tools:text="Value: "/>
+
+
+            <android.support.v7.widget.AppCompatSpinner
+                style="@style/Triggers.Spinner"
+                app:items="@{vm.states}"/>
+
+        </LinearLayout>
+    </LinearLayout>
+</layout>

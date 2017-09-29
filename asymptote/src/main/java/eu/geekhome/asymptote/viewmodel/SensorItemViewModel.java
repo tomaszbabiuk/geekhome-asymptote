@@ -400,7 +400,7 @@ public class SensorItemViewModel extends BaseObservable implements LayoutHolder 
     }
 
     public void triggers() {
-        EditTriggersViewModel triggersModel = _factory.createEditTriggersViewModel(this);
+        EditAutomationsViewModel triggersModel = _factory.createEditTriggersViewModel(this);
         _navigationService.showViewModel(triggersModel, new ShowBackButtonInToolbarViewParam());
     }
 

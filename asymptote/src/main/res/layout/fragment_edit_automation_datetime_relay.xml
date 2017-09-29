@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View"/>
+        <import type="eu.geekhome.asymptote.utils.ValueConverter"/>
+
+        <variable
+            name="vm"
+            type="eu.geekhome.asymptote.viewmodel.EditAutomationDateTimeRelayValueViewModel"/>
+    </data>
+
+    <LinearLayout
+        style="@style/Layout.MatchXY.Vertical">
+
+        <include
+            layout="@layout/actionbar_help"
+            tools:vm="@{vm.actionBarModel}"/>
+
+        <View style="@style/Common.OrangeSeparator.Horizontal"/>
+
+        <ScrollView
+            style="@style/Layout.MatchX1"
+            android:fillViewport="true">
+
+            <LinearLayout
+                style="@style/SensorEdit.Background"
+                android:paddingEnd="@dimen/common_medium_padding"
+                android:paddingStart="@dimen/common_medium_padding">
+
+                <TextView
+                    style="@style/Common.Text.Big"
+                    android:layout_marginTop="@dimen/common_medium_padding"
+                    android:gravity="center_horizontal"
+                    android:text="@string/datetime_trigger"/>
+
+                <View style="@style/Common.OrangeSeparator.Horizontal.Thin"/>
+
+                <View style="@style/Common.OrangeTriangle"/>
+
+                <include
+                    layout="@layout/control_edit_relay_value"
+                    app:vm="@{vm.editRelayValueViewModel}"/>
+
+                <include
+                    layout="@layout/control_edit_datetime"
+                    app:vm="@{vm.editDateTimeViewModel}"/>
+            </LinearLayout>
+        </ScrollView>
+
+        <View style="@style/Common.OrangeSeparator.Horizontal"/>
+
+        <LinearLayout style="@style/ActionBar.BottomLayout">
+
+            <Button
+                style="@style/Touch.NextButton"
+                android:onClick="@{() -> vm.done()}"
+                android:text="@{vm.editMode ? @string/edit : @string/add}"/>
+        </LinearLayout>
+
+    </LinearLayout>
+</layout>

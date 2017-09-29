@@ -339,6 +339,7 @@
     <string name="time">Time</string>
     <string name="channel">Channel</string>
     <string name="value">Value</string>
+    <string name="channel_no" formatted="false">Channel %d</string>
 
 
     <string-array name="signal_turned_on_solutions">

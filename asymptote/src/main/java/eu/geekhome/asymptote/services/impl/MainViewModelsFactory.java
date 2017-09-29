@@ -25,7 +25,7 @@ import eu.geekhome.asymptote.services.OtaServer;
 import eu.geekhome.asymptote.services.SyncManager;
 import eu.geekhome.asymptote.services.ThreadRunner;
 import eu.geekhome.asymptote.services.ToastService;
-import eu.geekhome.asymptote.services.TriggerAddedListener;
+import eu.geekhome.asymptote.services.AutomationAddedListener;
 import eu.geekhome.asymptote.services.UdpService;
 import eu.geekhome.asymptote.services.UserMessageAcknowledgeService;
 import eu.geekhome.asymptote.services.WiFiHelper;
@@ -37,9 +37,11 @@ import eu.geekhome.asymptote.viewmodel.ChangePasswordViewModel;
 import eu.geekhome.asymptote.viewmodel.ChooseTriggerViewModel;
 import eu.geekhome.asymptote.viewmodel.ControlsCreator;
 import eu.geekhome.asymptote.viewmodel.DeviceLockedViewModel;
-import eu.geekhome.asymptote.viewmodel.EditDateTimeTriggerViewModel;
+import eu.geekhome.asymptote.viewmodel.EditAutomationDateTimeRelayValueViewModel;
+import eu.geekhome.asymptote.viewmodel.EditAutomationsViewModel;
+import eu.geekhome.asymptote.viewmodel.EditDateTimeViewModel;
+import eu.geekhome.asymptote.viewmodel.EditRelayValueViewModel;
 import eu.geekhome.asymptote.viewmodel.EditSensorViewModel;
-import eu.geekhome.asymptote.viewmodel.EditTriggersViewModel;
 import eu.geekhome.asymptote.viewmodel.FirmwareItemViewModel;
 import eu.geekhome.asymptote.viewmodel.HelpActionBarViewModel;
 import eu.geekhome.asymptote.viewmodel.HygrostatRoleDetailsViewModel;
@@ -253,17 +255,24 @@ public class MainViewModelsFactory {
         return new LightsSwitchTraditionalRoleDetailsViewModel(this, _navigationService, editSensorViewModel, sensor);
     }
 
-    public EditTriggersViewModel createEditTriggersViewModel(SensorItemViewModel sensor) {
-        return new EditTriggersViewModel(this, _navigationService, sensor);
+    public EditAutomationsViewModel createEditTriggersViewModel(SensorItemViewModel sensor) {
+        return new EditAutomationsViewModel(this, _navigationService, sensor);
     }
 
-    public ChooseTriggerViewModel createChooseTriggerViewModel(TriggerAddedListener listener, SensorItemViewModel sensor) {
+    public ChooseTriggerViewModel createChooseTriggerViewModel(AutomationAddedListener listener, SensorItemViewModel sensor) {
         return new ChooseTriggerViewModel(this, _navigationService, listener, sensor);
     }
 
-    public EditDateTimeTriggerViewModel createEditDateTimeTriggerViewModel(TriggerAddedListener listener, SensorItemViewModel sensor, int index) {
-        return new EditDateTimeTriggerViewModel(this, _navigationService, _generalDialogService, listener, sensor, index);
+    public EditAutomationDateTimeRelayValueViewModel createEditDateTimeTriggerViewModel(AutomationAddedListener listener, SensorItemViewModel sensor, int index) {
+        return new EditAutomationDateTimeRelayValueViewModel(this, _navigationService, listener, sensor, index);
     }
 
+    public EditRelayValueViewModel createEditRelayValueViewModel(SensorItemViewModel sensor) {
+        return new EditRelayValueViewModel(_context, sensor);
+    }
+
+    public EditDateTimeViewModel createEditDateTimeViewModel(SensorItemViewModel sensor) {
+        return new EditDateTimeViewModel(_generalDialogService, sensor);
+    }
 
 }

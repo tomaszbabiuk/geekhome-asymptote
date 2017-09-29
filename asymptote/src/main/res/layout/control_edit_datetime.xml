@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View"/>
+
+        <import type="eu.geekhome.asymptote.utils.ValueConverter"/>
+
+        <variable
+            name="vm"
+            type="eu.geekhome.asymptote.viewmodel.EditDateTimeViewModel"/>
+    </data>
+
+    <LinearLayout
+        style="@style/Layout.MatchX.Vertical">
+
+        <LinearLayout
+            style="@style/Layout.MatchX.Horizontal">
+
+            <TextView
+                style="@style/Triggers.Label"
+                android:text='@{@string/date + ": "}'
+                tools:text="Date: "/>
+
+            <TextView
+                style="@style/Triggers.PickButton"
+                android:onClick="@{() -> vm.onPickDate()}"
+                android:text="@{ValueConverter.daysToText(vm.date)}"
+                tools:text="11-07-34"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            style="@style/Layout.MatchX.Horizontal">
+
+            <TextView
+                style="@style/Triggers.Label"
+                android:text='@{@string/time + ": "}'
+                tools:text="Time: "/>
+
+            <TextView
+                style="@style/Triggers.PickButton"
+                android:onClick="@{() -> vm.onPickTime()}"
+                android:text="@{ValueConverter.secondsToText(vm.time)}"
+                tools:text="05:56:34"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+</layout>

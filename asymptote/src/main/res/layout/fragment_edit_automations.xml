@@ -9,7 +9,7 @@
 
         <variable
             name="vm"
-            type="eu.geekhome.asymptote.viewmodel.EditTriggersViewModel"/>
+            type="eu.geekhome.asymptote.viewmodel.EditAutomationsViewModel"/>
     </data>
 
     <LinearLayout
@@ -51,7 +51,7 @@
                         style="@style/Layout.MatchXY"
                         android:layout_alignParentStart="true"
                         android:layout_alignParentTop="true"
-                        app:items="@{vm.triggers}"/>
+                        app:items="@{vm.automations}"/>
 
                     <LinearLayout
                         style="@style/Layout.MatchX.Vertical"

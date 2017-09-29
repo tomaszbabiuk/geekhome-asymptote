@@ -14,21 +14,21 @@ import eu.geekhome.asymptote.bindingutils.ViewModel;
 import eu.geekhome.asymptote.bindingutils.viewparams.ShowBackButtonInToolbarViewParam;
 import eu.geekhome.asymptote.databinding.DialogChooseTriggerBinding;
 import eu.geekhome.asymptote.services.NavigationService;
-import eu.geekhome.asymptote.services.TriggerAddedListener;
+import eu.geekhome.asymptote.services.AutomationAddedListener;
 import eu.geekhome.asymptote.services.impl.MainViewModelsFactory;
 import eu.geekhome.asymptote.utils.KeyboardHelper;
 
 public class ChooseTriggerViewModel extends ViewModel<DialogChooseTriggerBinding> {
     private final MainViewModelsFactory _factory;
     private final NavigationService _navigationService;
-    private final TriggerAddedListener _listener;
+    private final AutomationAddedListener _listener;
     private final SensorItemViewModel _sensor;
 
     private TriggerType _selectedTriggerType;
     private ObservableArrayList<LayoutHolder> _triggerTypes;
 
 
-    public ChooseTriggerViewModel(MainViewModelsFactory factory, NavigationService navigationService, TriggerAddedListener listener, SensorItemViewModel sensor) {
+    public ChooseTriggerViewModel(MainViewModelsFactory factory, NavigationService navigationService, AutomationAddedListener listener, SensorItemViewModel sensor) {
         _factory = factory;
         _navigationService = navigationService;
         _listener = listener;
@@ -63,7 +63,7 @@ public class ChooseTriggerViewModel extends ViewModel<DialogChooseTriggerBinding
         _navigationService.goBack();
         switch (getSelectedTriggerType()) {
             case DateTimeOfRelay:
-                EditDateTimeTriggerViewModel editTriggerModel = _factory.createEditDateTimeTriggerViewModel(_listener, _sensor, 0);
+                EditAutomationDateTimeRelayValueViewModel editTriggerModel = _factory.createEditDateTimeTriggerViewModel(_listener, _sensor, 0);
                 _navigationService.showViewModel(editTriggerModel, new ShowBackButtonInToolbarViewParam());
                 break;
         }

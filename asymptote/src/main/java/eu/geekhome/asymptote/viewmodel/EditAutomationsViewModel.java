@@ -9,14 +9,14 @@ import android.view.ViewGroup;
 import eu.geekhome.asymptote.R;
 import eu.geekhome.asymptote.bindingutils.LayoutHolder;
 import eu.geekhome.asymptote.bindingutils.ViewModel;
+import eu.geekhome.asymptote.databinding.FragmentEditAutomationsBinding;
 import eu.geekhome.asymptote.databinding.FragmentEditTriggersBinding;
-import eu.geekhome.asymptote.model.DateTimeTriggerValue;
-import eu.geekhome.asymptote.model.RelayValue;
+import eu.geekhome.asymptote.model.Automation;
 import eu.geekhome.asymptote.services.NavigationService;
-import eu.geekhome.asymptote.services.TriggerAddedListener;
+import eu.geekhome.asymptote.services.AutomationAddedListener;
 import eu.geekhome.asymptote.services.impl.MainViewModelsFactory;
 
-public class EditTriggersViewModel extends ViewModel<FragmentEditTriggersBinding> implements TriggerAddedListener {
+public class EditAutomationsViewModel extends ViewModel<FragmentEditAutomationsBinding> implements AutomationAddedListener {
 
     private ObservableArrayList<LayoutHolder> _triggers;
     private HelpActionBarViewModel _actionBarModel;
@@ -34,7 +34,7 @@ public class EditTriggersViewModel extends ViewModel<FragmentEditTriggersBinding
         return _sensor;
     }
 
-    public EditTriggersViewModel(MainViewModelsFactory factory, NavigationService navigationService, SensorItemViewModel sensor) {
+    public EditAutomationsViewModel(MainViewModelsFactory factory, NavigationService navigationService, SensorItemViewModel sensor) {
         _factory = factory;
         _navigationService = navigationService;
         _sensor = sensor;
@@ -43,8 +43,8 @@ public class EditTriggersViewModel extends ViewModel<FragmentEditTriggersBinding
     }
 
     @Override
-    public FragmentEditTriggersBinding createBinding(LayoutInflater inflater, ViewGroup container) {
-        FragmentEditTriggersBinding binding = DataBindingUtil.inflate(inflater, R.layout.fragment_edit_triggers, container, false);
+    public FragmentEditAutomationsBinding createBinding(LayoutInflater inflater, ViewGroup container) {
+        FragmentEditAutomationsBinding binding = DataBindingUtil.inflate(inflater, R.layout.fragment_edit_automations, container, false);
         binding.setVm(this);
         return binding;
     }
@@ -60,13 +60,7 @@ public class EditTriggersViewModel extends ViewModel<FragmentEditTriggersBinding
     }
 
     @Override
-    public void onTriggerAdded(Object trigger) {
-        if (trigger instanceof DateTimeTriggerValue) {
-            DateTimeTriggerValue dateTimeTrigger = (DateTimeTriggerValue)trigger;
-            if (dateTimeTrigger.getValue() instanceof RelayValue) {
-                DateTimeTriggerValue<RelayValue> triggerDateTimeRelayValue = (DateTimeTriggerValue<RelayValue>)dateTimeTrigger
-                TriggerDateTimeRelayItemViewModel model = new TriggerDateTimeRelayItemViewModel(triggerDateTimeRelayValue);
-            }
-        }
+    public void onAutomationAdded(Automation automation) {
+
     }
 }

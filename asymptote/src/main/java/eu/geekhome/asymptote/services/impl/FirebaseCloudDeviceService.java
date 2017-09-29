@@ -19,6 +19,7 @@ import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.Map;
 
+import eu.geekhome.asymptote.model.Automation;
 import eu.geekhome.asymptote.model.BoardId;
 import eu.geekhome.asymptote.model.BoardMode;
 import eu.geekhome.asymptote.model.BoardNotSupportedException;
@@ -27,8 +28,8 @@ import eu.geekhome.asymptote.model.CloudFingerprintSyncUpdate;
 import eu.geekhome.asymptote.model.CloudPasswordSyncUpdate;
 import eu.geekhome.asymptote.model.CloudUsernameSyncUpdate;
 import eu.geekhome.asymptote.model.ColorSyncUpdate;
-import eu.geekhome.asymptote.model.DateTimeTriggerSyncUpdate;
-import eu.geekhome.asymptote.model.DateTimeTriggerValue;
+import eu.geekhome.asymptote.model.AutomationSyncUpdate;
+import eu.geekhome.asymptote.model.DateTimeTrigger;
 import eu.geekhome.asymptote.model.DeviceKey;
 import eu.geekhome.asymptote.model.DeviceSnapshot;
 import eu.geekhome.asymptote.model.DeviceSyncData;
@@ -428,14 +429,18 @@ public class FirebaseCloudDeviceService implements CloudDeviceService {
                                 orders.put("state", stateUpdate.getValue());
                             }
 
-                            if (update instanceof DateTimeTriggerSyncUpdate) {
-                                DateTimeTriggerSyncUpdate triggerUpdate = (DateTimeTriggerSyncUpdate) update;
-                                DateTimeTriggerValue triggerValue = (DateTimeTriggerValue) triggerUpdate.getValue();
-                                if (triggerValue.getValue() instanceof RelayValue) {
-                                    RelayValue relayValue = (RelayValue) triggerUpdate.getValue();
-                                    String ix = String.format("triggers/%02X/", triggerValue.getIndex());
-                                    orders.put(ix + "date", triggerValue.getDateMark());
-                                    orders.put(ix + "time", triggerValue.getTimeMark());
+                            if (update instanceof AutomationSyncUpdate) {
+                                AutomationSyncUpdate automationUpdate = (AutomationSyncUpdate) update;
+                                Automation automation = (Automation)automationUpdate.getValue();
+                                String ix = String.format("auto/%02X/", automation.getIndex());
+                                if (automation.getTrigger() instanceof DateTimeTrigger) {
+                                    DateTimeTrigger dateTimeTrigger = (DateTimeTrigger)automation.getTrigger();
+                                    orders.put(ix + "date", dateTimeTrigger.getDateMark());
+                                    orders.put(ix + "time", dateTimeTrigger.getTimeMark());
+                                }
+
+                                if (automation.getValue() instanceof RelayValue) {
+                                    RelayValue relayValue = (RelayValue)automation.getValue();
                                     orders.put(ix + "val", relayValue.getState() ? 1 : 0);
                                     orders.put(ix + "channel", relayValue.getChannel());
                                 }

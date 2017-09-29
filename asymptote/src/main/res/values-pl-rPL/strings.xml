@@ -337,6 +337,7 @@
     <string name="time">Czas</string>
     <string name="channel">Kanał</string>
     <string name="value">Wartość</string>
+    <string name="channel_no" formatted="false">Kanał %d</string>
 
 
     <string-array name="signal_turned_on_solutions">

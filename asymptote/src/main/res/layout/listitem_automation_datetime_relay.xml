@@ -8,7 +8,7 @@
 
         <variable
             name="vm"
-            type="eu.geekhome.asymptote.viewmodel.TriggerDateTimeRelayItemViewModel"/>
+            type="eu.geekhome.asymptote.viewmodel.AutomationDateTimeRelayItemViewModel"/>
 
         <import type="eu.geekhome.asymptote.utils.ValueConverter"/>
     </data>

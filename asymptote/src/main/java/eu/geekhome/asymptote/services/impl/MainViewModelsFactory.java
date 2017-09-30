@@ -51,6 +51,7 @@ import eu.geekhome.asymptote.viewmodel.LockViewModel;
 import eu.geekhome.asymptote.viewmodel.MainActionBarViewModel;
 import eu.geekhome.asymptote.viewmodel.MainViewModel;
 import eu.geekhome.asymptote.viewmodel.MainsAdvancedRoleDetailsViewModel;
+import eu.geekhome.asymptote.viewmodel.MoreViewModel;
 import eu.geekhome.asymptote.viewmodel.NoWiFiViewModel;
 import eu.geekhome.asymptote.viewmodel.OtaViewModel;
 import eu.geekhome.asymptote.viewmodel.ProfileViewModel;
@@ -280,4 +281,7 @@ public class MainViewModelsFactory {
         return new EditDateTimeViewModel(_generalDialogService, sensor);
     }
 
+    public MoreViewModel createMoreModel(SensorItemViewModel sensor) {
+        return new MoreViewModel(this, _navigationService, _generalDialogService, _emergencyManager, sensor);
+    }
 }

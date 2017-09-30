@@ -41,16 +41,20 @@
         android:orientation="horizontal">
 
         <eu.geekhome.controls.SvgImageView
+            android:layout_marginStart="@dimen/common_small_padding"
             android:layout_width="30dp"
             android:layout_height="30dp"
             app:svgColor="@color/almost_white"
             app:svgId="@{iconId}"/>
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:paddingEnd="@dimen/common_medium_padding"
+            android:gravity="center_horizontal"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/common_small_padding"
-            android:text='@{text}'
+            android:text='@{text.toUpperCase()}'
             tools:text="Compound button"
             android:textColor="@color/white"/>
     </LinearLayout>

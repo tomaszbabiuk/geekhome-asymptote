@@ -33,7 +33,7 @@
                     style="@style/Common.Text.Big"
                     android:layout_marginTop="@dimen/common_medium_padding"
                     android:gravity="center_horizontal"
-                    android:text="@string/change_firmware"/>
+                    android:text="@string/firmware"/>
 
                 <View style="@style/Common.OrangeSeparator.Horizontal.Thin"/>
 

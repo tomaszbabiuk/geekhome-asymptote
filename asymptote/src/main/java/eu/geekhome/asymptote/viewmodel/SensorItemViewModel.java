@@ -394,14 +394,9 @@ public class SensorItemViewModel extends BaseObservable implements LayoutHolder 
         }
     }
 
-    public void edit() {
-        EditSensorViewModel renameModel = _factory.createEditSensorViewModel(this);
-        _navigationService.showViewModel(renameModel, new ShowBackButtonInToolbarViewParam());
-    }
-
-    public void automations() {
-        EditAutomationViewModel triggersModel = _factory.createEditTriggersViewModel(this);
-        _navigationService.showViewModel(triggersModel, new ShowBackButtonInToolbarViewParam());
+    public void more() {
+        MoreViewModel moreModel = _factory.createMoreModel(this);
+        _navigationService.showOverlayViewModel(moreModel);
     }
 
     public void changeFirmware() {

@@ -172,6 +172,7 @@
     <string name="role_humidification_hygrostat">Higrostat (nawilżanie)</string>
     <string name="role_humidification_hygrostat_desc">Włącza przekaźnik, gdy wilgotność jest zbyt niska.</string>
     <string name="sensor_settings">Ustawienia urządzenia</string>
+    <string name="settings">Ustawienia</string>
     <string name="heating_thermostat_details">Szczegóły termostatu (grzanie)</string>
     <string name="heating_thermostat_instruction">Włącza przekaźnik, gdy temperatura spadnie poniżej zadanej wartości.</string>
     <string name="cooling_thermostat_details">Szczegóły termostatu (chłodzenie)</string>
@@ -201,7 +202,7 @@
     <string name="yes">Tak</string>
     <string name="no">Nie</string>
     <string name="device_locked_not_upgradable">Z powodów bezpieczeństwa nie można aktualizować oprogramowania urządzenia, które nie jest zablokowane. Wpierw zablokuj urządzenie ustawiając hasło awaryjne.</string>
-    <string name="change_firmware">Zmień oprogramowanie</string>
+    <string name="firmware">Oprogramowanie</string>
     <string name="available_firmware_variants">Dostępne warianty oprogramowania</string>
     <string name="update">Uaktualnij</string>
     <string name="change">Zmień</string>
@@ -321,7 +322,7 @@
     <string name="SPDT_switch">wł/wył</string>
     <string name="SPDT_NO_switch">dzwonkowy</string>
     <string name="light_switch_type">Typ łącznika</string>
-    <string name="automations">Automatyzacja</string>
+    <string name="automation">Automatyzacja</string>
     <string name="choose_trigger">Wybierz typ wyzwalacza</string>
     <string name="datetime_trigger_name">Data i godzina</string>
     <string name="datetime_trigger_desc">Zmienia stan urządzenia o ustalonej dacie i godzinie</string>
@@ -339,7 +340,7 @@
     <string name="value">Wartość</string>
     <string name="channel_no" formatted="false">Kanał %d</string>
     <string name="change_relay_at" formatted="false">Zmień stan przekaźnika %d na %s dnia %s o %s</string>
-
+    <string name="pick_action">Wybierz akcję</string>
 
 
     <string-array name="signal_turned_on_solutions">

@@ -90,29 +90,6 @@
                             android:textColor="@color/white"
                             tools:text="[Sensor name]"/>
 
-                        <FrameLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="top"
-                            android:onClick="@{() -> vm.changeFirmware()}">
-
-                            <eu.geekhome.controls.SvgImageView
-                                style="@style/SensorList.ActionIcon.Cart"/>
-
-                            <eu.geekhome.controls.SvgImageView
-                                style="@style/SensorList.ActionIcon.CartDot"
-                                android:visibility="@{vm.newFirmwareAvailable ? View.VISIBLE : View.GONE}"
-                                app:svgColor="@color/light_gray"/>
-                        </FrameLayout>
-
-                        <eu.geekhome.controls.SvgImageView
-                            style="@style/SensorList.ActionIcon.Settings"
-                            android:onClick="@{() -> vm.edit()}"/>
-
-                        <eu.geekhome.controls.SvgImageView
-                            style="@style/SensorList.ActionIcon.Automations"
-                            android:onClick="@{() -> vm.automations()}"/>
-
                         <LinearLayout
                             style="@style/Layout.Wrapped.Horizontal"
                             android:layout_gravity="top"
@@ -129,6 +106,9 @@
                                 android:visibility="@{vm.syncData.locked ? View.VISIBLE : View.GONE}"/>
                         </LinearLayout>
 
+                        <eu.geekhome.controls.SvgImageView
+                            style="@style/SensorList.ActionIcon.More"
+                            android:onClick="@{() -> vm.more()}"/>
                     </LinearLayout>
 
 

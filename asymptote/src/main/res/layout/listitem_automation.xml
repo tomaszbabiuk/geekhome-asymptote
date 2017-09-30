@@ -8,7 +8,7 @@
 
         <variable
             name="vm"
-            type="eu.geekhome.asymptote.viewmodel.AutomationDateTimeRelayItemViewModel"/>
+            type="eu.geekhome.asymptote.viewmodel.AutomationItemViewModel"/>
 
         <import type="eu.geekhome.asymptote.utils.ValueConverter"/>
     </data>
@@ -21,12 +21,22 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text=""
-            tools:text="Change channel 0 at 2017-08-01 to on"/>
+            android:text="@{vm.message}"
+            android:layout_gravity="center_vertical"
+            tools:text="Change channel 0 to on 2017-08-01, 16:48:30"/>
 
         <eu.geekhome.controls.SvgImageView
             android:layout_width="20dp"
             android:layout_height="20dp"
+            android:layout_marginEnd="@dimen/common_small_padding"
+            android:onClick="@{() -> vm.edit()}"
+            app:svgColor="@color/silver"
+            app:svgId="@raw/edit"/>
+
+        <eu.geekhome.controls.SvgImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:onClick="@{() -> vm.delete()}"
             app:svgColor="@color/silver"
             app:svgId="@raw/trashbin"/>
 

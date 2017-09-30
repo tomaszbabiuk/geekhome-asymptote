@@ -66,8 +66,8 @@ public class ChooseTriggerViewModel extends ViewModel<DialogChooseTriggerBinding
         _navigationService.goBack();
         switch (getSelectedTriggerType()) {
             case DateTimeOfRelay:
-                EditAutomationDateTimeRelayValueViewModel editTriggerModel = _factory.createEditDateTimeTriggerViewModel(_listener, _sensor, _index);
-                _navigationService.showViewModel(editTriggerModel, new ShowBackButtonInToolbarViewParam());
+                EditAutomationDateTimeRelayValueViewModel model = _factory.createEditDateTimeTriggerViewModel(_listener, _sensor, _index);
+                _navigationService.showViewModel(model, new ShowBackButtonInToolbarViewParam());
                 break;
         }
     }

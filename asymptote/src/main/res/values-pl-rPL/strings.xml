@@ -321,7 +321,7 @@
     <string name="SPDT_switch">wł/wył</string>
     <string name="SPDT_NO_switch">dzwonkowy</string>
     <string name="light_switch_type">Typ łącznika</string>
-    <string name="triggers_settings">Ustawienia wyzwalaczy</string>
+    <string name="automations">Automatyzacja</string>
     <string name="choose_trigger">Wybierz typ wyzwalacza</string>
     <string name="datetime_trigger_name">Data i godzina</string>
     <string name="datetime_trigger_desc">Zmienia stan urządzenia o ustalonej dacie i godzinie</string>
@@ -338,6 +338,8 @@
     <string name="channel">Kanał</string>
     <string name="value">Wartość</string>
     <string name="channel_no" formatted="false">Kanał %d</string>
+    <string name="change_relay_at" formatted="false">Zmień stan przekaźnika %d na %s dnia %s o %s</string>
+
 
 
     <string-array name="signal_turned_on_solutions">

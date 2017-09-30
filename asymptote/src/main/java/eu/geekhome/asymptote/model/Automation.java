@@ -1,6 +1,6 @@
 package eu.geekhome.asymptote.model;
 
-public class Automation<T, V> {
+public abstract class Automation<T, V> {
     private final int _index;
     private final T _trigger;
     private final V _value;
@@ -22,4 +22,6 @@ public class Automation<T, V> {
     public int getIndex() {
         return _index;
     }
+
+    public abstract String composeMessage();
 }

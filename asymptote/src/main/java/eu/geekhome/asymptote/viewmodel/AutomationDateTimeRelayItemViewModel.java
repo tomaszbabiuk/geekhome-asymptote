@@ -20,7 +20,7 @@ public class AutomationDateTimeRelayItemViewModel extends BaseObservable impleme
 
     @Override
     public int getItemLayoutId() {
-        return R.layout.listitem_automation_datetime_relay;
+        return R.layout.listitem_automation;
     }
 
     @Override

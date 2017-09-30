@@ -110,8 +110,8 @@
                             android:onClick="@{() -> vm.edit()}"/>
 
                         <eu.geekhome.controls.SvgImageView
-                            style="@style/SensorList.ActionIcon.Triggers"
-                            android:onClick="@{() -> vm.triggers()}"/>
+                            style="@style/SensorList.ActionIcon.Automations"
+                            android:onClick="@{() -> vm.automations()}"/>
 
                         <LinearLayout
                             style="@style/Layout.Wrapped.Horizontal"

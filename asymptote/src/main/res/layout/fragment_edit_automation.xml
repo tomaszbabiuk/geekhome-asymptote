@@ -9,7 +9,7 @@
 
         <variable
             name="vm"
-            type="eu.geekhome.asymptote.viewmodel.EditAutomationsViewModel"/>
+            type="eu.geekhome.asymptote.viewmodel.EditAutomationViewModel"/>
     </data>
 
     <LinearLayout
@@ -31,7 +31,7 @@
                     style="@style/Common.Text.Big"
                     android:layout_marginTop="@dimen/common_medium_padding"
                     android:gravity="center_horizontal"
-                    android:text="@string/triggers_settings"/>
+                    android:text="@string/automations"/>
 
                 <View style="@style/Common.OrangeSeparator.Horizontal.Thin"/>
 

@@ -1,5 +1,6 @@
 package eu.geekhome.asymptote.viewmodel;
 
+import android.content.Context;
 import android.databinding.Bindable;
 import android.databinding.DataBindingUtil;
 import android.view.LayoutInflater;
@@ -10,6 +11,7 @@ import eu.geekhome.asymptote.R;
 import eu.geekhome.asymptote.bindingutils.ViewModel;
 import eu.geekhome.asymptote.databinding.FragmentEditAutomationDatetimeRelayBinding;
 import eu.geekhome.asymptote.model.Automation;
+import eu.geekhome.asymptote.model.AutomationDateTimeRelay;
 import eu.geekhome.asymptote.model.DateTimeTrigger;
 import eu.geekhome.asymptote.model.RelayValue;
 import eu.geekhome.asymptote.services.AutomationAddedListener;
@@ -22,9 +24,9 @@ public class EditAutomationDateTimeRelayValueViewModel extends ViewModel<Fragmen
     private HelpActionBarViewModel _actionBarModel;
     private final AutomationAddedListener _listener;
     private final SensorItemViewModel _sensor;
-    private final int _index;
+    private int _index;
     private final NavigationService _navigationService;
-    private final MainViewModelsFactory _factory;
+    private final Context _context;
     private boolean _editMode;
     private EditRelayValueViewModel _editRelayValueViewModel;
     private EditDateTimeViewModel _editDateTimeViewModel;
@@ -39,17 +41,35 @@ public class EditAutomationDateTimeRelayValueViewModel extends ViewModel<Fragmen
         return _sensor;
     }
 
-    public EditAutomationDateTimeRelayValueViewModel(MainViewModelsFactory factory, NavigationService navigationService,
+    public EditAutomationDateTimeRelayValueViewModel(Context context, MainViewModelsFactory factory,
+                                                     NavigationService navigationService,
                                                      AutomationAddedListener listener,
                                                      SensorItemViewModel sensor, int index) {
-        _factory = factory;
+        _context = context;
         _navigationService = navigationService;
         _listener = listener;
         _sensor = sensor;
         _index = index;
-        _actionBarModel = _factory.createHelpActionBarModel();
-        _editRelayValueViewModel = _factory.createEditRelayValueViewModel(sensor);
-        _editDateTimeViewModel = _factory.createEditDateTimeViewModel(sensor);
+        _actionBarModel = factory.createHelpActionBarModel();
+        _editRelayValueViewModel = factory.createEditRelayValueViewModel(sensor);
+        _editDateTimeViewModel = factory.createEditDateTimeViewModel(sensor);
+        setEditMode(false);
+    }
+
+    public EditAutomationDateTimeRelayValueViewModel(Context context, MainViewModelsFactory factory,
+                                                     NavigationService navigationService,
+                                                     AutomationAddedListener listener,
+                                                     SensorItemViewModel sensor, AutomationDateTimeRelay automation) {
+        this(context, factory, navigationService, listener, sensor, automation.getIndex());
+        applyAutomationChanges(automation);
+    }
+
+
+    private void applyAutomationChanges(AutomationDateTimeRelay automation) {
+        setIndex(automation.getIndex());
+        setEditMode(true);
+        _editRelayValueViewModel.applyRelayValue(automation.getValue());
+        _editDateTimeViewModel.applyDateTime(automation.getTrigger());
     }
 
     @Override
@@ -64,7 +84,7 @@ public class EditAutomationDateTimeRelayValueViewModel extends ViewModel<Fragmen
         return _editMode;
     }
 
-    public void setEditMode(boolean editMode) {
+    private void setEditMode(boolean editMode) {
         _editMode = editMode;
         notifyPropertyChanged(BR.editMode);
     }
@@ -73,8 +93,13 @@ public class EditAutomationDateTimeRelayValueViewModel extends ViewModel<Fragmen
         if (_listener != null) {
             RelayValue relayValue = _editRelayValueViewModel.buildRelayValue();
             DateTimeTrigger dateTimeTrigger = _editDateTimeViewModel.buildDataTimeTrigger();
-            Automation<DateTimeTrigger, RelayValue> automation = new Automation<>(_index, dateTimeTrigger, relayValue);
-            _listener.onAutomationAdded(automation);
+            Automation<DateTimeTrigger, RelayValue> automation =
+                    new AutomationDateTimeRelay(_context, _index, dateTimeTrigger, relayValue);
+            if (isEditMode()) {
+                _listener.onAutomationEdit(automation);
+            } else {
+                _listener.onAutomationAdded(automation);
+            }
         }
 
         _navigationService.goBack();
@@ -88,5 +113,9 @@ public class EditAutomationDateTimeRelayValueViewModel extends ViewModel<Fragmen
     @Bindable
     public EditDateTimeViewModel getEditDateTimeViewModel() {
         return _editDateTimeViewModel;
+    }
+
+    public void setIndex(int index) {
+        _index = index;
     }
 }

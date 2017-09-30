@@ -9,6 +9,7 @@ import javax.inject.Inject;
 
 import eu.geekhome.asymptote.MainActivity;
 import eu.geekhome.asymptote.bindingutils.LayoutHolder;
+import eu.geekhome.asymptote.model.AutomationDateTimeRelay;
 import eu.geekhome.asymptote.model.DeviceSyncData;
 import eu.geekhome.asymptote.model.Firmware;
 import eu.geekhome.asymptote.model.UserSnapshot;
@@ -38,7 +39,7 @@ import eu.geekhome.asymptote.viewmodel.ChooseTriggerViewModel;
 import eu.geekhome.asymptote.viewmodel.ControlsCreator;
 import eu.geekhome.asymptote.viewmodel.DeviceLockedViewModel;
 import eu.geekhome.asymptote.viewmodel.EditAutomationDateTimeRelayValueViewModel;
-import eu.geekhome.asymptote.viewmodel.EditAutomationsViewModel;
+import eu.geekhome.asymptote.viewmodel.EditAutomationViewModel;
 import eu.geekhome.asymptote.viewmodel.EditDateTimeViewModel;
 import eu.geekhome.asymptote.viewmodel.EditRelayValueViewModel;
 import eu.geekhome.asymptote.viewmodel.EditSensorViewModel;
@@ -255,8 +256,8 @@ public class MainViewModelsFactory {
         return new LightsSwitchTraditionalRoleDetailsViewModel(this, _navigationService, editSensorViewModel, sensor);
     }
 
-    public EditAutomationsViewModel createEditTriggersViewModel(SensorItemViewModel sensor) {
-        return new EditAutomationsViewModel(this, _navigationService, sensor);
+    public EditAutomationViewModel createEditTriggersViewModel(SensorItemViewModel sensor) {
+        return new EditAutomationViewModel(this, _navigationService, sensor);
     }
 
     public ChooseTriggerViewModel createChooseTriggerViewModel(AutomationAddedListener listener, int index, SensorItemViewModel sensor) {
@@ -264,7 +265,11 @@ public class MainViewModelsFactory {
     }
 
     public EditAutomationDateTimeRelayValueViewModel createEditDateTimeTriggerViewModel(AutomationAddedListener listener, SensorItemViewModel sensor, int index) {
-        return new EditAutomationDateTimeRelayValueViewModel(this, _navigationService, listener, sensor, index);
+        return new EditAutomationDateTimeRelayValueViewModel(_context, this, _navigationService, listener, sensor, index);
+    }
+
+    public EditAutomationDateTimeRelayValueViewModel createEditDateTimeTriggerViewModel(AutomationAddedListener listener, SensorItemViewModel sensor, AutomationDateTimeRelay automation) {
+        return new EditAutomationDateTimeRelayValueViewModel(_context, this, _navigationService, listener, sensor, automation);
     }
 
     public EditRelayValueViewModel createEditRelayValueViewModel(SensorItemViewModel sensor) {

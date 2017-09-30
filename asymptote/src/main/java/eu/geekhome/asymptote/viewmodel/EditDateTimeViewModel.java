@@ -94,4 +94,9 @@ public class EditDateTimeViewModel extends ViewModel<ControlEditDatetimeBinding>
     DateTimeTrigger buildDataTimeTrigger() {
         return new DateTimeTrigger(getDate(), getTime());
     }
+
+    public void applyDateTime(DateTimeTrigger trigger) {
+        setDate(trigger.getDateMark());
+        setTime(trigger.getTimeMark());
+    }
 }

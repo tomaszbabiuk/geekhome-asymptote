@@ -25,6 +25,8 @@ import javax.net.ssl.SSLSocketFactory;
 import javax.net.ssl.TrustManagerFactory;
 
 import eu.geekhome.asymptote.R;
+import eu.geekhome.asymptote.model.Automation;
+import eu.geekhome.asymptote.model.AutomationSyncUpdate;
 import eu.geekhome.asymptote.model.BoardId;
 import eu.geekhome.asymptote.model.BoardMode;
 import eu.geekhome.asymptote.model.BoardNotSupportedException;
@@ -33,6 +35,7 @@ import eu.geekhome.asymptote.model.CloudFingerprintSyncUpdate;
 import eu.geekhome.asymptote.model.CloudPasswordSyncUpdate;
 import eu.geekhome.asymptote.model.CloudUsernameSyncUpdate;
 import eu.geekhome.asymptote.model.ColorSyncUpdate;
+import eu.geekhome.asymptote.model.DateTimeTrigger;
 import eu.geekhome.asymptote.model.DeviceKey;
 import eu.geekhome.asymptote.model.DeviceSyncData;
 import eu.geekhome.asymptote.model.NameSyncUpdate;
@@ -45,8 +48,10 @@ import eu.geekhome.asymptote.model.ParamSyncUpdate;
 import eu.geekhome.asymptote.model.RGBSyncUpdate;
 import eu.geekhome.asymptote.model.RelayImpulseSyncUpdate;
 import eu.geekhome.asymptote.model.RelaySyncUpdate;
+import eu.geekhome.asymptote.model.RelayValue;
 import eu.geekhome.asymptote.model.RestoreTokenSyncUpdate;
 import eu.geekhome.asymptote.model.RoleSyncUpdate;
+import eu.geekhome.asymptote.model.SchedulerTrigger;
 import eu.geekhome.asymptote.model.StateSyncUpdate;
 import eu.geekhome.asymptote.model.SyncUpdate;
 import eu.geekhome.asymptote.model.SystemInformation;
@@ -284,8 +289,40 @@ public class HttpClientSyncManager implements SyncManager, LocalDiscoveryService
                     String query = String.format(Locale.US, "state=%s", stateUpdate.getValue());
                     pushUpdateQuery(variant, query, address, syncCallback);
                 }
+
+                if (update instanceof AutomationSyncUpdate) {
+                    AutomationSyncUpdate automationUpdate = (AutomationSyncUpdate) update;
+                    Automation automation = (Automation)automationUpdate.getValue();
+                    pushAutomation(variant, automation, address, syncCallback);
+                }
             }
         }
+    }
+
+    private void pushAutomation(Variant variant, Automation automation, final InetAddress address, final SyncCallback syncCallback) {
+        String ix = String.format(Locale.US, "index=%d", automation.getIndex());
+        String triggerQuery = "";
+        String valueQuery = "";
+        if (automation.getTrigger() instanceof DateTimeTrigger) {
+            DateTimeTrigger dateTimeTrigger = (DateTimeTrigger)automation.getTrigger();
+            triggerQuery = String.format(Locale.US, "&dt_date=%d&dt_time=%d", dateTimeTrigger.getDateMark(), dateTimeTrigger.getTimeMark());
+        }
+
+        if (automation.getTrigger() instanceof SchedulerTrigger) {
+            SchedulerTrigger schedulerTrigger = (SchedulerTrigger)automation.getTrigger();
+            triggerQuery = String.format(Locale.US, "&st_days=%d&st_time=%d", schedulerTrigger.getDays(), schedulerTrigger.getTimeMark());
+        }
+
+        if (automation.getValue() instanceof RelayValue) {
+            RelayValue relayValue = (RelayValue)automation.getValue();
+            valueQuery = String.format(Locale.US, "&r_val=%d&r_channel=%d", relayValue.getState() ? 1 : 0, relayValue.getChannel());
+        }
+
+        Request request = new Request.Builder()
+                .url((variant == Variant.WiFi ? "https:/" : "http:/") + address.toString() + "/auto?" + ix + triggerQuery + valueQuery)
+                .build();
+
+        _client.newCall(request).enqueue(syncResponse2SyncCallback(syncCallback, variant));
     }
 
     private void pushUpdateQuery(Variant variant, String query, final InetAddress address, final SyncCallback syncCallback) {
@@ -486,14 +523,6 @@ public class HttpClientSyncManager implements SyncManager, LocalDiscoveryService
         byte[] serialAsBytes = peerCertificate.getSerialNumber().toByteArray();
         return ByteUtils.bytesToHex(serialAsBytes);
     }
-
-//    private String extractCNFromResponse(Response response) {
-//        X509Certificate peerCertificate = (X509Certificate) response.handshake().peerCertificates().get(0);
-//        String peerCN = peerCertificate.getSubjectDN().toString();
-//        String peerDN = peerCN.substring(peerCN.indexOf("CN="));
-//        peerDN = peerDN.substring(3, peerDN.indexOf(","));
-//        return peerDN;
-//    }
 
     @Override
     public void run() {

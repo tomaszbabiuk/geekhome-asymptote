@@ -46,6 +46,7 @@ import eu.geekhome.asymptote.model.RelaySyncUpdate;
 import eu.geekhome.asymptote.model.RelayValue;
 import eu.geekhome.asymptote.model.RestoreTokenSyncUpdate;
 import eu.geekhome.asymptote.model.RoleSyncUpdate;
+import eu.geekhome.asymptote.model.SchedulerTrigger;
 import eu.geekhome.asymptote.model.StateSyncUpdate;
 import eu.geekhome.asymptote.model.UserSnapshot;
 import eu.geekhome.asymptote.model.Variant;
@@ -435,14 +436,20 @@ public class FirebaseCloudDeviceService implements CloudDeviceService {
                                 String ix = String.format("auto/%02X/", automation.getIndex());
                                 if (automation.getTrigger() instanceof DateTimeTrigger) {
                                     DateTimeTrigger dateTimeTrigger = (DateTimeTrigger)automation.getTrigger();
-                                    orders.put(ix + "date", dateTimeTrigger.getDateMark());
-                                    orders.put(ix + "time", dateTimeTrigger.getTimeMark());
+                                    orders.put(ix + "dt_date", dateTimeTrigger.getDateMark());
+                                    orders.put(ix + "dt_time", dateTimeTrigger.getTimeMark());
+                                }
+
+                                if (automation.getTrigger() instanceof SchedulerTrigger) {
+                                    SchedulerTrigger schedulerTrigger = (SchedulerTrigger)automation.getTrigger();
+                                    orders.put(ix + "st_days", schedulerTrigger.getDays());
+                                    orders.put(ix + "st_time", schedulerTrigger.getTimeMark());
                                 }
 
                                 if (automation.getValue() instanceof RelayValue) {
                                     RelayValue relayValue = (RelayValue)automation.getValue();
-                                    orders.put(ix + "val", relayValue.getState() ? 1 : 0);
-                                    orders.put(ix + "channel", relayValue.getChannel());
+                                    orders.put(ix + "r_val", relayValue.getState() ? 1 : 0);
+                                    orders.put(ix + "r_channel", relayValue.getChannel());
                                 }
                             }
                         }

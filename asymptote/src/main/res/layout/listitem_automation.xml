@@ -23,6 +23,7 @@
             android:layout_weight="1"
             android:text="@{vm.message}"
             android:layout_gravity="center_vertical"
+            android:textColor="@color/almost_black"
             tools:text="Change channel 0 to on 2017-08-01, 16:48:30"/>
 
         <eu.geekhome.controls.SvgImageView

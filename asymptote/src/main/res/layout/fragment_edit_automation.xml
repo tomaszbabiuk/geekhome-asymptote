@@ -31,7 +31,7 @@
                     style="@style/Common.Text.Big"
                     android:layout_marginTop="@dimen/common_medium_padding"
                     android:gravity="center_horizontal"
-                    android:text="@string/automation"/>
+                    android:text="@string/define_automation"/>
 
                 <View style="@style/Common.OrangeSeparator.Horizontal.Thin"/>
 
@@ -39,41 +39,56 @@
 
                 <TextView
                     style="@style/Profile.InstructionText"
-                    android:visibility="@{vm.automations.size() == 0 ? View.VISIBLE : View.GONE}"
-                    android:text="@string/no_automations"/>
+                    android:text="@string/no_automations"
+                    android:visibility="@{vm.automations.size() == 0 ? View.VISIBLE : View.GONE}"/>
 
-                <RelativeLayout style="@style/Layout.MatchX1.Vertical"
-                                android:paddingEnd="@dimen/common_normal_padding"
-                                android:paddingStart="@dimen/common_normal_padding">
+                <LinearLayout style="@style/Layout.MatchXY.Vertical">
 
-                    <eu.geekhome.asymptote.bindingutils.controls.VerticalRecyclerView
-                        android:id="@+id/recycler"
-                        style="@style/Layout.MatchXY"
-                        android:layout_alignParentStart="true"
-                        android:layout_alignParentTop="true"
-                        app:items="@{vm.automations}"/>
+                    <RelativeLayout
+                        style="@style/Layout.MatchX1.Vertical"
+                        android:paddingEnd="@dimen/common_normal_padding"
+                        android:paddingStart="@dimen/common_normal_padding">
+
+
+                        <eu.geekhome.asymptote.bindingutils.controls.VerticalRecyclerView
+                            android:id="@+id/recycler"
+                            style="@style/Layout.MatchXY"
+                            android:layout_alignParentStart="true"
+                            android:layout_alignParentTop="true"
+                            app:items="@{vm.automations}"/>
+
+
+                        <LinearLayout
+                            style="@style/Layout.MatchX.Vertical"
+                            android:layout_alignParentBottom="true">
+
+                            <FrameLayout style="@style/Main.ActionButton">
+
+                                <eu.geekhome.controls.SvgImageView
+                                    style="@style/Main.ActionIcon"
+                                    android:onClick="@{() -> vm.addTrigger()}"
+                                    app:svgId="@raw/add"/>
+                            </FrameLayout>
+
+                        </LinearLayout>
+
+                    </RelativeLayout>
+
+                    <View style="@style/Common.OrangeSeparator.Horizontal"/>
 
                     <LinearLayout
-                        style="@style/Layout.MatchX.Vertical"
-                        android:layout_alignParentBottom="true">
+                        style="@style/ActionBar.BottomLayout"
+                        android:visibility="@{vm.automations.size() > 0 ? View.VISIBLE : View.GONE}">
 
-                        <FrameLayout style="@style/Main.ActionButton">
-
-                            <eu.geekhome.controls.SvgImageView
-                                android:onClick="@{() -> vm.addTrigger()}"
-                                app:svgId="@raw/add"
-                                style="@style/Main.ActionIcon"/>
-                        </FrameLayout>
-
+                        <Button
+                            style="@style/Touch.NextButton"
+                            android:onClick="@{() -> vm.save()}"
+                            android:text="@string/save"/>
                     </LinearLayout>
-
-                </RelativeLayout>
-
+                </LinearLayout>
 
             </LinearLayout>
         </ScrollView>
-
-        <View style="@style/Common.OrangeSeparator.Horizontal"/>
 
 
     </LinearLayout>

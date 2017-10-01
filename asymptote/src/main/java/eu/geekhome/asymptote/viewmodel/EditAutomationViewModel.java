@@ -13,6 +13,7 @@ import eu.geekhome.asymptote.bindingutils.viewparams.ShowBackButtonInToolbarView
 import eu.geekhome.asymptote.databinding.FragmentEditAutomationBinding;
 import eu.geekhome.asymptote.model.Automation;
 import eu.geekhome.asymptote.model.AutomationDateTimeRelay;
+import eu.geekhome.asymptote.model.AutomationSyncUpdate;
 import eu.geekhome.asymptote.services.NavigationService;
 import eu.geekhome.asymptote.services.AutomationAddedListener;
 import eu.geekhome.asymptote.services.impl.MainViewModelsFactory;
@@ -88,6 +89,7 @@ public class EditAutomationViewModel extends ViewModel<FragmentEditAutomationBin
         AutomationItemViewModel automationModel = new AutomationItemViewModel(automation, this);
         _automations.add(automationModel);
     }
+
     void deleteAutomation(AutomationItemViewModel toDelete) {
         _automations.remove(toDelete);
     }
@@ -98,5 +100,17 @@ public class EditAutomationViewModel extends ViewModel<FragmentEditAutomationBin
             EditAutomationDateTimeRelayValueViewModel model = _factory.createEditDateTimeTriggerViewModel(this, _sensor, automation);
             _navigationService.showViewModel(model, new ShowBackButtonInToolbarViewParam());
         }
+    }
+
+    public void save() {
+        _sensor.getUpdates().clear();
+        for (LayoutHolder automationHolder : _automations) {
+            Automation automation = ((AutomationItemViewModel)automationHolder).getAutomation();
+            AutomationSyncUpdate automationUpdate = new AutomationSyncUpdate(automation);
+            _sensor.getUpdates().add(automationUpdate);
+        }
+
+        _sensor.requestFullSync();
+        _navigationService.goBack();
     }
 }

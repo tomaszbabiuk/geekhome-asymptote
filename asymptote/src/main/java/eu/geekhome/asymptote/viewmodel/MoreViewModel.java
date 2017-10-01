@@ -1,5 +1,6 @@
 package eu.geekhome.asymptote.viewmodel;
 
+import android.databinding.Bindable;
 import android.databinding.DataBindingUtil;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
@@ -68,6 +69,11 @@ public class MoreViewModel extends ViewModel<DialogMoreBinding> {
                 _navigationService.showViewModel(changeFirmwareModel, new ShowBackButtonInToolbarViewParam());
             }
         }
+    }
+
+    @Bindable
+    public SensorItemViewModel getSensor() {
+        return _sensor;
     }
 
 }

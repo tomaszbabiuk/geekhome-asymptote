@@ -24,8 +24,8 @@
 
             <TextView
                 style="@style/Triggers.Label"
-                android:text='@{@string/value + ": "}'
-                tools:text="Value: "/>
+                android:text='@{@string/change_to + ": "}'
+                tools:text="@string/change_to"/>
 
 
             <Spinner
@@ -37,6 +37,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:visibility="@{vm.channels.size() &gt; 1 ? View.VISIBLE : View.GONE}"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">

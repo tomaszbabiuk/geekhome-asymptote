@@ -22,7 +22,7 @@
 
             <TextView
                 style="@style/Triggers.Label"
-                android:text='@{@string/date + ": "}'
+                android:text='@{@string/on_date + ": "}'
                 tools:text="Date: "/>
 
             <TextView
@@ -38,7 +38,7 @@
 
             <TextView
                 style="@style/Triggers.Label"
-                android:text='@{@string/time + ": "}'
+                android:text='@{@string/at_time + ": "}'
                 tools:text="Time: "/>
 
             <TextView

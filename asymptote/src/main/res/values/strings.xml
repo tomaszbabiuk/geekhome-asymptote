@@ -340,10 +340,16 @@
     <string name="add">Add</string>
     <string name="date">Date</string>
     <string name="time">Time</string>
+    <string name="on_date">On</string>
+    <string name="at_time">At</string>
+    <string name="change_to">Change to</string>
     <string name="channel">Channel</string>
     <string name="value">Value</string>
     <string name="channel_no" formatted="false">Channel %d</string>
-    <string name="change_relay_at" formatted="false">Change relay %d to %s at %s, %s</string>
+    <string name="change_relay_at_on" formatted="false">On %s, at %s, turn relay %d on</string>
+    <string name="change_relay_at_off" formatted="false">On %s, at %s, turn relay %d off</string>
+    <string name="change_relay_by_schedule_on" formatted="false">Every %s at %s turn relay %d on</string>
+    <string name="change_relay_by_schedule_off" formatted="false">Every %s at %s turn relay %d off</string>
     <string name="pick_action">Pick action</string>
     <string name="save">Save</string>
     <string name="monday_shortcut">Mo</string>
@@ -353,8 +359,14 @@
     <string name="friday_shortcut">Fr</string>
     <string name="saturday_shortcut">Sa</string>
     <string name="sunday_shortcut">Su</string>
-    <string name="every">Every</string>
-
+    <string name="at_every_day">Every</string>
+    <string name="at_monday">Monday</string>
+    <string name="at_tuesday">Tuesday</string>
+    <string name="at_wednesday">Wednesday</string>
+    <string name="at_thursday">Thursday</string>
+    <string name="at_friday">Friday</string>
+    <string name="at_saturday">Saturday</string>
+    <string name="sunday">Sunday</string>
 
 
     <string-array name="signal_turned_on_solutions">

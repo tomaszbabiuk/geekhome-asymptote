@@ -13,11 +13,13 @@ import eu.geekhome.asymptote.bindingutils.ViewModel;
 import eu.geekhome.asymptote.databinding.ControlEditSchedulerBinding;
 import eu.geekhome.asymptote.model.SchedulerTrigger;
 import eu.geekhome.asymptote.services.GeneralDialogService;
+import eu.geekhome.asymptote.utils.ByteUtils;
 
 public class EditSchedulerViewModel extends ViewModel<ControlEditSchedulerBinding> {
     private final GeneralDialogService _generalDialogService;
     private final SensorItemViewModel _sensor;
     private long _time;
+    private int _days;
     private boolean _mondaySelected;
     private boolean _tuesdaySelected;
     private boolean _wednesdaySelected;
@@ -41,7 +43,7 @@ public class EditSchedulerViewModel extends ViewModel<ControlEditSchedulerBindin
         int seconds = now.get(Calendar.SECOND);
         int time = seconds + minutes * 60 + hours * 3600;
         setTime(time);
-
+        setDays(1);
     }
 
     @Override
@@ -75,25 +77,25 @@ public class EditSchedulerViewModel extends ViewModel<ControlEditSchedulerBindin
     SchedulerTrigger buildSchedulerTrigger() {
         int days = 0;
         if (isMondaySelected()) {
-            days |= 1 << 1;
+            days |= 1;
         }
         if (isTuesdaySelected()) {
-            days |= 1 << 2;
+            days |= 1 << 1;
         }
         if (isWednesdaySelected()) {
-            days |= 1 << 3;
+            days |= 1 << 2;
         }
         if (isThursdaySelected()) {
-            days |= 1 << 4;
+            days |= 1 << 3;
         }
         if (isFridaySelected()) {
-            days |= 1 << 5;
+            days |= 1 << 4;
         }
         if (isSaturdaySelected()) {
-            days |= 1 << 6;
+            days |= 1 << 5;
         }
         if (isSundaySelected()) {
-            days |= 1 << 7;
+            days |= 1 << 6;
         }
         return new SchedulerTrigger(days, getTime());
     }
@@ -105,17 +107,14 @@ public class EditSchedulerViewModel extends ViewModel<ControlEditSchedulerBindin
 
 
     private void setDays(int days) {
-        setMondaySelected(getBit(days, 1));
-        setTuesdaySelected(getBit(days, 2));
-        setWednesdaySelected(getBit(days, 3));
-        setThursdaySelected(getBit(days, 4));
-        setFridaySelected(getBit(days, 5));
-        setSaturdaySelected(getBit(days, 6));
-        setSundaySelected(getBit(days, 7));
-    }
-
-    private boolean getBit(int toGetBitsFrom, int position) {
-        return ((toGetBitsFrom >> position) & 1) == 1;
+        _days = days == 0 ? 1 : days;
+        setMondaySelected(ByteUtils.getBit(days, 0));
+        setTuesdaySelected(ByteUtils.getBit(days, 1));
+        setWednesdaySelected(ByteUtils.getBit(days, 2));
+        setThursdaySelected(ByteUtils.getBit(days, 3));
+        setFridaySelected(ByteUtils.getBit(days, 4));
+        setSaturdaySelected(ByteUtils.getBit(days, 5));
+        setSundaySelected(ByteUtils.getBit(days, 6));
     }
 
     @Bindable
@@ -193,27 +192,38 @@ public class EditSchedulerViewModel extends ViewModel<ControlEditSchedulerBindin
     }
 
     public void toggleTuesday() {
-        setTuesdaySelected(!isTuesdaySelected());
+        if (_days > 0) {
+            setTuesdaySelected(!isTuesdaySelected());
+        }
     }
 
     public void toggleWednesday() {
-        setWednesdaySelected(!isWednesdaySelected());
+        if (_days > 0) {
+            setWednesdaySelected(!isWednesdaySelected());
+        }
     }
-
     public void toggleThursday() {
-        setThursdaySelected(!isThursdaySelected());
+        if (_days > 0) {
+            setThursdaySelected(!isThursdaySelected());
+        }
     }
 
     public void toggleFriday() {
-        setFridaySelected(!isFridaySelected());
+        if (_days > 0) {
+            setFridaySelected(!isFridaySelected());
+        }
     }
 
     public void toggleSaturday() {
-        setSaturdaySelected(!isSaturdaySelected());
+        if (_days > 0) {
+            setSaturdaySelected(!isSaturdaySelected());
+        }
     }
 
     public void toggleSunday() {
-        setSundaySelected(!isSundaySelected());
+        if (_days > 0) {
+            setSundaySelected(!isSundaySelected());
+        }
     }
 
 }

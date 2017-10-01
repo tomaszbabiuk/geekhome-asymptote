@@ -41,7 +41,6 @@ public class EditDateTimeViewModel extends ViewModel<ControlEditDatetimeBinding>
         int days = now.get(Calendar.DAY_OF_MONTH);
         int date = days + months * 31 + years * 12 * 31;
         setDate(date);
-
     }
 
     @Override

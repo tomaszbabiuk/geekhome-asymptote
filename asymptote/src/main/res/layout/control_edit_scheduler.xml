@@ -19,8 +19,8 @@
 
         <TextView
             style="@style/Triggers.Label.Centered"
-            android:text='@{@string/every + ": "}'
-            tools:text="@string/every"/>
+            android:text='@{@string/at_every_day + ": "}'
+            tools:text="@string/at_every_day"/>
 
         <LinearLayout style="@style/Layout.MatchX.Horizontal">
 
@@ -137,8 +137,8 @@
 
             <TextView
                 style="@style/Triggers.Label"
-                android:text='@{@string/time + ": "}'
-                tools:text="Time: "/>
+                android:text='@{@string/at_time + ": "}'
+                tools:text="@string/at_time"/>
 
             <TextView
                 style="@style/Triggers.PickButton"

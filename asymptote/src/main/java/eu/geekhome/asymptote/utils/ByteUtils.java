@@ -37,4 +37,9 @@ public class ByteUtils {
         }
         return data;
     }
+
+    public static boolean getBit(int toGetBitsFrom, int position) {
+        return ((toGetBitsFrom >> position) & 1) == 1;
+    }
+
 }

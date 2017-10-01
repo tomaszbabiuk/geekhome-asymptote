@@ -6,7 +6,6 @@
     <string name="cancel">Anuluj</string>
     <string name="network_hidden">Ta sieć jest ukryta!</string>
     <string name="pair_device">Parowanie urządzenia</string>
-
     <string name="relay_x_is_off" formatted="false">Przekaźnik %d jest wył</string>
     <string name="relay_x_is_on" formatted="false">Przekaźnik %d jest wł</string>
     <string name="choose_color">Wybierz kolor</string>
@@ -327,20 +326,26 @@
     <string name="datetime_trigger_name">Data i godzina</string>
     <string name="datetime_trigger_desc">Zmienia stan urządzenia o ustalonej dacie i godzinie</string>
     <string name="scheduled_trigger_name">Terminarz</string>
-    <string name="scheduled_trigger_desc">Pozwala zdefiniować tygodniowy grafik zmiany stanu</string>
+    <string name="scheduled_trigger_desc">Pozwala zdefiniować tygodniowy rozkład zmiany stanu</string>
     <string name="no_automations">Brak automatyzacji</string>
     <string name="automation_datetime_relay">Zmień stan przekaźnika o ustalonej dacie i godzinie</string>
-    <string name="automation_scheduler_relay">Zmieniaj stan przekaźnike wg tygodniowego grafika</string>
+    <string name="automation_scheduler_relay">Zmieniaj stan przekaźnike wg tygodniowego rozkładu</string>
     <string name="change_state_to_on">Zmień stan na wł</string>
     <string name="change_state_to_off">Zmień stan na wył</string>
     <string name="edit">Edytuj</string>
     <string name="add">Dodaj</string>
     <string name="date">Data</string>
     <string name="time">Czas</string>
+    <string name="on_date">Dnia</string>
+    <string name="at_time">O godzinie</string>
+    <string name="change_to">Zmień na</string>
     <string name="channel">Kanał</string>
     <string name="value">Wartość</string>
     <string name="channel_no" formatted="false">Kanał %d</string>
-    <string name="change_relay_at" formatted="false">Zmień stan przekaźnika %d na %s dnia %s o %s</string>
+    <string name="change_relay_at_on" formatted="false">Dnia %s, o godzinie %s, zmień włącz przekaźnik %d</string>
+    <string name="change_relay_at_off" formatted="false">Dnia %s, o godzinie %s, zmień wyłącz przekaźnik %d</string>
+    <string name="change_relay_by_schedule_on" formatted="false">W %s o godzinie %s włączaj przekaźnik %d</string>
+    <string name="change_relay_by_schedule_off" formatted="false">W %s o godzinie %s zwyłączaj przekaźnik %d</string>
     <string name="pick_action">Wybierz akcję</string>
     <string name="save">Zapisz</string>
     <string name="monday_shortcut">Po</string>
@@ -350,9 +355,14 @@
     <string name="friday_shortcut">Pt</string>
     <string name="saturday_shortcut">So</string>
     <string name="sunday_shortcut">Nd</string>
-    <string name="every">W każdy</string>
-
-
+    <string name="at_every_day">W każdy z następujących dni</string>
+    <string name="at_monday">Poniedziałek</string>
+    <string name="at_tuesday">Wtorek</string>
+    <string name="at_wednesday">Środę</string>
+    <string name="at_thursday">Czwartek</string>
+    <string name="at_friday">Piątek</string>
+    <string name="at_saturday">Sobotę</string>
+    <string name="sunday">Niedzielę</string>
 
     <string-array name="signal_turned_on_solutions">
         <item>Poczekaj na bardziej znaczący sygnał. Przykładowo, gdy urządzenie nie zna naszej sieci WiFi i próbuje nawiązać połączenie dioda stanu świeci się w sposób ciągły (nie miga) przez kilka sekund, a następnie miga dwukrotnie kilka razy i znowu zaświeca się, aby ponowić próbę. Te dwa mrugnięcia są tym bardziej znaczącym sygnałem w tym przypadku.</item>

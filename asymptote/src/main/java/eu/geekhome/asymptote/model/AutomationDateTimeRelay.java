@@ -15,10 +15,10 @@ public class AutomationDateTimeRelay extends Automation<DateTimeTrigger, RelayVa
 
     @Override
     public String composeMessage() {
-        String state = _context.getString(getValue().getState() ? R.string.on : R.string.off);
-        return _context.getString(R.string.change_relay_at, getValue().getChannel(), state,
+        return _context.getString(getValue().getState() ? R.string.change_relay_at_on : R.string.change_relay_at_off,
                 ValueConverter.daysToText(getTrigger().getDateMark()),
-                ValueConverter.secondsToText(getTrigger().getTimeMark()));
+                ValueConverter.secondsToText(getTrigger().getTimeMark()),
+                getValue().getChannel());
     }
 
 }

@@ -27,6 +27,8 @@ public class EditRelayValueViewModel  extends BaseObservable {
         _values = new ArrayList<>();
         _values.add(context.getString(R.string.on));
         _values.add(context.getString(R.string.off));
+
+        setSelectedChannel(buildChannelName(0));
     }
 
     private String buildChannelName(int channel) {

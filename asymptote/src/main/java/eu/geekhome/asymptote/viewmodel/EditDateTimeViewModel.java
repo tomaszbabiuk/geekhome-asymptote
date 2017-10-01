@@ -91,11 +91,11 @@ public class EditDateTimeViewModel extends ViewModel<ControlEditDatetimeBinding>
         notifyPropertyChanged(BR.date);
     }
 
-    DateTimeTrigger buildDataTimeTrigger() {
+    DateTimeTrigger buildDateTimeTrigger() {
         return new DateTimeTrigger(getDate(), getTime());
     }
 
-    public void applyDateTime(DateTimeTrigger trigger) {
+    void applyDateTime(DateTimeTrigger trigger) {
         setDate(trigger.getDateMark());
         setTime(trigger.getTimeMark());
     }

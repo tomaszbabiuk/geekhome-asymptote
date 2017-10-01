@@ -7,7 +7,7 @@ import eu.geekhome.asymptote.R;
 
 public enum TriggerType {
     DateTimeOfRelay(R.raw.calendar, R.string.datetime_trigger_name, R.string.datetime_trigger_desc),
-    Scheduler(R.raw.calendar2, R.string.scheduled_trigger_name, R.string.scheduled_trigger_desc);
+    SchedulerOfRelay(R.raw.calendar2, R.string.scheduled_trigger_name, R.string.scheduled_trigger_desc);
 
     private final int _iconId;
     private final int _nameResId;

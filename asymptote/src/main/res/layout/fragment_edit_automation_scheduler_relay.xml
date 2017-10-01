@@ -10,7 +10,7 @@
 
         <variable
             name="vm"
-            type="eu.geekhome.asymptote.viewmodel.EditAutomationDateTimeRelayViewModel"/>
+            type="eu.geekhome.asymptote.viewmodel.EditAutomationSchedulerRelayViewModel"/>
     </data>
 
     <LinearLayout
@@ -35,15 +35,15 @@
                     style="@style/Common.Text.Big"
                     android:layout_marginTop="@dimen/common_medium_padding"
                     android:gravity="center_horizontal"
-                    android:text="@string/automation_datetime_relay"/>
+                    android:text="@string/automation_scheduler_relay"/>
 
                 <View style="@style/Common.OrangeSeparator.Horizontal.Thin"/>
 
                 <View style="@style/Common.OrangeTriangle"/>
 
                 <include
-                    layout="@layout/control_edit_datetime"
-                    app:vm="@{vm.editDateTimeViewModel}"/>
+                    layout="@layout/control_edit_scheduler"
+                    app:vm="@{vm.editSchedulerViewModel}"/>
 
                 <include
                     layout="@layout/control_edit_relay_value"

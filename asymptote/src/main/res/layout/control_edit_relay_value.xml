@@ -17,6 +17,24 @@
     <LinearLayout
         style="@style/Layout.MatchX.Vertical">
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                style="@style/Triggers.Label"
+                android:text='@{@string/value + ": "}'
+                tools:text="Value: "/>
+
+
+            <Spinner
+                android:id="@+id/values_spinner"
+                style="@style/Triggers.Spinner"
+                app:selectedValue="@={vm.selectedValue}"
+                app:items="@{vm.values}"/>
+
+        </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -34,25 +52,6 @@
                 style="@style/Triggers.Spinner"
                 app:selectedValue="@={vm.selectedChannel}"
                 app:items="@{vm.channels}"/>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <TextView
-                style="@style/Triggers.Label"
-                android:text='@{@string/value + ": "}'
-                tools:text="Value: "/>
-
-
-            <Spinner
-                android:id="@+id/values_spinner"
-                style="@style/Triggers.Spinner"
-                app:selectedValue="@={vm.selectedValue}"
-                app:items="@{vm.values}"/>
 
         </LinearLayout>
     </LinearLayout>

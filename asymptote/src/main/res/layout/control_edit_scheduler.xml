@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View"/>
+
+        <import type="eu.geekhome.asymptote.utils.ValueConverter"/>
+
+        <variable
+            name="vm"
+            type="eu.geekhome.asymptote.viewmodel.EditSchedulerViewModel"/>
+    </data>
+
+    <LinearLayout
+        style="@style/Layout.MatchX.Vertical">
+
+        <TextView
+            style="@style/Triggers.Label.Centered"
+            android:text='@{@string/every + ": "}'
+            tools:text="@string/every"/>
+
+        <LinearLayout style="@style/Layout.MatchX.Horizontal">
+
+            <LinearLayout
+                style="@style/Layout.Wrapped.Weight1"
+                android:layout_margin="@dimen/common_small_padding"
+                android:background="@{vm.mondaySelected ? @drawable/rectangle_orange : @drawable/rectangle_silver}"
+                android:onClick="@{() -> vm.toggleMonday()}"
+                android:padding="@dimen/common_small_padding"
+                tools:background="@drawable/rectangle_orange">
+
+                <TextView
+                    style="@style/Common.Text.Medium"
+                    android:gravity="center_horizontal"
+                    android:text="@string/monday_shortcut"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                style="@style/Layout.Wrapped.Weight1"
+                android:layout_margin="@dimen/common_small_padding"
+                android:background="@{vm.tuesdaySelected ? @drawable/rectangle_orange : @drawable/rectangle_silver}"
+                android:onClick="@{() -> vm.toggleTuesday()}"
+                android:padding="@dimen/common_small_padding"
+                tools:background="@drawable/rectangle_orange">
+
+                <TextView
+                    style="@style/Common.Text.Medium"
+                    android:gravity="center_horizontal"
+                    android:text="@string/tuesday_shortcut"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                style="@style/Layout.Wrapped.Weight1"
+                android:layout_margin="@dimen/common_small_padding"
+                android:background="@{vm.wednesdaySelected ? @drawable/rectangle_orange : @drawable/rectangle_silver}"
+                android:onClick="@{() -> vm.toggleWednesday()}"
+                android:padding="@dimen/common_small_padding"
+                tools:background="@drawable/rectangle_orange">
+
+                <TextView
+                    style="@style/Common.Text.Medium"
+                    android:gravity="center_horizontal"
+                    android:text="@string/wednesday_shortcut"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                style="@style/Layout.Wrapped.Weight1"
+                android:layout_margin="@dimen/common_small_padding"
+                android:background="@{vm.thursdaySelected ? @drawable/rectangle_orange : @drawable/rectangle_silver}"
+                android:onClick="@{() -> vm.toggleThursday()}"
+                android:padding="@dimen/common_small_padding"
+                tools:background="@drawable/rectangle_orange">
+
+                <TextView
+                    style="@style/Common.Text.Medium"
+                    android:gravity="center_horizontal"
+                    android:text="@string/thursday_shortcut"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                style="@style/Layout.Wrapped.Weight1"
+                android:layout_margin="@dimen/common_small_padding"
+                android:background="@{vm.fridaySelected ? @drawable/rectangle_orange : @drawable/rectangle_silver}"
+                android:onClick="@{() -> vm.toggleFriday()}"
+                android:padding="@dimen/common_small_padding"
+                tools:background="@drawable/rectangle_orange">
+
+                <TextView
+                    style="@style/Common.Text.Medium"
+                    android:gravity="center_horizontal"
+                    android:text="@string/friday_shortcut"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                style="@style/Layout.Wrapped.Weight1"
+                android:layout_margin="@dimen/common_small_padding"
+                android:background="@{vm.saturdaySelected ? @drawable/rectangle_orange : @drawable/rectangle_silver}"
+                android:onClick="@{() -> vm.toggleSaturday()}"
+                android:padding="@dimen/common_small_padding"
+                tools:background="@drawable/rectangle_orange">
+
+                <TextView
+                    style="@style/Common.Text.Medium"
+                    android:gravity="center_horizontal"
+                    android:text="@string/saturday_shortcut"/>
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                style="@style/Layout.Wrapped.Weight1"
+                android:layout_margin="@dimen/common_small_padding"
+                android:background="@{vm.sundaySelected ? @drawable/rectangle_orange : @drawable/rectangle_silver}"
+                android:onClick="@{() -> vm.toggleSunday()}"
+                android:padding="@dimen/common_small_padding"
+                tools:background="@drawable/rectangle_orange">
+
+                <TextView
+                    style="@style/Common.Text.Medium"
+                    android:gravity="center_horizontal"
+                    android:text="@string/sunday_shortcut"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            style="@style/Layout.MatchX.Horizontal">
+
+            <TextView
+                style="@style/Triggers.Label"
+                android:text='@{@string/time + ": "}'
+                tools:text="Time: "/>
+
+            <TextView
+                style="@style/Triggers.PickButton"
+                android:onClick="@{() -> vm.onPickTime()}"
+                android:text="@{ValueConverter.secondsToText(vm.time)}"
+                tools:text="05:56:34"/>
+
+        </LinearLayout>
+    </LinearLayout>
+</layout>

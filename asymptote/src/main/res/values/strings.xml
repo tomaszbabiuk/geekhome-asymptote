@@ -332,7 +332,8 @@
     <string name="scheduled_trigger_name">Scheduler</string>
     <string name="scheduled_trigger_desc">Changes device state according to weekly schedule</string>
     <string name="no_automations">No automations</string>
-    <string name="datetime_trigger">Datetime trigger</string>
+    <string name="automation_datetime_relay">Change relay state at specific time</string>
+    <string name="automation_scheduler_relay">Change relay state according to schedule</string>
     <string name="change_state_to_on">Change state to on</string>
     <string name="change_state_to_off">Change state to off</string>
     <string name="edit">Edit</string>
@@ -345,6 +346,15 @@
     <string name="change_relay_at" formatted="false">Change relay %d to %s at %s, %s</string>
     <string name="pick_action">Pick action</string>
     <string name="save">Save</string>
+    <string name="monday_shortcut">Mo</string>
+    <string name="tuesday_shortcut">Tu</string>
+    <string name="wednesday_shortcut">We</string>
+    <string name="thursday_shortcut">Th</string>
+    <string name="friday_shortcut">Fr</string>
+    <string name="saturday_shortcut">Sa</string>
+    <string name="sunday_shortcut">Su</string>
+    <string name="every">Every</string>
+
 
 
     <string-array name="signal_turned_on_solutions">

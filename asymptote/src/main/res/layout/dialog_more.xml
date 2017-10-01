@@ -24,7 +24,7 @@
 
             <TextView
                 style="@style/Common.Text.Big"
-                android:layout_marginBottom="@dimen/common_medium_padding"
+                android:layout_marginBottom="@dimen/common_small_padding"
                 android:layout_marginTop="@dimen/common_medium_padding"
                 android:gravity="center_horizontal"
                 android:text="@{vm.sensor.syncData.name}"
@@ -34,15 +34,15 @@
             <TextView
                 style="@style/Common.Text.Medium"
                 android:gravity="center_horizontal"
+                android:layout_marginBottom="@dimen/common_medium_padding"
                 android:text='@{vm.sensor.syncData.deviceKey.deviceId + " v" + vm.sensor.syncData.systemInfo.versionMajor + "." + vm.sensor.syncData.systemInfo.versionMinor}'
-                android:textAppearance="?android:attr/textAppearanceSmall"
                 android:textColor="@color/light_gray"
                 tools:text="[001234093123212309]"/>
 
             <include
                 layout="@layout/control_compound_button"
                 android:layout_width="200dp"
-                android:layout_height="35dp"
+                android:layout_height="45dp"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginBottom="@dimen/common_small_padding"
                 android:layout_marginTop="@dimen/common_small_padding"
@@ -55,7 +55,7 @@
             <include
                 layout="@layout/control_compound_button"
                 android:layout_width="200dp"
-                android:layout_height="35dp"
+                android:layout_height="45dp"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginBottom="@dimen/common_small_padding"
                 android:layout_marginTop="@dimen/common_small_padding"
@@ -68,7 +68,7 @@
             <include
                 layout="@layout/control_compound_button"
                 android:layout_width="200dp"
-                android:layout_height="35dp"
+                android:layout_height="45dp"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginBottom="@dimen/common_small_padding"
                 android:layout_marginTop="@dimen/common_small_padding"

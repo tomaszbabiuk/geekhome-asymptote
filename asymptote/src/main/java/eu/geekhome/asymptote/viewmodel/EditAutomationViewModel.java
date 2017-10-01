@@ -13,6 +13,7 @@ import eu.geekhome.asymptote.bindingutils.viewparams.ShowBackButtonInToolbarView
 import eu.geekhome.asymptote.databinding.FragmentEditAutomationBinding;
 import eu.geekhome.asymptote.model.Automation;
 import eu.geekhome.asymptote.model.AutomationDateTimeRelay;
+import eu.geekhome.asymptote.model.AutomationSchedulerRelay;
 import eu.geekhome.asymptote.model.AutomationSyncUpdate;
 import eu.geekhome.asymptote.services.NavigationService;
 import eu.geekhome.asymptote.services.AutomationAddedListener;
@@ -97,7 +98,11 @@ public class EditAutomationViewModel extends ViewModel<FragmentEditAutomationBin
     void editAutomation(AutomationItemViewModel toEdit) {
         if (toEdit.getAutomation() instanceof AutomationDateTimeRelay) {
             AutomationDateTimeRelay automation = (AutomationDateTimeRelay)toEdit.getAutomation();
-            EditAutomationDateTimeRelayValueViewModel model = _factory.createEditDateTimeTriggerViewModel(this, _sensor, automation);
+            EditAutomationDateTimeRelayViewModel model = _factory.createEditAutomationDateTimeRelayViewModel(this, _sensor, automation);
+            _navigationService.showViewModel(model, new ShowBackButtonInToolbarViewParam());
+        } else if (toEdit.getAutomation() instanceof AutomationSchedulerRelay) {
+            AutomationSchedulerRelay automation = (AutomationSchedulerRelay)toEdit.getAutomation();
+            EditAutomationSchedulerRelayViewModel model = _factory.createEditAutomationSchedulerRelayViewModel(this, _sensor, automation);
             _navigationService.showViewModel(model, new ShowBackButtonInToolbarViewParam());
         }
     }

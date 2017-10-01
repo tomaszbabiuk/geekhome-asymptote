@@ -43,7 +43,7 @@ public class ChooseTriggerViewModel extends ViewModel<DialogChooseTriggerBinding
     private ObservableArrayList<LayoutHolder> createTriggerTypes(SensorItemViewModel sensor) {
         ObservableArrayList<LayoutHolder> result = new ObservableArrayList<>();
         TriggerTypeItemViewModel exactTrigger = new TriggerTypeItemViewModel(this, sensor, TriggerType.DateTimeOfRelay);
-        TriggerTypeItemViewModel scheduleTrigger = new TriggerTypeItemViewModel(this, sensor, TriggerType.Scheduler);
+        TriggerTypeItemViewModel scheduleTrigger = new TriggerTypeItemViewModel(this, sensor, TriggerType.SchedulerOfRelay);
         result.add(exactTrigger);
         result.add(scheduleTrigger);
         return result;
@@ -66,9 +66,12 @@ public class ChooseTriggerViewModel extends ViewModel<DialogChooseTriggerBinding
         _navigationService.goBack();
         switch (getSelectedTriggerType()) {
             case DateTimeOfRelay:
-                EditAutomationDateTimeRelayValueViewModel model = _factory.createEditDateTimeTriggerViewModel(_listener, _sensor, _index);
-                _navigationService.showViewModel(model, new ShowBackButtonInToolbarViewParam());
+                EditAutomationDateTimeRelayViewModel modelDR = _factory.createEditAutomationDateTimeRelayViewModel(_listener, _sensor, _index);
+                _navigationService.showViewModel(modelDR, new ShowBackButtonInToolbarViewParam());
                 break;
+            case SchedulerOfRelay:
+                EditAutomationSchedulerRelayViewModel modelSR = _factory.createEditAutomationSchedulerRelayViewModel(_listener, _sensor, _index);
+                _navigationService.showViewModel(modelSR);
         }
     }
 

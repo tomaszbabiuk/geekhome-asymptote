@@ -329,7 +329,8 @@
     <string name="scheduled_trigger_name">Terminarz</string>
     <string name="scheduled_trigger_desc">Pozwala zdefiniować tygodniowy grafik zmiany stanu</string>
     <string name="no_automations">Brak automatyzacji</string>
-    <string name="datetime_trigger">Wyzwalacz \"Data i godzina\"</string>
+    <string name="automation_datetime_relay">Zmień stan przekaźnika o ustalonej dacie i godzinie</string>
+    <string name="automation_scheduler_relay">Zmieniaj stan przekaźnike wg tygodniowego grafika</string>
     <string name="change_state_to_on">Zmień stan na wł</string>
     <string name="change_state_to_off">Zmień stan na wył</string>
     <string name="edit">Edytuj</string>
@@ -342,6 +343,15 @@
     <string name="change_relay_at" formatted="false">Zmień stan przekaźnika %d na %s dnia %s o %s</string>
     <string name="pick_action">Wybierz akcję</string>
     <string name="save">Zapisz</string>
+    <string name="monday_shortcut">Po</string>
+    <string name="tuesday_shortcut">Wt</string>
+    <string name="wednesday_shortcut">Śr</string>
+    <string name="thursday_shortcut">Cz</string>
+    <string name="friday_shortcut">Pt</string>
+    <string name="saturday_shortcut">So</string>
+    <string name="sunday_shortcut">Nd</string>
+    <string name="every">W każdy</string>
+
 
 
     <string-array name="signal_turned_on_solutions">

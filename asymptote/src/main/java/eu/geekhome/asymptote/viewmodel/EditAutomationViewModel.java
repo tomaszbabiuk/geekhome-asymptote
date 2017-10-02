@@ -64,7 +64,22 @@ public class EditAutomationViewModel extends ViewModel<FragmentEditAutomationBin
     }
 
     private int findFirstFreeIndex() {
-        return 0;
+        int i=0;
+
+        boolean indexTaken;
+        do {
+            indexTaken = false;
+            for (LayoutHolder automationHolder : _automations) {
+                Automation automation = ((AutomationItemViewModel) automationHolder).getAutomation();
+                if (automation.getIndex() == i) {
+                    indexTaken = true;
+                    i++;
+                    break;
+                }
+            }
+        } while (indexTaken);
+
+        return i;
     }
 
     @Override

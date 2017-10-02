@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
 import java.util.Calendar;
+import java.util.TimeZone;
 
 import eu.geekhome.asymptote.BR;
 import eu.geekhome.asymptote.R;
@@ -17,6 +18,7 @@ import eu.geekhome.asymptote.services.GeneralDialogService;
 public class EditDateTimeViewModel extends ViewModel<ControlEditDatetimeBinding> {
     private final GeneralDialogService _generalDialogService;
     private final SensorItemViewModel _sensor;
+    private final int _offset;
     private long _time;
     private long _date;
 
@@ -30,6 +32,11 @@ public class EditDateTimeViewModel extends ViewModel<ControlEditDatetimeBinding>
         _generalDialogService = generalDialogService;
         _sensor = sensor;
         Calendar now = Calendar.getInstance();
+        _offset = TimeZone.getDefault().getOffset(now.getTimeInMillis());
+        setTimeAndDate(now);
+    }
+
+    private void setTimeAndDate(Calendar now) {
         int hours = now.get(Calendar.HOUR_OF_DAY);
         int minutes = now.get(Calendar.MINUTE);
         int seconds = now.get(Calendar.SECOND);
@@ -91,11 +98,21 @@ public class EditDateTimeViewModel extends ViewModel<ControlEditDatetimeBinding>
     }
 
     DateTimeTrigger buildDateTimeTrigger() {
-        return new DateTimeTrigger(getDate(), getTime());
+        Calendar cal = Calendar.getInstance();
+        long hourOfDay = Math.abs(getTime() / 3600);
+        long minutes = Math.abs(getTime() % 3600 / 60);
+        long secs = Math.abs(getTime() % 60);
+        long year = Math.abs(getDate() / (31 * 12));
+        long month = Math.abs(getDate() % (31 * 12) / 31);
+        long day = Math.abs(getDate() % 31);
+        cal.set((int)year, (int)month, (int)day, (int)hourOfDay, (int)minutes, (int)secs);
+        long utcTimestamp = cal.getTimeInMillis() - _offset;
+        return new DateTimeTrigger(utcTimestamp/1000);
     }
 
     void applyDateTime(DateTimeTrigger trigger) {
-        setDate(trigger.getDateMark());
-        setTime(trigger.getTimeMark());
+        Calendar cal = Calendar.getInstance();
+        cal.setTimeInMillis(trigger.getUtcTimestamp() * 1000 + _offset);
+        setTimeAndDate(cal);
     }
 }

@@ -346,8 +346,8 @@
     <string name="channel">Channel</string>
     <string name="value">Value</string>
     <string name="channel_no" formatted="false">Channel %d</string>
-    <string name="change_relay_at_on" formatted="false">On %s, at %s, turn relay %d on</string>
-    <string name="change_relay_at_off" formatted="false">On %s, at %s, turn relay %d off</string>
+    <string name="change_relay_at_on" formatted="false">Turn relay %d on at %s, %s</string>
+    <string name="change_relay_at_off" formatted="false">Turn relay %d off at %s, %s</string>
     <string name="change_relay_by_schedule_on" formatted="false">Every %s at %s turn relay %d on</string>
     <string name="change_relay_by_schedule_off" formatted="false">Every %s at %s turn relay %d off</string>
     <string name="pick_action">Pick action</string>

@@ -20,6 +20,8 @@ import java.util.Iterator;
 import java.util.Map;
 
 import eu.geekhome.asymptote.model.Automation;
+import eu.geekhome.asymptote.model.AutomationDateTimeRelay;
+import eu.geekhome.asymptote.model.AutomationSchedulerRelay;
 import eu.geekhome.asymptote.model.BoardId;
 import eu.geekhome.asymptote.model.BoardMode;
 import eu.geekhome.asymptote.model.BoardNotSupportedException;
@@ -434,22 +436,29 @@ public class FirebaseCloudDeviceService implements CloudDeviceService {
                                 AutomationSyncUpdate automationUpdate = (AutomationSyncUpdate) update;
                                 Automation automation = (Automation)automationUpdate.getValue();
                                 String ix = String.format("auto/%02X/", automation.getIndex());
+                                if (automation instanceof AutomationDateTimeRelay) {
+                                    orders.put(ix + "type", "dr");
+                                }
+
+                                if (automation instanceof AutomationSchedulerRelay) {
+                                    orders.put(ix + "type", "sr");
+                                }
+
                                 if (automation.getTrigger() instanceof DateTimeTrigger) {
                                     DateTimeTrigger dateTimeTrigger = (DateTimeTrigger)automation.getTrigger();
-                                    orders.put(ix + "dt_date", dateTimeTrigger.getDateMark());
-                                    orders.put(ix + "dt_time", dateTimeTrigger.getTimeMark());
+                                    orders.put(ix + "epoch", dateTimeTrigger.getUtcTimestamp());
                                 }
 
                                 if (automation.getTrigger() instanceof SchedulerTrigger) {
                                     SchedulerTrigger schedulerTrigger = (SchedulerTrigger)automation.getTrigger();
-                                    orders.put(ix + "st_days", schedulerTrigger.getDays());
-                                    orders.put(ix + "st_time", schedulerTrigger.getTimeMark());
+                                    orders.put(ix + "days", schedulerTrigger.getDays());
+                                    orders.put(ix + "time", schedulerTrigger.getTimeMark());
                                 }
 
                                 if (automation.getValue() instanceof RelayValue) {
                                     RelayValue relayValue = (RelayValue)automation.getValue();
-                                    orders.put(ix + "r_val", relayValue.getState() ? 1 : 0);
-                                    orders.put(ix + "r_channel", relayValue.getChannel());
+                                    orders.put(ix + "val", relayValue.getState() ? 1 : 0);
+                                    orders.put(ix + "channel", relayValue.getChannel());
                                 }
                             }
                         }

@@ -26,6 +26,8 @@ import javax.net.ssl.TrustManagerFactory;
 
 import eu.geekhome.asymptote.R;
 import eu.geekhome.asymptote.model.Automation;
+import eu.geekhome.asymptote.model.AutomationDateTimeRelay;
+import eu.geekhome.asymptote.model.AutomationSchedulerRelay;
 import eu.geekhome.asymptote.model.AutomationSyncUpdate;
 import eu.geekhome.asymptote.model.BoardId;
 import eu.geekhome.asymptote.model.BoardMode;
@@ -300,26 +302,36 @@ public class HttpClientSyncManager implements SyncManager, LocalDiscoveryService
     }
 
     private void pushAutomation(Variant variant, Automation automation, final InetAddress address, final SyncCallback syncCallback) {
-        String ix = String.format(Locale.US, "index=%d", automation.getIndex());
         String triggerQuery = "";
         String valueQuery = "";
+        String type = "";
+
+        String ix = String.format(Locale.US, "&index=%d", automation.getIndex());
+
+        if (automation instanceof AutomationDateTimeRelay) {
+            type="type=dt&unit=0";
+        }
+
+        if (automation instanceof AutomationSchedulerRelay) {
+            type="type=sr&unit=0";
+        }
         if (automation.getTrigger() instanceof DateTimeTrigger) {
             DateTimeTrigger dateTimeTrigger = (DateTimeTrigger)automation.getTrigger();
-            triggerQuery = String.format(Locale.US, "&dt_date=%d&dt_time=%d", dateTimeTrigger.getDateMark(), dateTimeTrigger.getTimeMark());
+            triggerQuery = String.format(Locale.US, "&time=%d", dateTimeTrigger.getUtcTimestamp());
         }
 
         if (automation.getTrigger() instanceof SchedulerTrigger) {
             SchedulerTrigger schedulerTrigger = (SchedulerTrigger)automation.getTrigger();
-            triggerQuery = String.format(Locale.US, "&st_days=%d&st_time=%d", schedulerTrigger.getDays(), schedulerTrigger.getTimeMark());
+            triggerQuery = String.format(Locale.US, "&days=%d&time=%d", schedulerTrigger.getDays(), schedulerTrigger.getTimeMark());
         }
 
         if (automation.getValue() instanceof RelayValue) {
             RelayValue relayValue = (RelayValue)automation.getValue();
-            valueQuery = String.format(Locale.US, "&r_val=%d&r_channel=%d", relayValue.getState() ? 1 : 0, relayValue.getChannel());
+            valueQuery = String.format(Locale.US, "&state=%d&channel=%d", relayValue.getState() ? 1 : 0, relayValue.getChannel());
         }
 
         Request request = new Request.Builder()
-                .url((variant == Variant.WiFi ? "https:/" : "http:/") + address.toString() + "/auto?" + ix + triggerQuery + valueQuery)
+                .url((variant == Variant.WiFi ? "https:/" : "http:/") + address.toString() + "/auto?" + type + ix + triggerQuery + valueQuery)
                 .build();
 
         _client.newCall(request).enqueue(syncResponse2SyncCallback(syncCallback, variant));

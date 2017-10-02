@@ -342,8 +342,8 @@
     <string name="channel">Kanał</string>
     <string name="value">Wartość</string>
     <string name="channel_no" formatted="false">Kanał %d</string>
-    <string name="change_relay_at_on" formatted="false">Dnia %s, o godzinie %s, włącz przekaźnik %d</string>
-    <string name="change_relay_at_off" formatted="false">Dnia %s, o godzinie %s, wyłącz przekaźnik %d</string>
+    <string name="change_relay_at_on" formatted="false">Włącz przekaźnik %d o %s, %s</string>
+    <string name="change_relay_at_off" formatted="false">Wyłącz przekaźnik %d 0 %s, %s</string>
     <string name="change_relay_by_schedule_on" formatted="false">W %s o godzinie %s włączaj przekaźnik %d</string>
     <string name="change_relay_by_schedule_off" formatted="false">W %s o godzinie %s zwyłączaj przekaźnik %d</string>
     <string name="pick_action">Wybierz akcję</string>

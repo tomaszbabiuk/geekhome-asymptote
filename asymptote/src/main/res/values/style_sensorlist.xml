@@ -164,22 +164,22 @@
     </style>
 
     <style name="SensorList.ActionIcon.More" parent="SensorList.ActionIcon">
-        <item name="android:layout_width">15dp</item>
-        <item name="android:layout_height">30dp</item>
+        <item name="android:layout_width">17.5dp</item>
+        <item name="android:layout_height">35dp</item>
         <item name="svgColor">@color/almost_white</item>
         <item name="svgId">@raw/more</item>
     </style>
 
     <style name="SensorList.ActionIcon.Locked" parent="SensorList.ActionIcon">
-        <item name="android:layout_width">30dp</item>
-        <item name="android:layout_height">30dp</item>
+        <item name="android:layout_width">20dp</item>
+        <item name="android:layout_height">20dp</item>
         <item name="svgColor">@color/almost_white</item>
         <item name="svgId">@raw/locked</item>
     </style>
 
     <style name="SensorList.ActionIcon.Unlocked" parent="SensorList.ActionIcon">
-        <item name="android:layout_width">30dp</item>
-        <item name="android:layout_height">30dp</item>
+        <item name="android:layout_width">20dp</item>
+        <item name="android:layout_height">20dp</item>
         <item name="svgColor">@color/almost_white</item>
         <item name="svgId">@raw/unlocked</item>
     </style>

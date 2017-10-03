@@ -206,6 +206,7 @@
     <string name="no">No</string>
     <string name="device_locked_not_upgradable">Cannot change firmware on a device that\'s not locked because of security reasons. Please lock this device first.</string>
     <string name="change_firmware">Change/Update Firmware</string>
+    <string name="firmware">Firmware</string>
     <string name="available_firmware_variants">Available firmware variants</string>
     <string name="update">Update</string>
     <string name="change">Change</string>
@@ -323,7 +324,7 @@
     <string name="SPDT_switch">on/off</string>
     <string name="SPDT_NO_switch">impulse</string>
     <string name="light_switch_type">Light switch type</string>
-    <string name="define_automation">Define automation</string>
+    <string name="automation">Automation</string>
     <string name="exact_time_trigger">Exact time</string>
     <string name="scheduler_trigger">Scheduler</string>
     <string name="choose_trigger">Choose trigger</string>

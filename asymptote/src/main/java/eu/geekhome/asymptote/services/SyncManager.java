@@ -14,6 +14,9 @@ public interface SyncManager {
                      final InetAddress address, final SyncCallback syncCallback);
     void start() throws IOException;
     void stop();
+
+    void listAutomations(Variant variant, InetAddress address, SyncCallback syncCallback);
+
     void sync(Variant variant, InetAddress address, SyncCallback syncCallback);
     void lock(Variant variant, InetAddress address, SyncCallback callback, String userId);
 

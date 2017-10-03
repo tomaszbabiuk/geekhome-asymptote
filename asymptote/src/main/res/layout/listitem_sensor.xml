@@ -90,34 +90,34 @@
                             android:textColor="@color/white"
                             tools:text="[Sensor name]"/>
 
-                        <LinearLayout
-                            style="@style/Layout.Wrapped.Horizontal"
-                            android:layout_gravity="top"
-                            android:visibility="@{vm.syncData.systemInfo.variant.wifi ? View.VISIBLE : View.GONE}">
-
-                            <eu.geekhome.controls.SvgImageView
-                                style="@style/SensorList.ActionIcon.Unlocked"
-                                android:onClick="@{() -> vm.lock()}"
-                                android:visibility="@{vm.syncData.locked ? View.GONE : View.VISIBLE}"/>
-
-                            <eu.geekhome.controls.SvgImageView
-                                style="@style/SensorList.ActionIcon.Locked"
-                                android:onClick="@{() -> vm.unlock()}"
-                                android:visibility="@{vm.syncData.locked ? View.VISIBLE : View.GONE}"/>
-                        </LinearLayout>
-
                         <eu.geekhome.controls.SvgImageView
                             style="@style/SensorList.ActionIcon.More"
                             android:onClick="@{() -> vm.more()}"/>
                     </LinearLayout>
 
 
-                    <TextView
-                        style="@style/Layout.MatchX"
-                        android:text='@{vm.syncData.deviceKey.deviceId + " v" + vm.syncData.systemInfo.versionMajor + "." + vm.syncData.systemInfo.versionMinor}'
-                        android:textAppearance="?android:attr/textAppearanceSmall"
-                        android:textColor="@color/white"
-                        tools:text="[001234093123212309]"/>
+                    <LinearLayout
+                        style="@style/Layout.MatchX.Horizontal"
+                        android:layout_gravity="top"
+                        android:visibility="@{vm.syncData.systemInfo.variant.wifi ? View.VISIBLE : View.GONE}">
+
+                        <TextView
+                            style="@style/Layout.Wrapped"
+                            android:text='@{vm.syncData.deviceKey.deviceId + " v" + vm.syncData.systemInfo.versionMajor + "." + vm.syncData.systemInfo.versionMinor}'
+                            android:textAppearance="?android:attr/textAppearanceSmall"
+                            android:textColor="@color/white"
+                            tools:text="[001234093123212309]"/>
+
+                        <eu.geekhome.controls.SvgImageView
+                            style="@style/SensorList.ActionIcon.Unlocked"
+                            android:onClick="@{() -> vm.lock()}"
+                            android:visibility="@{vm.syncData.systemInfo.variant.wifi &amp;&amp; vm.syncData.locked ? View.GONE : View.VISIBLE}"/>
+
+                        <eu.geekhome.controls.SvgImageView
+                            style="@style/SensorList.ActionIcon.Locked"
+                            android:onClick="@{() -> vm.unlock()}"
+                            android:visibility="@{vm.syncData.systemInfo.variant.wifi &amp;&amp; vm.syncData.locked ? View.VISIBLE : View.GONE}"/>
+                    </LinearLayout>
 
                     <View
                         style="@style/SensorList.HorizontalLine"/>

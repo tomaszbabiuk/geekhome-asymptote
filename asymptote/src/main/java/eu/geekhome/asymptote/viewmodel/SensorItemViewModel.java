@@ -448,6 +448,20 @@ public class SensorItemViewModel extends BaseObservable implements LayoutHolder 
         return _updates;
     }
 
+    public void listAutomations() {
+        _syncManager.listAutomations(getSyncData().getSystemInfo().getVariant(), getAddress(), new SyncManager.SyncCallback() {
+            @Override
+            public void success() {
+
+            }
+
+            @Override
+            public void failure(Exception exception) {
+
+            }
+        });
+    }
+
     protected void requestFullSync() {
         setBlocked(hasBlockedUpdates());
 

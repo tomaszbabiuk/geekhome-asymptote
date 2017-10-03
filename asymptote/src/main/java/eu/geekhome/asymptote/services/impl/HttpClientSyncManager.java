@@ -327,14 +327,46 @@ public class HttpClientSyncManager implements SyncManager, LocalDiscoveryService
 
         if (automation.getValue() instanceof RelayValue) {
             RelayValue relayValue = (RelayValue)automation.getValue();
-            valueQuery = String.format(Locale.US, "&state=%d&channel=%d", relayValue.getState() ? 1 : 0, relayValue.getChannel());
+            valueQuery = String.format(Locale.US, "&value=%d&channel=%d", relayValue.getState() ? 1 : 0, relayValue.getChannel());
         }
 
         Request request = new Request.Builder()
-                .url((variant == Variant.WiFi ? "https:/" : "http:/") + address.toString() + "/auto?" + type + ix + triggerQuery + valueQuery)
+                .url((variant == Variant.WiFi ? "https:/" : "http:/") + address.toString() + "/addauto?" + type + ix + triggerQuery + valueQuery)
                 .build();
 
-        _client.newCall(request).enqueue(syncResponse2SyncCallback(syncCallback, variant));
+        _client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                syncCallback.failure(e);
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                syncCallback.success();
+            }
+        });
+    }
+
+    @Override
+    public void listAutomations(Variant variant, final InetAddress address, final SyncCallback syncCallback) {
+        Request request = new Request.Builder()
+                .url((variant == Variant.WiFi ? "https:/" : "http:/") + address.toString() + "/listauto")
+                .build();
+
+        _client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                syncCallback.failure(e);
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                String json = response.body().string();
+                HttpListAutomationResponse values = _gson.fromJson(json, HttpListAutomationResponse.class);
+
+                syncCallback.success();
+            }
+        });
     }
 
     private void pushUpdateQuery(Variant variant, String query, final InetAddress address, final SyncCallback syncCallback) {
@@ -404,7 +436,7 @@ public class HttpClientSyncManager implements SyncManager, LocalDiscoveryService
 
     private DeviceSyncData processSyncResponse(String chipId, Response response) throws IOException, BoardNotSupportedException {
         String json = response.body().string();
-        NanoDeviceDataSnapshot values = _gson.fromJson(json, NanoDeviceDataSnapshot.class);
+        HttpSyncResponse values = _gson.fromJson(json, HttpSyncResponse.class);
 
         int boardIdAsInt = values.getBoardId();
         if (chipId == null) {

@@ -17,6 +17,7 @@ import eu.geekhome.asymptote.model.AutomationSchedulerRelay;
 import eu.geekhome.asymptote.model.AutomationSyncUpdate;
 import eu.geekhome.asymptote.services.NavigationService;
 import eu.geekhome.asymptote.services.AutomationAddedListener;
+import eu.geekhome.asymptote.services.SyncManager;
 import eu.geekhome.asymptote.services.impl.MainViewModelsFactory;
 
 public class EditAutomationViewModel extends ViewModel<FragmentEditAutomationBinding> implements AutomationAddedListener {
@@ -43,6 +44,12 @@ public class EditAutomationViewModel extends ViewModel<FragmentEditAutomationBin
         _sensor = sensor;
         _automations = new ObservableArrayList<>();
         _actionBarModel = _factory.createHelpActionBarModel();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        _sensor.listAutomations();
     }
 
     @Override

@@ -202,6 +202,7 @@
     <string name="no">Nie</string>
     <string name="device_locked_not_upgradable">Z powodów bezpieczeństwa nie można aktualizować oprogramowania urządzenia, które nie jest zablokowane. Wpierw zablokuj urządzenie ustawiając hasło awaryjne.</string>
     <string name="change_firmware">Zmień/uaktualnij firmware</string>
+    <string name="firmware">Firmware</string>
     <string name="available_firmware_variants">Dostępne warianty oprogramowania</string>
     <string name="update">Uaktualnij</string>
     <string name="change">Zmień</string>
@@ -321,7 +322,7 @@
     <string name="SPDT_switch">wł/wył</string>
     <string name="SPDT_NO_switch">dzwonkowy</string>
     <string name="light_switch_type">Typ łącznika</string>
-    <string name="define_automation">Definiuj automatyzację</string>
+    <string name="automation">Automatyzacja</string>
     <string name="choose_trigger">Wybierz typ wyzwalacza</string>
     <string name="datetime_trigger_name">Data i godzina</string>
     <string name="datetime_trigger_desc">Zmienia stan urządzenia o ustalonej dacie i godzinie</string>

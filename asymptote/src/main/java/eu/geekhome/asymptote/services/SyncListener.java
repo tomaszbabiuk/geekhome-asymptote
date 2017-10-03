@@ -3,6 +3,7 @@ package eu.geekhome.asymptote.services;
 import java.net.InetAddress;
 import java.util.ArrayList;
 
+import eu.geekhome.asymptote.model.Automation;
 import eu.geekhome.asymptote.model.BoardId;
 import eu.geekhome.asymptote.model.DeviceSyncData;
 import eu.geekhome.asymptote.model.SyncUpdate;
@@ -13,4 +14,5 @@ public interface SyncListener {
     void onUnsupportedBoard(InetAddress from, String deviceId);
     void onSecuredDeviceFound(InetAddress from);
     void onCloudDeviceFound(InetAddress from, Variant variant, BoardId boardId, Byte[] restoreTokenPart);
+    void onAutomationListLoaded(ArrayList<Automation> automations);
 }

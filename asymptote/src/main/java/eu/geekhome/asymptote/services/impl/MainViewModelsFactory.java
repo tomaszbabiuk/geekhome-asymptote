@@ -261,7 +261,7 @@ public class MainViewModelsFactory {
     }
 
     public EditAutomationViewModel createEditTriggersViewModel(SensorItemViewModel sensor) {
-        return new EditAutomationViewModel(this, _navigationService, sensor);
+        return new EditAutomationViewModel(this, _context, _navigationService, _syncManager, _threadRunner, sensor);
     }
 
     public ChooseTriggerViewModel createChooseTriggerViewModel(AutomationAddedListener listener, int index, SensorItemViewModel sensor) {

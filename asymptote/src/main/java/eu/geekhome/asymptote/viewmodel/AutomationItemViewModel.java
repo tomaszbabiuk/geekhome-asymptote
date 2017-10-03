@@ -1,5 +1,6 @@
 package eu.geekhome.asymptote.viewmodel;
 
+import android.content.Context;
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
 import android.databinding.ViewDataBinding;
@@ -15,14 +16,14 @@ public class AutomationItemViewModel extends BaseObservable implements LayoutHol
     private final EditAutomationViewModel _parent;
     private String _message;
 
-    AutomationItemViewModel(Automation automation, EditAutomationViewModel parent) {
+    AutomationItemViewModel(Context context, Automation automation, EditAutomationViewModel parent) {
         _automation = automation;
         _parent = parent;
-        updateMessage();
+        updateMessage(context);
     }
 
-    private void updateMessage() {
-        setMessage(_automation.composeMessage());
+    private void updateMessage(Context context) {
+        setMessage(_automation.composeMessage(context));
     }
 
     @Override

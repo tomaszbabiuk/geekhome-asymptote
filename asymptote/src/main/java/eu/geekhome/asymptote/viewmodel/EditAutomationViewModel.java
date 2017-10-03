@@ -1,10 +1,14 @@
 package eu.geekhome.asymptote.viewmodel;
 
+import android.content.Context;
 import android.databinding.Bindable;
 import android.databinding.DataBindingUtil;
 import android.databinding.ObservableArrayList;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
+
+import java.net.InetAddress;
+import java.util.ArrayList;
 
 import eu.geekhome.asymptote.R;
 import eu.geekhome.asymptote.bindingutils.LayoutHolder;
@@ -15,16 +19,24 @@ import eu.geekhome.asymptote.model.Automation;
 import eu.geekhome.asymptote.model.AutomationDateTimeRelay;
 import eu.geekhome.asymptote.model.AutomationSchedulerRelay;
 import eu.geekhome.asymptote.model.AutomationSyncUpdate;
+import eu.geekhome.asymptote.model.BoardId;
+import eu.geekhome.asymptote.model.DeviceSyncData;
+import eu.geekhome.asymptote.model.Variant;
 import eu.geekhome.asymptote.services.NavigationService;
 import eu.geekhome.asymptote.services.AutomationAddedListener;
+import eu.geekhome.asymptote.services.SyncListener;
 import eu.geekhome.asymptote.services.SyncManager;
+import eu.geekhome.asymptote.services.ThreadRunner;
 import eu.geekhome.asymptote.services.impl.MainViewModelsFactory;
 
-public class EditAutomationViewModel extends ViewModel<FragmentEditAutomationBinding> implements AutomationAddedListener {
+public class EditAutomationViewModel extends ViewModel<FragmentEditAutomationBinding> implements AutomationAddedListener, SyncListener {
 
     private ObservableArrayList<LayoutHolder> _automations;
     private HelpActionBarViewModel _actionBarModel;
+    private final SyncManager _syncManager;
+    private final ThreadRunner _threadRunner;
     private final SensorItemViewModel _sensor;
+    private final Context _context;
     private final NavigationService _navigationService;
     private final MainViewModelsFactory _factory;
 
@@ -38,9 +50,13 @@ public class EditAutomationViewModel extends ViewModel<FragmentEditAutomationBin
         return _sensor;
     }
 
-    public EditAutomationViewModel(MainViewModelsFactory factory, NavigationService navigationService, SensorItemViewModel sensor) {
+    public EditAutomationViewModel(MainViewModelsFactory factory, Context context, NavigationService navigationService,
+                                   SyncManager syncManager, ThreadRunner threadRunner, SensorItemViewModel sensor) {
         _factory = factory;
+        _context = context;
         _navigationService = navigationService;
+        _syncManager = syncManager;
+        _threadRunner = threadRunner;
         _sensor = sensor;
         _automations = new ObservableArrayList<>();
         _actionBarModel = _factory.createHelpActionBarModel();
@@ -49,7 +65,14 @@ public class EditAutomationViewModel extends ViewModel<FragmentEditAutomationBin
     @Override
     public void onResume() {
         super.onResume();
+        _syncManager.setSyncListener(this);
         _sensor.listAutomations();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        _syncManager.setSyncListener(null);
     }
 
     @Override
@@ -91,7 +114,7 @@ public class EditAutomationViewModel extends ViewModel<FragmentEditAutomationBin
 
     @Override
     public void onAutomationAdded(Automation automation) {
-        AutomationItemViewModel automationModel = new AutomationItemViewModel(automation, this);
+        AutomationItemViewModel automationModel = new AutomationItemViewModel(_context, automation, this);
         _automations.add(automationModel);
     }
 
@@ -109,7 +132,7 @@ public class EditAutomationViewModel extends ViewModel<FragmentEditAutomationBin
             _automations.remove(toDelete);
         }
 
-        AutomationItemViewModel automationModel = new AutomationItemViewModel(automation, this);
+        AutomationItemViewModel automationModel = new AutomationItemViewModel(_context, automation, this);
         _automations.add(automationModel);
     }
 
@@ -140,4 +163,39 @@ public class EditAutomationViewModel extends ViewModel<FragmentEditAutomationBin
         _sensor.requestFullSync();
         _navigationService.goBack();
     }
+
+    @Override
+    public void onAfterSync(InetAddress from, DeviceSyncData syncData, long timestamp, String token) {
+
+    }
+
+    @Override
+    public void onUnsupportedBoard(InetAddress from, String deviceId) {
+
+    }
+
+    @Override
+    public void onSecuredDeviceFound(InetAddress from) {
+
+    }
+
+    @Override
+    public void onCloudDeviceFound(InetAddress from, Variant variant, BoardId boardId, Byte[] restoreTokenPart) {
+
+    }
+
+    @Override
+    public void onAutomationListLoaded(final ArrayList<Automation> automationList) {
+        _automations.clear();
+        _threadRunner.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                for (Automation automation : automationList) {
+                    AutomationItemViewModel automationModel = new AutomationItemViewModel(_context, automation, EditAutomationViewModel.this);
+                    _automations.add(automationModel);
+                }
+            }
+        });
+    }
+
 }

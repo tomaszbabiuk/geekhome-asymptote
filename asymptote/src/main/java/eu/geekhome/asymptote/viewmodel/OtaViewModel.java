@@ -11,11 +11,13 @@ import java.io.IOException;
 import java.math.BigInteger;
 import java.net.InetAddress;
 import java.security.SecureRandom;
+import java.util.ArrayList;
 import java.util.Calendar;
 
 import eu.geekhome.asymptote.BR;
 import eu.geekhome.asymptote.R;
 import eu.geekhome.asymptote.databinding.FragmentOtaBinding;
+import eu.geekhome.asymptote.model.Automation;
 import eu.geekhome.asymptote.model.BoardId;
 import eu.geekhome.asymptote.model.CloudFingerprintSyncUpdate;
 import eu.geekhome.asymptote.model.CloudPasswordSyncUpdate;
@@ -354,6 +356,11 @@ public class OtaViewModel extends WiFiAwareViewModel<FragmentOtaBinding> impleme
 
     @Override
     public void onCloudDeviceFound(InetAddress from, Variant variant, BoardId boardId, Byte[] restoreTokenPart) {
+    }
+
+    @Override
+    public void onAutomationListLoaded(ArrayList<Automation> automations) {
+
     }
 
     private void processTimeElapsed() {

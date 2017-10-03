@@ -1,5 +1,7 @@
 package eu.geekhome.asymptote.model;
 
+import android.content.Context;
+
 public abstract class Automation<T, V> {
     private final int _index;
     private final T _trigger;
@@ -23,5 +25,5 @@ public abstract class Automation<T, V> {
         return _index;
     }
 
-    public abstract String composeMessage();
+    public abstract String composeMessage(Context context);
 }

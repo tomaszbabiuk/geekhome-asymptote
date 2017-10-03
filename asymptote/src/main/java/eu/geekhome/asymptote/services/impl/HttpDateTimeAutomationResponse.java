@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 public class HttpDateTimeAutomationResponse {
     @SerializedName("idx")
-    private long _index;
+    private int _index;
 
     @SerializedName("tme")
     private int _time;
@@ -20,11 +20,11 @@ public class HttpDateTimeAutomationResponse {
     @SerializedName("chn")
     private int _channel;
 
-    public long getIndex() {
+    public int getIndex() {
         return _index;
     }
 
-    public void setIndex(long index) {
+    public void setIndex(int index) {
         _index = index;
     }
 

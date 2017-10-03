@@ -22,6 +22,7 @@ import eu.geekhome.asymptote.bindingutils.LayoutHolder;
 import eu.geekhome.asymptote.bindingutils.ViewModel;
 import eu.geekhome.asymptote.bindingutils.controls.SimpleHeaderDecoration;
 import eu.geekhome.asymptote.databinding.FragmentMainBinding;
+import eu.geekhome.asymptote.model.Automation;
 import eu.geekhome.asymptote.model.BoardId;
 import eu.geekhome.asymptote.model.DeviceSnapshot;
 import eu.geekhome.asymptote.model.DeviceSyncData;
@@ -461,6 +462,11 @@ public class MainViewModel extends ViewModel<FragmentMainBinding> implements Syn
             _firebaseDevices.put(from, restoreTokenPart);
         }
         updateFirebaseDevicesStatus();
+    }
+
+    @Override
+    public void onAutomationListLoaded(ArrayList<Automation> automations) {
+
     }
 
     private void updateFirebaseDevicesStatus() {

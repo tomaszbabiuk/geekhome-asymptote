@@ -9,13 +9,13 @@ public class HttpListAutomationResponse {
     private ArrayList<HttpDateTimeAutomationResponse> _dateTimeAutomations;
 
     @SerializedName("sr")
-    private ArrayList<HttpSchedulerAutomationResponse> _schedulerutomations;
+    private ArrayList<HttpSchedulerAutomationResponse> _schedulerAutomations;
 
     public ArrayList<HttpDateTimeAutomationResponse> getDateTimeAutomations() {
         return _dateTimeAutomations;
     }
 
-    public ArrayList<HttpSchedulerAutomationResponse> getSchedulerutomations() {
-        return _schedulerutomations;
+    public ArrayList<HttpSchedulerAutomationResponse> getSchedulerAutomations() {
+        return _schedulerAutomations;
     }
 }

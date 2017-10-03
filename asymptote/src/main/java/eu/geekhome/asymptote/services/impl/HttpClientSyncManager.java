@@ -362,7 +362,25 @@ public class HttpClientSyncManager implements SyncManager, LocalDiscoveryService
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 String json = response.body().string();
-                HttpListAutomationResponse values = _gson.fromJson(json, HttpListAutomationResponse.class);
+                HttpListAutomationResponse listResponse = _gson.fromJson(json, HttpListAutomationResponse.class);
+
+                ArrayList<Automation> automations = new ArrayList<>();
+                for (HttpDateTimeAutomationResponse dta : listResponse.getDateTimeAutomations()) {
+                    DateTimeTrigger trigger = new DateTimeTrigger(dta.getTime());
+                    RelayValue relayValue = new RelayValue(dta.getChannel(), dta.getValue() == 1);
+                    AutomationDateTimeRelay automation = new AutomationDateTimeRelay(dta.getIndex(), trigger, relayValue);
+                    automations.add(automation);
+                }
+                for (HttpSchedulerAutomationResponse sra : listResponse.getSchedulerAutomations()) {
+                    SchedulerTrigger trigger = new SchedulerTrigger(sra.getDays(), sra.getTime());
+                    RelayValue relayValue = new RelayValue(sra.getChannel(), sra.getValue() == 1);
+                    AutomationSchedulerRelay automation = new AutomationSchedulerRelay(sra.getIndex(), trigger, relayValue);
+                    automations.add(automation);
+                }
+
+                if (_listener != null) {
+                    _listener.onAutomationListLoaded(automations);
+                }
 
                 syncCallback.success();
             }

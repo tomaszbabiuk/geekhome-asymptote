@@ -32,6 +32,7 @@ import eu.geekhome.asymptote.model.CloudUsernameSyncUpdate;
 import eu.geekhome.asymptote.model.ColorSyncUpdate;
 import eu.geekhome.asymptote.model.AutomationSyncUpdate;
 import eu.geekhome.asymptote.model.DateTimeTrigger;
+import eu.geekhome.asymptote.model.DeleteAutomationSyncUpdate;
 import eu.geekhome.asymptote.model.DeviceKey;
 import eu.geekhome.asymptote.model.DeviceSnapshot;
 import eu.geekhome.asymptote.model.DeviceSyncData;
@@ -432,10 +433,17 @@ public class FirebaseCloudDeviceService implements CloudDeviceService {
                                 orders.put("state", stateUpdate.getValue());
                             }
 
+                            if (update instanceof DeleteAutomationSyncUpdate) {
+                                DeleteAutomationSyncUpdate deleteUpdate = (DeleteAutomationSyncUpdate)update;
+                                Automation automation = (Automation)deleteUpdate.getValue();
+                                String ix = String.format("deleteauto/%02X", automation.getIndex());
+                                orders.put(ix, 1);
+                            }
+
                             if (update instanceof AutomationSyncUpdate) {
                                 AutomationSyncUpdate automationUpdate = (AutomationSyncUpdate) update;
                                 Automation automation = (Automation)automationUpdate.getValue();
-                                String ix = String.format("auto/%02X/", automation.getIndex());
+                                String ix = String.format("addauto/%02X/", automation.getIndex());
                                 if (automation instanceof AutomationDateTimeRelay) {
                                     orders.put(ix + "type", "dr");
                                 }
@@ -446,7 +454,7 @@ public class FirebaseCloudDeviceService implements CloudDeviceService {
 
                                 if (automation.getTrigger() instanceof DateTimeTrigger) {
                                     DateTimeTrigger dateTimeTrigger = (DateTimeTrigger)automation.getTrigger();
-                                    orders.put(ix + "epoch", dateTimeTrigger.getUtcTimestamp());
+                                    orders.put(ix + "time", dateTimeTrigger.getUtcTimestamp());
                                 }
 
                                 if (automation.getTrigger() instanceof SchedulerTrigger) {

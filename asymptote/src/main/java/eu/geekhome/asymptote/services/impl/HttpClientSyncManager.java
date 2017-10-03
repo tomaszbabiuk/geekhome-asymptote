@@ -38,6 +38,7 @@ import eu.geekhome.asymptote.model.CloudPasswordSyncUpdate;
 import eu.geekhome.asymptote.model.CloudUsernameSyncUpdate;
 import eu.geekhome.asymptote.model.ColorSyncUpdate;
 import eu.geekhome.asymptote.model.DateTimeTrigger;
+import eu.geekhome.asymptote.model.DeleteAutomationSyncUpdate;
 import eu.geekhome.asymptote.model.DeviceKey;
 import eu.geekhome.asymptote.model.DeviceSyncData;
 import eu.geekhome.asymptote.model.NameSyncUpdate;
@@ -296,6 +297,13 @@ public class HttpClientSyncManager implements SyncManager, LocalDiscoveryService
                     AutomationSyncUpdate automationUpdate = (AutomationSyncUpdate) update;
                     Automation automation = (Automation)automationUpdate.getValue();
                     pushAutomation(variant, automation, address, syncCallback);
+                }
+
+                if (update instanceof DeleteAutomationSyncUpdate) {
+                    DeleteAutomationSyncUpdate deleteUpdate = (DeleteAutomationSyncUpdate)update;
+                    Automation automation = (Automation)deleteUpdate.getValue();
+                    String query = String.format(Locale.US, "deleteauto=%d", automation.getIndex());
+                    pushUpdateQuery(variant, query, address, syncCallback);
                 }
             }
         }

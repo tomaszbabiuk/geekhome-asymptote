@@ -20,6 +20,7 @@ import eu.geekhome.asymptote.model.AutomationDateTimeRelay;
 import eu.geekhome.asymptote.model.AutomationSchedulerRelay;
 import eu.geekhome.asymptote.model.AutomationSyncUpdate;
 import eu.geekhome.asymptote.model.BoardId;
+import eu.geekhome.asymptote.model.DeleteAutomationSyncUpdate;
 import eu.geekhome.asymptote.model.DeviceSyncData;
 import eu.geekhome.asymptote.model.Variant;
 import eu.geekhome.asymptote.services.NavigationService;
@@ -31,6 +32,7 @@ import eu.geekhome.asymptote.services.impl.MainViewModelsFactory;
 
 public class EditAutomationViewModel extends ViewModel<FragmentEditAutomationBinding> implements AutomationAddedListener, SyncListener {
 
+    private boolean _loadAutomationList;
     private ObservableArrayList<LayoutHolder> _automations;
     private HelpActionBarViewModel _actionBarModel;
     private final SyncManager _syncManager;
@@ -60,13 +62,17 @@ public class EditAutomationViewModel extends ViewModel<FragmentEditAutomationBin
         _sensor = sensor;
         _automations = new ObservableArrayList<>();
         _actionBarModel = _factory.createHelpActionBarModel();
+        _loadAutomationList = true;
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        _syncManager.setSyncListener(this);
-        _sensor.listAutomations();
+        if (_loadAutomationList) {
+            _loadAutomationList = false;
+            _syncManager.setSyncListener(this);
+            _sensor.listAutomations();
+        }
     }
 
     @Override
@@ -136,10 +142,6 @@ public class EditAutomationViewModel extends ViewModel<FragmentEditAutomationBin
         _automations.add(automationModel);
     }
 
-    void deleteAutomation(AutomationItemViewModel toDelete) {
-        _automations.remove(toDelete);
-    }
-
     void editAutomation(AutomationItemViewModel toEdit) {
         if (toEdit.getAutomation() instanceof AutomationDateTimeRelay) {
             AutomationDateTimeRelay automation = (AutomationDateTimeRelay)toEdit.getAutomation();
@@ -155,9 +157,16 @@ public class EditAutomationViewModel extends ViewModel<FragmentEditAutomationBin
     public void save() {
         _sensor.getUpdates().clear();
         for (LayoutHolder automationHolder : _automations) {
-            Automation automation = ((AutomationItemViewModel)automationHolder).getAutomation();
-            AutomationSyncUpdate automationUpdate = new AutomationSyncUpdate(automation);
-            _sensor.getUpdates().add(automationUpdate);
+            AutomationItemViewModel automationViewModel = (AutomationItemViewModel)automationHolder;
+            Automation automation = automationViewModel.getAutomation();
+
+            if (automationViewModel.isRemove()) {
+                DeleteAutomationSyncUpdate deleteUpdate = new DeleteAutomationSyncUpdate(automation);
+                _sensor.getUpdates().add(deleteUpdate);
+            } else {
+                AutomationSyncUpdate automationUpdate = new AutomationSyncUpdate(automation);
+                _sensor.getUpdates().add(automationUpdate);
+            }
         }
 
         _sensor.requestFullSync();

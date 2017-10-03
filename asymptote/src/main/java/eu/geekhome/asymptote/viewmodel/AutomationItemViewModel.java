@@ -4,10 +4,13 @@ import android.content.Context;
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
 import android.databinding.ViewDataBinding;
+import android.graphics.Paint;
+import android.widget.TextView;
 
 import eu.geekhome.asymptote.BR;
 import eu.geekhome.asymptote.R;
 import eu.geekhome.asymptote.bindingutils.LayoutHolder;
+import eu.geekhome.asymptote.databinding.ListitemAutomationBinding;
 import eu.geekhome.asymptote.model.Automation;
 
 public class AutomationItemViewModel extends BaseObservable implements LayoutHolder {
@@ -15,6 +18,8 @@ public class AutomationItemViewModel extends BaseObservable implements LayoutHol
     private Automation _automation;
     private final EditAutomationViewModel _parent;
     private String _message;
+    private TextView _textView;
+    private boolean _remove;
 
     AutomationItemViewModel(Context context, Automation automation, EditAutomationViewModel parent) {
         _automation = automation;
@@ -33,7 +38,7 @@ public class AutomationItemViewModel extends BaseObservable implements LayoutHol
 
     @Override
     public void onBinding(ViewDataBinding binding) {
-
+        _textView = ((ListitemAutomationBinding)binding).textview;
     }
 
     @Bindable
@@ -52,10 +57,27 @@ public class AutomationItemViewModel extends BaseObservable implements LayoutHol
     }
 
     public void delete() {
-        _parent.deleteAutomation(this);
+        //_parent.deleteAutomation(this);
+        if ((_textView.getPaintFlags() & Paint.STRIKE_THRU_TEXT_FLAG) > 0) {
+            setRemove(false);
+            _textView.setPaintFlags(_textView.getPaintFlags() & (~ Paint.STRIKE_THRU_TEXT_FLAG));
+        } else {
+            setRemove(true);
+            _textView.setPaintFlags(_textView.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+        }
     }
 
     public void edit() {
         _parent.editAutomation(this);
+    }
+
+    @Bindable
+    public boolean isRemove() {
+        return _remove;
+    }
+
+    public void setRemove(boolean remove) {
+        _remove = remove;
+        notifyPropertyChanged(BR.remove);
     }
 }

@@ -219,10 +219,10 @@ public class OtaViewModel extends WiFiAwareViewModel<FragmentOtaBinding> impleme
                 break;
             case Hybrid:
             case Firebase:
-                if (_firmware.getVariant().isCloud()) {
-                    promoteDeviceToFirebase();
-                } else {
+                if (_sensor.getSyncData().getSystemInfo().getVariant().isCloud()) {
                     sendOtaInformationToDevice();
+                } else {
+                    promoteDeviceToFirebase();
                 }
                 break;
         }

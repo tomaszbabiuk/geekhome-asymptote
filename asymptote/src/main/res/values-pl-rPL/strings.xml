@@ -258,14 +258,13 @@
     </string-array>
 
     <string name="signal_4blinks">Cztery mignięcia co ok 3–4 sekundy</string>
-    <string name="signal_4blinks_desc">Cztery mignięcia oznaczają, że urządzenie może połączyć się z internetem, ale certyfikat Chmury został odnowiony lub wygasł. Należy wprowadzić nowy certyfikat na urządzeniu.</string>
+    <string name="signal_4blinks_desc">Cztery mignięcia oznaczają, że urządzenie może połączyć się z internetem, ale stary certyfikat Chmury wygasł i należy potwierdzić nowy.</string>
     <string-array name="signal_4blinks_solutions">
-        <item>Będąc podłączonym do sieci WiFi, zaloguj się do aplikacji (nie używaj trybu awaryjnego)</item>
+        <item>Zaloguj się do aplikacji mobilnej.</item>
         <item>Poczkaj aż wykrywanie czujników zakończy się (60 sekund)</item>
-        <item>System powinien wykryć, że uszkodzone urządzenie znajduje się w sieci LAN ale nie wysyła danych do chmury.</item>
-        <item>Na liście urządzeń, pojawi się specjalny element z informacją o urządzeniu, które jest offline i z opcją uaktualnienia certyfikatu.</item>
-        <item>Kliknij przycisk \"Uaktualnij certyfikat\" i poczekaj chwilę.</item>
-        <item>Po kilku sekundach, certyfikat powinien zostać uaktualniony, a urządzenie pojawić się na liście.</item>
+        <item>Aplikacja mobilna wykryje, że urządzenie jest zarejestrowane na koncie użytkownika, ale nie wysyła danych.</item>
+        <item>Aplikacja połączy się z chmurą i potwierdzi jej certyfikat, po czym wyśle dane certyfikatu do urządenia podpisując je zaufanym podpisem.</item>
+        <item>Po kilku minutach, urządzenie powinno połączyć się z chmurą.</item>
     </string-array>
 
 
@@ -328,7 +327,7 @@
     <string name="datetime_trigger_desc">Zmienia stan urządzenia o ustalonej dacie i godzinie</string>
     <string name="scheduled_trigger_name">Terminarz</string>
     <string name="scheduled_trigger_desc">Pozwala zdefiniować tygodniowy rozkład zmiany stanu</string>
-    <string name="no_automations">Brak automatyzacji</string>
+    <string name="no_automation">Brak automatyzacji</string>
     <string name="automation_datetime_relay">Zmień stan przekaźnika o ustalonej dacie i godzinie</string>
     <string name="automation_scheduler_relay">Zmieniaj stan przekaźnika wg tygodniowego rozkładu</string>
     <string name="change_state_to_on">Zmień stan na wł</string>
@@ -364,6 +363,8 @@
     <string name="at_friday">Piątek</string>
     <string name="at_saturday">Sobotę</string>
     <string name="sunday">Niedzielę</string>
+    <string name="lock">Zablokuj (hasłem)</string>
+    <string name="unlock">Odblokuj</string>
 
     <string-array name="signal_turned_on_solutions">
         <item>Poczekaj na bardziej znaczący sygnał. Przykładowo, gdy urządzenie nie zna naszej sieci WiFi i próbuje nawiązać połączenie dioda stanu świeci się w sposób ciągły (nie miga) przez kilka sekund, a następnie miga dwukrotnie kilka razy i znowu zaświeca się, aby ponowić próbę. Te dwa mrugnięcia są tym bardziej znaczącym sygnałem w tym przypadku.</item>

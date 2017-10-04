@@ -66,6 +66,7 @@ public class FirebaseCloudDeviceService implements CloudDeviceService {
     private final Activity _activity;
     private SyncListener _syncListener;
     private Hashtable<DeviceSnapshot, ValueEventListener> _deviceListeners = new Hashtable<>();
+    private Hashtable<DeviceSnapshot, ValueEventListener> _automationListeners = new Hashtable<>();
 
 
     public FirebaseCloudDeviceService(Activity activity) {
@@ -132,7 +133,6 @@ public class FirebaseCloudDeviceService implements CloudDeviceService {
 
                         DeviceSyncData syncData = new DeviceSyncData(locked, info, key, name, color,
                                 role, OtaState.fromByte((byte) ota), mode, state, SyncSource.CLOUD);
-
 
 
                         if (hasTemperatureSensor) {
@@ -245,6 +245,60 @@ public class FirebaseCloudDeviceService implements CloudDeviceService {
         });
     }
 
+
+    private ValueEventListener createAutomationListListener() {
+        return new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                ArrayList<Automation> automationList = new ArrayList<>();
+
+                DataSnapshot dateTimeAutomationList = dataSnapshot.child("dt");
+                Iterator<DataSnapshot> iterator = dateTimeAutomationList.getChildren().iterator();
+                while (iterator.hasNext()) {
+                    DataSnapshot dateTimeAutomationChild = iterator.next();
+                    int index = dateTimeAutomationChild.child("idx").getValue(Integer.class);
+                    long time = dateTimeAutomationChild.child("tme").getValue(Long.class);
+                    int channel = dateTimeAutomationChild.child("chn").getValue(Integer.class);
+                    long value = dateTimeAutomationChild.child("val").getValue(Long.class);
+                    int unit = dateTimeAutomationChild.child("unt").getValue(Integer.class);
+                    if (unit == 0) {
+                        DateTimeTrigger trigger = new DateTimeTrigger(time);
+                        RelayValue relayValue = new RelayValue(channel, value == 1);
+                        AutomationDateTimeRelay automation = new AutomationDateTimeRelay(index, trigger, relayValue);
+                        automationList.add(automation);
+                    }
+                }
+
+                DataSnapshot schedulerAutomationList = dataSnapshot.child("sr");
+                iterator = schedulerAutomationList.getChildren().iterator();
+                while (iterator.hasNext()) {
+                    DataSnapshot schedulerAutomationChild = iterator.next();
+                    int index = schedulerAutomationChild.child("idx").getValue(Integer.class);
+                    long time = schedulerAutomationChild.child("tme").getValue(Long.class);
+                    int days = schedulerAutomationChild.child("dys").getValue(Integer.class);
+                    int channel = schedulerAutomationChild.child("chn").getValue(Integer.class);
+                    long value = schedulerAutomationChild.child("val").getValue(Long.class);
+                    int unit = schedulerAutomationChild.child("unt").getValue(Integer.class);
+                    if (unit == 0) {
+                        SchedulerTrigger trigger = new SchedulerTrigger(days, time);
+                        RelayValue relayValue = new RelayValue(channel, value == 1);
+                        AutomationSchedulerRelay automation = new AutomationSchedulerRelay(index, trigger, relayValue);
+                        automationList.add(automation);
+                    }
+                }
+
+                if (_syncListener != null) {
+                    _syncListener.onAutomationListLoaded(automationList);
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        };
+    }
+
     @Override
     public void getUserSnapshot(String userId, final CloudActionCallback<UserSnapshot> callback) {
         final FirebaseDatabase database = FirebaseDatabase.getInstance();
@@ -297,6 +351,31 @@ public class FirebaseCloudDeviceService implements CloudDeviceService {
                         }
                     }
                 });
+    }
+
+    @Override
+    public void registerForAutomationSyncEvents(String userId, String token) {
+        final FirebaseDatabase database = FirebaseDatabase.getInstance();
+        ValueEventListener listener = createAutomationListListener();
+        database
+                .getReference("devices")
+                .child(userId)
+                .child(token)
+                .child("auto")
+                .addValueEventListener(listener);
+    }
+
+    @Override
+    public void unregisterFromAutomationSyncEvents(String userId, final String token) {
+        final FirebaseDatabase database = FirebaseDatabase.getInstance();
+        for (DeviceSnapshot deviceSnapshot : _automationListeners.keySet()) {
+            database
+                    .getReference("devices")
+                    .child(userId)
+                    .child(deviceSnapshot.getDeviceToken())
+                    .child("auto")
+                    .removeEventListener(_automationListeners.get(deviceSnapshot));
+        }
     }
 
     @Override
@@ -434,18 +513,19 @@ public class FirebaseCloudDeviceService implements CloudDeviceService {
                             }
 
                             if (update instanceof DeleteAutomationSyncUpdate) {
-                                DeleteAutomationSyncUpdate deleteUpdate = (DeleteAutomationSyncUpdate)update;
-                                Automation automation = (Automation)deleteUpdate.getValue();
+                                DeleteAutomationSyncUpdate deleteUpdate = (DeleteAutomationSyncUpdate) update;
+                                Automation automation = (Automation) deleteUpdate.getValue();
                                 String ix = String.format("deleteauto/%02X", automation.getIndex());
                                 orders.put(ix, 1);
                             }
 
                             if (update instanceof AutomationSyncUpdate) {
                                 AutomationSyncUpdate automationUpdate = (AutomationSyncUpdate) update;
-                                Automation automation = (Automation)automationUpdate.getValue();
+                                Automation automation = (Automation) automationUpdate.getValue();
                                 String ix = String.format("addauto/%02X/", automation.getIndex());
                                 if (automation instanceof AutomationDateTimeRelay) {
                                     orders.put(ix + "type", "dr");
+                                    orders.put(ix + "unit", "0");
                                 }
 
                                 if (automation instanceof AutomationSchedulerRelay) {
@@ -453,18 +533,18 @@ public class FirebaseCloudDeviceService implements CloudDeviceService {
                                 }
 
                                 if (automation.getTrigger() instanceof DateTimeTrigger) {
-                                    DateTimeTrigger dateTimeTrigger = (DateTimeTrigger)automation.getTrigger();
+                                    DateTimeTrigger dateTimeTrigger = (DateTimeTrigger) automation.getTrigger();
                                     orders.put(ix + "time", dateTimeTrigger.getUtcTimestamp());
                                 }
 
                                 if (automation.getTrigger() instanceof SchedulerTrigger) {
-                                    SchedulerTrigger schedulerTrigger = (SchedulerTrigger)automation.getTrigger();
+                                    SchedulerTrigger schedulerTrigger = (SchedulerTrigger) automation.getTrigger();
                                     orders.put(ix + "days", schedulerTrigger.getDays());
                                     orders.put(ix + "time", schedulerTrigger.getTimeMark());
                                 }
 
                                 if (automation.getValue() instanceof RelayValue) {
-                                    RelayValue relayValue = (RelayValue)automation.getValue();
+                                    RelayValue relayValue = (RelayValue) automation.getValue();
                                     orders.put(ix + "val", relayValue.getState() ? 1 : 0);
                                     orders.put(ix + "channel", relayValue.getChannel());
                                 }

@@ -15,6 +15,7 @@ import eu.geekhome.asymptote.model.Automation;
 
 public class AutomationItemViewModel extends BaseObservable implements LayoutHolder {
 
+    private boolean _loading;
     private Automation _automation;
     private final EditAutomationViewModel _parent;
     private String _message;
@@ -24,6 +25,7 @@ public class AutomationItemViewModel extends BaseObservable implements LayoutHol
     AutomationItemViewModel(Context context, Automation automation, EditAutomationViewModel parent) {
         _automation = automation;
         _parent = parent;
+        _loading = false;
         updateMessage(context);
     }
 
@@ -79,5 +81,15 @@ public class AutomationItemViewModel extends BaseObservable implements LayoutHol
     public void setRemove(boolean remove) {
         _remove = remove;
         notifyPropertyChanged(BR.remove);
+    }
+
+    @Bindable
+    public boolean isLoading() {
+        return _loading;
+    }
+
+    public void setLoading(boolean loading) {
+        _loading = loading;
+        notifyPropertyChanged(BR.loading);
     }
 }

@@ -164,7 +164,7 @@
     </style>
 
     <style name="SensorList.ActionIcon.More" parent="SensorList.ActionIcon">
-        <item name="android:layout_width">17.5dp</item>
+        <item name="android:layout_width">35dp</item>
         <item name="android:layout_height">35dp</item>
         <item name="svgColor">@color/almost_white</item>
         <item name="svgId">@raw/more</item>

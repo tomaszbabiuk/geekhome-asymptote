@@ -262,15 +262,15 @@
     </string-array>
 
     <string name="signal_4blinks">Four blinks every 3–4 secs</string>
-    <string name="signal_4blinks_desc">Status led is blinking 4 times. This means device is running Cloud firmware, can connect to your Wifi network but the Cloud certificate is renewed or expired. Device security data must be updated.</string>
+    <string name="signal_4blinks_desc">Status led is blinking 4 times. This means device is able to connect to internet but Cloud certificate has been renewed. A new certificate has to be confirmed.</string>
     <string-array name="signal_4blinks_solutions">
-        <item>While connected to your WiFi, sign in to the app (don\'t use emergency mode).</item>
+        <item>Login to mobile application.</item>
         <item>Wait till device discovery is over (60 seconds)</item>
         <item>The system should detect that there\'s a device in your network that cannot connect to the internet.</item>
-        <item>Offline device should show on the list (with a special note about certificate renewal).</item>
-        <item>Click \'Update certificate\' and wait.</item>
-        <item>After few seconds, certificate should be updated and device should show on the list.</item>
+        <item>The mobile app will connect to the cloud to confirm new certificate and will send the certificate to device using trusted signature.</item>
+        <item>After few minutes, device should start connecting to the cloud.</item>
     </string-array>
+
 
     <string name="signal_turned_on">Turned on (no blinking)</string>
     <string name="signal_turned_on_desc">Signal led is on when trying to connect to your WiFi network.</string>
@@ -332,7 +332,7 @@
     <string name="datetime_trigger_desc">Changes device state on defined date and time</string>
     <string name="scheduled_trigger_name">Scheduler</string>
     <string name="scheduled_trigger_desc">Changes device state according to weekly schedule</string>
-    <string name="no_automations">No automations</string>
+    <string name="no_automation">No automation</string>
     <string name="automation_datetime_relay">Change relay state at specific time</string>
     <string name="automation_scheduler_relay">Change relay state according to schedule</string>
     <string name="change_state_to_on">Change state to on</string>
@@ -368,6 +368,8 @@
     <string name="at_friday">Friday</string>
     <string name="at_saturday">Saturday</string>
     <string name="sunday">Sunday</string>
+    <string name="lock">Lock (with password)</string>
+    <string name="unlock">Unlock</string>
 
 
     <string-array name="signal_turned_on_solutions">

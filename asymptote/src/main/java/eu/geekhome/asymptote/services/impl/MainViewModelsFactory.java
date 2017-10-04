@@ -231,19 +231,20 @@ public class MainViewModelsFactory {
         return new FirmwareItemViewModel(this, _navigationService, firmware, sensor, name, description, firmwareContext);
     }
 
-    public ThermostatRoleDetailsViewModel createThermostatRoleDetailsViewModel(EditSensorViewModel editSensorViewModel,
-                                                                               SensorItemViewModel sensor, String title, String instruction, boolean reset) {
+    public ThermostatRoleDetailsViewModel createThermostatRoleDetailsViewModel(
+            EditSensorViewModel editSensorViewModel, SensorItemViewModel sensor, String title, String instruction, boolean reset) {
         return new ThermostatRoleDetailsViewModel(this, _navigationService, editSensorViewModel, sensor,
                 title, instruction, reset);
     }
 
-    public HygrostatRoleDetailsViewModel createHygrostatRoleDetailsViewModel(EditSensorViewModel editSensorViewModel,
-                                                                             SensorItemViewModel sensor, String title, String instruction, boolean reset) {
+    public HygrostatRoleDetailsViewModel createHygrostatRoleDetailsViewModel(
+            EditSensorViewModel editSensorViewModel, SensorItemViewModel sensor, String title, String instruction, boolean reset) {
         return new HygrostatRoleDetailsViewModel(this, _navigationService, editSensorViewModel, sensor,
                 title, instruction, reset);
     }
 
-    public MainsAdvancedRoleDetailsViewModel createMainsAdvancedViewModel(EditSensorViewModel editSensorViewModel, SensorItemViewModel sensor) {
+    public MainsAdvancedRoleDetailsViewModel createMainsAdvancedViewModel(
+            EditSensorViewModel editSensorViewModel, SensorItemViewModel sensor) {
         return new MainsAdvancedRoleDetailsViewModel(this, _navigationService, editSensorViewModel, sensor);
     }
 
@@ -255,33 +256,43 @@ public class MainViewModelsFactory {
         return new SwitchModeItemViewModel(channel, mode);
     }
 
-    public LightsSwitchTraditionalRoleDetailsViewModel createLightsSwitchTraditionalRoleDetailsViewModel(EditSensorViewModel editSensorViewModel,
-                                                                                                         SensorItemViewModel sensor) {
+    public LightsSwitchTraditionalRoleDetailsViewModel createLightsSwitchTraditionalRoleDetailsViewModel(
+            EditSensorViewModel editSensorViewModel, SensorItemViewModel sensor) {
         return new LightsSwitchTraditionalRoleDetailsViewModel(this, _navigationService, editSensorViewModel, sensor);
     }
 
     public EditAutomationViewModel createEditTriggersViewModel(SensorItemViewModel sensor) {
-        return new EditAutomationViewModel(this, _context, _navigationService, _syncManager, _threadRunner, sensor);
+        return new EditAutomationViewModel(this, _context, _navigationService, _syncManager, _threadRunner,
+                _cloudDeviceService, sensor);
     }
 
-    public ChooseTriggerViewModel createChooseTriggerViewModel(AutomationAddedListener listener, int index, SensorItemViewModel sensor) {
+    public ChooseTriggerViewModel createChooseTriggerViewModel(AutomationAddedListener listener,
+                                                               int index, SensorItemViewModel sensor) {
         return new ChooseTriggerViewModel(this, _navigationService, listener, index, sensor);
     }
 
-    public EditAutomationDateTimeRelayViewModel createEditAutomationDateTimeRelayViewModel(AutomationAddedListener listener, SensorItemViewModel sensor, int index) {
-        return new EditAutomationDateTimeRelayViewModel(_context, this, _navigationService, listener, sensor, index);
+    public EditAutomationDateTimeRelayViewModel createEditAutomationDateTimeRelayViewModel(
+            AutomationAddedListener listener, SensorItemViewModel sensor, int index) {
+        return new EditAutomationDateTimeRelayViewModel(_context, this, _navigationService, listener,
+                sensor, index);
     }
 
-    public EditAutomationDateTimeRelayViewModel createEditAutomationDateTimeRelayViewModel(AutomationAddedListener listener, SensorItemViewModel sensor, AutomationDateTimeRelay automation) {
-        return new EditAutomationDateTimeRelayViewModel(_context, this, _navigationService, listener, sensor, automation);
+    public EditAutomationDateTimeRelayViewModel createEditAutomationDateTimeRelayViewModel(
+            AutomationAddedListener listener, SensorItemViewModel sensor, AutomationDateTimeRelay automation) {
+        return new EditAutomationDateTimeRelayViewModel(_context, this, _navigationService, listener,
+                sensor, automation);
     }
 
-    public EditAutomationSchedulerRelayViewModel createEditAutomationSchedulerRelayViewModel(AutomationAddedListener listener, SensorItemViewModel sensor, int index) {
-        return new EditAutomationSchedulerRelayViewModel(_context, this, _navigationService, listener, sensor, index);
+    public EditAutomationSchedulerRelayViewModel createEditAutomationSchedulerRelayViewModel(
+            AutomationAddedListener listener, SensorItemViewModel sensor, int index) {
+        return new EditAutomationSchedulerRelayViewModel(_context, this, _navigationService, listener,
+                sensor, index);
     }
 
-    public EditAutomationSchedulerRelayViewModel createEditAutomationSchedulerRelayViewModel(AutomationAddedListener listener, SensorItemViewModel sensor, AutomationSchedulerRelay automation) {
-        return new EditAutomationSchedulerRelayViewModel(_context, this, _navigationService, listener, sensor, automation);
+    public EditAutomationSchedulerRelayViewModel createEditAutomationSchedulerRelayViewModel(
+            AutomationAddedListener listener, SensorItemViewModel sensor, AutomationSchedulerRelay automation) {
+        return new EditAutomationSchedulerRelayViewModel(_context, this, _navigationService, listener,
+                sensor, automation);
 
     }
 

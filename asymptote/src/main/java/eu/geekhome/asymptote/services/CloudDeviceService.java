@@ -2,6 +2,7 @@ package eu.geekhome.asymptote.services;
 
 import java.util.ArrayList;
 
+import eu.geekhome.asymptote.model.Automation;
 import eu.geekhome.asymptote.model.DeviceKey;
 import eu.geekhome.asymptote.model.DeviceSnapshot;
 import eu.geekhome.asymptote.model.DeviceSyncData;
@@ -11,6 +12,10 @@ import eu.geekhome.asymptote.model.UserSnapshot;
 public interface CloudDeviceService {
 
     void removeDevice(String userId, DeviceKey key, CloudActionCallback<Void> callback);
+
+    void registerForAutomationSyncEvents(String userId, String token);
+
+    void unregisterFromAutomationSyncEvents(String userId, String token);
 
     void registerForDeviceSyncEvents(String userId, DeviceSnapshot deviceSnapshot);
 

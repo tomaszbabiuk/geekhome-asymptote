@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import java.net.InetAddress;
 import java.util.ArrayList;
 
+import eu.geekhome.asymptote.BR;
 import eu.geekhome.asymptote.R;
 import eu.geekhome.asymptote.bindingutils.LayoutHolder;
 import eu.geekhome.asymptote.bindingutils.ViewModel;
@@ -23,6 +24,7 @@ import eu.geekhome.asymptote.model.BoardId;
 import eu.geekhome.asymptote.model.DeleteAutomationSyncUpdate;
 import eu.geekhome.asymptote.model.DeviceSyncData;
 import eu.geekhome.asymptote.model.Variant;
+import eu.geekhome.asymptote.services.CloudDeviceService;
 import eu.geekhome.asymptote.services.NavigationService;
 import eu.geekhome.asymptote.services.AutomationAddedListener;
 import eu.geekhome.asymptote.services.SyncListener;
@@ -32,15 +34,17 @@ import eu.geekhome.asymptote.services.impl.MainViewModelsFactory;
 
 public class EditAutomationViewModel extends ViewModel<FragmentEditAutomationBinding> implements AutomationAddedListener, SyncListener {
 
-    private boolean _loadAutomationList;
-    private ObservableArrayList<LayoutHolder> _automations;
+    private ObservableArrayList<LayoutHolder> _automationList;
     private HelpActionBarViewModel _actionBarModel;
     private final SyncManager _syncManager;
     private final ThreadRunner _threadRunner;
+    private final CloudDeviceService _cloudDeviceService;
     private final SensorItemViewModel _sensor;
     private final Context _context;
     private final NavigationService _navigationService;
     private final MainViewModelsFactory _factory;
+    private boolean _loadingAutomationList;
+    private boolean _savingAutomationList;
 
     @Bindable
     public HelpActionBarViewModel getActionBarModel() {
@@ -53,25 +57,34 @@ public class EditAutomationViewModel extends ViewModel<FragmentEditAutomationBin
     }
 
     public EditAutomationViewModel(MainViewModelsFactory factory, Context context, NavigationService navigationService,
-                                   SyncManager syncManager, ThreadRunner threadRunner, SensorItemViewModel sensor) {
+                                   SyncManager syncManager, ThreadRunner threadRunner, CloudDeviceService cloudDeviceService,
+                                   SensorItemViewModel sensor) {
         _factory = factory;
         _context = context;
         _navigationService = navigationService;
         _syncManager = syncManager;
         _threadRunner = threadRunner;
+        _cloudDeviceService = cloudDeviceService;
         _sensor = sensor;
-        _automations = new ObservableArrayList<>();
+        _automationList = new ObservableArrayList<>();
         _actionBarModel = _factory.createHelpActionBarModel();
-        _loadAutomationList = true;
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        if (_loadAutomationList) {
-            _loadAutomationList = false;
-            _syncManager.setSyncListener(this);
-            _sensor.listAutomations();
+        if (_sensor.isHasWiFiSignal()) {
+            if (_automationList.size() == 0) {
+                _syncManager.setSyncListener(this);
+                _sensor.requestAutomationList();
+            }
+        } else {
+            _cloudDeviceService.setSyncListener(this);
+            _cloudDeviceService.registerForAutomationSyncEvents(_sensor.getUserId(), _sensor.getToken());
+        }
+
+        if (_automationList.size() == 0) {
+            setLoadingAutomationList(true);
         }
     }
 
@@ -79,6 +92,8 @@ public class EditAutomationViewModel extends ViewModel<FragmentEditAutomationBin
     public void onPause() {
         super.onPause();
         _syncManager.setSyncListener(null);
+        _cloudDeviceService.setSyncListener(null);
+        _cloudDeviceService.unregisterFromAutomationSyncEvents(_sensor.getUserId(), _sensor.getToken());
     }
 
     @Override
@@ -89,8 +104,8 @@ public class EditAutomationViewModel extends ViewModel<FragmentEditAutomationBin
     }
 
     @Bindable
-    public ObservableArrayList<LayoutHolder> getAutomations() {
-        return _automations;
+    public ObservableArrayList<LayoutHolder> getAutomationList() {
+        return _automationList;
     }
 
     public void addTrigger() {
@@ -105,7 +120,7 @@ public class EditAutomationViewModel extends ViewModel<FragmentEditAutomationBin
         boolean indexTaken;
         do {
             indexTaken = false;
-            for (LayoutHolder automationHolder : _automations) {
+            for (LayoutHolder automationHolder : _automationList) {
                 Automation automation = ((AutomationItemViewModel) automationHolder).getAutomation();
                 if (automation.getIndex() == i) {
                     indexTaken = true;
@@ -121,13 +136,13 @@ public class EditAutomationViewModel extends ViewModel<FragmentEditAutomationBin
     @Override
     public void onAutomationAdded(Automation automation) {
         AutomationItemViewModel automationModel = new AutomationItemViewModel(_context, automation, this);
-        _automations.add(automationModel);
+        _automationList.add(automationModel);
     }
 
     @Override
     public void onAutomationEdit(Automation automation) {
         AutomationItemViewModel toDelete = null;
-        for (LayoutHolder a : _automations) {
+        for (LayoutHolder a : _automationList) {
             if (a instanceof AutomationItemViewModel && ((AutomationItemViewModel) a).getAutomation().getIndex() == automation.getIndex()) {
                 toDelete = (AutomationItemViewModel) a;
                 break;
@@ -135,11 +150,11 @@ public class EditAutomationViewModel extends ViewModel<FragmentEditAutomationBin
         }
 
         if (toDelete != null) {
-            _automations.remove(toDelete);
+            _automationList.remove(toDelete);
         }
 
         AutomationItemViewModel automationModel = new AutomationItemViewModel(_context, automation, this);
-        _automations.add(automationModel);
+        _automationList.add(automationModel);
     }
 
     void editAutomation(AutomationItemViewModel toEdit) {
@@ -156,7 +171,7 @@ public class EditAutomationViewModel extends ViewModel<FragmentEditAutomationBin
 
     public void save() {
         _sensor.getUpdates().clear();
-        for (LayoutHolder automationHolder : _automations) {
+        for (LayoutHolder automationHolder : _automationList) {
             AutomationItemViewModel automationViewModel = (AutomationItemViewModel)automationHolder;
             Automation automation = automationViewModel.getAutomation();
 
@@ -170,7 +185,11 @@ public class EditAutomationViewModel extends ViewModel<FragmentEditAutomationBin
         }
 
         _sensor.requestFullSync();
-        _navigationService.goBack();
+        if (_sensor.isHasWiFiSignal()) {
+            _navigationService.goBack();
+        } else {
+            setSavingAutomationList(true);
+        }
     }
 
     @Override
@@ -195,16 +214,45 @@ public class EditAutomationViewModel extends ViewModel<FragmentEditAutomationBin
 
     @Override
     public void onAutomationListLoaded(final ArrayList<Automation> automationList) {
-        _automations.clear();
-        _threadRunner.runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                for (Automation automation : automationList) {
-                    AutomationItemViewModel automationModel = new AutomationItemViewModel(_context, automation, EditAutomationViewModel.this);
-                    _automations.add(automationModel);
+        setLoadingAutomationList(false);
+        if (isSavingAutomationList()) {
+            setSavingAutomationList(false);
+            _navigationService.goBack();
+        } else if (_automationList.size() == 0) {
+            _automationList.clear();
+            _threadRunner.runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    for (Automation automation : automationList) {
+                        AutomationItemViewModel automationModel = new AutomationItemViewModel(_context, automation, EditAutomationViewModel.this);
+                        _automationList.add(automationModel);
+                    }
                 }
-            }
-        });
+            });
+        }
     }
 
+    @Bindable
+    public boolean isLoadingAutomationList() {
+        return _loadingAutomationList;
+    }
+
+    public void setLoadingAutomationList(boolean loadingAutomationList) {
+        _loadingAutomationList = loadingAutomationList;
+        notifyPropertyChanged(BR.loadingAutomationList);
+    }
+
+    @Bindable
+    public boolean isSavingAutomationList() {
+        return _savingAutomationList;
+    }
+
+    public void setSavingAutomationList(boolean savingAutomationList) {
+        _savingAutomationList = savingAutomationList;
+        notifyPropertyChanged(BR.savingAutomationList);
+        for (LayoutHolder holder : _automationList) {
+            AutomationItemViewModel automationModel = (AutomationItemViewModel)holder;
+            automationModel.setLoading(true);
+        }
+    }
 }

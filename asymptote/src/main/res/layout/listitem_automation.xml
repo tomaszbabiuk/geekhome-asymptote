@@ -34,6 +34,7 @@
             android:layout_gravity="center_vertical"
             android:layout_marginEnd="@dimen/common_small_padding"
             android:onClick="@{() -> vm.edit()}"
+            android:visibility="@{vm.loading ? View.GONE : View.VISIBLE}"
             app:svgColor="@color/silver"
             app:svgId="@raw/edit"/>
 
@@ -42,6 +43,7 @@
             android:layout_height="30dp"
             android:layout_gravity="center_vertical"
             android:onClick="@{() -> vm.delete()}"
+            android:visibility="@{vm.loading ? View.GONE : View.VISIBLE}"
             app:svgColor="@color/silver"
             app:svgId="@raw/trashbin"/>
 

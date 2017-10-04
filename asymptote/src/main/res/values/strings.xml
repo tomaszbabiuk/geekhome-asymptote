@@ -27,7 +27,7 @@
     <string name="finished">Finished</string>
     <string name="device_paired" formatted="false">Device paired, IP: %s</string>
     <string name="pairing_failed">Pairing failed</string>
-    <string name="note_discovery">Discovering geekHOME sensors in your LAN network and cloud</string>
+    <string name="note_discovery">Discovering geekHOME sensors</string>
     <string name="enter_wifi_password">Enter wifi password</string>
     <string name="refresh">Refresh</string>
     <string name="ota_update">OTA update</string>

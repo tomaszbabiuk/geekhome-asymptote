@@ -25,7 +25,7 @@
     <string name="finished">Zakończono</string>
     <string name="device_paired" formatted="false">Urządzenie zostało sparowane, IP: %s</string>
     <string name="pairing_failed">Parowanie nie powiodło się</string>
-    <string name="note_discovery">Wykrywanie czujników geekHOME w sieci LAN i chmurze</string>
+    <string name="note_discovery">Wykrywanie czujników geekHOME</string>
     <string name="enter_wifi_password">Podaj hasło WiFi</string>
     <string name="refresh">Odśwież</string>
     <string name="ota_update">Instalacja nowego oprogramowania</string>

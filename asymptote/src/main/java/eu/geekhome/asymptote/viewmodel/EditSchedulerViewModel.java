@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
 import java.util.Calendar;
+import java.util.TimeZone;
 
 import eu.geekhome.asymptote.BR;
 import eu.geekhome.asymptote.R;
@@ -18,7 +19,9 @@ import eu.geekhome.asymptote.utils.ByteUtils;
 public class EditSchedulerViewModel extends ViewModel<ControlEditSchedulerBinding> {
     private final GeneralDialogService _generalDialogService;
     private final SensorItemViewModel _sensor;
+    private final int _offset;
     private long _time;
+    private long _localTime;
     private int _days;
     private boolean _mondaySelected;
     private boolean _tuesdaySelected;
@@ -42,7 +45,10 @@ public class EditSchedulerViewModel extends ViewModel<ControlEditSchedulerBindin
         int minutes = now.get(Calendar.MINUTE);
         int seconds = now.get(Calendar.SECOND);
         int time = seconds + minutes * 60 + hours * 3600;
-        setTime(time);
+
+        _offset = TimeZone.getDefault().getOffset(Calendar.getInstance().getTimeInMillis())/1000;
+
+        setTime(time - _offset);
         setDays(1);
     }
 
@@ -54,13 +60,13 @@ public class EditSchedulerViewModel extends ViewModel<ControlEditSchedulerBindin
     }
 
     public void onPickTime() {
-//        _generalDialogService.pickTime((int)getTime(), new GeneralDialogService.TimePickerListener() {
-//            @Override
-//            public void onTimePicked(int hourOfDay, int minute, int second) {
-//                int time = hourOfDay * 3600 + minute * 60 + second;
-//                setTime(time);
-//            }
-//        });
+        _generalDialogService.pickTime((int)getTime() + _offset, new GeneralDialogService.TimePickerListener() {
+            @Override
+            public void onTimePicked(int hourOfDay, int minute, int second) {
+                int time = hourOfDay * 3600 + minute * 60 + second;
+                setTime(time - _offset);
+            }
+        });
     }
 
     @Bindable
@@ -71,6 +77,8 @@ public class EditSchedulerViewModel extends ViewModel<ControlEditSchedulerBindin
     public void setTime(long time) {
         _time = time;
         notifyPropertyChanged(BR.time);
+
+        setLocalTime(_time + _offset);
     }
 
 
@@ -188,7 +196,9 @@ public class EditSchedulerViewModel extends ViewModel<ControlEditSchedulerBindin
     }
 
     public void toggleMonday() {
-        setMondaySelected(!isMondaySelected());
+        if (_days > 0) {
+            setMondaySelected(!isMondaySelected());
+        }
     }
 
     public void toggleTuesday() {
@@ -226,4 +236,13 @@ public class EditSchedulerViewModel extends ViewModel<ControlEditSchedulerBindin
         }
     }
 
+    @Bindable
+    public long getLocalTime() {
+        return _localTime;
+    }
+
+    public void setLocalTime(long localTime) {
+        _localTime = localTime;
+        notifyPropertyChanged(BR.localTime);
+    }
 }

@@ -19,6 +19,15 @@
 
         <LinearLayout style="@style/Layout.MatchX.Horizontal">
 
+            <include
+                layout="@layout/logo_actionbar"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginTop="@dimen/actionbar_button_padding"
+                android:layout_weight="1"/>
+
+            <View style="@style/ActionBar.Separator.Vertical"/>
+
             <eu.geekhome.controls.SvgImageView
                 style="@style/ActionBar.Image"
                 android:onClick="@{() -> vm.pairSensor()}"
@@ -40,12 +49,10 @@
 
             <View style="@style/ActionBar.Separator.Vertical"/>
 
-            <include
-                layout="@layout/logo_actionbar"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_marginTop="@dimen/actionbar_button_padding"
-                android:layout_weight="1"/>
+            <eu.geekhome.controls.SvgImageView
+                style="@style/ActionBar.Image"
+                android:onClick="@{() -> vm.logout()}"
+                app:svgId="@raw/logout"/>
 
         </LinearLayout>
     </android.support.v7.widget.Toolbar>

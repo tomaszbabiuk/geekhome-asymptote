@@ -19,21 +19,24 @@ import eu.geekhome.asymptote.services.CloudDeviceService;
 import eu.geekhome.asymptote.services.CloudException;
 import eu.geekhome.asymptote.services.CloudUserService;
 import eu.geekhome.asymptote.services.NavigationService;
+import eu.geekhome.asymptote.services.PasswordService;
 import eu.geekhome.asymptote.services.impl.SplashViewModelsFactory;
 import eu.geekhome.asymptote.utils.KeyboardHelper;
 import eu.geekhome.asymptote.validation.ValidationContext;
 
-public class LoginViewModel extends ViewModel<FragmentLoginWithEmailBinding> {
+public class LoginWithEmailViewModel extends ViewModel<FragmentLoginWithEmailBinding> {
     private final ValidationContext _validation = new ValidationContext();
     private final CloudUserService _cloudUserService;
     private final Context _context;
     private final NavigationService _navigationService;
     private final CloudDeviceService _cloudDeviceService;
     private final SplashViewModelsFactory _factory;
+    private final PasswordService _passwordService;
     private SplashViewModel _splashViewModel;
     private String _email;
     private String _password;
     private View _rootView;
+    private boolean _rememberPassword;
 
     @Bindable
     public ValidationContext getValidation() {
@@ -60,13 +63,15 @@ public class LoginViewModel extends ViewModel<FragmentLoginWithEmailBinding> {
         notifyPropertyChanged(BR.password);
     }
 
-    public LoginViewModel(SplashViewModelsFactory factory, Context context, NavigationService navigationService,
-                          CloudUserService cloudUserService, CloudDeviceService cloudDeviceService , SplashViewModel splashViewModel) {
+    public LoginWithEmailViewModel(SplashViewModelsFactory factory, Context context, NavigationService navigationService,
+                                   CloudUserService cloudUserService, CloudDeviceService cloudDeviceService ,
+                                   PasswordService passwordService, SplashViewModel splashViewModel) {
         _factory = factory;
         _context = context;
         _navigationService = navigationService;
         _cloudUserService = cloudUserService;
         _cloudDeviceService = cloudDeviceService;
+        _passwordService = passwordService;
         _splashViewModel = splashViewModel;
     }
 
@@ -87,6 +92,7 @@ public class LoginViewModel extends ViewModel<FragmentLoginWithEmailBinding> {
 
     public void signInWithEmail() {
         KeyboardHelper.hideKeyboard(_rootView);
+
         if (_validation.validate()) {
             _splashViewModel.setBusy(true);
             _splashViewModel.setErrorMessage(null);
@@ -100,6 +106,7 @@ public class LoginViewModel extends ViewModel<FragmentLoginWithEmailBinding> {
 
                         VerifyEmailDarkViewModel verifyViewModel = _factory.createVerifyEmailDarkViewModel(getEmail(),
                                 getPassword(), verificationMessage, _splashViewModel);
+
                         _navigationService.showViewModel(verifyViewModel);
                     } else {
                         loadUserSnapshotAndProceed(user);
@@ -118,6 +125,13 @@ public class LoginViewModel extends ViewModel<FragmentLoginWithEmailBinding> {
         _cloudDeviceService.getUserSnapshot(user.getId(), new CloudActionCallback<UserSnapshot>() {
             @Override
             public void success(UserSnapshot data) {
+
+                if (isRememberPassword()) {
+                    _passwordService.setRememberCloudCredentials(true);
+                    _passwordService.setCloudPassword(getPassword());
+                    _passwordService.setCloudEmail(getEmail());
+                }
+
                 _navigationService.startMainPresentation(user.getId(), false, data);
             }
 
@@ -132,5 +146,15 @@ public class LoginViewModel extends ViewModel<FragmentLoginWithEmailBinding> {
         _splashViewModel.setBusy(false);
         String failureMessage = _context.getString(R.string.unable_to_signin, exception.getLocalizedMessage());
         _splashViewModel.setErrorMessage(failureMessage);
+    }
+
+    @Bindable
+    public boolean isRememberPassword() {
+        return _rememberPassword;
+    }
+
+    public void setRememberPassword(boolean rememberPassword) {
+        _rememberPassword = rememberPassword;
+        notifyPropertyChanged(BR.rememberPassword);
     }
 }

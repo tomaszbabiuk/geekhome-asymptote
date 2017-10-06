@@ -20,6 +20,7 @@ import eu.geekhome.asymptote.services.CloudUserService;
 import eu.geekhome.asymptote.services.EmergencyManager;
 import eu.geekhome.asymptote.services.FirmwareRepository;
 import eu.geekhome.asymptote.services.GeneralDialogService;
+import eu.geekhome.asymptote.services.LogoutService;
 import eu.geekhome.asymptote.services.NavigationService;
 import eu.geekhome.asymptote.services.OtaServer;
 import eu.geekhome.asymptote.services.SyncManager;
@@ -81,6 +82,7 @@ public class MainViewModelsFactory {
     private EmergencyManager _emergencyManager;
     private ControlsCreator _controlsCreator;
     private UserMessageAcknowledgeService _userMessageAcknowledgeService;
+    private LogoutService _logoutService;
 
     @Inject
     MainViewModelsFactory(MainActivity activity, Context context, CloudUserService cloudUserService, CloudDeviceService cloudDeviceService,
@@ -91,7 +93,8 @@ public class MainViewModelsFactory {
                           FirmwareRepository firmwareRepository, UdpService udpService,
                           ThreadRunner threadRunner, GeneralDialogService generalDialogService,
                           EmergencyManager emergencyManager, ControlsCreator controlsCreator,
-                          UserMessageAcknowledgeService userMessageAcknowledgeService) {
+                          UserMessageAcknowledgeService userMessageAcknowledgeService,
+                          LogoutService logoutService) {
         _activity = activity;
         _context = context;
         _cloudUserService = cloudUserService;
@@ -111,6 +114,7 @@ public class MainViewModelsFactory {
         _emergencyManager = emergencyManager;
         _controlsCreator = controlsCreator;
         _userMessageAcknowledgeService = userMessageAcknowledgeService;
+        _logoutService = logoutService;
     }
 
     public HelpActionBarViewModel createHelpActionBarModel() {
@@ -157,7 +161,7 @@ public class MainViewModelsFactory {
     }
 
     public ProfileViewModel createProfileViewModel() {
-        return new ProfileViewModel(this, _navigationService, _cloudUserService);
+        return new ProfileViewModel(this, _navigationService, _cloudUserService, _logoutService);
     }
 
     public TroubleshootingViewModel createTroubleshootingViewModel() {
@@ -175,7 +179,8 @@ public class MainViewModelsFactory {
     }
 
     public MainActionBarViewModel createMainActionBarViewModel() {
-        return new MainActionBarViewModel(this, _navigationService, _generalDialogService, _emergencyManager);
+        return new MainActionBarViewModel(this, _navigationService, _generalDialogService, _emergencyManager,
+                 _logoutService);
     }
 
     public CMSViewModel createCmsViewModel(ObservableArrayList<LayoutHolder> sections) {

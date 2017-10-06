@@ -4,6 +4,7 @@ import android.support.v7.app.AppCompatActivity;
 
 import dagger.Module;
 import dagger.Provides;
+import eu.geekhome.asymptote.model.CloudUser;
 import eu.geekhome.asymptote.services.AddressesPersistenceService;
 import eu.geekhome.asymptote.services.CloudDeviceService;
 import eu.geekhome.asymptote.services.CloudUserService;
@@ -12,8 +13,10 @@ import eu.geekhome.asymptote.services.EmergencyManager;
 import eu.geekhome.asymptote.services.FavoriteColorsService;
 import eu.geekhome.asymptote.services.GeneralDialogService;
 import eu.geekhome.asymptote.services.LocalDiscoveryService;
+import eu.geekhome.asymptote.services.LogoutService;
 import eu.geekhome.asymptote.services.NavigationService;
 import eu.geekhome.asymptote.services.OtaServer;
+import eu.geekhome.asymptote.services.PasswordService;
 import eu.geekhome.asymptote.services.SyncManager;
 import eu.geekhome.asymptote.services.ThreadRunner;
 import eu.geekhome.asymptote.services.ToastService;
@@ -28,6 +31,7 @@ import eu.geekhome.asymptote.services.impl.FirebaseCloudDeviceService;
 import eu.geekhome.asymptote.services.impl.FirebaseCloudUserService;
 import eu.geekhome.asymptote.services.impl.FragmentBasedNavigationService;
 import eu.geekhome.asymptote.services.impl.HttpClientSyncManager;
+import eu.geekhome.asymptote.services.impl.HybridLogoutService;
 import eu.geekhome.asymptote.services.impl.NanoOtaServer;
 import eu.geekhome.asymptote.services.impl.PreferencesAddressesPersistenceService;
 import eu.geekhome.asymptote.services.impl.PreferencesFavoriteColorsService;
@@ -122,5 +126,12 @@ public abstract class GeneralActivityModule<T extends AppCompatActivity> {
     @ActivityScope
     CloudDeviceService provideCloudDeviceService(T activity) {
         return new FirebaseCloudDeviceService(activity);
+    }
+
+    @Provides
+    @ActivityScope
+    LogoutService provideLogoutService(EmergencyManager emergencyManager, PasswordService passwordService,
+                                       NavigationService navigationService, CloudUserService cloudUserService) {
+        return new HybridLogoutService(emergencyManager, passwordService, navigationService, cloudUserService);
     }
 }

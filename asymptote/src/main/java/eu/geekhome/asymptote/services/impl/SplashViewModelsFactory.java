@@ -9,9 +9,11 @@ import eu.geekhome.asymptote.SplashActivity;
 import eu.geekhome.asymptote.services.CloudDeviceService;
 import eu.geekhome.asymptote.services.CloudUserService;
 import eu.geekhome.asymptote.services.NavigationService;
+import eu.geekhome.asymptote.services.PasswordService;
 import eu.geekhome.asymptote.services.PrivacyService;
 import eu.geekhome.asymptote.services.ToastService;
-import eu.geekhome.asymptote.viewmodel.LoginViewModel;
+import eu.geekhome.asymptote.viewmodel.LoginWithEmailViewModel;
+import eu.geekhome.asymptote.viewmodel.LoginWithEmergencyViewModel;
 import eu.geekhome.asymptote.viewmodel.PrivacyViewModel;
 import eu.geekhome.asymptote.viewmodel.ResetPasswordDarkViewModel;
 import eu.geekhome.asymptote.viewmodel.SignInViewModel;
@@ -28,10 +30,12 @@ public class SplashViewModelsFactory {
     private final Context _context;
     private final PrivacyService _privacyService;
     private final Activity _activity;
+    private final PasswordService _passwordService;
 
     @Inject
     SplashViewModelsFactory(SplashActivity activity, CloudUserService cloudUserService, CloudDeviceService cloudDeviceService,
-                            ToastService toastService, NavigationService navigationService, PrivacyService privacyService) {
+                            ToastService toastService, NavigationService navigationService, PrivacyService privacyService,
+                            PasswordService passwordService) {
         _context = activity.getApplicationContext();
         _activity = activity;
         _cloudUserService = cloudUserService;
@@ -39,6 +43,7 @@ public class SplashViewModelsFactory {
         _toastService = toastService;
         _navigationService = navigationService;
         _privacyService = privacyService;
+        _passwordService = passwordService;
     }
 
     public VerifyEmailDarkViewModel createVerifyEmailDarkViewModel(String email, String password,
@@ -60,14 +65,20 @@ public class SplashViewModelsFactory {
     }
 
     public SignInViewModel createSignInViewModel(SplashViewModel splashViewModel) {
-        return new SignInViewModel(_navigationService, this, splashViewModel);
+        return new SignInViewModel(_navigationService, this, _passwordService, _cloudUserService,
+                _context, _cloudDeviceService, splashViewModel);
     }
 
     public PrivacyViewModel createPrivacyViewModel(boolean showAgreement) {
         return new PrivacyViewModel(_privacyService, _activity, showAgreement);
     }
 
-    public LoginViewModel createLoginViewModel(SplashViewModel splashViewModel) {
-        return new LoginViewModel(this, _context, _navigationService, _cloudUserService, _cloudDeviceService, splashViewModel);
+    public LoginWithEmailViewModel createLoginWithEmailViewModel(SplashViewModel splashViewModel) {
+        return new LoginWithEmailViewModel(this, _context, _navigationService, _cloudUserService,
+                _cloudDeviceService, _passwordService, splashViewModel);
+    }
+
+    public LoginWithEmergencyViewModel createLoginWithEmergencyViewModel(SplashViewModel splashViewModel) {
+        return new LoginWithEmergencyViewModel(_navigationService, _passwordService, splashViewModel);
     }
 }

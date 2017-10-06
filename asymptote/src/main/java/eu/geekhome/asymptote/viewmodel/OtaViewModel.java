@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.math.BigInteger;
 import java.net.InetAddress;
 import java.security.SecureRandom;
+import java.util.ArrayList;
 import java.util.Calendar;
 
 import eu.geekhome.asymptote.BR;
@@ -217,10 +218,10 @@ public class OtaViewModel extends WiFiAwareViewModel<FragmentOtaBinding> impleme
                 break;
             case Hybrid:
             case Firebase:
-                if (_firmware.getVariant().isCloud()) {
-                    promoteDeviceToFirebase();
-                } else {
+                if (_sensor.getSyncData().getSystemInfo().getVariant().isCloud()) {
                     sendOtaInformationToDevice();
+                } else {
+                    promoteDeviceToFirebase();
                 }
                 break;
         }

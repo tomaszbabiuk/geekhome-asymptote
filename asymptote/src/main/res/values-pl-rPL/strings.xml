@@ -321,6 +321,7 @@
     <string name="SPDT_switch">wł/wył</string>
     <string name="SPDT_NO_switch">dzwonkowy</string>
     <string name="light_switch_type">Typ łącznika</string>
+    <string name="trust_this_device_and_remember_password">Zaufaj temu telofonowi/tabletowi i zapamiętaj hasło</string>
 
     <string-array name="signal_turned_on_solutions">
         <item>Poczekaj na bardziej znaczący sygnał. Przykładowo, gdy urządzenie nie zna naszej sieci WiFi i próbuje nawiązać połączenie dioda stanu świeci się w sposób ciągły (nie miga) przez kilka sekund, a następnie miga dwukrotnie kilka razy i znowu zaświeca się, aby ponowić próbę. Te dwa mrugnięcia są tym bardziej znaczącym sygnałem w tym przypadku.</item>

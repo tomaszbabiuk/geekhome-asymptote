@@ -13,6 +13,7 @@ import eu.geekhome.asymptote.databinding.FragmentProfileBinding;
 import eu.geekhome.asymptote.model.CloudUser;
 import eu.geekhome.asymptote.services.CloudException;
 import eu.geekhome.asymptote.services.CloudUserService;
+import eu.geekhome.asymptote.services.LogoutService;
 import eu.geekhome.asymptote.services.NavigationService;
 import eu.geekhome.asymptote.services.impl.MainViewModelsFactory;
 
@@ -22,6 +23,7 @@ public class ProfileViewModel extends ViewModel<FragmentProfileBinding> {
     private String _errorMessage;
 
     private final CloudUserService _cloudUserService;
+    private final LogoutService _logoutService;
     private final NavigationService _navigationService;
     private final MainViewModelsFactory _factory;
 
@@ -50,10 +52,12 @@ public class ProfileViewModel extends ViewModel<FragmentProfileBinding> {
         notifyPropertyChanged(BR.errorMessage);
     }
 
-    public ProfileViewModel(MainViewModelsFactory factory, NavigationService navigationService, CloudUserService cloudUserService) {
+    public ProfileViewModel(MainViewModelsFactory factory, NavigationService navigationService,
+                            CloudUserService cloudUserService ,LogoutService logoutService) {
         _factory = factory;
         _navigationService = navigationService;
         _cloudUserService = cloudUserService;
+        _logoutService = logoutService;
         _actionBarModel = _factory.createHelpActionBarModel();
     }
 
@@ -93,7 +97,6 @@ public class ProfileViewModel extends ViewModel<FragmentProfileBinding> {
     }
 
     public void logout() {
-        _cloudUserService.signOut();
-        _navigationService.endMainPresentation();
+        _logoutService.logout();
     }
 }

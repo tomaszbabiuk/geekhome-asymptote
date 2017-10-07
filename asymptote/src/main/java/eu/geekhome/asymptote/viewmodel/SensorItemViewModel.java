@@ -10,6 +10,7 @@ import android.view.animation.AnimationUtils;
 
 import java.net.InetAddress;
 import java.util.ArrayList;
+import java.util.List;
 
 import eu.geekhome.asymptote.BR;
 import eu.geekhome.asymptote.R;
@@ -52,7 +53,7 @@ public class SensorItemViewModel extends BaseObservable implements LayoutHolder 
     private boolean _active;
     private boolean _blocked;
     private boolean _newFirmwareAvailable;
-    private ArrayList<SyncUpdate> _updates = new ArrayList<>();
+    private List<SyncUpdate> _updates = new ArrayList<>();
     private long _lastSeenOnWiFi;
     private long _lastSeenOnCloud;
     private boolean _hasWiFiSignal;
@@ -239,7 +240,8 @@ public class SensorItemViewModel extends BaseObservable implements LayoutHolder 
         //merge
         //TODO PWMIMPULSESYNCUPDATE
         ArrayList<SyncUpdate> toDelete = new ArrayList<>();
-        for (SyncUpdate update : getUpdates()) {
+        List<SyncUpdate> updatesCopy = new ArrayList<>(getUpdates());
+        for (SyncUpdate update : updatesCopy) {
             if (update instanceof RelaySyncUpdate) {
                 RelaySyncUpdate relayUpdate = (RelaySyncUpdate) update;
                 int channel = relayUpdate.getValue().getChannel();
@@ -444,7 +446,7 @@ public class SensorItemViewModel extends BaseObservable implements LayoutHolder 
         _address = address;
     }
 
-    public ArrayList<SyncUpdate> getUpdates() {
+    public List<SyncUpdate> getUpdates() {
         return _updates;
     }
 

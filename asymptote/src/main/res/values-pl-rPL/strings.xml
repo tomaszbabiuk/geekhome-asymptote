@@ -314,13 +314,14 @@
     <string name="reset">Resetuj</string>
     <string name="remove_this_color_question">Czy usunąć ten kolor z listy?</string>
     <string name="cannot_remove_selected_color">Kolor zaznaczony nie może zostać usunięty. Możesz usuwać pozostałe kolory.</string>
-    <string name="user_message">Uwaga, wariant oprogramowania IoT (łączenie tylko i wyłącznie przez chmurę) przestanie być wspierany w następnych wersjach oprogramowania. Jeżeli posiadają państwo jakieś urządzenie pracujące w tym wariancie, bardzo prosimy o rozważenie zmiany wariantu na wariant LAN lub LAN+IoT. Chcemy, aby system geekHOME był jak najprostszy i planujemy zwiększać poziom bezpieczeństwa wariantu LAN+IoT (tak, aby w przyszłości inne warianty oprogramowania nie były potrzebne).</string>
+    <string name="user_message"></string>
     <string name="variant_deprecated">Ten wariant nie jest już wspierany!</string>
     <string name="please_update_to_latest_version">Prosimy o uaktualnienie oprogramowania dla tego urządzenia do najnowszej wersji.</string>
     <string name="signin_and_update_to_latest_version">Prosimy o zalogowanie się i uaktualnienie oprogramowania dla tego urządzenia do najnowszej wersji.</string>
     <string name="SPDT_switch">wł/wył</string>
     <string name="SPDT_NO_switch">dzwonkowy</string>
     <string name="light_switch_type">Typ łącznika</string>
+    <string name="trust_this_device_and_remember_password">Zaufaj temu telefonowi/tabletowi i zapamiętaj hasło</string>
     <string name="automation">Automatyzacja</string>
     <string name="choose_trigger">Wybierz typ wyzwalacza</string>
     <string name="datetime_trigger_name">Data i godzina</string>

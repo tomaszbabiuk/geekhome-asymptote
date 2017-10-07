@@ -30,6 +30,13 @@
 
             <eu.geekhome.controls.SvgImageView
                 style="@style/ActionBar.Image"
+                android:onClick="@{() -> vm.pairSensor()}"
+                app:svgId="@raw/pair"/>
+
+            <View style="@style/ActionBar.Separator.Vertical"/>
+
+            <eu.geekhome.controls.SvgImageView
+                style="@style/ActionBar.Image"
                 android:onClick="@{() -> vm.showTroubleshooting()}"
                 app:svgId="@raw/wrench"/>
 
@@ -44,8 +51,8 @@
 
             <eu.geekhome.controls.SvgImageView
                 style="@style/ActionBar.Image"
-                android:onClick="@{() -> vm.pairSensor()}"
-                app:svgId="@raw/pair"/>
+                android:onClick="@{() -> vm.logout()}"
+                app:svgId="@raw/logout"/>
 
         </LinearLayout>
     </android.support.v7.widget.Toolbar>

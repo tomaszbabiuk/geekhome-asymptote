@@ -5,7 +5,7 @@ import android.databinding.Bindable;
 
 import com.android.databinding.library.baseAdapters.BR;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import eu.geekhome.asymptote.model.DeviceSyncData;
 import eu.geekhome.asymptote.model.ImpulseValue;
@@ -44,7 +44,7 @@ abstract class ControlItemViewModelBase extends BaseObservable {
         pwmImpulseChangedInternal(channel, impulse, getSensor().getUpdates());
     }
 
-    private void pwmImpulseChangedInternal(int channel, long impulse, ArrayList<SyncUpdate> updates) {
+    private void pwmImpulseChangedInternal(int channel, long impulse, List<SyncUpdate> updates) {
         PWMImpulseSyncUpdate pwmImpulseUpdate = findPwmImpulseUpdate(channel, updates);
         if (pwmImpulseUpdate == null) {
             updates.add(new PWMImpulseSyncUpdate(new ImpulseValue(channel, impulse)));
@@ -53,7 +53,7 @@ abstract class ControlItemViewModelBase extends BaseObservable {
         }
     }
 
-    private PWMImpulseSyncUpdate findPwmImpulseUpdate(int channel, ArrayList<SyncUpdate> updates) {
+    private PWMImpulseSyncUpdate findPwmImpulseUpdate(int channel, List<SyncUpdate> updates) {
         if (updates.size() > 0) {
             for (SyncUpdate syncUpdate : updates) {
                 if (syncUpdate instanceof PWMImpulseSyncUpdate) {
@@ -72,7 +72,7 @@ abstract class ControlItemViewModelBase extends BaseObservable {
         rgbChangedInernal(rgbValue, getSensor().getUpdates());
     }
 
-    private void rgbChangedInernal(RGBValue rgbValue, ArrayList<SyncUpdate> updates) {
+    private void rgbChangedInernal(RGBValue rgbValue, List<SyncUpdate> updates) {
         RGBSyncUpdate pwmUpdate = findRGBUpdate(rgbValue, updates);
         if (pwmUpdate == null) {
             updates.add(new RGBSyncUpdate(rgbValue));
@@ -81,7 +81,7 @@ abstract class ControlItemViewModelBase extends BaseObservable {
         }
     }
 
-    private RGBSyncUpdate findRGBUpdate(RGBValue rgbValueToFind, ArrayList<SyncUpdate> updates) {
+    private RGBSyncUpdate findRGBUpdate(RGBValue rgbValueToFind, List<SyncUpdate> updates) {
         if (updates.size() > 0) {
             for (SyncUpdate syncUpdate : updates) {
                 if (syncUpdate instanceof RGBSyncUpdate) {
@@ -101,7 +101,7 @@ abstract class ControlItemViewModelBase extends BaseObservable {
         pwmChangedInternal(channel, duty, getSensor().getUpdates());
     }
 
-    private void pwmChangedInternal(int channel, int duty, ArrayList<SyncUpdate> updates) {
+    private void pwmChangedInternal(int channel, int duty, List<SyncUpdate> updates) {
         PWMSyncUpdate pwmUpdate = findPwmUpdate(channel, updates);
         if (pwmUpdate == null) {
             updates.add(new PWMSyncUpdate(new PWMValue(channel, duty)));
@@ -110,7 +110,7 @@ abstract class ControlItemViewModelBase extends BaseObservable {
         }
     }
 
-    PWMSyncUpdate findPwmUpdate(int channel, ArrayList<SyncUpdate> updates) {
+    PWMSyncUpdate findPwmUpdate(int channel, List<SyncUpdate> updates) {
         if (updates.size() > 0) {
             for (SyncUpdate syncUpdate : updates) {
                 if (syncUpdate instanceof PWMSyncUpdate) {
@@ -128,7 +128,7 @@ abstract class ControlItemViewModelBase extends BaseObservable {
         paramChangedInternal(channel, value, getSensor().getUpdates());
     }
 
-    private void paramChangedInternal(int index, int value, ArrayList<SyncUpdate> updates) {
+    private void paramChangedInternal(int index, int value, List<SyncUpdate> updates) {
         ParamSyncUpdate paramSyncUpdate = findParamSyncUpdate(index, updates);
         if (paramSyncUpdate == null) {
             updates.add(new ParamSyncUpdate(new ParamValue(index, value)));
@@ -137,7 +137,7 @@ abstract class ControlItemViewModelBase extends BaseObservable {
         }
     }
 
-    private ParamSyncUpdate findParamSyncUpdate(int index, ArrayList<SyncUpdate> updates) {
+    private ParamSyncUpdate findParamSyncUpdate(int index, List<SyncUpdate> updates) {
         if (updates.size() > 0) {
             for (SyncUpdate syncUpdate : updates) {
                 if (syncUpdate instanceof ParamSyncUpdate) {
@@ -155,7 +155,7 @@ abstract class ControlItemViewModelBase extends BaseObservable {
         relayImpulseChangedInternal(channel, impulse, getSensor().getUpdates());
     }
 
-    private void relayImpulseChangedInternal(int channel, long impulse, ArrayList<SyncUpdate> updates) {
+    private void relayImpulseChangedInternal(int channel, long impulse, List<SyncUpdate> updates) {
         RelayImpulseSyncUpdate relayImpulseUpdate = findRelayImpulseUpdate(channel, updates);
         if (relayImpulseUpdate == null) {
             updates.add(new RelayImpulseSyncUpdate(new ImpulseValue(channel, impulse)));
@@ -164,7 +164,7 @@ abstract class ControlItemViewModelBase extends BaseObservable {
         }
     }
 
-    private RelayImpulseSyncUpdate findRelayImpulseUpdate(int channel, ArrayList<SyncUpdate> updates) {
+    private RelayImpulseSyncUpdate findRelayImpulseUpdate(int channel, List<SyncUpdate> updates) {
         if (updates.size() > 0) {
             for (SyncUpdate syncUpdate : updates) {
                 if (syncUpdate instanceof RelayImpulseSyncUpdate) {
@@ -183,7 +183,7 @@ abstract class ControlItemViewModelBase extends BaseObservable {
         relayStateChangedInternal(channel, state, getSensor().getUpdates());
     }
 
-    private void relayStateChangedInternal(int channel, boolean state, ArrayList<SyncUpdate> updates) {
+    private void relayStateChangedInternal(int channel, boolean state, List<SyncUpdate> updates) {
         RelaySyncUpdate relayUpdate = findRelayUpdate(channel, updates);
         if (relayUpdate == null) {
             updates.add(new RelaySyncUpdate(new RelayValue(channel, state)));
@@ -192,7 +192,7 @@ abstract class ControlItemViewModelBase extends BaseObservable {
         }
     }
 
-    RelaySyncUpdate findRelayUpdate(int channel, ArrayList<SyncUpdate> updates) {
+    RelaySyncUpdate findRelayUpdate(int channel, List<SyncUpdate> updates) {
         if (updates.size() > 0) {
             for (SyncUpdate syncUpdate : updates) {
                 if (syncUpdate instanceof RelaySyncUpdate) {
@@ -211,7 +211,7 @@ abstract class ControlItemViewModelBase extends BaseObservable {
         stateChangedInternal(value, getSensor().getUpdates());
     }
 
-    private void stateChangedInternal(String state, ArrayList<SyncUpdate> updates) {
+    private void stateChangedInternal(String state, List<SyncUpdate> updates) {
         StateSyncUpdate stateUpdate = findStateUpdate(updates);
         if (stateUpdate == null) {
             updates.add(new StateSyncUpdate(state));
@@ -220,7 +220,7 @@ abstract class ControlItemViewModelBase extends BaseObservable {
         }
     }
 
-    StateSyncUpdate findStateUpdate(ArrayList<SyncUpdate> updates) {
+    StateSyncUpdate findStateUpdate(List<SyncUpdate> updates) {
         if (updates.size() > 0) {
             for (SyncUpdate syncUpdate : updates) {
                 if (syncUpdate instanceof StateSyncUpdate) {

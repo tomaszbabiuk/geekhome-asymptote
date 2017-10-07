@@ -13,9 +13,9 @@ import java.security.KeyStore;
 import java.security.cert.Certificate;
 import java.security.cert.CertificateFactory;
 import java.security.cert.X509Certificate;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Enumeration;
+import java.util.List;
 import java.util.Locale;
 
 import javax.net.ssl.HostnameVerifier;
@@ -164,7 +164,7 @@ public class HttpClientSyncManager implements SyncManager, LocalDiscoveryService
     }
 
     @Override
-    public void pushUpdates(DeviceSyncData syncData, ArrayList<SyncUpdate> updates,
+    public void pushUpdates(DeviceSyncData syncData, List<SyncUpdate> updates,
                             final InetAddress address, final SyncCallback syncCallback) {
         Variant variant = syncData.getSystemInfo().getVariant();
         if (updates != null && updates.size() > 0) {

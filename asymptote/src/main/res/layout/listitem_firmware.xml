@@ -90,14 +90,14 @@
                 android:layout_gravity="top"
                 android:onClick="@{() -> vm.change()}"
                 android:text='@{@string/update + "\nv" + vm.firmware.versionMajor + "." + vm.firmware.versionMinor}'
-                android:visibility="@{vm.context == FirmwareItemViewModel.Context.Update ? View.VISIBLE : View.GONE}"/>
+                android:visibility="@{vm.context == FirmwareItemViewModel.Context.Update &amp;&amp; !vm.firmware.variant.deprecated ? View.VISIBLE : View.GONE}"/>
 
             <Button
                 style="@style/Common.Button.Gray"
                 android:layout_gravity="top"
                 android:onClick="@{() -> vm.change()}"
                 android:text="@string/change"
-                android:visibility="@{vm.context == FirmwareItemViewModel.Context.Change ? View.VISIBLE : View.GONE}"/>
+                android:visibility="@{vm.context == FirmwareItemViewModel.Context.Change &amp;&amp; !vm.firmware.variant.deprecated ? View.VISIBLE : View.GONE}"/>
 
         </LinearLayout>
 

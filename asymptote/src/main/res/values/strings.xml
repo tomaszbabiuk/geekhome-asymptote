@@ -314,7 +314,7 @@
     <string name="reset">Reset</string>
     <string name="remove_this_color_question">Remove this color from the list?</string>
     <string name="cannot_remove_selected_color">Selected color cannot be removed. You can remove other colors.</string>
-    <string name="user_message">Warning, the IoT variant is now deprecated and will be removed in next release. Please migrate any IoT only devices to LAN+IoT.</string>
+    <string name="user_message"></string>
     <string name="variant_deprecated">This variant is deprecated!</string>
     <string name="please_update_to_latest_version">Please update this device to latest version.</string>
     <string name="signin_and_update_to_latest_version">Please sign in and update this device to latest version.</string>

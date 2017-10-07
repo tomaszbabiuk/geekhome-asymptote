@@ -7,6 +7,6 @@ public class RGBSyncUpdate extends SyncUpdateBase<RGBValue> {
 
     @Override
     public boolean isBlocking() {
-        return false;
+        return true;
     }
 }

@@ -20,8 +20,13 @@ import java.util.Iterator;
 import java.util.Map;
 
 import eu.geekhome.asymptote.model.Automation;
+import eu.geekhome.asymptote.model.AutomationDateTimeHumidity;
 import eu.geekhome.asymptote.model.AutomationDateTimeRelay;
+import eu.geekhome.asymptote.model.AutomationDateTimeTemperature;
+import eu.geekhome.asymptote.model.AutomationSchedulerHumidity;
 import eu.geekhome.asymptote.model.AutomationSchedulerRelay;
+import eu.geekhome.asymptote.model.AutomationSchedulerTemperature;
+import eu.geekhome.asymptote.model.AutomationUnit;
 import eu.geekhome.asymptote.model.BoardId;
 import eu.geekhome.asymptote.model.BoardMode;
 import eu.geekhome.asymptote.model.BoardNotSupportedException;
@@ -43,6 +48,7 @@ import eu.geekhome.asymptote.model.OtaState;
 import eu.geekhome.asymptote.model.PWMImpulseSyncUpdate;
 import eu.geekhome.asymptote.model.PWMSyncUpdate;
 import eu.geekhome.asymptote.model.ParamSyncUpdate;
+import eu.geekhome.asymptote.model.ParamValue;
 import eu.geekhome.asymptote.model.RGBSyncUpdate;
 import eu.geekhome.asymptote.model.RelayImpulseSyncUpdate;
 import eu.geekhome.asymptote.model.RelaySyncUpdate;
@@ -66,7 +72,7 @@ public class FirebaseCloudDeviceService implements CloudDeviceService {
     private final Activity _activity;
     private SyncListener _syncListener;
     private Hashtable<DeviceSnapshot, ValueEventListener> _deviceListeners = new Hashtable<>();
-    private Hashtable<DeviceSnapshot, ValueEventListener> _automationListeners = new Hashtable<>();
+    private Hashtable<String, ValueEventListener> _automationListeners = new Hashtable<>();
 
 
     public FirebaseCloudDeviceService(Activity activity) {
@@ -261,11 +267,25 @@ public class FirebaseCloudDeviceService implements CloudDeviceService {
                     int channel = dateTimeAutomationChild.child("chn").getValue(Integer.class);
                     long value = dateTimeAutomationChild.child("val").getValue(Long.class);
                     int unit = dateTimeAutomationChild.child("unt").getValue(Integer.class);
-                    if (unit == 0) {
-                        DateTimeTrigger trigger = new DateTimeTrigger(time);
-                        RelayValue relayValue = new RelayValue(channel, value == 1);
-                        AutomationDateTimeRelay automation = new AutomationDateTimeRelay(index, trigger, relayValue);
-                        automationList.add(automation);
+                    DateTimeTrigger trigger = new DateTimeTrigger(time);
+
+                    AutomationUnit unitParsed = AutomationUnit.fromInt(unit);
+                    switch (unitParsed) {
+                        case Relay:
+                            RelayValue relayValue = new RelayValue(channel, value == 1);
+                            AutomationDateTimeRelay relayAutomation = new AutomationDateTimeRelay(index, trigger, relayValue);
+                            automationList.add(relayAutomation);
+                            break;
+                        case Temperature:
+                            ParamValue tempValue = new ParamValue(0, value);
+                            AutomationDateTimeTemperature temperatureAutomation = new AutomationDateTimeTemperature(index, trigger, tempValue);
+                            automationList.add(temperatureAutomation);
+                            break;
+                        case Humidity:
+                            ParamValue humValue = new ParamValue(0, value);
+                            AutomationDateTimeHumidity humidityAutomation = new AutomationDateTimeHumidity(index, trigger, humValue);
+                            automationList.add(humidityAutomation);
+                            break;
                     }
                 }
 
@@ -279,11 +299,25 @@ public class FirebaseCloudDeviceService implements CloudDeviceService {
                     int channel = schedulerAutomationChild.child("chn").getValue(Integer.class);
                     long value = schedulerAutomationChild.child("val").getValue(Long.class);
                     int unit = schedulerAutomationChild.child("unt").getValue(Integer.class);
-                    if (unit == 0) {
-                        SchedulerTrigger trigger = new SchedulerTrigger(days, time);
-                        RelayValue relayValue = new RelayValue(channel, value == 1);
-                        AutomationSchedulerRelay automation = new AutomationSchedulerRelay(index, trigger, relayValue);
-                        automationList.add(automation);
+
+                    SchedulerTrigger trigger = new SchedulerTrigger(days, time);
+                    AutomationUnit unitParsed = AutomationUnit.fromInt(unit);
+                    switch (unitParsed) {
+                        case Relay:
+                            RelayValue relayValue = new RelayValue(channel, value == 1);
+                            AutomationSchedulerRelay relayAutomation = new AutomationSchedulerRelay(index, trigger, relayValue);
+                            automationList.add(relayAutomation);
+                            break;
+                        case Temperature:
+                            ParamValue tempValue = new ParamValue(0, value);
+                            AutomationSchedulerTemperature temperatureAutomation = new AutomationSchedulerTemperature(index, trigger, tempValue);
+                            automationList.add(temperatureAutomation);
+                            break;
+                        case Humidity:
+                            ParamValue humValue = new ParamValue(0, value);
+                            AutomationSchedulerHumidity humidityAutomation = new AutomationSchedulerHumidity(index, trigger, humValue);
+                            automationList.add(humidityAutomation);
+                            break;
                     }
                 }
 
@@ -357,6 +391,7 @@ public class FirebaseCloudDeviceService implements CloudDeviceService {
     public void registerForAutomationSyncEvents(String userId, String token) {
         final FirebaseDatabase database = FirebaseDatabase.getInstance();
         ValueEventListener listener = createAutomationListListener();
+        _automationListeners.put(token, listener);
         database
                 .getReference("devices")
                 .child(userId)
@@ -366,15 +401,15 @@ public class FirebaseCloudDeviceService implements CloudDeviceService {
     }
 
     @Override
-    public void unregisterFromAutomationSyncEvents(String userId, final String token) {
+    public void unregisterFromAutomationSyncEvents(String userId) {
         final FirebaseDatabase database = FirebaseDatabase.getInstance();
-        for (DeviceSnapshot deviceSnapshot : _automationListeners.keySet()) {
+        for (String token  : _automationListeners.keySet()) {
             database
                     .getReference("devices")
                     .child(userId)
-                    .child(deviceSnapshot.getDeviceToken())
+                    .child(token)
                     .child("auto")
-                    .removeEventListener(_automationListeners.get(deviceSnapshot));
+                    .removeEventListener(_automationListeners.get(token));
         }
     }
 

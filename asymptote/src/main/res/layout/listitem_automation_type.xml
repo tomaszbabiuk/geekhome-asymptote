@@ -8,7 +8,7 @@
 
         <variable
             name="vm"
-            type="eu.geekhome.asymptote.viewmodel.TriggerTypeItemViewModel"/>
+            type="eu.geekhome.asymptote.viewmodel.AutomationTypeItemViewModel"/>
     </data>
 
     <LinearLayout
@@ -19,7 +19,7 @@
         <eu.geekhome.controls.SvgImageView
             style="@style/Triggers.Icon"
             app:svgColor="@color/black"
-            app:svgId="@{vm.triggerType.iconId}"/>
+            app:svgId="@{vm.automationType.iconId}"/>
 
 
 
@@ -34,14 +34,14 @@
             <TextView
                 style="@style/Common.Text.Big"
                 android:gravity="center_vertical"
-                android:text="@{vm.triggerType.nameResId}"
+                android:text="@{vm.automationType.nameResId}"
                 android:textColor="@{vm.selected ? @color/black : @color/light_gray}"
                 tools:text="Trigger name"/>
 
             <TextView
                 style="@style/Common.Text.Medium"
                 android:gravity="center_vertical"
-                android:text="@{vm.triggerType.descriptionResId}"
+                android:text="@{vm.automationType.descriptionResId}"
                 android:textColor="@{vm.selected ? @color/black : @color/light_gray}"
                 tools:text="Trigger description"/>
         </LinearLayout>

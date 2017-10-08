@@ -13,6 +13,7 @@ import java.security.KeyStore;
 import java.security.cert.Certificate;
 import java.security.cert.CertificateFactory;
 import java.security.cert.X509Certificate;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Enumeration;
 import java.util.List;
@@ -26,9 +27,14 @@ import javax.net.ssl.TrustManagerFactory;
 
 import eu.geekhome.asymptote.R;
 import eu.geekhome.asymptote.model.Automation;
+import eu.geekhome.asymptote.model.AutomationDateTimeHumidity;
 import eu.geekhome.asymptote.model.AutomationDateTimeRelay;
+import eu.geekhome.asymptote.model.AutomationDateTimeTemperature;
+import eu.geekhome.asymptote.model.AutomationSchedulerHumidity;
 import eu.geekhome.asymptote.model.AutomationSchedulerRelay;
+import eu.geekhome.asymptote.model.AutomationSchedulerTemperature;
 import eu.geekhome.asymptote.model.AutomationSyncUpdate;
+import eu.geekhome.asymptote.model.AutomationUnit;
 import eu.geekhome.asymptote.model.BoardId;
 import eu.geekhome.asymptote.model.BoardMode;
 import eu.geekhome.asymptote.model.BoardNotSupportedException;
@@ -48,6 +54,7 @@ import eu.geekhome.asymptote.model.OtaState;
 import eu.geekhome.asymptote.model.PWMImpulseSyncUpdate;
 import eu.geekhome.asymptote.model.PWMSyncUpdate;
 import eu.geekhome.asymptote.model.ParamSyncUpdate;
+import eu.geekhome.asymptote.model.ParamValue;
 import eu.geekhome.asymptote.model.RGBSyncUpdate;
 import eu.geekhome.asymptote.model.RelayImpulseSyncUpdate;
 import eu.geekhome.asymptote.model.RelaySyncUpdate;
@@ -373,22 +380,52 @@ public class HttpClientSyncManager implements SyncManager, LocalDiscoveryService
                 HttpListAutomationResponse listResponse = _gson.fromJson(json, HttpListAutomationResponse.class);
 
                 if (listResponse != null) {
-                    ArrayList<Automation> automations = new ArrayList<>();
+                    ArrayList<Automation> automationList = new ArrayList<>();
                     for (HttpDateTimeAutomationResponse dta : listResponse.getDateTimeAutomations()) {
                         DateTimeTrigger trigger = new DateTimeTrigger(dta.getTime());
-                        RelayValue relayValue = new RelayValue(dta.getChannel(), dta.getValue() == 1);
-                        AutomationDateTimeRelay automation = new AutomationDateTimeRelay(dta.getIndex(), trigger, relayValue);
-                        automations.add(automation);
+                        AutomationUnit unitParsed = AutomationUnit.fromInt(dta.getUnit());
+                        switch (unitParsed) {
+                            case Relay:
+                                RelayValue relayValue = new RelayValue(dta.getChannel(), dta.getValue() == 1);
+                                AutomationDateTimeRelay relayAutomation = new AutomationDateTimeRelay(dta.getIndex(), trigger, relayValue);
+                                automationList.add(relayAutomation);
+                                break;
+                            case Temperature:
+                                ParamValue tempValue = new ParamValue(0, dta.getValue());
+                                AutomationDateTimeTemperature temperatureAutomation = new AutomationDateTimeTemperature(dta.getIndex(), trigger, tempValue);
+                                automationList.add(temperatureAutomation);
+                                break;
+                            case Humidity:
+                                ParamValue humValue = new ParamValue(0, dta.getValue());
+                                AutomationDateTimeHumidity humidityAutomation = new AutomationDateTimeHumidity(dta.getIndex(), trigger, humValue);
+                                automationList.add(humidityAutomation);
+                                break;
+                        }
                     }
                     for (HttpSchedulerAutomationResponse sra : listResponse.getSchedulerAutomations()) {
                         SchedulerTrigger trigger = new SchedulerTrigger(sra.getDays(), sra.getTime());
-                        RelayValue relayValue = new RelayValue(sra.getChannel(), sra.getValue() == 1);
-                        AutomationSchedulerRelay automation = new AutomationSchedulerRelay(sra.getIndex(), trigger, relayValue);
-                        automations.add(automation);
+                        AutomationUnit unitParsed = AutomationUnit.fromInt(sra.getUnit());
+                        switch (unitParsed) {
+                            case Relay:
+                                RelayValue relayValue = new RelayValue(sra.getChannel(), sra.getValue() == 1);
+                                AutomationSchedulerRelay relayAutomation = new AutomationSchedulerRelay(sra.getIndex(), trigger, relayValue);
+                                automationList.add(relayAutomation);
+                                break;
+                            case Temperature:
+                                ParamValue tempValue = new ParamValue(0, sra.getValue());
+                                AutomationSchedulerTemperature temperatureAutomation = new AutomationSchedulerTemperature(sra.getIndex(), trigger, tempValue);
+                                automationList.add(temperatureAutomation);
+                                break;
+                            case Humidity:
+                                ParamValue humValue = new ParamValue(0, sra.getValue());
+                                AutomationSchedulerHumidity humidityAutomation = new AutomationSchedulerHumidity(sra.getIndex(), trigger, humValue);
+                                automationList.add(humidityAutomation);
+                                break;
+                        }
                     }
 
                     if (_listener != null) {
-                        _listener.onAutomationListLoaded(automations);
+                        _listener.onAutomationListLoaded(automationList);
                     }
 
                     syncCallback.success();

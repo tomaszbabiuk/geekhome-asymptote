@@ -329,13 +329,21 @@
     <string name="exact_time_trigger">Exact time</string>
     <string name="scheduler_trigger">Scheduler</string>
     <string name="choose_trigger">Choose trigger</string>
-    <string name="datetime_trigger_name">Date and time</string>
-    <string name="datetime_trigger_desc">Changes device state on defined date and time</string>
-    <string name="scheduled_trigger_name">Scheduler</string>
-    <string name="scheduled_trigger_desc">Changes device state according to weekly schedule</string>
+    <string name="automation_datetime_name">Date and time</string>
+    <string name="automation_datetime_relay_desc">Changes device state on defined date and time</string>
+    <string name="automation_datetime_temperature_desc">Changes temperature setting on defined date and time</string>
+    <string name="automation_datetime_humidity_desc">Changes device humidity setting on defined date and time</string>
+    <string name="automation_scheduler_name">Scheduler</string>
+    <string name="automation_scheduler_relay_desc">Changes device state according to weekly schedule</string>
+    <string name="automation_scheduler_temperature_desc">Changes temperature setting according to weekly schedule</string>
+    <string name="automation_scheduler_humidity_desc">Changes humidity setting according to weekly schedule</string>
     <string name="no_automation">No automation</string>
     <string name="automation_datetime_relay">Change relay state at specific time</string>
+    <string name="automation_datetime_temperature">Change temperature setting at specific time</string>
+    <string name="automation_datetime_humidity">Change humidity setting at specific time</string>
     <string name="automation_scheduler_relay">Change relay state according to schedule</string>
+    <string name="automation_scheduler_temperature">Change temperature setting according to schedule</string>
+    <string name="automation_scheduler_humidity">Change humidity setting according to schedule</string>
     <string name="change_state_to_on">Change state to on</string>
     <string name="change_state_to_off">Change state to off</string>
     <string name="edit">Edit</string>
@@ -348,10 +356,15 @@
     <string name="channel">Channel</string>
     <string name="value">Value</string>
     <string name="channel_no" formatted="false">Channel %d</string>
+    <string name="temperature_no" formatted="false">Temperature %d dupa</string>
+    <string name="change_temperature_setting_to" formatted="false">Change temperature setting to %s, at %s, %s</string>
+    <string name="change_humidity_setting_to" formatted="false">Change humidity setting to %s, at %s, %s</string>
     <string name="change_relay_at_on" formatted="false">Turn relay %d on at %s, %s</string>
     <string name="change_relay_at_off" formatted="false">Turn relay %d off at %s, %s</string>
     <string name="change_relay_by_schedule_on" formatted="false">Every %s at %s turn relay %d on</string>
     <string name="change_relay_by_schedule_off" formatted="false">Every %s at %s turn relay %d off</string>
+    <string name="change_temperature_by_schedule" formatted="false">Every %s, at %s change temperature to %s</string>
+    <string name="change_humidity_by_schedule" formatted="false">Every %s, at %s change humidity to %s</string>
     <string name="pick_action">Pick action</string>
     <string name="save">Save</string>
     <string name="monday_shortcut">Mo</string>

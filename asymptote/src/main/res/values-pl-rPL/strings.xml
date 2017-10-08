@@ -324,13 +324,21 @@
     <string name="trust_this_device_and_remember_password">Zaufaj temu telefonowi/tabletowi i zapamiętaj hasło</string>
     <string name="automation">Automatyzacja</string>
     <string name="choose_trigger">Wybierz typ wyzwalacza</string>
-    <string name="datetime_trigger_name">Data i godzina</string>
-    <string name="datetime_trigger_desc">Zmienia stan urządzenia o ustalonej dacie i godzinie</string>
-    <string name="scheduled_trigger_name">Terminarz</string>
-    <string name="scheduled_trigger_desc">Pozwala zdefiniować tygodniowy rozkład zmiany stanu</string>
+    <string name="automation_datetime_name">Data i godzina</string>
+    <string name="automation_datetime_relay_desc">Zmienia stan urządzenia o ustalonej dacie i godzinie</string>
+    <string name="automation_datetime_temperature_desc">Zmienia temperaturę zadaną o ustalonej dacie i godzinie</string>
+    <string name="automation_datetime_humidity_desc">Zmienia wilgotność zadaną o ustalonej dacie i godzinie</string>
+    <string name="automation_scheduler_name">Terminarz</string>
+    <string name="automation_scheduler_relay_desc">Pozwala zdefiniować tygodniowy rozkład zmiany stanu</string>
+    <string name="automation_scheduler_temperature_desc">Pozwala zdefiniować tygodniowy rozkład zmiany temperatury zadanej</string>
+    <string name="automation_scheduler_humidity_desc">Pozwala zdefiniować tygodniowy rozkład zmiany wilgotności zadanej</string>
     <string name="no_automation">Brak automatyzacji</string>
     <string name="automation_datetime_relay">Zmień stan przekaźnika o ustalonej dacie i godzinie</string>
+    <string name="automation_datetime_temperature">Zmień zadaną temperaturę o ustalonej dacie i godzinie</string>
+    <string name="automation_datetime_humidity">Zmień zadaną wilgotność o ustalonej dacie i godzinie</string>
     <string name="automation_scheduler_relay">Zmieniaj stan przekaźnika wg tygodniowego rozkładu</string>
+    <string name="automation_scheduler_temperature">Zmieniaj temperaturę zadaną wg tygodniowego rozkładu</string>
+    <string name="automation_scheduler_humidity">Zmieniaj wilgotność zadaną wg tygodniowego rozkładu</string>
     <string name="change_state_to_on">Zmień stan na wł</string>
     <string name="change_state_to_off">Zmień stan na wył</string>
     <string name="edit">Edytuj</string>
@@ -343,10 +351,14 @@
     <string name="channel">Kanał</string>
     <string name="value">Wartość</string>
     <string name="channel_no" formatted="false">Kanał %d</string>
-    <string name="change_relay_at_on" formatted="false">Włącz przekaźnik %d o %s, %s</string>
-    <string name="change_relay_at_off" formatted="false">Wyłącz przekaźnik %d 0 %s, %s</string>
+    <string name="change_temperature_setting_to" formatted="false">Zmień temperaturę zadaną na %s, dnia %s o godzinie %s</string>
+    <string name="change_humidity_setting_to" formatted="false">Zmień wilgotność zadaną na %s, dnia %s o godzinie %s</string>
+    <string name="change_relay_at_on" formatted="false">Włącz przekaźnik %d,  dnia %s o godzinie %s</string>
+    <string name="change_relay_at_off" formatted="false">Wyłącz przekaźnik %d 0 dnia %s o godzinie %s</string>
     <string name="change_relay_by_schedule_on" formatted="false">W %s o godzinie %s włączaj przekaźnik %d</string>
     <string name="change_relay_by_schedule_off" formatted="false">W %s o godzinie %s zwyłączaj przekaźnik %d</string>
+    <string name="change_temperature_by_schedule" formatted="false">W %s, o godzinie %s zmieniaj temperaturę zadaną na %s</string>
+    <string name="change_humidity_by_schedule" formatted="false">W %s, o godzinie %s, zmieniaj wilgotność zadaną na %s</string>
     <string name="pick_action">Wybierz akcję</string>
     <string name="save">Zapisz</string>
     <string name="monday_shortcut">Po</string>

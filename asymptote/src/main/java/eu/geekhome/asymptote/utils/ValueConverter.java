@@ -1,7 +1,11 @@
 package eu.geekhome.asymptote.utils;
 
 
+import android.content.Context;
+
 import java.util.Locale;
+
+import eu.geekhome.asymptote.R;
 
 public class ValueConverter {
     public static String intToCelsius(Integer value) {
@@ -10,6 +14,14 @@ public class ValueConverter {
         }
 
         return intToValue(value - 27315, "°C");
+    }
+
+    public static int celsiusToInt(String value) {
+        return Integer.valueOf(value.replace(" °C", "").replace(".00","").replace(".50","")) * 100 + 27315;
+    }
+
+    public static int humidityToInt(String value) {
+        return Integer.valueOf(value.replace(" %", "").replace(".00","").replace(".50","")) * 100;
     }
 
     public static String intToHumidity(Integer value) {
@@ -70,5 +82,32 @@ public class ValueConverter {
         }
 
         return "< min";
+    }
+
+    public static String daysToNames(Context context, int days) {
+        StringBuilder daysTextBuilder = new StringBuilder();
+        if (ByteUtils.getBit(days, 0)) {
+            daysTextBuilder.append(context.getString(R.string.at_monday)).append(", ");
+        }
+        if (ByteUtils.getBit(days, 1)) {
+            daysTextBuilder.append(context.getString(R.string.at_tuesday)).append(", ");
+        }
+        if (ByteUtils.getBit(days, 2)) {
+            daysTextBuilder.append(context.getString(R.string.at_wednesday)).append(", ");
+        }
+        if (ByteUtils.getBit(days, 3)) {
+            daysTextBuilder.append(context.getString(R.string.at_thursday)).append(", ");
+        }
+        if (ByteUtils.getBit(days, 4)) {
+            daysTextBuilder.append(context.getString(R.string.at_friday)).append(", ");
+        }
+        if (ByteUtils.getBit(days, 5)) {
+            daysTextBuilder.append(context.getString(R.string.at_saturday)).append(", ");
+        }
+        if (ByteUtils.getBit(days, 6)) {
+            daysTextBuilder.append(context.getString(R.string.sunday)).append(", ");
+        }
+
+        return daysTextBuilder.toString();
     }
 }

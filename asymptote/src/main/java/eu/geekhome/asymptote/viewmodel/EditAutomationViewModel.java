@@ -93,7 +93,7 @@ public class EditAutomationViewModel extends ViewModel<FragmentEditAutomationBin
         super.onPause();
         _syncManager.setSyncListener(null);
         _cloudDeviceService.setSyncListener(null);
-        _cloudDeviceService.unregisterFromAutomationSyncEvents(_sensor.getUserId(), _sensor.getToken());
+        _cloudDeviceService.unregisterFromAutomationSyncEvents(_sensor.getUserId());
     }
 
     @Override
@@ -110,7 +110,7 @@ public class EditAutomationViewModel extends ViewModel<FragmentEditAutomationBin
 
     public void addTrigger() {
         int index = findFirstFreeIndex();
-        ChooseTriggerViewModel viewModel = _factory.createChooseTriggerViewModel(this, index, _sensor);
+        ChooseAutomationViewModel viewModel = _factory.createChooseTriggerViewModel(this, index, _sensor);
         _navigationService.showOverlayViewModel(viewModel);
     }
 

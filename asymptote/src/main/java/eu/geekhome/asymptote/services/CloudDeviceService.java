@@ -15,7 +15,7 @@ public interface CloudDeviceService {
 
     void registerForAutomationSyncEvents(String userId, String token);
 
-    void unregisterFromAutomationSyncEvents(String userId, String token);
+    void unregisterFromAutomationSyncEvents(String userId);
 
     void registerForDeviceSyncEvents(String userId, DeviceSnapshot deviceSnapshot);
 

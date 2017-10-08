@@ -8,11 +8,11 @@
         <import type="android.view.View"/>
 
         <import type="eu.geekhome.asymptote.validation.MinLengthParams"/>
-        <import type="eu.geekhome.asymptote.viewmodel.TriggerType"/>
+        <import type="eu.geekhome.asymptote.viewmodel.AutomationType"/>
 
         <variable
             name="vm"
-            type="eu.geekhome.asymptote.viewmodel.ChooseTriggerViewModel"/>
+            type="eu.geekhome.asymptote.viewmodel.ChooseAutomationViewModel"/>
     </data>
 
     <FrameLayout style="@style/Common.Dialog.TransparencyLayer">
@@ -28,7 +28,7 @@
             <eu.geekhome.asymptote.bindingutils.controls.VerticalRecyclerView
                 style="@style/Layout.MatchX1"
                 android:background="@color/white"
-                app:items="@{vm.triggerTypes}"/>
+                app:items="@{vm.automationTypes}"/>
 
             <LinearLayout style="@style/Layout.MatchX.Horizontal">
                 <TextView

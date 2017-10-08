@@ -9,8 +9,12 @@ import javax.inject.Inject;
 
 import eu.geekhome.asymptote.MainActivity;
 import eu.geekhome.asymptote.bindingutils.LayoutHolder;
+import eu.geekhome.asymptote.model.AutomationDateTimeHumidity;
 import eu.geekhome.asymptote.model.AutomationDateTimeRelay;
+import eu.geekhome.asymptote.model.AutomationDateTimeTemperature;
+import eu.geekhome.asymptote.model.AutomationSchedulerHumidity;
 import eu.geekhome.asymptote.model.AutomationSchedulerRelay;
+import eu.geekhome.asymptote.model.AutomationSchedulerTemperature;
 import eu.geekhome.asymptote.model.DeviceSyncData;
 import eu.geekhome.asymptote.model.Firmware;
 import eu.geekhome.asymptote.model.UserSnapshot;
@@ -288,10 +292,22 @@ public class MainViewModelsFactory {
                 sensor, index);
     }
 
+    public EditAutomationDateTimeRelayViewModel createEditAutomationDateTimeRelayViewModel(
+            AutomationAddedListener listener, SensorItemViewModel sensor, AutomationDateTimeRelay automation) {
+        return new EditAutomationDateTimeRelayViewModel(_context, this, _navigationService, listener,
+                sensor, automation);
+    }
+
     public EditAutomationDateTimeTemperatureViewModel createEditAutomationDateTimeTemperatureViewModel(
             AutomationAddedListener listener, SensorItemViewModel sensor, int index) {
         return new EditAutomationDateTimeTemperatureViewModel(_context, this, _navigationService, listener,
                 sensor, index);
+    }
+
+    public EditAutomationDateTimeTemperatureViewModel createEditAutomationDateTimeTemperatureViewModel(
+            AutomationAddedListener listener, SensorItemViewModel sensor, AutomationDateTimeTemperature automation) {
+        return new EditAutomationDateTimeTemperatureViewModel(_context, this, _navigationService, listener,
+                sensor, automation);
     }
 
     public EditAutomationDateTimeHumidityViewModel createEditAutomationDateTimeHumidityViewModel(
@@ -300,9 +316,9 @@ public class MainViewModelsFactory {
                 sensor, index);
     }
 
-    public EditAutomationDateTimeRelayViewModel createEditAutomationDateTimeRelayViewModel(
-            AutomationAddedListener listener, SensorItemViewModel sensor, AutomationDateTimeRelay automation) {
-        return new EditAutomationDateTimeRelayViewModel(_context, this, _navigationService, listener,
+    public EditAutomationDateTimeHumidityViewModel createEditAutomationDateTimeHumidityViewModel(
+            AutomationAddedListener listener, SensorItemViewModel sensor, AutomationDateTimeHumidity automation) {
+        return new EditAutomationDateTimeHumidityViewModel(_context, this, _navigationService, listener,
                 sensor, automation);
     }
 
@@ -317,6 +333,26 @@ public class MainViewModelsFactory {
         return new EditAutomationSchedulerRelayViewModel(_context, this, _navigationService, listener,
                 sensor, automation);
 
+    }
+
+    public EditAutomationSchedulerTemperatureViewModel createEditAutomationSchedulerTemperatureViewModel(
+            AutomationAddedListener listener, SensorItemViewModel sensor, int index) {
+        return new EditAutomationSchedulerTemperatureViewModel(_context, this, _navigationService, listener, sensor, index);
+    }
+
+    public EditAutomationSchedulerTemperatureViewModel createEditAutomationSchedulerTemperatureViewModel(
+            AutomationAddedListener listener, SensorItemViewModel sensor, AutomationSchedulerTemperature automation) {
+        return new EditAutomationSchedulerTemperatureViewModel(_context, this, _navigationService, listener, sensor, automation);
+    }
+
+    public EditAutomationSchedulerHumidityViewModel createEditAutomationSchedulerHumidityViewModel(
+            AutomationAddedListener listener, SensorItemViewModel sensor, int index) {
+        return new EditAutomationSchedulerHumidityViewModel(_context, this, _navigationService, listener, sensor, index);
+    }
+
+    public EditAutomationSchedulerHumidityViewModel createEditAutomationSchedulerHumidityViewModel(
+            AutomationAddedListener listener, SensorItemViewModel sensor, AutomationSchedulerHumidity automation) {
+        return new EditAutomationSchedulerHumidityViewModel(_context, this, _navigationService, listener, sensor, automation);
     }
 
     public EditRelayValueViewModel createEditRelayValueViewModel(SensorItemViewModel sensor) {
@@ -341,15 +377,5 @@ public class MainViewModelsFactory {
 
     public EditSchedulerViewModel createEditSchedulerViewModel(SensorItemViewModel sensor) {
         return new EditSchedulerViewModel(_generalDialogService, sensor);
-    }
-
-    public EditAutomationSchedulerTemperatureViewModel createEditAutomationSchedulerTemperatureViewModel(
-            AutomationAddedListener listener, SensorItemViewModel sensor, int index) {
-        return new EditAutomationSchedulerTemperatureViewModel(_context, this, _navigationService, listener, sensor, index);
-    }
-
-    public EditAutomationSchedulerHumidityViewModel createEditAutomationSchedulerHumidityViewModel(
-            AutomationAddedListener listener, SensorItemViewModel sensor, int index) {
-        return new EditAutomationSchedulerHumidityViewModel(_context, this, _navigationService, listener, sensor, index);
     }
 }

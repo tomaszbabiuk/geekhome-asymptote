@@ -17,8 +17,12 @@ import eu.geekhome.asymptote.bindingutils.ViewModel;
 import eu.geekhome.asymptote.bindingutils.viewparams.ShowBackButtonInToolbarViewParam;
 import eu.geekhome.asymptote.databinding.FragmentEditAutomationBinding;
 import eu.geekhome.asymptote.model.Automation;
+import eu.geekhome.asymptote.model.AutomationDateTimeHumidity;
 import eu.geekhome.asymptote.model.AutomationDateTimeRelay;
+import eu.geekhome.asymptote.model.AutomationDateTimeTemperature;
+import eu.geekhome.asymptote.model.AutomationSchedulerHumidity;
 import eu.geekhome.asymptote.model.AutomationSchedulerRelay;
+import eu.geekhome.asymptote.model.AutomationSchedulerTemperature;
 import eu.geekhome.asymptote.model.AutomationSyncUpdate;
 import eu.geekhome.asymptote.model.BoardId;
 import eu.geekhome.asymptote.model.DeleteAutomationSyncUpdate;
@@ -162,9 +166,25 @@ public class EditAutomationViewModel extends ViewModel<FragmentEditAutomationBin
             AutomationDateTimeRelay automation = (AutomationDateTimeRelay)toEdit.getAutomation();
             EditAutomationDateTimeRelayViewModel model = _factory.createEditAutomationDateTimeRelayViewModel(this, _sensor, automation);
             _navigationService.showViewModel(model, new ShowBackButtonInToolbarViewParam());
+        } else if (toEdit.getAutomation() instanceof AutomationDateTimeTemperature) {
+            AutomationDateTimeTemperature automation = (AutomationDateTimeTemperature)toEdit.getAutomation();
+            EditAutomationDateTimeTemperatureViewModel model = _factory.createEditAutomationDateTimeTemperatureViewModel(this, _sensor, automation);
+            _navigationService.showViewModel(model, new ShowBackButtonInToolbarViewParam());
+        } else if (toEdit.getAutomation() instanceof AutomationDateTimeHumidity) {
+            AutomationDateTimeHumidity automation = (AutomationDateTimeHumidity) toEdit.getAutomation();
+            EditAutomationDateTimeHumidityViewModel model = _factory.createEditAutomationDateTimeHumidityViewModel(this, _sensor, automation);
+            _navigationService.showViewModel(model, new ShowBackButtonInToolbarViewParam());
         } else if (toEdit.getAutomation() instanceof AutomationSchedulerRelay) {
             AutomationSchedulerRelay automation = (AutomationSchedulerRelay)toEdit.getAutomation();
             EditAutomationSchedulerRelayViewModel model = _factory.createEditAutomationSchedulerRelayViewModel(this, _sensor, automation);
+            _navigationService.showViewModel(model, new ShowBackButtonInToolbarViewParam());
+        } else if (toEdit.getAutomation() instanceof AutomationSchedulerTemperature) {
+            AutomationSchedulerTemperature automation = (AutomationSchedulerTemperature) toEdit.getAutomation();
+            EditAutomationSchedulerTemperatureViewModel model = _factory.createEditAutomationSchedulerTemperatureViewModel(this, _sensor, automation);
+            _navigationService.showViewModel(model, new ShowBackButtonInToolbarViewParam());
+        } else if (toEdit.getAutomation() instanceof AutomationSchedulerHumidity) {
+            AutomationSchedulerHumidity automation = (AutomationSchedulerHumidity) toEdit.getAutomation();
+            EditAutomationSchedulerHumidityViewModel model = _factory.createEditAutomationSchedulerHumidityViewModel(this, _sensor, automation);
             _navigationService.showViewModel(model, new ShowBackButtonInToolbarViewParam());
         }
     }

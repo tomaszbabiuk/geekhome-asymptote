@@ -36,7 +36,7 @@ public class EditHumidityValueViewModel extends BaseObservable {
     }
 
     void applyHumidityValue(ParamValue paramValue) {
-        String valueName = ValueConverter.intToCelsius((int)paramValue.getValue());
+        String valueName = ValueConverter.intToHumidity((int)paramValue.getValue());
         setSelectedValue(valueName);
     }
 

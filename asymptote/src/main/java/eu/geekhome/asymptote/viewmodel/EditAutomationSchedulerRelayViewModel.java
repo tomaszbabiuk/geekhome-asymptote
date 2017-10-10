@@ -44,7 +44,7 @@ public class EditAutomationSchedulerRelayViewModel extends EditAutomationViewMod
     protected AutomationSchedulerRelay createAutomation() {
         RelayValue value = _editRelayValueViewModel.buildRelayValue();
         SchedulerTrigger trigger = _editSchedulerViewModel.buildSchedulerTrigger();
-        return new AutomationSchedulerRelay(getIndex(), trigger, value);
+        return new AutomationSchedulerRelay(getIndex(), trigger, value, isEnabled());
     }
 
     @Override

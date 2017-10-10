@@ -6,11 +6,13 @@ public abstract class Automation<T, V> {
     private final int _index;
     private final T _trigger;
     private final V _value;
+    private boolean _enabled;
 
-    public Automation(int index, T trigger, V value) {
+    public Automation(int index, T trigger, V value, boolean enabled) {
         _index = index;
         _trigger = trigger;
         _value = value;
+        _enabled = enabled;
     }
 
     public T getTrigger() {
@@ -26,4 +28,12 @@ public abstract class Automation<T, V> {
     }
 
     public abstract String composeMessage(Context context);
+
+    public boolean isEnabled() {
+        return _enabled;
+    }
+
+    public void setEnabled(boolean enabled) {
+        _enabled = enabled;
+    }
 }

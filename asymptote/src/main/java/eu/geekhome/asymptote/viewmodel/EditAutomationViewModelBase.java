@@ -21,6 +21,7 @@ public abstract class EditAutomationViewModelBase<T extends ViewDataBinding, A e
     private final NavigationService _navigationService;
     private final Context _context;
     private boolean _editMode;
+    private boolean _enabled;
 
     @Bindable
     public HelpActionBarViewModel getActionBarModel() {
@@ -44,6 +45,7 @@ public abstract class EditAutomationViewModelBase<T extends ViewDataBinding, A e
         _actionBarModel = factory.createHelpActionBarModel();
         createSubmodels(factory, sensor);
         setEditMode(false);
+        setEnabled(true);
     }
 
     EditAutomationViewModelBase(Context context, MainViewModelsFactory factory,
@@ -53,6 +55,7 @@ public abstract class EditAutomationViewModelBase<T extends ViewDataBinding, A e
         this(context, factory, navigationService, listener, sensor, automation.getIndex());
         createSubmodels(factory, sensor);
         setIndex(automation.getIndex());
+        setEnabled(automation.isEnabled());
         setEditMode(true);
         applyAutomationChanges(automation);
     }
@@ -97,5 +100,15 @@ public abstract class EditAutomationViewModelBase<T extends ViewDataBinding, A e
 
     protected Context getContext() {
         return _context;
+    }
+
+    @Bindable
+    public boolean isEnabled() {
+        return _enabled;
+    }
+
+    public void setEnabled(boolean enabled) {
+        _enabled = enabled;
+        notifyPropertyChanged(BR.enabled);
     }
 }

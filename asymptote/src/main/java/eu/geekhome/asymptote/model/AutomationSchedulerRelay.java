@@ -12,8 +12,8 @@ public class AutomationSchedulerRelay extends Automation<SchedulerTrigger, Relay
 
     private final int _offset;
 
-    public AutomationSchedulerRelay(int index, SchedulerTrigger trigger, RelayValue value) {
-        super(index, trigger, value);
+    public AutomationSchedulerRelay(int index, SchedulerTrigger trigger, RelayValue value, boolean enabled) {
+        super(index, trigger, value, enabled);
         _offset = TimeZone.getDefault().getOffset(Calendar.getInstance().getTimeInMillis())/1000;
 
     }

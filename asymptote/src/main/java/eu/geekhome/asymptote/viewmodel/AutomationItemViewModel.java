@@ -21,6 +21,7 @@ public class AutomationItemViewModel extends BaseObservable implements LayoutHol
     private String _message;
     private TextView _textView;
     private boolean _remove;
+    private boolean _enabled;
 
     AutomationItemViewModel(Context context, Automation automation, EditAutomationViewModel parent) {
         _automation = automation;
@@ -91,5 +92,15 @@ public class AutomationItemViewModel extends BaseObservable implements LayoutHol
     public void setLoading(boolean loading) {
         _loading = loading;
         notifyPropertyChanged(BR.loading);
+    }
+
+    @Bindable
+    public boolean isEnabled() {
+        return _automation.isEnabled();
+    }
+
+    public void setEnabled(boolean enabled) {
+        _automation.setEnabled(enabled);
+        notifyPropertyChanged(BR.enabled);
     }
 }

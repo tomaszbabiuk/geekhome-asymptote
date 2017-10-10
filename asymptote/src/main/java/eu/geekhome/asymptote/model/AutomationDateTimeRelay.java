@@ -8,8 +8,8 @@ import java.util.Date;
 import eu.geekhome.asymptote.R;
 
 public class AutomationDateTimeRelay extends Automation<DateTimeTrigger, RelayValue> {
-    public AutomationDateTimeRelay(int index, DateTimeTrigger trigger, RelayValue value) {
-        super(index, trigger, value);
+    public AutomationDateTimeRelay(int index, DateTimeTrigger trigger, RelayValue value, boolean enabled) {
+        super(index, trigger, value, enabled);
     }
 
     @Override

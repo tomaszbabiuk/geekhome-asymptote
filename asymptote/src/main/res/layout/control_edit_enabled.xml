@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View"/>
+
+        <variable
+            name="enabled"
+            type="java.lang.Boolean"/>
+    </data>
+
+    <LinearLayout
+        style="@style/Layout.MatchX.Vertical">
+
+        <LinearLayout
+            style="@style/Layout.MatchX.Horizontal">
+
+            <TextView
+                style="@style/Triggers.Label"
+                android:text='@{@string/enabled + ": "}'
+                tools:text="Enabled: "/>
+
+
+            <android.support.v7.widget.SwitchCompat
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                style="@style/SensorList.Switch"
+                android:checked="@{enabled}"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+</layout>

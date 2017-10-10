@@ -356,9 +356,9 @@
     <string name="change_relay_at_on" formatted="false">Włącz przekaźnik %d,  dnia %s o godzinie %s</string>
     <string name="change_relay_at_off" formatted="false">Wyłącz przekaźnik %d 0 dnia %s o godzinie %s</string>
     <string name="change_relay_by_schedule_on" formatted="false">W %s o godzinie %s włączaj przekaźnik %d</string>
-    <string name="change_relay_by_schedule_off" formatted="false">W %s o godzinie %s zwyłączaj przekaźnik %d</string>
-    <string name="change_temperature_by_schedule" formatted="false">W %s, o godzinie %s zmieniaj temperaturę zadaną na %s</string>
-    <string name="change_humidity_by_schedule" formatted="false">W %s, o godzinie %s, zmieniaj wilgotność zadaną na %s</string>
+    <string name="change_relay_by_schedule_off" formatted="false">W %s o godzinie %s wyłączaj przekaźnik %d</string>
+    <string name="change_temperature_by_schedule" formatted="false">W %s o godzinie %s zmieniaj temperaturę zadaną na %s</string>
+    <string name="change_humidity_by_schedule" formatted="false">W %s o godzinie %s zmieniaj wilgotność zadaną na %s</string>
     <string name="pick_action">Wybierz akcję</string>
     <string name="save">Zapisz</string>
     <string name="monday_shortcut">Po</string>
@@ -378,6 +378,8 @@
     <string name="sunday">Niedzielę</string>
     <string name="lock">Zablokuj (hasłem)</string>
     <string name="unlock">Odblokuj</string>
+    <string name="this_device_supports_no_automations">To urządzenie nie wspiera automatyzacji :(</string>
+    <string name="enabled">Aktywne</string>
 
     <string-array name="signal_turned_on_solutions">
         <item>Poczekaj na bardziej znaczący sygnał. Przykładowo, gdy urządzenie nie zna naszej sieci WiFi i próbuje nawiązać połączenie dioda stanu świeci się w sposób ciągły (nie miga) przez kilka sekund, a następnie miga dwukrotnie kilka razy i znowu zaświeca się, aby ponowić próbę. Te dwa mrugnięcia są tym bardziej znaczącym sygnałem w tym przypadku.</item>

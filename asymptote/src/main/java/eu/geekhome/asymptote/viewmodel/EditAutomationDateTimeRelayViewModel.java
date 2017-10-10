@@ -45,7 +45,7 @@ public class EditAutomationDateTimeRelayViewModel extends EditAutomationViewMode
     protected AutomationDateTimeRelay createAutomation() {
         RelayValue relayValue = _editRelayValueViewModel.buildRelayValue();
         DateTimeTrigger dateTimeTrigger = _editDateTimeViewModel.buildDateTimeTrigger();
-        return new AutomationDateTimeRelay(getIndex(), dateTimeTrigger, relayValue);
+        return new AutomationDateTimeRelay(getIndex(), dateTimeTrigger, relayValue, isEnabled());
     }
 
     @Override

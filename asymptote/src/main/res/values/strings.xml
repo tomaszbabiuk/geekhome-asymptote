@@ -384,6 +384,8 @@
     <string name="sunday">Sunday</string>
     <string name="lock">Lock (with password)</string>
     <string name="unlock">Unlock</string>
+    <string name="this_device_supports_no_automations">This device supports no automations :(</string>
+    <string name="enabled">Enabled</string>
 
 
     <string-array name="signal_turned_on_solutions">

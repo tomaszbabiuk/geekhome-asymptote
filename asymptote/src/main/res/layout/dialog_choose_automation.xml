@@ -25,10 +25,17 @@
                 style="@style/Common.Text.FormLabel"
                 android:text="@string/choose_trigger"/>
 
+            <TextView
+                style="@style/Profile.InstructionText"
+                android:text="@string/this_device_supports_no_automations"
+                android:visibility="@{vm.automationTypes.size() == 0 ? View.VISIBLE : View.GONE}"/>
+
             <eu.geekhome.asymptote.bindingutils.controls.VerticalRecyclerView
                 style="@style/Layout.MatchX1"
                 android:background="@color/white"
                 app:items="@{vm.automationTypes}"/>
+
+
 
             <LinearLayout style="@style/Layout.MatchX.Horizontal">
                 <TextView
@@ -39,6 +46,7 @@
                 <TextView
                     style="@style/Common.Button.Orange"
                     android:onClick="@{() -> vm.ok()}"
+                    android:enabled="@{vm.selectedAutomationType == AutomationType.None ? false : true}"
                     android:text="@string/ok"/>
             </LinearLayout>
         </LinearLayout>

@@ -264,26 +264,27 @@ public class FirebaseCloudDeviceService implements CloudDeviceService {
                     DataSnapshot dateTimeAutomationChild = iterator.next();
                     int index = dateTimeAutomationChild.child("idx").getValue(Integer.class);
                     long time = dateTimeAutomationChild.child("tme").getValue(Long.class);
-                    int channel = dateTimeAutomationChild.child("chn").getValue(Integer.class);
+                    long param = dateTimeAutomationChild.child("prm").getValue(Long.class);
                     long value = dateTimeAutomationChild.child("val").getValue(Long.class);
                     int unit = dateTimeAutomationChild.child("unt").getValue(Integer.class);
+                    boolean enabled = dateTimeAutomationChild.child("end").getValue(Integer.class) == 1;
                     DateTimeTrigger trigger = new DateTimeTrigger(time);
 
                     AutomationUnit unitParsed = AutomationUnit.fromInt(unit);
                     switch (unitParsed) {
                         case Relay:
-                            RelayValue relayValue = new RelayValue(channel, value == 1);
-                            AutomationDateTimeRelay relayAutomation = new AutomationDateTimeRelay(index, trigger, relayValue);
+                            RelayValue relayValue = new RelayValue((int)param, value == 1);
+                            AutomationDateTimeRelay relayAutomation = new AutomationDateTimeRelay(index, trigger, relayValue, enabled);
                             automationList.add(relayAutomation);
                             break;
                         case Temperature:
-                            ParamValue tempValue = new ParamValue(0, value);
-                            AutomationDateTimeTemperature temperatureAutomation = new AutomationDateTimeTemperature(index, trigger, tempValue);
+                            ParamValue tempValue = new ParamValue((int)param, value);
+                            AutomationDateTimeTemperature temperatureAutomation = new AutomationDateTimeTemperature(index, trigger, tempValue, enabled);
                             automationList.add(temperatureAutomation);
                             break;
                         case Humidity:
-                            ParamValue humValue = new ParamValue(0, value);
-                            AutomationDateTimeHumidity humidityAutomation = new AutomationDateTimeHumidity(index, trigger, humValue);
+                            ParamValue humValue = new ParamValue((int)param, value);
+                            AutomationDateTimeHumidity humidityAutomation = new AutomationDateTimeHumidity(index, trigger, humValue, enabled);
                             automationList.add(humidityAutomation);
                             break;
                     }
@@ -296,26 +297,27 @@ public class FirebaseCloudDeviceService implements CloudDeviceService {
                     int index = schedulerAutomationChild.child("idx").getValue(Integer.class);
                     long time = schedulerAutomationChild.child("tme").getValue(Long.class);
                     int days = schedulerAutomationChild.child("dys").getValue(Integer.class);
-                    int channel = schedulerAutomationChild.child("chn").getValue(Integer.class);
+                    long param = schedulerAutomationChild.child("prm").getValue(Long.class);
                     long value = schedulerAutomationChild.child("val").getValue(Long.class);
                     int unit = schedulerAutomationChild.child("unt").getValue(Integer.class);
+                    boolean enabled = schedulerAutomationChild.child("end").getValue(Integer.class) == 1;
 
                     SchedulerTrigger trigger = new SchedulerTrigger(days, time);
                     AutomationUnit unitParsed = AutomationUnit.fromInt(unit);
                     switch (unitParsed) {
                         case Relay:
-                            RelayValue relayValue = new RelayValue(channel, value == 1);
-                            AutomationSchedulerRelay relayAutomation = new AutomationSchedulerRelay(index, trigger, relayValue);
+                            RelayValue relayValue = new RelayValue((int)param, value == 1);
+                            AutomationSchedulerRelay relayAutomation = new AutomationSchedulerRelay(index, trigger, relayValue, enabled);
                             automationList.add(relayAutomation);
                             break;
                         case Temperature:
-                            ParamValue tempValue = new ParamValue(0, value);
-                            AutomationSchedulerTemperature temperatureAutomation = new AutomationSchedulerTemperature(index, trigger, tempValue);
+                            ParamValue tempValue = new ParamValue((int)param, value);
+                            AutomationSchedulerTemperature temperatureAutomation = new AutomationSchedulerTemperature(index, trigger, tempValue, enabled);
                             automationList.add(temperatureAutomation);
                             break;
                         case Humidity:
-                            ParamValue humValue = new ParamValue(0, value);
-                            AutomationSchedulerHumidity humidityAutomation = new AutomationSchedulerHumidity(index, trigger, humValue);
+                            ParamValue humValue = new ParamValue((int)param, value);
+                            AutomationSchedulerHumidity humidityAutomation = new AutomationSchedulerHumidity(index, trigger, humValue, enabled);
                             automationList.add(humidityAutomation);
                             break;
                     }
@@ -559,30 +561,55 @@ public class FirebaseCloudDeviceService implements CloudDeviceService {
                                 Automation automation = (Automation) automationUpdate.getValue();
                                 String ix = String.format("addauto/%02X/", automation.getIndex());
                                 if (automation instanceof AutomationDateTimeRelay) {
-                                    orders.put(ix + "type", "dr");
-                                    orders.put(ix + "unit", "0");
+                                    orders.put(ix + "unit", AutomationUnit.Relay.toInt());
+                                }
+
+                                if (automation instanceof AutomationDateTimeTemperature) {
+                                    orders.put(ix + "unit", AutomationUnit.Temperature.toInt());
+                                }
+
+                                if (automation instanceof AutomationDateTimeHumidity) {
+                                    orders.put(ix + "unit", AutomationUnit.Humidity.toInt());
                                 }
 
                                 if (automation instanceof AutomationSchedulerRelay) {
-                                    orders.put(ix + "type", "sr");
+                                    orders.put(ix + "unit", AutomationUnit.Relay.toInt());
+                                }
+
+                                if (automation instanceof AutomationSchedulerTemperature) {
+                                    orders.put(ix + "unit", AutomationUnit.Temperature.toInt());
+                                }
+
+                                if (automation instanceof AutomationSchedulerHumidity) {
+                                    orders.put(ix + "unit", AutomationUnit.Humidity.toInt());
                                 }
 
                                 if (automation.getTrigger() instanceof DateTimeTrigger) {
                                     DateTimeTrigger dateTimeTrigger = (DateTimeTrigger) automation.getTrigger();
                                     orders.put(ix + "time", dateTimeTrigger.getUtcTimestamp());
+                                    orders.put(ix + "type", "dt");
                                 }
 
                                 if (automation.getTrigger() instanceof SchedulerTrigger) {
                                     SchedulerTrigger schedulerTrigger = (SchedulerTrigger) automation.getTrigger();
                                     orders.put(ix + "days", schedulerTrigger.getDays());
                                     orders.put(ix + "time", schedulerTrigger.getTimeMark());
+                                    orders.put(ix + "type", "sr");
                                 }
 
                                 if (automation.getValue() instanceof RelayValue) {
                                     RelayValue relayValue = (RelayValue) automation.getValue();
                                     orders.put(ix + "val", relayValue.getState() ? 1 : 0);
-                                    orders.put(ix + "channel", relayValue.getChannel());
+                                    orders.put(ix + "param", relayValue.getChannel());
                                 }
+
+                                if (automation.getValue() instanceof ParamValue) {
+                                    ParamValue paramValue = (ParamValue) automation.getValue();
+                                    orders.put(ix + "val", paramValue.getValue());
+                                    orders.put(ix + "param", paramValue.getIndex());
+                                }
+
+                                orders.put(ix + "enabled", automation.isEnabled());
                             }
                         }
                         orders.put("timestamp", ServerValue.TIMESTAMP);

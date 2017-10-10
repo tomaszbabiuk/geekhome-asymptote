@@ -6,6 +6,7 @@ import android.support.annotation.StringRes;
 import eu.geekhome.asymptote.R;
 
 public enum AutomationType {
+    None(-1, -1, -1),
     DateTimeOfRelay(R.raw.calendar, R.string.automation_datetime_name, R.string.automation_datetime_relay_desc),
     DateTimeOfTemperature(R.raw.calendar, R.string.automation_datetime_name, R.string.automation_datetime_temperature_desc),
     DateTimeOfHumidity(R.raw.calendar, R.string.automation_datetime_name, R.string.automation_datetime_humidity_desc),

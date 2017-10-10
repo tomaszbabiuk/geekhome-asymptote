@@ -47,7 +47,7 @@ public class EditAutomationDateTimeHumidityViewModel extends EditAutomationViewM
     protected AutomationDateTimeHumidity createAutomation() {
         ParamValue relayValue = _editHumidityValueViewModel.buildHumidityValue();
         DateTimeTrigger dateTimeTrigger = _editDateTimeViewModel.buildDateTimeTrigger();
-        return new AutomationDateTimeHumidity(getIndex(), dateTimeTrigger, relayValue);
+        return new AutomationDateTimeHumidity(getIndex(), dateTimeTrigger, relayValue, isEnabled());
     }
 
     @Override

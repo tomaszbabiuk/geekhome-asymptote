@@ -9,8 +9,8 @@ import eu.geekhome.asymptote.R;
 import eu.geekhome.asymptote.utils.ValueConverter;
 
 public class AutomationDateTimeTemperature extends Automation<DateTimeTrigger, ParamValue> {
-    public AutomationDateTimeTemperature(int index, DateTimeTrigger trigger, ParamValue value) {
-        super(index, trigger, value);
+    public AutomationDateTimeTemperature(int index, DateTimeTrigger trigger, ParamValue value, boolean enabled) {
+        super(index, trigger, value, enabled);
     }
 
     @Override

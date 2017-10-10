@@ -37,23 +37,38 @@ public class ChooseAutomationViewModel extends ViewModel<DialogChooseAutomationB
         _index = index;
         _sensor = sensor;
         _automationTypes = createAutomationTypes(sensor);
-        selectTrigger(AutomationType.DateTimeOfRelay);
+        selectTrigger(AutomationType.None);
     }
 
     private ObservableArrayList<LayoutHolder> createAutomationTypes(SensorItemViewModel sensor) {
         ObservableArrayList<LayoutHolder> result = new ObservableArrayList<>();
-        AutomationTypeItemViewModel exactTriggerOfRelay = new AutomationTypeItemViewModel(this, sensor, AutomationType.DateTimeOfRelay);
-        AutomationTypeItemViewModel exactTriggerOfTemperature = new AutomationTypeItemViewModel(this, sensor, AutomationType.DateTimeOfTemperature);
-        AutomationTypeItemViewModel exactTriggerOfHumidity = new AutomationTypeItemViewModel(this, sensor, AutomationType.DateTimeOfHumidity);
-        AutomationTypeItemViewModel scheduleTriggerOfRelay = new AutomationTypeItemViewModel(this, sensor, AutomationType.SchedulerOfRelay);
-        AutomationTypeItemViewModel scheduleTriggerOfTemperature = new AutomationTypeItemViewModel(this, sensor, AutomationType.SchedulerOfTemperature);
-        AutomationTypeItemViewModel scheduleTriggerOfHumidity = new AutomationTypeItemViewModel(this, sensor, AutomationType.SchedulerOfHumidity);
-        result.add(exactTriggerOfRelay);
-        result.add(exactTriggerOfTemperature);
-        result.add(exactTriggerOfHumidity);
-        result.add(scheduleTriggerOfRelay);
-        result.add(scheduleTriggerOfTemperature);
-        result.add(scheduleTriggerOfHumidity);
+        switch (sensor.getSyncData().getRole()) {
+            case TOUCH1:
+            case MAINS1:
+            case MAINS2:
+            case MAINS4:
+            case LIGHT_SWITCH_TRADITIONAL:
+                AutomationTypeItemViewModel exactTriggerOfRelay = new AutomationTypeItemViewModel(this, sensor, AutomationType.DateTimeOfRelay);
+                result.add(exactTriggerOfRelay);
+                AutomationTypeItemViewModel scheduleTriggerOfRelay = new AutomationTypeItemViewModel(this, sensor, AutomationType.SchedulerOfRelay);
+                result.add(scheduleTriggerOfRelay);
+                break;
+            case HEATING_THERMOSTAT:
+            case COOLING_THERMOSTAT:
+                AutomationTypeItemViewModel exactTriggerOfTemperature = new AutomationTypeItemViewModel(this, sensor, AutomationType.DateTimeOfTemperature);
+                result.add(exactTriggerOfTemperature);
+                AutomationTypeItemViewModel scheduleTriggerOfTemperature = new AutomationTypeItemViewModel(this, sensor, AutomationType.SchedulerOfTemperature);
+                result.add(scheduleTriggerOfTemperature);
+                break;
+            case HUMIDIFICATION_HYGROSTAT:
+            case DRYING_HYGROSTAT:
+                AutomationTypeItemViewModel exactTriggerOfHumidity = new AutomationTypeItemViewModel(this, sensor, AutomationType.DateTimeOfHumidity);
+                result.add(exactTriggerOfHumidity);
+                AutomationTypeItemViewModel scheduleTriggerOfHumidity = new AutomationTypeItemViewModel(this, sensor, AutomationType.SchedulerOfHumidity);
+                result.add(scheduleTriggerOfHumidity);
+                break;
+        }
+
         return result;
     }
 
@@ -101,13 +116,13 @@ public class ChooseAutomationViewModel extends ViewModel<DialogChooseAutomationB
     }
 
     @Bindable
-    private void setSelectedAutomationType(AutomationType triggerType) {
+    public void setSelectedAutomationType(AutomationType triggerType) {
         _selectedAutomationType = triggerType;
         notifyPropertyChanged(BR.selectedAutomationType);
     }
 
     @Bindable
-    private AutomationType getSelectedAutomationType() {
+    public AutomationType getSelectedAutomationType() {
         return _selectedAutomationType;
     }
 

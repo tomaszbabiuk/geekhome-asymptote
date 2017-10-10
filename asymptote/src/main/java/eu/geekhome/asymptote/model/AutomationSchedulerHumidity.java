@@ -12,8 +12,8 @@ public class AutomationSchedulerHumidity extends Automation<SchedulerTrigger, Pa
 
     private final int _offset;
 
-    public AutomationSchedulerHumidity(int index, SchedulerTrigger trigger, ParamValue value) {
-        super(index, trigger, value);
+    public AutomationSchedulerHumidity(int index, SchedulerTrigger trigger, ParamValue value, boolean enabled) {
+        super(index, trigger, value, enabled);
         _offset = TimeZone.getDefault().getOffset(Calendar.getInstance().getTimeInMillis())/1000;
 
     }

@@ -44,7 +44,7 @@ public class EditAutomationSchedulerHumidityViewModel extends EditAutomationView
     protected AutomationSchedulerHumidity createAutomation() {
         ParamValue value = _editHumidityValueViewModel.buildHumidityValue();
         SchedulerTrigger trigger = _editSchedulerViewModel.buildSchedulerTrigger();
-        return new AutomationSchedulerHumidity(getIndex(), trigger, value);
+        return new AutomationSchedulerHumidity(getIndex(), trigger, value, isEnabled());
     }
 
     @Override

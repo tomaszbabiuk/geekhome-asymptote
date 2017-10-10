@@ -44,7 +44,7 @@ public class EditAutomationSchedulerTemperatureViewModel extends EditAutomationV
     protected AutomationSchedulerTemperature createAutomation() {
         ParamValue value = _editTemperatureValueViewModel.buildTemperatureValue();
         SchedulerTrigger trigger = _editSchedulerViewModel.buildSchedulerTrigger();
-        return new AutomationSchedulerTemperature(getIndex(), trigger, value);
+        return new AutomationSchedulerTemperature(getIndex(), trigger, value, isEnabled());
     }
 
     @Override

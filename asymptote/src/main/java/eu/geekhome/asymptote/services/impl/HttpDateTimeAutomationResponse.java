@@ -17,46 +17,33 @@ public class HttpDateTimeAutomationResponse {
     @SerializedName("val")
     private long _value;
 
-    @SerializedName("chn")
-    private int _channel;
+    @SerializedName("prm")
+    private int _param;
+
+    @SerializedName("end")
+    private int _enabled;
 
     public int getIndex() {
         return _index;
-    }
-
-    public void setIndex(int index) {
-        _index = index;
     }
 
     public int getTime() {
         return _time;
     }
 
-    public void setTime(int time) {
-        _time = time;
-    }
-
     public int getUnit() {
         return _unit;
-    }
-
-    public void setUnit(int unit) {
-        _unit = unit;
     }
 
     public long getValue() {
         return _value;
     }
 
-    public void setValue(long value) {
-        _value = value;
+    public int getParam() {
+        return _param;
     }
 
-    public int getChannel() {
-        return _channel;
-    }
-
-    public void setChannel(int channel) {
-        _channel = channel;
+    public int getEnabled() {
+        return _enabled;
     }
 }

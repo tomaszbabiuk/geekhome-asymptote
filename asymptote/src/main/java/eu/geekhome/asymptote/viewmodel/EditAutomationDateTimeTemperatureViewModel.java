@@ -45,7 +45,7 @@ public class EditAutomationDateTimeTemperatureViewModel extends EditAutomationVi
     protected AutomationDateTimeTemperature createAutomation() {
         ParamValue relayValue = _editTemperatureValueViewModel.buildTemperatureValue();
         DateTimeTrigger dateTimeTrigger = _editDateTimeViewModel.buildDateTimeTrigger();
-        return new AutomationDateTimeTemperature(getIndex(), dateTimeTrigger, relayValue);
+        return new AutomationDateTimeTemperature(getIndex(), dateTimeTrigger, relayValue, isEnabled());
     }
 
     @Override

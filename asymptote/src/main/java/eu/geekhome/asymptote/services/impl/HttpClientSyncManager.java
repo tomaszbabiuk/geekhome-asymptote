@@ -321,15 +321,32 @@ public class HttpClientSyncManager implements SyncManager, LocalDiscoveryService
         String valueQuery = "";
         String type = "";
 
-        String ix = String.format(Locale.US, "&index=%d", automation.getIndex());
+        String ix = String.format(Locale.US, "&index=%d&enabled=%d", automation.getIndex(), automation.isEnabled() ? 1 : 0);
 
         if (automation instanceof AutomationDateTimeRelay) {
-            type="type=dt&unit=0";
+            type="type=dt&unit=" + AutomationUnit.Relay.toInt();
+        }
+
+        if (automation instanceof AutomationDateTimeTemperature) {
+            type="type=dt&unit=" + AutomationUnit.Temperature.toInt();
+        }
+
+        if (automation instanceof AutomationDateTimeHumidity) {
+            type="type=dt&unit=" + AutomationUnit.Humidity.toInt();
         }
 
         if (automation instanceof AutomationSchedulerRelay) {
-            type="type=sr&unit=0";
+            type="type=sr&unit=" + AutomationUnit.Relay.toInt();
         }
+
+        if (automation instanceof AutomationSchedulerTemperature) {
+            type="type=sr&unit=" + AutomationUnit.Temperature.toInt();
+        }
+
+        if (automation instanceof AutomationSchedulerHumidity) {
+            type="type=sr&unit=" + AutomationUnit.Humidity.toInt();
+        }
+
         if (automation.getTrigger() instanceof DateTimeTrigger) {
             DateTimeTrigger dateTimeTrigger = (DateTimeTrigger)automation.getTrigger();
             triggerQuery = String.format(Locale.US, "&time=%d", dateTimeTrigger.getUtcTimestamp());
@@ -343,6 +360,11 @@ public class HttpClientSyncManager implements SyncManager, LocalDiscoveryService
         if (automation.getValue() instanceof RelayValue) {
             RelayValue relayValue = (RelayValue)automation.getValue();
             valueQuery = String.format(Locale.US, "&value=%d&channel=%d", relayValue.getState() ? 1 : 0, relayValue.getChannel());
+        }
+
+        if (automation.getValue() instanceof ParamValue) {
+            ParamValue paramValue = (ParamValue)automation.getValue();
+            valueQuery = String.format(Locale.US, "&value=%d&param=%d", paramValue.getValue(), paramValue.getIndex());
         }
 
         Request request = new Request.Builder()
@@ -386,18 +408,18 @@ public class HttpClientSyncManager implements SyncManager, LocalDiscoveryService
                         AutomationUnit unitParsed = AutomationUnit.fromInt(dta.getUnit());
                         switch (unitParsed) {
                             case Relay:
-                                RelayValue relayValue = new RelayValue(dta.getChannel(), dta.getValue() == 1);
-                                AutomationDateTimeRelay relayAutomation = new AutomationDateTimeRelay(dta.getIndex(), trigger, relayValue);
+                                RelayValue relayValue = new RelayValue(dta.getParam(), dta.getValue() == 1);
+                                AutomationDateTimeRelay relayAutomation = new AutomationDateTimeRelay(dta.getIndex(), trigger, relayValue, dta.getEnabled() == 1);
                                 automationList.add(relayAutomation);
                                 break;
                             case Temperature:
                                 ParamValue tempValue = new ParamValue(0, dta.getValue());
-                                AutomationDateTimeTemperature temperatureAutomation = new AutomationDateTimeTemperature(dta.getIndex(), trigger, tempValue);
+                                AutomationDateTimeTemperature temperatureAutomation = new AutomationDateTimeTemperature(dta.getIndex(), trigger, tempValue, dta.getEnabled() == 1);
                                 automationList.add(temperatureAutomation);
                                 break;
                             case Humidity:
                                 ParamValue humValue = new ParamValue(0, dta.getValue());
-                                AutomationDateTimeHumidity humidityAutomation = new AutomationDateTimeHumidity(dta.getIndex(), trigger, humValue);
+                                AutomationDateTimeHumidity humidityAutomation = new AutomationDateTimeHumidity(dta.getIndex(), trigger, humValue, dta.getEnabled() == 1);
                                 automationList.add(humidityAutomation);
                                 break;
                         }
@@ -407,18 +429,18 @@ public class HttpClientSyncManager implements SyncManager, LocalDiscoveryService
                         AutomationUnit unitParsed = AutomationUnit.fromInt(sra.getUnit());
                         switch (unitParsed) {
                             case Relay:
-                                RelayValue relayValue = new RelayValue(sra.getChannel(), sra.getValue() == 1);
-                                AutomationSchedulerRelay relayAutomation = new AutomationSchedulerRelay(sra.getIndex(), trigger, relayValue);
+                                RelayValue relayValue = new RelayValue(sra.getParam(), sra.getValue() == 1);
+                                AutomationSchedulerRelay relayAutomation = new AutomationSchedulerRelay(sra.getIndex(), trigger, relayValue, sra.getEnabled() == 1);
                                 automationList.add(relayAutomation);
                                 break;
                             case Temperature:
                                 ParamValue tempValue = new ParamValue(0, sra.getValue());
-                                AutomationSchedulerTemperature temperatureAutomation = new AutomationSchedulerTemperature(sra.getIndex(), trigger, tempValue);
+                                AutomationSchedulerTemperature temperatureAutomation = new AutomationSchedulerTemperature(sra.getIndex(), trigger, tempValue, sra.getEnabled() == 1);
                                 automationList.add(temperatureAutomation);
                                 break;
                             case Humidity:
                                 ParamValue humValue = new ParamValue(0, sra.getValue());
-                                AutomationSchedulerHumidity humidityAutomation = new AutomationSchedulerHumidity(sra.getIndex(), trigger, humValue);
+                                AutomationSchedulerHumidity humidityAutomation = new AutomationSchedulerHumidity(sra.getIndex(), trigger, humValue, sra.getEnabled() == 1);
                                 automationList.add(humidityAutomation);
                                 break;
                         }

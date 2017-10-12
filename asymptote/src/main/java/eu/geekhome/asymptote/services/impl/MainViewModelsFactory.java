@@ -44,7 +44,6 @@ import eu.geekhome.asymptote.viewmodel.ChangePasswordViewModel;
 import eu.geekhome.asymptote.viewmodel.ManageViewModel;
 import eu.geekhome.asymptote.viewmodel.ChooseAutomationViewModel;
 import eu.geekhome.asymptote.viewmodel.ControlsCreator;
-import eu.geekhome.asymptote.viewmodel.DeviceLockedViewModel;
 import eu.geekhome.asymptote.viewmodel.EditAutomationDateTimeHumidityViewModel;
 import eu.geekhome.asymptote.viewmodel.EditAutomationDateTimeRelayViewModel;
 import eu.geekhome.asymptote.viewmodel.EditAutomationDateTimeTemperatureViewModel;
@@ -223,13 +222,9 @@ public class MainViewModelsFactory {
         return new SecuredDevicesFoundViewModel(this, _navigationService, mainViewModel, userId);
     }
 
-    public LockViewModel createLockViewModel(MainViewModel mainViewModel, SensorItemViewModel sensor) {
-        return new LockViewModel(_navigationService, _syncManager, _toastService, _cloudUserService,
-                _context, _threadRunner, _emergencyManager, mainViewModel, sensor);
-    }
-
-    public DeviceLockedViewModel createDeviceLockedViewModel() {
-        return new DeviceLockedViewModel(_navigationService);
+    public LockViewModel createLockViewModel(SensorItemViewModel sensor) {
+        return new LockViewModel(this, _navigationService, _syncManager, _toastService, _cloudUserService,
+                _threadRunner, _emergencyManager, sensor);
     }
 
     public ChangeFirmwareViewModel createChangeFirmwareViewModel(SensorItemViewModel sensor) {
@@ -372,7 +367,7 @@ public class MainViewModelsFactory {
     }
 
     public ManageViewModel createChooseActionViewModel(SensorItemViewModel sensor) {
-        return new ManageViewModel(this, _navigationService, sensor);
+        return new ManageViewModel(this, _context, _navigationService, _emergencyManager, _syncManager, sensor);
     }
 
     public EditSchedulerViewModel createEditSchedulerViewModel(SensorItemViewModel sensor) {

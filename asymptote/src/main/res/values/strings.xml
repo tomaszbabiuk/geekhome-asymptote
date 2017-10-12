@@ -201,7 +201,7 @@
     <string name="humidification_on">Humidification is on</string>
     <string name="humidification_off">Humidification is off</string>
     <string name="device_locked">Device is locked</string>
-    <string name="unlock_instuction">For security reasons you cannot unlock the device. You can still reset it to factory default by following these steps:\n1) Press and hold pairing button on the device for few seconds (until status led starts blinking)\n2) Release the button and wait till status led stops blinking (about 45 secs). Don\'t add any new device during that time!\n3) Device should reboot and signal no Wi-Fi error (two short blinks) - now you can add device again.</string>
+    <string name="unlock_note">You can still reset it to factory default by following these steps</string>
     <string name="yes">Yes</string>
     <string name="no">No</string>
     <string name="device_locked_not_upgradable">Cannot change firmware on a device that\'s not locked because of security reasons. Please lock this device first.</string>
@@ -277,7 +277,7 @@
     <string name="cannot_access_profile_when_emergency">This is emergency mode. User profile is unavailable.</string>
     <string name="emergency_mode">Emergency mode</string>
     <string name="emergency_password">Emergency password</string>
-    <string name="set_emergency_password">Set emergency password</string>
+    <string name="lock_device">Lock device (with password)</string>
     <string name="set_emergency_password_instruction">Emergency password help in securing your devices from unauthorized access and malware. Emergency password is shared between all geekHOME Asymptote devices in local network.</string>
     <string name="confirm_emergency_password">Confirm emergency password</string>
     <string name="set_password_and_secure_device">Set password and secure this device</string>
@@ -396,16 +396,17 @@
     <string name="at_friday">Friday</string>
     <string name="at_saturday">Saturday</string>
     <string name="sunday">Sunday</string>
-    <string name="lock">Lock (with password)</string>
+    <string name="lock">Lock</string>
     <string name="unlock">Unlock</string>
     <string name="this_device_supports_no_automations">This device supports no automations :(</string>
     <string name="enabled">Enabled</string>
     <string name="error_invalid_gate_automation_parameters">Error: invalid gate automation parameters</string>
     <string name="automation_of">%d of 8</string>
-    <string name="define_automation">Define automation</string>
+    <string name="define_automation">Define timers and schedulers</string>
     <string name="change_name_color_role">Change name, color and role</string>
     <string name="sensor_management">Device management</string>
     <string name="choose_action">Choose action</string>
+    <string name="set_lan_password_to_protect">Set emergency/LAN password to protect this device from malware</string>
 
 
     <string-array name="signal_turned_on_solutions">

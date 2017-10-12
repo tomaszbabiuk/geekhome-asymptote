@@ -1,18 +1,15 @@
 package eu.geekhome.asymptote.viewmodel;
 
-import android.content.Context;
 import android.databinding.Bindable;
 import android.databinding.DataBindingUtil;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 
 import com.android.databinding.library.baseAdapters.BR;
 
 import eu.geekhome.asymptote.R;
 import eu.geekhome.asymptote.bindingutils.ViewModel;
-import eu.geekhome.asymptote.databinding.DialogLockBinding;
+import eu.geekhome.asymptote.databinding.FragmentLockBinding;
 import eu.geekhome.asymptote.services.CloudActionCallback;
 import eu.geekhome.asymptote.services.CloudException;
 import eu.geekhome.asymptote.services.CloudUserService;
@@ -21,10 +18,10 @@ import eu.geekhome.asymptote.services.NavigationService;
 import eu.geekhome.asymptote.services.SyncManager;
 import eu.geekhome.asymptote.services.ThreadRunner;
 import eu.geekhome.asymptote.services.ToastService;
+import eu.geekhome.asymptote.services.impl.MainViewModelsFactory;
 import eu.geekhome.asymptote.validation.ValidationContext;
 
-public class LockViewModel extends ViewModel<DialogLockBinding> {
-    private final MainViewModel _mainViewModel;
+public class LockViewModel extends ViewModel<FragmentLockBinding> {
     private final SensorItemViewModel _sensor;
     private final ValidationContext _validation = new ValidationContext();
     private String _password;
@@ -36,23 +33,27 @@ public class LockViewModel extends ViewModel<DialogLockBinding> {
     private final SyncManager _syncManager;
     private final ToastService _toastService;
     private final CloudUserService _cloudUserService;
-    private final Context _context;
     private final ThreadRunner _threadRunner;
     private final EmergencyManager _emergencyManager;
+    private HelpActionBarViewModel _actionBarModel;
 
 
-    public LockViewModel(NavigationService navigationService, SyncManager syncManager, ToastService toastService,
-                         CloudUserService cloudUserService, Context context, ThreadRunner threadRunner,
-                         EmergencyManager emergencyManager, MainViewModel mainViewModel, SensorItemViewModel sensor) {
-        _mainViewModel = mainViewModel;
+    public LockViewModel(MainViewModelsFactory factory, NavigationService navigationService, SyncManager syncManager, ToastService toastService,
+                         CloudUserService cloudUserService, ThreadRunner threadRunner,
+                         EmergencyManager emergencyManager, SensorItemViewModel sensor) {
         _sensor = sensor;
         _navigationService = navigationService;
         _syncManager = syncManager;
         _toastService = toastService;
         _cloudUserService = cloudUserService;
-        _context = context;
         _threadRunner = threadRunner;
         _emergencyManager = emergencyManager;
+        _actionBarModel = factory.createHelpActionBarModel();
+    }
+
+    @Bindable
+    public HelpActionBarViewModel getActionBarModel() {
+        return _actionBarModel;
     }
 
     @Bindable
@@ -61,17 +62,12 @@ public class LockViewModel extends ViewModel<DialogLockBinding> {
     }
 
     @Override
-    public DialogLockBinding createBinding(LayoutInflater inflater, ViewGroup container) {
-        DialogLockBinding binding = DataBindingUtil.inflate(inflater, R.layout.dialog_lock, container, false);
+    public FragmentLockBinding createBinding(LayoutInflater inflater, ViewGroup container) {
+        FragmentLockBinding binding = DataBindingUtil.inflate(inflater, R.layout.fragment_lock, container, false);
         binding.setVm(this);
-        Animation rotateAnimation = AnimationUtils.loadAnimation(_context, R.anim.rotate_around_center_point_linear);
-        binding.gearImage.startAnimation(rotateAnimation);
         return binding;
     }
 
-    public void close() {
-        _navigationService.goBack();
-    }
 
     public void lock() {
         if (_validation.validate()) {
@@ -83,7 +79,6 @@ public class LockViewModel extends ViewModel<DialogLockBinding> {
                         @Override
                         public void run() {
                             _emergencyManager.setPassword(getPassword());
-                            _mainViewModel.rediscover();
                             _sensor.getSyncData().setLocked(true);
                             _sensor.requestSyncDelayed();
                         }

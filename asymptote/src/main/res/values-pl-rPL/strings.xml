@@ -197,7 +197,7 @@
     <string name="humidification_on">Nawilżanie właczone</string>
     <string name="humidification_off">Nawilżanie wyłaczone</string>
     <string name="device_locked">Urządzenie jest zablokowane</string>
-    <string name="unlock_instuction">Aby odblokować urządzenie, należy je zresetować do ustawień fabrycznych:\n1) Naciśnij i przytrzymaj przycisk dodawania na urządzeniu, do momentu aż dioda stanu zacznie migać\n2) Puść przycisk i poczekaj aż dioda skończy migać (trwa to ok 45 sekund). Nie dodawaj nowych urządzeń w tym czasie.\n3) Urządzenie powinno się zresetować i sygnalizować brak sieci WiFi (dwa krótkie mrugnięcia) - możesz je teraz dodać ponownie.</string>
+    <string name="unlock_note">Możesz je zresetować do ustawień fabrycznych</string>
     <string name="yes">Tak</string>
     <string name="no">Nie</string>
     <string name="device_locked_not_upgradable">Z powodów bezpieczeństwa nie można aktualizować oprogramowania urządzenia, które nie jest zablokowane. Wpierw zablokuj urządzenie ustawiając hasło awaryjne.</string>
@@ -273,7 +273,7 @@
     <string name="cannot_access_profile_when_emergency">Aplikacja pracuje w trybie awaryjnym. Profil użytkownika jest niedostępny.</string>
     <string name="emergency_mode">Tryb awaryjny</string>
     <string name="emergency_password">Hasło awaryjne</string>
-    <string name="set_emergency_password">Ustaw hasło awaryjne</string>
+    <string name="lock_device">Zablokuj urządzenie (hasłem)</string>
     <string name="set_emergency_password_instruction">Zdefiniuj hasło awaryjne aby zabezpieczyć urządzenia przed nieautoryzowanym dostępem i programami typu "malware". Hasło awaryjne jest współdzielone pomiędzy wszystkimi urządzeniami geekHOME Asymptote w sieci lokalnej.</string>
     <string name="confirm_emergency_password">Potwierdź hasło awaryjne</string>
     <string name="set_password_and_secure_device">Ustaw hasło i zabezpiecz urządzenie</string>
@@ -390,16 +390,17 @@
     <string name="at_friday">Piątek</string>
     <string name="at_saturday">Sobotę</string>
     <string name="sunday">Niedzielę</string>
-    <string name="lock">Zablokuj (hasłem)</string>
+    <string name="lock">Zablokuj</string>
     <string name="unlock">Odblokuj</string>
     <string name="this_device_supports_no_automations">To urządzenie nie wspiera automatyzacji :(</string>
     <string name="enabled">Aktywne</string>
     <string name="error_invalid_gate_automation_parameters">Błąd: niewłaściwe parametry dla automatyki stanu bramy</string>
     <string name="automation_of">%d z 8</string>
-    <string name="define_automation">Definiuj automatykę</string>
+    <string name="define_automation">Definiuj schematy sterowania czasowego</string>
     <string name="change_name_color_role">Zmień nazwę, kolor lub rolę</string>
     <string name="sensor_management">Zarządzanie urządzeniem</string>
     <string name="choose_action">Wybierz akcję</string>
+    <string name="set_lan_password_to_protect">Ustaw hasło awaryjne/LAN, aby urządzenie przed złośliwym oprogramowaniem</string>
 
     <string-array name="signal_turned_on_solutions">
         <item>Poczekaj na bardziej znaczący sygnał. Przykładowo, gdy urządzenie nie zna naszej sieci WiFi i próbuje nawiązać połączenie dioda stanu świeci się w sposób ciągły (nie miga) przez kilka sekund, a następnie miga dwukrotnie kilka razy i znowu zaświeca się, aby ponowić próbę. Te dwa mrugnięcia są tym bardziej znaczącym sygnałem w tym przypadku.</item>

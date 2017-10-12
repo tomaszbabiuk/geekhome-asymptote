@@ -14,36 +14,40 @@
             type="eu.geekhome.asymptote.viewmodel.LockViewModel"/>
     </data>
 
-    <FrameLayout style="@style/Common.Dialog.TransparencyLayer">
 
+    <LinearLayout
+        style="@style/Layout.MatchXY.Vertical">
 
-        <LinearLayout
-            style="@style/Common.Dialog"
-            android:layout_gravity="center_vertical">
+        <include
+            layout="@layout/actionbar_help"
+            tools:vm="@{vm.actionBarModel}"/>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
+        <ScrollView
+            style="@style/Layout.MatchX1"
+            android:fillViewport="true">
 
-                <eu.geekhome.controls.SvgImageView
-                    style="@style/SensorList.DiscoveryIcon"
-                    app:svgId="@raw/unlocked"/>
+            <LinearLayout style="@style/SensorEdit.Background">
+
+                <View style="@style/Common.OrangeSeparator.Horizontal"/>
+
+                <TextView
+                    style="@style/Common.Text.Big"
+                    android:layout_marginTop="@dimen/common_medium_padding"
+                    android:gravity="center_horizontal"
+                    android:text="@string/lock_device"/>
+
+                <View style="@style/Common.OrangeSeparator.Horizontal.Thin"/>
+
+                <View style="@style/Common.OrangeTriangle"/>
+
+                <TextView
+                    style="@style/Profile.InstructionText"
+                    android:text="@string/set_emergency_password_instruction"/>
 
                 <LinearLayout
                     style="@style/Layout.MatchX.Vertical"
-                    android:layout_marginStart="@dimen/common_small_padding"
-                    android:gravity="center_vertical">
-
-                    <TextView
-                        style="@style/Common.Text.Big"
-                        android:text="@string/set_emergency_password"
-                        android:textColor="@color/light_gray"/>
-
-                    <TextView
-                        style="@style/Common.Text.Medium"
-                        android:text="@string/set_emergency_password_instruction"
-                        android:textColor="@color/light_gray"/>
+                    android:paddingEnd="@dimen/common_normal_padding"
+                    android:paddingStart="@dimen/common_normal_padding">
 
                     <eu.geekhome.asymptote.validation.controls.ValidationLinearLayout
                         style="@style/Layout.MatchX1.Vertical"
@@ -81,35 +85,23 @@
                         android:checked="@={vm.rememberPassword}"
                         android:text="@string/remember_password_when_logged"
                         android:visibility="@{vm.emergency ? View.GONE : View.VISIBLE}"/>
+
                 </LinearLayout>
 
             </LinearLayout>
 
-            <LinearLayout style="@style/Layout.MatchX.Horizontal">
+        </ScrollView>
 
-                <TextView
-                    style="@style/Common.Button.Gray"
-                    android:onClick="@{() -> vm.close()}"
-                    android:text="@string/cancel"/>
+        <View style="@style/Common.OrangeSeparator.Horizontal"/>
 
-                <TextView
-                    style="@style/Common.Button.Orange"
-                    android:onClick="@{() -> vm.lock()}"
-                    android:text="@string/set_password_and_secure_device"/>
-            </LinearLayout>
+        <LinearLayout style="@style/ActionBar.BottomLayout">
+
+            <Button
+                style="@style/Touch.NextButton"
+                android:onClick="@{() -> vm.lock()}"
+                android:text="@string/set_password_and_secure_device"/>
         </LinearLayout>
+    </LinearLayout>
 
-        <eu.geekhome.asymptote.bindingutils.controls.NonClickableLinearLayout
-            style="@style/Layout.MatchXY"
-            android:visibility="@{vm.blocked ? View.VISIBLE : View.GONE}"
-            android:gravity="center"
-            android:background="@color/lightgray_transparent">
 
-            <ImageView
-                android:id="@+id/gear_image"
-                style="@style/Layout.Wrapped"
-                android:src="@drawable/gear_small"
-                tools:ignore="ContentDescription"/>
-        </eu.geekhome.asymptote.bindingutils.controls.NonClickableLinearLayout>
-    </FrameLayout>
 </layout>

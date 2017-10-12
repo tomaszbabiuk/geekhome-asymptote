@@ -528,25 +528,4 @@ public class MainViewModel extends ViewModel<FragmentMainBinding> implements Syn
         _sensors.remove(recreated);
         _sensors.add(index, recreated);
     }
-
-    @Override
-    public void locking(final SensorItemViewModel sender) {
-        if (_emergencyManager.getPassword() == null) {
-            LockViewModel lockViewModel = _factory.createLockViewModel(this, sender);
-            _navigationService.showOverlayViewModel(lockViewModel);
-        } else {
-            _syncManager.lock(sender.getSyncData().getSystemInfo().getVariant(), sender.getAddress(), new SyncManager.SyncCallback() {
-                @Override
-                public void success() {
-                    sender.getSyncData().setLocked(true);
-                    sender.requestSyncDelayed();
-                }
-
-                @Override
-                public void failure(Exception exception) {
-                    setErrorMessage(exception.getLocalizedMessage());
-                }
-            }, _emergencyManager.getPassword());
-        }
-    }
 }

@@ -66,7 +66,6 @@ public class SensorItemViewModel extends BaseObservable implements LayoutHolder 
 
     public interface SensorLifecycleListener {
         void recreated(SensorItemViewModel sender);
-        void locking(SensorItemViewModel sender);
 
     }
 
@@ -412,17 +411,6 @@ public class SensorItemViewModel extends BaseObservable implements LayoutHolder 
                 _navigationService.showViewModel(changeFirmwareModel, new ShowBackButtonInToolbarViewParam());
             }
         }
-    }
-
-    public void lock() {
-        if (_sensorLifecycleListener != null) {
-            _sensorLifecycleListener.locking(this);
-        }
-    }
-
-    public void unlock() {
-        DeviceLockedViewModel uvm = _factory.createDeviceLockedViewModel();
-        _navigationService.showOverlayViewModel(uvm);
     }
 
 

@@ -25,6 +25,12 @@
 
             <LinearLayout style="@style/SensorEdit.Background">
 
+                <TextView
+                    style="@style/Touch.ErrorMessage"
+                    android:text="@{vm.errorMessage}"
+                    android:visibility="@{vm.errorMessage != null ? View.VISIBLE : View.GONE}"
+                    tools:text="[error message]"/>
+
                 <View style="@style/Common.OrangeSeparator.Horizontal"/>
 
                 <TextView

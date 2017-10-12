@@ -44,7 +44,7 @@
             <TextView
                 style="@style/Triggers.PickButton"
                 android:onClick="@{() -> vm.onPickTime()}"
-                android:text="@{ValueConverter.secondsToText(vm.time)}"
+                android:text="@{ValueConverter.minutesToText(vm.time)}"
                 tools:text="05:56:34"/>
 
         </LinearLayout>

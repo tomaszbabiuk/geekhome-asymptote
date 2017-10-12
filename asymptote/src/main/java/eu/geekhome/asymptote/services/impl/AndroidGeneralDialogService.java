@@ -26,12 +26,12 @@ public class AndroidGeneralDialogService implements GeneralDialogService, TimePi
     }
 
     @Override
-    public void pickTime(int seconds, TimePickerListener listener) {
+    public void pickTime(int seconds, boolean enableSeconds, TimePickerListener listener) {
         int hourOfDay = seconds / 3600;
         int minutes = seconds % 3600 / 60;
         int secs = seconds % 60;
         TimePickerDialog dpd = TimePickerDialog.newInstance(this,hourOfDay,minutes,secs, true);
-        dpd.enableSeconds(true);
+        dpd.enableSeconds(enableSeconds);
         dpd.show(_fragmentManager, "TimePickerDialog");
         _timeListener = listener;
     }

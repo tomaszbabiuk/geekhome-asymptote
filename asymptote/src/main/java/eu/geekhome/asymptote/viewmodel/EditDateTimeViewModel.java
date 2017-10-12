@@ -55,10 +55,10 @@ public class EditDateTimeViewModel extends ViewModel<ControlEditDatetimeBinding>
     }
 
     public void onPickTime() {
-        _generalDialogService.pickTime((int)getTime(), new GeneralDialogService.TimePickerListener() {
+        _generalDialogService.pickTime((int)getTime(), false, new GeneralDialogService.TimePickerListener() {
             @Override
             public void onTimePicked(int hourOfDay, int minute, int second) {
-                int time = hourOfDay * 3600 + minute * 60 + second;
+                int time = hourOfDay * 3600 + minute * 60;
                 setTime(time);
             }
         });

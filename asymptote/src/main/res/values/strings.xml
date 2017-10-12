@@ -359,12 +359,26 @@
     <string name="temperature_no" formatted="false">Temperature %d dupa</string>
     <string name="change_temperature_setting_to" formatted="false">Change temperature setting to %s, at %s, %s</string>
     <string name="change_humidity_setting_to" formatted="false">Change humidity setting to %s, at %s, %s</string>
+    <string name="change_rgb_to" formatted="false">Change color to %s, at %s, %s</string>
+    <string name="change_pwm_to" formatted="false">Change pwm setting of channel %d to %s, at %s, %s</string>
+    <string name="change_gate_to_open" formatted="false">Open the gate at %s, %s</string>
+    <string name="change_gate_setting_to_closed" formatted="false">Close the gate at %s, %s</string>
+    <string name="change_gate_setting_to_blocked" formatted="false">Block the gate at %s, %s</string>
+    <string name="change_gate_setting_to_released" formatted="false">Release the gate at %s, %s</string>
+    <string name="change_impulse_setting_to" formatted="false">Activate channel %d at %s, %s</string>
     <string name="change_relay_at_on" formatted="false">Turn relay %d on at %s, %s</string>
     <string name="change_relay_at_off" formatted="false">Turn relay %d off at %s, %s</string>
     <string name="change_relay_by_schedule_on" formatted="false">Every %s at %s turn relay %d on</string>
     <string name="change_relay_by_schedule_off" formatted="false">Every %s at %s turn relay %d off</string>
     <string name="change_temperature_by_schedule" formatted="false">Every %s, at %s change temperature to %s</string>
     <string name="change_humidity_by_schedule" formatted="false">Every %s, at %s change humidity to %s</string>
+    <string name="change_rgb_setting_by_schedule" formatted="false">Every %s, at %s change color to %s</string>
+    <string name="change_pwm_setting_by_schedule" formatted="false">Every %s, at %s change brightness of channel %d to %s</string>
+    <string name="change_gate_setting_to_open_by_schedule" formatted="false">Every %s, at %s open the gate</string>
+    <string name="change_gate_setting_to_closed_by_schedule" formatted="false">Every %s, at %s close the gate</string>
+    <string name="change_gate_setting_to_blocked_by_schedule" formatted="false">Every %s, at %s block the gate</string>
+    <string name="change_gate_setting_to_released_by_schedule" formatted="false">Every %s, at %s release the gate</string>
+    <string name="change_impulse_setting_by_schedule" formatted="false">Every %s, at %s activate channel %d</string>
     <string name="pick_action">Pick action</string>
     <string name="save">Save</string>
     <string name="monday_shortcut">Mo</string>
@@ -386,6 +400,8 @@
     <string name="unlock">Unlock</string>
     <string name="this_device_supports_no_automations">This device supports no automations :(</string>
     <string name="enabled">Enabled</string>
+    <string name="error_invalid_gate_automation_parameters">Error: invalid gate automation parameters</string>
+    <string name="automation_of">%d of 8</string>
 
 
     <string-array name="signal_turned_on_solutions">

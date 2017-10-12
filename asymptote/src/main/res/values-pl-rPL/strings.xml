@@ -353,12 +353,26 @@
     <string name="channel_no" formatted="false">Kanał %d</string>
     <string name="change_temperature_setting_to" formatted="false">Zmień temperaturę zadaną na %s, dnia %s o godzinie %s</string>
     <string name="change_humidity_setting_to" formatted="false">Zmień wilgotność zadaną na %s, dnia %s o godzinie %s</string>
+    <string name="change_rgb_to" formatted="false">Zmień kolor na %s, dnia %s o godzinie %s</string>
+    <string name="change_pwm_to" formatted="false">Zmień intensywność kanału %d na %s, dnia %s o godzinie %s</string>
+    <string name="change_gate_to_open" formatted="false">Otwórz bramę dnia %s o godzinie %s</string>
+    <string name="change_gate_setting_to_closed" formatted="false">Zamknij bramę dnia %s o godzinie %s</string>
+    <string name="change_gate_setting_to_blocked" formatted="false">Zablokuj bramę dnia %s o godzinie %s</string>
+    <string name="change_gate_setting_to_released" formatted="false">Odblokuj bramę dnia %s o godzinie %s</string>
+    <string name="change_impulse_setting_to" formatted="false">Aktywuj kanał %d, dnia %s o godzinie %s</string>
     <string name="change_relay_at_on" formatted="false">Włącz przekaźnik %d,  dnia %s o godzinie %s</string>
     <string name="change_relay_at_off" formatted="false">Wyłącz przekaźnik %d 0 dnia %s o godzinie %s</string>
     <string name="change_relay_by_schedule_on" formatted="false">W %s o godzinie %s włączaj przekaźnik %d</string>
     <string name="change_relay_by_schedule_off" formatted="false">W %s o godzinie %s wyłączaj przekaźnik %d</string>
     <string name="change_temperature_by_schedule" formatted="false">W %s o godzinie %s zmieniaj temperaturę zadaną na %s</string>
     <string name="change_humidity_by_schedule" formatted="false">W %s o godzinie %s zmieniaj wilgotność zadaną na %s</string>
+    <string name="change_rgb_setting_by_schedule" formatted="false">W %s o godzinie %s zmieniaj kolor na %s</string>
+    <string name="change_pwm_setting_by_schedule" formatted="false">W %s o godzinie %s zmieniaj intensywność kanału %d na %s</string>
+    <string name="change_gate_setting_to_open_by_schedule" formatted="false">W %s o godzinie %s otwieraj bramę</string>
+    <string name="change_gate_setting_to_closed_by_schedule" formatted="false">W %s o godzinie %s zamykaj bramę</string>
+    <string name="change_gate_setting_to_blocked_by_schedule" formatted="false">W %s o godzinie %s blokuj bramę</string>
+    <string name="change_gate_setting_to_released_by_schedule" formatted="false">W %s o godzinie %s odblokowuj bramę</string>
+    <string name="change_impulse_setting_by_schedule" formatted="false">W %s o godzinie %s aktywuj kanał %d</string>
     <string name="pick_action">Wybierz akcję</string>
     <string name="save">Zapisz</string>
     <string name="monday_shortcut">Po</string>
@@ -380,6 +394,8 @@
     <string name="unlock">Odblokuj</string>
     <string name="this_device_supports_no_automations">To urządzenie nie wspiera automatyzacji :(</string>
     <string name="enabled">Aktywne</string>
+    <string name="error_invalid_gate_automation_parameters">Błąd: niewłaściwe parametry dla automatyki stanu bramy</string>
+    <string name="automation_of">%d z 8</string>
 
     <string-array name="signal_turned_on_solutions">
         <item>Poczekaj na bardziej znaczący sygnał. Przykładowo, gdy urządzenie nie zna naszej sieci WiFi i próbuje nawiązać połączenie dioda stanu świeci się w sposób ciągły (nie miga) przez kilka sekund, a następnie miga dwukrotnie kilka razy i znowu zaświeca się, aby ponowić próbę. Te dwa mrugnięcia są tym bardziej znaczącym sygnałem w tym przypadku.</item>

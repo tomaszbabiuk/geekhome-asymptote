@@ -60,10 +60,10 @@ public class EditSchedulerViewModel extends ViewModel<ControlEditSchedulerBindin
     }
 
     public void onPickTime() {
-        _generalDialogService.pickTime((int)getTime() + _offset, new GeneralDialogService.TimePickerListener() {
+        _generalDialogService.pickTime((int)getTime() + _offset, false, new GeneralDialogService.TimePickerListener() {
             @Override
             public void onTimePicked(int hourOfDay, int minute, int second) {
-                int time = hourOfDay * 3600 + minute * 60 + second;
+                int time = hourOfDay * 3600 + minute * 60;
                 setTime(time - _offset);
             }
         });

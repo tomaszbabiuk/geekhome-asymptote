@@ -43,7 +43,7 @@ public class RelayWorkingModeItemViewModel extends BaseObservable implements Lay
 
     public void onPickTime() {
         final int initialImpulse = getImpulse() < 0 ? 0 : (int)getImpulse();
-        _generalDialogService.pickTime(initialImpulse, new GeneralDialogService.TimePickerListener() {
+        _generalDialogService.pickTime(initialImpulse, true, new GeneralDialogService.TimePickerListener() {
             @Override
             public void onTimePicked(int hourOfDay, int minute, int second) {
                 long impulse = hourOfDay * 3600 + minute * 60 + second;

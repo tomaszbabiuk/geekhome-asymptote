@@ -359,7 +359,7 @@ public class HttpClientSyncManager implements SyncManager, LocalDiscoveryService
 
         if (automation.getValue() instanceof RelayValue) {
             RelayValue relayValue = (RelayValue)automation.getValue();
-            valueQuery = String.format(Locale.US, "&value=%d&channel=%d", relayValue.getState() ? 1 : 0, relayValue.getChannel());
+            valueQuery = String.format(Locale.US, "&value=%d&param=%d", relayValue.getState() ? 1 : 0, relayValue.getChannel());
         }
 
         if (automation.getValue() instanceof ParamValue) {

@@ -561,55 +561,55 @@ public class FirebaseCloudDeviceService implements CloudDeviceService {
                                 Automation automation = (Automation) automationUpdate.getValue();
                                 String ix = String.format("addauto/%02X/", automation.getIndex());
                                 if (automation instanceof AutomationDateTimeRelay) {
-                                    orders.put(ix + "unit", AutomationUnit.Relay.toInt());
+                                    orders.put(ix + "u", AutomationUnit.Relay.toInt());
                                 }
 
                                 if (automation instanceof AutomationDateTimeTemperature) {
-                                    orders.put(ix + "unit", AutomationUnit.Temperature.toInt());
+                                    orders.put(ix + "u", AutomationUnit.Temperature.toInt());
                                 }
 
                                 if (automation instanceof AutomationDateTimeHumidity) {
-                                    orders.put(ix + "unit", AutomationUnit.Humidity.toInt());
+                                    orders.put(ix + "u", AutomationUnit.Humidity.toInt());
                                 }
 
                                 if (automation instanceof AutomationSchedulerRelay) {
-                                    orders.put(ix + "unit", AutomationUnit.Relay.toInt());
+                                    orders.put(ix + "u", AutomationUnit.Relay.toInt());
                                 }
 
                                 if (automation instanceof AutomationSchedulerTemperature) {
-                                    orders.put(ix + "unit", AutomationUnit.Temperature.toInt());
+                                    orders.put(ix + "u", AutomationUnit.Temperature.toInt());
                                 }
 
                                 if (automation instanceof AutomationSchedulerHumidity) {
-                                    orders.put(ix + "unit", AutomationUnit.Humidity.toInt());
+                                    orders.put(ix + "u", AutomationUnit.Humidity.toInt());
                                 }
 
                                 if (automation.getTrigger() instanceof DateTimeTrigger) {
                                     DateTimeTrigger dateTimeTrigger = (DateTimeTrigger) automation.getTrigger();
-                                    orders.put(ix + "time", dateTimeTrigger.getUtcTimestamp());
-                                    orders.put(ix + "type", "dt");
+                                    orders.put(ix + "t", dateTimeTrigger.getUtcTimestamp());
+                                    orders.put(ix + "k", "dt");
                                 }
 
                                 if (automation.getTrigger() instanceof SchedulerTrigger) {
                                     SchedulerTrigger schedulerTrigger = (SchedulerTrigger) automation.getTrigger();
-                                    orders.put(ix + "days", schedulerTrigger.getDays());
-                                    orders.put(ix + "time", schedulerTrigger.getTimeMark());
-                                    orders.put(ix + "type", "sr");
+                                    orders.put(ix + "d", schedulerTrigger.getDays());
+                                    orders.put(ix + "t", schedulerTrigger.getTimeMark());
+                                    orders.put(ix + "k", "sr");
                                 }
 
                                 if (automation.getValue() instanceof RelayValue) {
                                     RelayValue relayValue = (RelayValue) automation.getValue();
-                                    orders.put(ix + "val", relayValue.getState() ? 1 : 0);
-                                    orders.put(ix + "param", relayValue.getChannel());
+                                    orders.put(ix + "v", relayValue.getState() ? 1 : 0);
+                                    orders.put(ix + "p", relayValue.getChannel());
                                 }
 
                                 if (automation.getValue() instanceof ParamValue) {
                                     ParamValue paramValue = (ParamValue) automation.getValue();
-                                    orders.put(ix + "val", paramValue.getValue());
-                                    orders.put(ix + "param", paramValue.getIndex());
+                                    orders.put(ix + "v", paramValue.getValue());
+                                    orders.put(ix + "p", paramValue.getIndex());
                                 }
 
-                                orders.put(ix + "enabled", automation.isEnabled());
+                                orders.put(ix + "e", automation.isEnabled() ? 1 : 0);
                             }
                         }
                         orders.put("timestamp", ServerValue.TIMESTAMP);

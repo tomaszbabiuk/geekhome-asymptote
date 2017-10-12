@@ -119,7 +119,7 @@ public class EditAutomationViewModel extends ViewModel<FragmentEditAutomationBin
     }
 
     private int findFirstFreeIndex() {
-        int i=0;
+        int i = 0;
 
         boolean indexTaken;
         do {
@@ -163,11 +163,11 @@ public class EditAutomationViewModel extends ViewModel<FragmentEditAutomationBin
 
     void editAutomation(AutomationItemViewModel toEdit) {
         if (toEdit.getAutomation() instanceof AutomationDateTimeRelay) {
-            AutomationDateTimeRelay automation = (AutomationDateTimeRelay)toEdit.getAutomation();
+            AutomationDateTimeRelay automation = (AutomationDateTimeRelay) toEdit.getAutomation();
             EditAutomationDateTimeRelayViewModel model = _factory.createEditAutomationDateTimeRelayViewModel(this, _sensor, automation);
             _navigationService.showViewModel(model, new ShowBackButtonInToolbarViewParam());
         } else if (toEdit.getAutomation() instanceof AutomationDateTimeTemperature) {
-            AutomationDateTimeTemperature automation = (AutomationDateTimeTemperature)toEdit.getAutomation();
+            AutomationDateTimeTemperature automation = (AutomationDateTimeTemperature) toEdit.getAutomation();
             EditAutomationDateTimeTemperatureViewModel model = _factory.createEditAutomationDateTimeTemperatureViewModel(this, _sensor, automation);
             _navigationService.showViewModel(model, new ShowBackButtonInToolbarViewParam());
         } else if (toEdit.getAutomation() instanceof AutomationDateTimeHumidity) {
@@ -175,7 +175,7 @@ public class EditAutomationViewModel extends ViewModel<FragmentEditAutomationBin
             EditAutomationDateTimeHumidityViewModel model = _factory.createEditAutomationDateTimeHumidityViewModel(this, _sensor, automation);
             _navigationService.showViewModel(model, new ShowBackButtonInToolbarViewParam());
         } else if (toEdit.getAutomation() instanceof AutomationSchedulerRelay) {
-            AutomationSchedulerRelay automation = (AutomationSchedulerRelay)toEdit.getAutomation();
+            AutomationSchedulerRelay automation = (AutomationSchedulerRelay) toEdit.getAutomation();
             EditAutomationSchedulerRelayViewModel model = _factory.createEditAutomationSchedulerRelayViewModel(this, _sensor, automation);
             _navigationService.showViewModel(model, new ShowBackButtonInToolbarViewParam());
         } else if (toEdit.getAutomation() instanceof AutomationSchedulerTemperature) {
@@ -190,25 +190,54 @@ public class EditAutomationViewModel extends ViewModel<FragmentEditAutomationBin
     }
 
     public void save() {
-        _sensor.getUpdates().clear();
-        for (LayoutHolder automationHolder : _automationList) {
-            AutomationItemViewModel automationViewModel = (AutomationItemViewModel)automationHolder;
-            Automation automation = automationViewModel.getAutomation();
+        setSavingAutomationList(true);
 
-            if (automationViewModel.isRemove()) {
-                DeleteAutomationSyncUpdate deleteUpdate = new DeleteAutomationSyncUpdate(automation);
-                _sensor.getUpdates().add(deleteUpdate);
-            } else {
-                AutomationSyncUpdate automationUpdate = new AutomationSyncUpdate(automation);
-                _sensor.getUpdates().add(automationUpdate);
-            }
-        }
-
-        _sensor.requestFullSync();
         if (_sensor.isHasWiFiSignal()) {
+            _threadRunner.runInBackground(new Runnable() {
+                @Override
+                public void run() {
+                    for (LayoutHolder automationHolder : _automationList) {
+                        _sensor.getUpdates().clear();
+
+                        createUpdateFromAutomation((AutomationItemViewModel) automationHolder);
+
+                        _sensor.requestFullSync();
+
+
+                        try {
+                            Thread.currentThread().sleep(1000);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+            });
+
             _navigationService.goBack();
         } else {
-            setSavingAutomationList(true);
+            //cloud
+            _sensor.getUpdates().clear();
+
+            for (LayoutHolder automationHolder : _automationList) {
+
+                createUpdateFromAutomation((AutomationItemViewModel) automationHolder);
+            }
+
+            _sensor.requestFullSync();
+        }
+
+    }
+
+    private void createUpdateFromAutomation(AutomationItemViewModel automationHolder) {
+        AutomationItemViewModel automationViewModel = automationHolder;
+        Automation automation = automationViewModel.getAutomation();
+
+        if (automationViewModel.isRemove()) {
+            DeleteAutomationSyncUpdate deleteUpdate = new DeleteAutomationSyncUpdate(automation);
+            _sensor.getUpdates().add(deleteUpdate);
+        } else {
+            AutomationSyncUpdate automationUpdate = new AutomationSyncUpdate(automation);
+            _sensor.getUpdates().add(automationUpdate);
         }
     }
 
@@ -257,7 +286,7 @@ public class EditAutomationViewModel extends ViewModel<FragmentEditAutomationBin
         return _loadingAutomationList;
     }
 
-    public void setLoadingAutomationList(boolean loadingAutomationList) {
+    private void setLoadingAutomationList(boolean loadingAutomationList) {
         _loadingAutomationList = loadingAutomationList;
         notifyPropertyChanged(BR.loadingAutomationList);
     }
@@ -267,11 +296,11 @@ public class EditAutomationViewModel extends ViewModel<FragmentEditAutomationBin
         return _savingAutomationList;
     }
 
-    public void setSavingAutomationList(boolean savingAutomationList) {
+    private void setSavingAutomationList(boolean savingAutomationList) {
         _savingAutomationList = savingAutomationList;
         notifyPropertyChanged(BR.savingAutomationList);
         for (LayoutHolder holder : _automationList) {
-            AutomationItemViewModel automationModel = (AutomationItemViewModel)holder;
+            AutomationItemViewModel automationModel = (AutomationItemViewModel) holder;
             automationModel.setLoading(true);
         }
     }

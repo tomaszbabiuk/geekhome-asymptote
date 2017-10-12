@@ -328,7 +328,7 @@
     <string name="automation">Automation</string>
     <string name="exact_time_trigger">Exact time</string>
     <string name="scheduler_trigger">Scheduler</string>
-    <string name="choose_trigger">Choose trigger</string>
+    <string name="choose_automation">Choose automation</string>
     <string name="automation_datetime_name">Date and time</string>
     <string name="automation_datetime_relay_desc">Changes device state on defined date and time</string>
     <string name="automation_datetime_temperature_desc">Changes temperature setting on defined date and time</string>
@@ -402,6 +402,10 @@
     <string name="enabled">Enabled</string>
     <string name="error_invalid_gate_automation_parameters">Error: invalid gate automation parameters</string>
     <string name="automation_of">%d of 8</string>
+    <string name="define_automation">Define automation</string>
+    <string name="change_name_color_role">Change name, color and role</string>
+    <string name="sensor_management">Device management</string>
+    <string name="choose_action">Choose action</string>
 
 
     <string-array name="signal_turned_on_solutions">

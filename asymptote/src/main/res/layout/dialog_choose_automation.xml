@@ -23,7 +23,7 @@
 
             <TextView
                 style="@style/Common.Text.FormLabel"
-                android:text="@string/choose_trigger"/>
+                android:text="@string/choose_automation"/>
 
             <TextView
                 style="@style/Profile.InstructionText"

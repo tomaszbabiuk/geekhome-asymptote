@@ -41,6 +41,7 @@ import eu.geekhome.asymptote.viewmodel.CMSViewModel;
 import eu.geekhome.asymptote.viewmodel.ChangeEmailViewModel;
 import eu.geekhome.asymptote.viewmodel.ChangeFirmwareViewModel;
 import eu.geekhome.asymptote.viewmodel.ChangePasswordViewModel;
+import eu.geekhome.asymptote.viewmodel.ManageViewModel;
 import eu.geekhome.asymptote.viewmodel.ChooseAutomationViewModel;
 import eu.geekhome.asymptote.viewmodel.ControlsCreator;
 import eu.geekhome.asymptote.viewmodel.DeviceLockedViewModel;
@@ -65,7 +66,6 @@ import eu.geekhome.asymptote.viewmodel.LockViewModel;
 import eu.geekhome.asymptote.viewmodel.MainActionBarViewModel;
 import eu.geekhome.asymptote.viewmodel.MainViewModel;
 import eu.geekhome.asymptote.viewmodel.MainsAdvancedRoleDetailsViewModel;
-import eu.geekhome.asymptote.viewmodel.MoreViewModel;
 import eu.geekhome.asymptote.viewmodel.NoWiFiViewModel;
 import eu.geekhome.asymptote.viewmodel.OtaViewModel;
 import eu.geekhome.asymptote.viewmodel.ProfileViewModel;
@@ -276,7 +276,7 @@ public class MainViewModelsFactory {
         return new LightsSwitchTraditionalRoleDetailsViewModel(this, _navigationService, editSensorViewModel, sensor);
     }
 
-    public EditAutomationViewModel createEditTriggersViewModel(SensorItemViewModel sensor) {
+    public EditAutomationViewModel createEditAutomationViewModel(SensorItemViewModel sensor) {
         return new EditAutomationViewModel(this, _context, _navigationService, _syncManager, _threadRunner,
                 _cloudDeviceService, sensor);
     }
@@ -371,8 +371,8 @@ public class MainViewModelsFactory {
         return new EditDateTimeViewModel(_generalDialogService, sensor);
     }
 
-    public MoreViewModel createMoreModel(SensorItemViewModel sensor) {
-        return new MoreViewModel(this, _navigationService, _generalDialogService, _emergencyManager, sensor);
+    public ManageViewModel createChooseActionViewModel(SensorItemViewModel sensor) {
+        return new ManageViewModel(this, _navigationService, sensor);
     }
 
     public EditSchedulerViewModel createEditSchedulerViewModel(SensorItemViewModel sensor) {

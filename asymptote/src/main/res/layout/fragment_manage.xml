@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View"/>
+
+        <variable
+            name="vm"
+            type="eu.geekhome.asymptote.viewmodel.ManageViewModel"/>
+    </data>
+
+    <LinearLayout
+        style="@style/Layout.MatchXY.Vertical">
+
+        <include
+            layout="@layout/actionbar_help"
+            tools:vm="@{vm.actionBarModel}"/>
+
+        <ScrollView
+            style="@style/Layout.MatchX1"
+            android:fillViewport="true">
+
+            <LinearLayout style="@style/SensorEdit.Background">
+
+                <View style="@style/Common.OrangeSeparator.Horizontal"/>
+
+                <TextView
+                    style="@style/Common.Text.Big"
+                    android:layout_marginTop="@dimen/common_medium_padding"
+                    android:gravity="center_horizontal"
+                    android:text="@string/sensor_management"/>
+
+                <View style="@style/Common.OrangeSeparator.Horizontal.Thin"/>
+
+                <View style="@style/Common.OrangeTriangle"/>
+
+                <LinearLayout
+                    style="@style/Layout.MatchX.Vertical"
+                    android:paddingEnd="@dimen/common_normal_padding"
+                    android:paddingStart="@dimen/common_normal_padding">
+
+                    <TextView
+                        style="@style/Common.Text.FormLabel"
+                        android:text="@string/choose_action"/>
+
+                    <eu.geekhome.asymptote.bindingutils.controls.VerticalRecyclerView
+                        style="@style/Layout.MatchX1"
+                        android:background="@color/white"
+                        app:items="@{vm.actions}"/>
+                </LinearLayout>
+            </LinearLayout>
+
+
+        </ScrollView>
+
+        <View style="@style/Common.OrangeSeparator.Horizontal"/>
+
+        <LinearLayout style="@style/ActionBar.BottomLayout">
+
+            <Button
+                style="@style/Touch.NextButton"
+                android:onClick="@{() -> vm.onNext()}"
+                android:text="@string/next"/>
+        </LinearLayout>
+    </LinearLayout>
+</layout>

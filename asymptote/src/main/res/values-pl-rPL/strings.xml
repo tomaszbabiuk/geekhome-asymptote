@@ -323,7 +323,7 @@
     <string name="light_switch_type">Typ łącznika</string>
     <string name="trust_this_device_and_remember_password">Zaufaj temu telefonowi/tabletowi i zapamiętaj hasło</string>
     <string name="automation">Automatyzacja</string>
-    <string name="choose_trigger">Wybierz typ wyzwalacza</string>
+    <string name="choose_automation">Wybierz typ automatyzacji</string>
     <string name="automation_datetime_name">Data i godzina</string>
     <string name="automation_datetime_relay_desc">Zmienia stan urządzenia o ustalonej dacie i godzinie</string>
     <string name="automation_datetime_temperature_desc">Zmienia temperaturę zadaną o ustalonej dacie i godzinie</string>
@@ -396,6 +396,10 @@
     <string name="enabled">Aktywne</string>
     <string name="error_invalid_gate_automation_parameters">Błąd: niewłaściwe parametry dla automatyki stanu bramy</string>
     <string name="automation_of">%d z 8</string>
+    <string name="define_automation">Definiuj automatykę</string>
+    <string name="change_name_color_role">Zmień nazwę, kolor lub rolę</string>
+    <string name="sensor_management">Zarządzanie urządzeniem</string>
+    <string name="choose_action">Wybierz akcję</string>
 
     <string-array name="signal_turned_on_solutions">
         <item>Poczekaj na bardziej znaczący sygnał. Przykładowo, gdy urządzenie nie zna naszej sieci WiFi i próbuje nawiązać połączenie dioda stanu świeci się w sposób ciągły (nie miga) przez kilka sekund, a następnie miga dwukrotnie kilka razy i znowu zaświeca się, aby ponowić próbę. Te dwa mrugnięcia są tym bardziej znaczącym sygnałem w tym przypadku.</item>

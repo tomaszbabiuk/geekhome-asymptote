@@ -59,78 +59,104 @@ public class ManageViewModel extends ViewModel<FragmentManageBinding> {
         _sensor = sensor;
     }
 
-    private ObservableArrayList<LayoutHolder> createActions(final SensorItemViewModel sensor) {
-        ObservableArrayList<LayoutHolder> result = new ObservableArrayList<>();
-
-        result.add(new ActionItemViewModel(this, sensor, R.raw.gear, R.string.settings, R.string.change_name_color_role) {
+    private ActionItemViewModel createSettingsItem(final SensorItemViewModel sensor) {
+        return new ActionItemViewModel(this, sensor, R.raw.gear, R.string.settings, R.string.change_name_color_role) {
             @Override
             public void execute() {
                 EditSensorViewModel model = _factory.createEditSensorViewModel(sensor);
                 _navigationService.showViewModel(model, new ShowBackButtonInToolbarViewParam());
             }
-        });
+        };
+    }
 
-        result.add(new ActionItemViewModel(this, sensor, R.raw.robot, R.string.automation, R.string.define_automation) {
+    private ActionItemViewModel createAutomationItem(final SensorItemViewModel sensor) {
+        return new ActionItemViewModel(this, sensor, R.raw.robot, R.string.automation, R.string.define_automation) {
             @Override
             public void execute() {
                 EditAutomationViewModel model = _factory.createEditAutomationViewModel(sensor);
                 _navigationService.showViewModel(model, new ShowBackButtonInToolbarViewParam());
             }
-        });
+        };
+    }
 
-        result.add(new ActionItemViewModel(this, sensor, R.raw.microchip, R.string.firmware, R.string.change_firmware) {
+    private ActionItemViewModel createFirmwareItem(final SensorItemViewModel sensor) {
+        return new ActionItemViewModel(this, sensor, R.raw.microchip, R.string.firmware, R.string.change_firmware) {
             @Override
             public void execute() {
                 ChangeFirmwareViewModel model = _factory.createChangeFirmwareViewModel(sensor);
                 _navigationService.showViewModel(model, new ShowBackButtonInToolbarViewParam());
             }
-        });
+        };
+    }
+
+    private ActionItemViewModel createLockItem(final SensorItemViewModel sensor) {
+        return new ActionItemViewModel(this, sensor, R.raw.locked, R.string.lock, R.string.set_lan_password_to_protect) {
+            @Override
+            public void execute() {
+                if (_emergencyManager.getPassword() == null) {
+                    LockViewModel lockViewModel = _factory.createLockViewModel(_sensor);
+                    _navigationService.showViewModel(lockViewModel, new ShowBackButtonInToolbarViewParam());
+                } else {
+                    _syncManager.lock(_sensor.getSyncData().getSystemInfo().getVariant(), _sensor.getAddress(), new SyncManager.SyncCallback() {
+                        @Override
+                        public void success() {
+                            _sensor.getSyncData().setLocked(true);
+                            _sensor.requestSyncDelayed();
+                        }
+
+                        @Override
+                        public void failure(Exception exception) {
+                            ManageViewModel.this.setErrorMessage(exception.getLocalizedMessage());
+                        }
+                    }, _emergencyManager.getPassword());
+                }
+            }
+        };
+    }
+
+    private ActionItemViewModel createUnlockItem(final SensorItemViewModel sensor) {
+        return new ActionItemViewModel(this, sensor, R.raw.unlocked, R.string.unlock, R.string.unlock) {
+            @Override
+            public void execute() {
+                String description = _context.getString(R.string.device_locked);
+                ObservableArrayList<LayoutHolder> sections = new ObservableArrayList<>();
+                sections.add(new HeaderItemViewModel(HeaderItemViewModel.Style.Main, description));
+
+                String sub = _context.getString(R.string.unlock_note);
+                sections.add(new HeaderItemViewModel(HeaderItemViewModel.Style.Sub, sub));
+
+                String[] itemsContent = _context.getResources().getStringArray(R.array.reset_procedure);
+
+                for (int i = 0; i < itemsContent.length; i++) {
+                    sections.add(new OrderedItemViewModel(i + 1, itemsContent[i]));
+                }
+
+                CMSViewModel model = _factory.createCmsViewModel(sections);
+                _navigationService.showViewModel(model, new ShowBackButtonInToolbarViewParam());
+            }
+        };
+    }
+
+    private ObservableArrayList<LayoutHolder> createActions(final SensorItemViewModel sensor) {
+        ObservableArrayList<LayoutHolder> result = new ObservableArrayList<>();
+
+        ActionItemViewModel settingsItem = createSettingsItem(sensor);
+        result.add(settingsItem);
+
+        ActionItemViewModel automationItem = createAutomationItem(sensor);
+        automationItem.setEnabled(sensor.getSyncData().getSystemInfo().getVersionMajor() * 256 + sensor.getSyncData().getSystemInfo().getVersionMinor() == 256 + 6);
+        result.add(automationItem);
+
+        ActionItemViewModel firmwareItem = createFirmwareItem(sensor);
+        result.add(firmwareItem);
 
         if (sensor.getSyncData().getSystemInfo().getVariant().isWifi()) {
             if (sensor.getSyncData().isLocked()) {
-                result.add(new ActionItemViewModel(this, sensor, R.raw.unlocked, R.string.unlock, R.string.unlock) {
-                    @Override
-                    public void execute() {
-                        String description = _context.getString(R.string.device_locked);
-                        ObservableArrayList<LayoutHolder> sections = new ObservableArrayList<>();
-                        sections.add(new HeaderItemViewModel(HeaderItemViewModel.Style.Main, description));
-
-                        String sub = _context.getString(R.string.unlock_note);
-                        sections.add(new HeaderItemViewModel(HeaderItemViewModel.Style.Sub, sub));
-
-                        String[] itemsContent = _context.getResources().getStringArray(R.array.reset_procedure);
-
-                        for (int i = 0; i < itemsContent.length; i++) {
-                            sections.add(new OrderedItemViewModel(i + 1, itemsContent[i]));
-                        }
-
-                        CMSViewModel model = _factory.createCmsViewModel(sections);
-                        _navigationService.showViewModel(model, new ShowBackButtonInToolbarViewParam());
-                    }
-                });
+                ActionItemViewModel unlockItem = createUnlockItem(sensor);
+                result.add(unlockItem);
             } else {
-                result.add(new ActionItemViewModel(this, sensor, R.raw.locked, R.string.lock, R.string.set_lan_password_to_protect) {
-                    @Override
-                    public void execute() {
-                        if (_emergencyManager.getPassword() == null) {
-                            LockViewModel lockViewModel = _factory.createLockViewModel(_sensor);
-                            _navigationService.showViewModel(lockViewModel, new ShowBackButtonInToolbarViewParam());
-                        } else {
-                            _syncManager.lock(_sensor.getSyncData().getSystemInfo().getVariant(), _sensor.getAddress(), new SyncManager.SyncCallback() {
-                                @Override
-                                public void success() {
-                                    _sensor.getSyncData().setLocked(true);
-                                    _sensor.requestSyncDelayed();
-                                }
-
-                                @Override
-                                public void failure(Exception exception) {
-                                    ManageViewModel.this.setErrorMessage(exception.getLocalizedMessage());
-                                }
-                            }, _emergencyManager.getPassword());
-                        }
-                    }
-                });
+                ActionItemViewModel lockItem = createLockItem(sensor);
+                result.add(lockItem);
             }
         }
 
@@ -153,13 +179,13 @@ public class ManageViewModel extends ViewModel<FragmentManageBinding> {
     }
 
     @Bindable
-    public void setSelectedAction(ActionItemViewModel action) {
+    private void setSelectedAction(ActionItemViewModel action) {
         _selectedAction = action;
         notifyPropertyChanged(BR.selectedAction);
     }
 
     @Bindable
-    public ActionItemViewModel getSelectedAction() {
+    private ActionItemViewModel getSelectedAction() {
         return _selectedAction;
     }
 

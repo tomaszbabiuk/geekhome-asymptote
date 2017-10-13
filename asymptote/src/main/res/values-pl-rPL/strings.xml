@@ -273,7 +273,7 @@
     <string name="cannot_access_profile_when_emergency">Aplikacja pracuje w trybie awaryjnym. Profil użytkownika jest niedostępny.</string>
     <string name="emergency_mode">Tryb awaryjny</string>
     <string name="emergency_password">Hasło awaryjne</string>
-    <string name="lock_device">Zablokuj urządzenie (hasłem)</string>
+    <string name="lock_device">Zablokuj urządzenie</string>
     <string name="set_emergency_password_instruction">Zdefiniuj hasło awaryjne aby zabezpieczyć urządzenia przed nieautoryzowanym dostępem i programami typu "malware". Hasło awaryjne jest współdzielone pomiędzy wszystkimi urządzeniami geekHOME Asymptote w sieci lokalnej.</string>
     <string name="confirm_emergency_password">Potwierdź hasło awaryjne</string>
     <string name="set_password_and_secure_device">Ustaw hasło i zabezpiecz urządzenie</string>
@@ -400,7 +400,7 @@
     <string name="change_name_color_role">Zmień nazwę, kolor lub rolę</string>
     <string name="sensor_management">Zarządzanie urządzeniem</string>
     <string name="choose_action">Wybierz akcję</string>
-    <string name="set_lan_password_to_protect">Ustaw hasło awaryjne/LAN, aby urządzenie przed złośliwym oprogramowaniem</string>
+    <string name="set_lan_password_to_protect">Ustaw hasło awaryjne/LAN, aby ochronić rządzenie przed złośliwym oprogramowaniem</string>
 
     <string-array name="signal_turned_on_solutions">
         <item>Poczekaj na bardziej znaczący sygnał. Przykładowo, gdy urządzenie nie zna naszej sieci WiFi i próbuje nawiązać połączenie dioda stanu świeci się w sposób ciągły (nie miga) przez kilka sekund, a następnie miga dwukrotnie kilka razy i znowu zaświeca się, aby ponowić próbę. Te dwa mrugnięcia są tym bardziej znaczącym sygnałem w tym przypadku.</item>

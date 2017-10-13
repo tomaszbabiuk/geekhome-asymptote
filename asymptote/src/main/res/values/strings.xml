@@ -277,7 +277,7 @@
     <string name="cannot_access_profile_when_emergency">This is emergency mode. User profile is unavailable.</string>
     <string name="emergency_mode">Emergency mode</string>
     <string name="emergency_password">Emergency password</string>
-    <string name="lock_device">Lock device (with password)</string>
+    <string name="lock_device">Lock device</string>
     <string name="set_emergency_password_instruction">Emergency password help in securing your devices from unauthorized access and malware. Emergency password is shared between all geekHOME Asymptote devices in local network.</string>
     <string name="confirm_emergency_password">Confirm emergency password</string>
     <string name="set_password_and_secure_device">Set password and secure this device</string>

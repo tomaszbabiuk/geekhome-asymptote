@@ -5,6 +5,7 @@ import android.databinding.ViewDataBinding;
 import android.support.annotation.RawRes;
 import android.support.annotation.StringRes;
 
+import eu.geekhome.asymptote.BR;
 import eu.geekhome.asymptote.R;
 import eu.geekhome.asymptote.bindingutils.LayoutHolder;
 
@@ -14,6 +15,7 @@ public abstract class ActionItemViewModel extends SelectableItemViewModel implem
     private final int _iconId;
     private final int _nameResId;
     private final int _descriptionResId;
+    private boolean _enabled;
 
     ActionItemViewModel(ManageViewModel manageViewModel, SensorItemViewModel sensor,
                         @RawRes int iconId, @StringRes int nameResId, @StringRes int descriptionResId) {
@@ -22,6 +24,7 @@ public abstract class ActionItemViewModel extends SelectableItemViewModel implem
         _iconId = iconId;
         _nameResId = nameResId;
         _descriptionResId = descriptionResId;
+        _enabled = true;
     }
 
     @Override
@@ -38,8 +41,10 @@ public abstract class ActionItemViewModel extends SelectableItemViewModel implem
     }
 
     public void select() {
-        _manageViewModel.selectAction(this);
-        setSelected(true);
+        if (isEnabled()) {
+            _manageViewModel.selectAction(this);
+            setSelected(true);
+        }
     }
 
     public abstract void execute();
@@ -57,5 +62,15 @@ public abstract class ActionItemViewModel extends SelectableItemViewModel implem
     @Bindable
     public int getDescriptionResId() {
         return _descriptionResId;
+    }
+
+    @Bindable
+    public boolean isEnabled() {
+        return _enabled;
+    }
+
+    public void setEnabled(boolean enabled) {
+        _enabled = enabled;
+        notifyPropertyChanged(BR.enabled);
     }
 }

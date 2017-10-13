@@ -14,47 +14,59 @@
     </data>
 
 
-    <LinearLayout
-        style="@style/Layout.MatchX.Horizontal">
+    <LinearLayout style="@style/Layout.MatchX.Vertical">
+
+        <LinearLayout
+            style="@style/Layout.MatchX.Horizontal">
+
+            <TextView
+                android:id="@+id/textview"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="1"
+                android:text="@{vm.message}"
+                android:textAppearance="?android:textAppearanceMedium"
+                android:textColor="@color/almost_black"
+                tools:text="Change channel 0 to on 2017-08-01, 16:48:30"/>
+
+            <android.support.v7.widget.SwitchCompat
+                style="@style/SensorList.Switch"
+                android:layout_width="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:checked="@={vm.enabled}"
+                android:visibility="@{vm.loading ? View.GONE : View.VISIBLE}"/>
+
+            <eu.geekhome.controls.SvgImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_gravity="center_vertical"
+                android:layout_marginEnd="@dimen/common_small_padding"
+                android:onClick="@{() -> vm.edit()}"
+                android:visibility="@{vm.loading ? View.GONE : View.VISIBLE}"
+                app:svgColor="@color/silver"
+                app:svgId="@raw/edit"/>
+
+            <eu.geekhome.controls.SvgImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_gravity="center_vertical"
+                android:onClick="@{() -> vm.delete()}"
+                android:visibility="@{vm.loading ? View.GONE : View.VISIBLE}"
+                app:svgColor="@color/silver"
+                app:svgId="@raw/trashbin"/>
+
+        </LinearLayout>
 
         <TextView
-            android:id="@+id/textview"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_weight="1"
-            android:text="@{vm.message}"
-            android:textAppearance="?android:textAppearanceMedium"
-            android:textColor="@color/almost_black"
+            style="@style/Layout.MatchX"
+            android:layout_marginBottom="@dimen/common_small_padding"
+            android:text="@string/automation_not_working_in_this_role"
+            android:textAppearance="?android:textAppearanceSmall"
+            android:textColor="@color/orange"
+            android:visibility="@{vm.working ? View.GONE : View.VISIBLE}"
             tools:text="Change channel 0 to on 2017-08-01, 16:48:30"/>
 
-        <android.support.v7.widget.SwitchCompat
-            android:layout_width="wrap_content"
-            style="@style/SensorList.Switch"
-            android:layout_gravity="center_vertical"
-            android:visibility="@{vm.loading ? View.GONE : View.VISIBLE}"
-            android:checked="@={vm.enabled}"/>
-
-        <eu.geekhome.controls.SvgImageView
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_gravity="center_vertical"
-            android:layout_marginEnd="@dimen/common_small_padding"
-            android:onClick="@{() -> vm.edit()}"
-            android:visibility="@{vm.loading ? View.GONE : View.VISIBLE}"
-            app:svgColor="@color/silver"
-            app:svgId="@raw/edit"/>
-
-        <eu.geekhome.controls.SvgImageView
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_gravity="center_vertical"
-            android:onClick="@{() -> vm.delete()}"
-            android:visibility="@{vm.loading ? View.GONE : View.VISIBLE}"
-            app:svgColor="@color/silver"
-            app:svgId="@raw/trashbin"/>
-
     </LinearLayout>
-
 
 </layout>

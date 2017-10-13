@@ -26,4 +26,10 @@ public class AutomationSchedulerRelay extends Automation<SchedulerTrigger, Relay
                 getValue().getChannel());
 
     }
+
+    @Override
+    public boolean supportsRole(BoardRole role) {
+        return role == BoardRole.MAINS1 || role == BoardRole.MAINS2 || role == BoardRole.MAINS4 ||
+                role == BoardRole.LIGHT_SWITCH_TRADITIONAL || role == BoardRole.TOUCH1;
+    }
 }

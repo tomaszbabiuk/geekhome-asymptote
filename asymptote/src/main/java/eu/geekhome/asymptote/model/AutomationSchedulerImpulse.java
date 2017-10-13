@@ -27,4 +27,9 @@ public class AutomationSchedulerImpulse extends Automation<SchedulerTrigger, Int
                 ValueConverter.secondsToText(getTrigger().getTimeMark() + _offset),
                 getValue());
     }
+
+    @Override
+    public boolean supportsRole(BoardRole role) {
+        return role == BoardRole.MAINS1_ADV || role == BoardRole.MAINS2_ADV || role == BoardRole.MAINS4_ADV;
+    }
 }

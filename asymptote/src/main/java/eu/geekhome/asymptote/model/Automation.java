@@ -36,4 +36,7 @@ public abstract class Automation<T, V> {
     public void setEnabled(boolean enabled) {
         _enabled = enabled;
     }
+
+    public abstract  boolean supportsRole(BoardRole role);
+
 }

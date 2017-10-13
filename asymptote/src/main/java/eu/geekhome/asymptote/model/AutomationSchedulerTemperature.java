@@ -25,4 +25,9 @@ public class AutomationSchedulerTemperature extends Automation<SchedulerTrigger,
                 ValueConverter.secondsToText(getTrigger().getTimeMark() + _offset),
                 ValueConverter.intToCelsius((int)getValue().getValue()));
     }
+
+    @Override
+    public boolean supportsRole(BoardRole role) {
+        return role == BoardRole.COOLING_THERMOSTAT || role == BoardRole.HEATING_THERMOSTAT;
+    }
 }

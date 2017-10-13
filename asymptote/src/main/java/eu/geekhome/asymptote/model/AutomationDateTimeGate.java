@@ -38,4 +38,8 @@ public class AutomationDateTimeGate extends Automation<DateTimeTrigger, String> 
         return context.getString(R.string.error_invalid_gate_automation_parameters);
     }
 
+    @Override
+    public boolean supportsRole(BoardRole role) {
+        return role == BoardRole.GATE;
+    }
 }

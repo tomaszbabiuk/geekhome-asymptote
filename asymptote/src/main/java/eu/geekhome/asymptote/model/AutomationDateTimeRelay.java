@@ -18,7 +18,12 @@ public class AutomationDateTimeRelay extends Automation<DateTimeTrigger, RelayVa
         DateFormat timeFormat = android.text.format.DateFormat.getTimeFormat(context);
         Date date = new Date(getTrigger().getUtcTimestamp() * 1000);
         return context.getString(getValue().getState() ? R.string.change_relay_at_on : R.string.change_relay_at_off,
-                getValue().getChannel(),dateFormat.format(date), timeFormat.format(date));
+                getValue().getChannel(), dateFormat.format(date), timeFormat.format(date));
     }
 
+    @Override
+    public boolean supportsRole(BoardRole role) {
+        return role == BoardRole.MAINS1 || role == BoardRole.MAINS2 || role == BoardRole.MAINS4 ||
+               role == BoardRole.LIGHT_SWITCH_TRADITIONAL || role == BoardRole.TOUCH1;
+    }
 }

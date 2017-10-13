@@ -398,7 +398,7 @@
     <string name="sunday">Sunday</string>
     <string name="lock">Lock</string>
     <string name="unlock">Unlock</string>
-    <string name="this_device_supports_no_automations">This device supports no automations :(</string>
+    <string name="this_device_supports_no_automations">This role of this device supports no automation :(</string>
     <string name="enabled">Enabled</string>
     <string name="error_invalid_gate_automation_parameters">Error: invalid gate automation parameters</string>
     <string name="automation_of">%d of 8</string>
@@ -407,6 +407,7 @@
     <string name="sensor_management">Device management</string>
     <string name="choose_action">Choose action</string>
     <string name="set_lan_password_to_protect">Set emergency/LAN password to protect this device from malware</string>
+    <string name="automation_not_working_in_this_role">This automation is not working in current role of this device</string>
 
 
     <string-array name="signal_turned_on_solutions">

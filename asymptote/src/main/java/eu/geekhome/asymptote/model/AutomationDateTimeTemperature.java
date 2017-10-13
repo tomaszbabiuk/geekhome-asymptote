@@ -23,4 +23,8 @@ public class AutomationDateTimeTemperature extends Automation<DateTimeTrigger, P
                 ValueConverter.intToCelsius((int)getValue().getValue()), dateFormat.format(date), timeFormat.format(date));
     }
 
+    @Override
+    public boolean supportsRole(BoardRole role) {
+        return role == BoardRole.COOLING_THERMOSTAT || role == BoardRole.HEATING_THERMOSTAT;
+    }
 }

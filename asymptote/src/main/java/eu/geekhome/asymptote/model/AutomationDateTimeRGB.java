@@ -28,4 +28,8 @@ public class AutomationDateTimeRGB extends Automation<DateTimeTrigger, RGBValue>
                 dateFormat.format(date), timeFormat.format(date));
     }
 
+    @Override
+    public boolean supportsRole(BoardRole role) {
+        return role == BoardRole.RGBW || role == BoardRole.RGB_1PWM || role == BoardRole.RGB_2PWM;
+    }
 }

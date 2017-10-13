@@ -23,4 +23,9 @@ public class AutomationDateTimeImpulse extends Automation<DateTimeTrigger, Integ
                 dateFormat.format(date), timeFormat.format(date));
     }
 
+    @Override
+    public boolean supportsRole(BoardRole role) {
+        return role == BoardRole.MAINS1_ADV || role == BoardRole.MAINS2_ADV || role == BoardRole.MAINS4_ADV;
+    }
+
 }

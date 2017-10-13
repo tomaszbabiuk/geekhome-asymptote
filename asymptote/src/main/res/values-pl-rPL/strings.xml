@@ -392,7 +392,7 @@
     <string name="sunday">Niedzielę</string>
     <string name="lock">Zablokuj</string>
     <string name="unlock">Odblokuj</string>
-    <string name="this_device_supports_no_automations">To urządzenie nie wspiera automatyzacji :(</string>
+    <string name="this_device_supports_no_automations">Ta rola urządzenia nie wspiera automatyzacji :(</string>
     <string name="enabled">Aktywne</string>
     <string name="error_invalid_gate_automation_parameters">Błąd: niewłaściwe parametry dla automatyki stanu bramy</string>
     <string name="automation_of">%d z 8</string>
@@ -401,6 +401,7 @@
     <string name="sensor_management">Zarządzanie urządzeniem</string>
     <string name="choose_action">Wybierz akcję</string>
     <string name="set_lan_password_to_protect">Ustaw hasło awaryjne/LAN, aby ochronić rządzenie przed złośliwym oprogramowaniem</string>
+    <string name="automation_not_working_in_this_role">Ta automatyka nie wspiera bieżącej roli tego urządzenia</string>
 
     <string-array name="signal_turned_on_solutions">
         <item>Poczekaj na bardziej znaczący sygnał. Przykładowo, gdy urządzenie nie zna naszej sieci WiFi i próbuje nawiązać połączenie dioda stanu świeci się w sposób ciągły (nie miga) przez kilka sekund, a następnie miga dwukrotnie kilka razy i znowu zaświeca się, aby ponowić próbę. Te dwa mrugnięcia są tym bardziej znaczącym sygnałem w tym przypadku.</item>

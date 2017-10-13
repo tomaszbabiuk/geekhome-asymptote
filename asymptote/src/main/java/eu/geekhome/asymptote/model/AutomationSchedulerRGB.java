@@ -32,4 +32,9 @@ public class AutomationSchedulerRGB extends Automation<SchedulerTrigger, RGBValu
                 ValueConverter.secondsToText(getTrigger().getTimeMark() + _offset),
                 colorHex);
     }
+
+    @Override
+    public boolean supportsRole(BoardRole role) {
+        return role == BoardRole.RGBW || role == BoardRole.RGB_1PWM || role == BoardRole.RGB_2PWM;
+    }
 }

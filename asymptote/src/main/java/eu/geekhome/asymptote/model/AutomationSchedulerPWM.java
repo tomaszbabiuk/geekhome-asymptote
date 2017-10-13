@@ -28,4 +28,9 @@ public class AutomationSchedulerPWM extends Automation<SchedulerTrigger, PWMValu
                 getValue().getChannel(),
                 intensity);
     }
+
+    @Override
+    public boolean supportsRole(BoardRole role) {
+        return role == BoardRole.MULTI_PWM || role == BoardRole.RGB_1PWM || role == BoardRole.RGB_2PWM;
+    }
 }

@@ -25,4 +25,9 @@ public class AutomationSchedulerHumidity extends Automation<SchedulerTrigger, Pa
                 ValueConverter.secondsToText(getTrigger().getTimeMark() + _offset),
                 ValueConverter.intToHumidity((int)getValue().getValue()));
     }
+
+    @Override
+    public boolean supportsRole(BoardRole role) {
+        return role == BoardRole.DRYING_HYGROSTAT || role == BoardRole.HUMIDIFICATION_HYGROSTAT;
+    }
 }

@@ -24,4 +24,8 @@ public class AutomationDateTimeHumidity extends Automation<DateTimeTrigger, Para
                 dateFormat.format(date), timeFormat.format(date));
     }
 
+    @Override
+    public boolean supportsRole(BoardRole role) {
+        return role == BoardRole.DRYING_HYGROSTAT || role == BoardRole.HUMIDIFICATION_HYGROSTAT;
+    }
 }

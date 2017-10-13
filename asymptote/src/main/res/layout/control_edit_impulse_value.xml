@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View"/>
+
+        <import type="eu.geekhome.asymptote.utils.ValueConverter"/>
+
+        <variable
+            name="vm"
+            type="eu.geekhome.asymptote.viewmodel.EditImpulseValueViewModel"/>
+    </data>
+
+    <LinearLayout
+        style="@style/Layout.MatchX.Vertical">
+
+        <LinearLayout
+            android:visibility="@{vm.channels.size() &gt; 1 ? View.VISIBLE : View.GONE}"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                style="@style/Triggers.Label"
+                android:text='@{@string/channel + ": "}'
+                tools:text="Channel: "/>
+
+
+            <Spinner
+                android:id="@+id/channels_spinner"
+                style="@style/Triggers.Spinner"
+                app:selectedValue="@={vm.selectedChannel}"
+                app:items="@{vm.channels}"/>
+
+        </LinearLayout>
+    </LinearLayout>
+</layout>

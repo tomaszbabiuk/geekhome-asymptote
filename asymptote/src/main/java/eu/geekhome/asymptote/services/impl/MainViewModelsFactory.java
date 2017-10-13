@@ -10,9 +10,11 @@ import javax.inject.Inject;
 import eu.geekhome.asymptote.MainActivity;
 import eu.geekhome.asymptote.bindingutils.LayoutHolder;
 import eu.geekhome.asymptote.model.AutomationDateTimeHumidity;
+import eu.geekhome.asymptote.model.AutomationDateTimeImpulse;
 import eu.geekhome.asymptote.model.AutomationDateTimeRelay;
 import eu.geekhome.asymptote.model.AutomationDateTimeTemperature;
 import eu.geekhome.asymptote.model.AutomationSchedulerHumidity;
+import eu.geekhome.asymptote.model.AutomationSchedulerImpulse;
 import eu.geekhome.asymptote.model.AutomationSchedulerRelay;
 import eu.geekhome.asymptote.model.AutomationSchedulerTemperature;
 import eu.geekhome.asymptote.model.DeviceSyncData;
@@ -41,6 +43,9 @@ import eu.geekhome.asymptote.viewmodel.CMSViewModel;
 import eu.geekhome.asymptote.viewmodel.ChangeEmailViewModel;
 import eu.geekhome.asymptote.viewmodel.ChangeFirmwareViewModel;
 import eu.geekhome.asymptote.viewmodel.ChangePasswordViewModel;
+import eu.geekhome.asymptote.viewmodel.EditAutomationDateTimeImpulseViewModel;
+import eu.geekhome.asymptote.viewmodel.EditAutomationSchedulerImpulseViewModel;
+import eu.geekhome.asymptote.viewmodel.EditImpulseValueViewModel;
 import eu.geekhome.asymptote.viewmodel.ManageViewModel;
 import eu.geekhome.asymptote.viewmodel.ChooseAutomationViewModel;
 import eu.geekhome.asymptote.viewmodel.ControlsCreator;
@@ -293,6 +298,18 @@ public class MainViewModelsFactory {
                 sensor, automation);
     }
 
+    public EditAutomationDateTimeImpulseViewModel createEditAutomationDateTimeImpulseViewModel(
+            AutomationAddedListener listener, SensorItemViewModel sensor, int index) {
+        return new EditAutomationDateTimeImpulseViewModel(_context, this, _navigationService, listener,
+                sensor, index);
+    }
+
+    public EditAutomationDateTimeImpulseViewModel createEditAutomationDateTimeImpulseViewModel(
+            AutomationAddedListener listener, SensorItemViewModel sensor, AutomationDateTimeImpulse automation) {
+        return new EditAutomationDateTimeImpulseViewModel(_context, this, _navigationService, listener,
+                sensor, automation);
+    }
+
     public EditAutomationDateTimeTemperatureViewModel createEditAutomationDateTimeTemperatureViewModel(
             AutomationAddedListener listener, SensorItemViewModel sensor, int index) {
         return new EditAutomationDateTimeTemperatureViewModel(_context, this, _navigationService, listener,
@@ -330,6 +347,19 @@ public class MainViewModelsFactory {
 
     }
 
+    public EditAutomationSchedulerImpulseViewModel createEditAutomationSchedulerImpulseViewModel(
+            AutomationAddedListener listener, SensorItemViewModel sensor, int index) {
+        return new EditAutomationSchedulerImpulseViewModel(_context, this, _navigationService, listener,
+                sensor, index);
+    }
+
+    public EditAutomationSchedulerImpulseViewModel createEditAutomationSchedulerImpulseViewModel(
+            AutomationAddedListener listener, SensorItemViewModel sensor, AutomationSchedulerImpulse automation) {
+        return new EditAutomationSchedulerImpulseViewModel(_context, this, _navigationService, listener,
+                sensor, automation);
+
+    }
+
     public EditAutomationSchedulerTemperatureViewModel createEditAutomationSchedulerTemperatureViewModel(
             AutomationAddedListener listener, SensorItemViewModel sensor, int index) {
         return new EditAutomationSchedulerTemperatureViewModel(_context, this, _navigationService, listener, sensor, index);
@@ -352,6 +382,10 @@ public class MainViewModelsFactory {
 
     public EditRelayValueViewModel createEditRelayValueViewModel(SensorItemViewModel sensor) {
         return new EditRelayValueViewModel(_context, sensor);
+    }
+
+    public EditImpulseValueViewModel createEditImpulseValueViewModel(SensorItemViewModel sensor) {
+        return new EditImpulseValueViewModel(_context, sensor);
     }
 
     public EditTemperatureValueViewModel createEditTemperatureValueViewModel(SensorItemViewModel sensor) {

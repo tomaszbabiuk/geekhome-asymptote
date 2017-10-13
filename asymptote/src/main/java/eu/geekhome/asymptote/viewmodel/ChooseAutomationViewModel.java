@@ -53,6 +53,14 @@ public class ChooseAutomationViewModel extends ViewModel<DialogChooseAutomationB
                 AutomationTypeItemViewModel scheduleTriggerOfRelay = new AutomationTypeItemViewModel(this, sensor, AutomationType.SchedulerOfRelay);
                 result.add(scheduleTriggerOfRelay);
                 break;
+            case MAINS1_ADV:
+            case MAINS2_ADV:
+            case MAINS4_ADV:
+                AutomationTypeItemViewModel exactTriggerOfImpulse = new AutomationTypeItemViewModel(this, sensor, AutomationType.DateTimeOfImpulse);
+                result.add(exactTriggerOfImpulse);
+                AutomationTypeItemViewModel scheduleTriggerOfImpulse= new AutomationTypeItemViewModel(this, sensor, AutomationType.SchedulerOfImpulse);
+                result.add(scheduleTriggerOfImpulse);
+                break;
             case HEATING_THERMOSTAT:
             case COOLING_THERMOSTAT:
                 AutomationTypeItemViewModel exactTriggerOfTemperature = new AutomationTypeItemViewModel(this, sensor, AutomationType.DateTimeOfTemperature);
@@ -92,6 +100,10 @@ public class ChooseAutomationViewModel extends ViewModel<DialogChooseAutomationB
                 EditAutomationDateTimeRelayViewModel modelDR = _factory.createEditAutomationDateTimeRelayViewModel(_listener, _sensor, _index);
                 _navigationService.showViewModel(modelDR, new ShowBackButtonInToolbarViewParam());
                 break;
+            case DateTimeOfImpulse:
+                EditAutomationDateTimeImpulseViewModel modelDI = _factory.createEditAutomationDateTimeImpulseViewModel(_listener, _sensor, _index);
+                _navigationService.showViewModel(modelDI, new ShowBackButtonInToolbarViewParam());
+                break;
             case DateTimeOfTemperature:
                 EditAutomationDateTimeTemperatureViewModel modelDT = _factory.createEditAutomationDateTimeTemperatureViewModel(_listener, _sensor, _index);
                 _navigationService.showViewModel(modelDT, new ShowBackButtonInToolbarViewParam());
@@ -103,6 +115,10 @@ public class ChooseAutomationViewModel extends ViewModel<DialogChooseAutomationB
             case SchedulerOfRelay:
                 EditAutomationSchedulerRelayViewModel modelSR = _factory.createEditAutomationSchedulerRelayViewModel(_listener, _sensor, _index);
                 _navigationService.showViewModel(modelSR, new ShowBackButtonInToolbarViewParam());
+                break;
+            case SchedulerOfImpulse:
+                EditAutomationSchedulerImpulseViewModel modelSI = _factory.createEditAutomationSchedulerImpulseViewModel(_listener, _sensor, _index);
+                _navigationService.showViewModel(modelSI, new ShowBackButtonInToolbarViewParam());
                 break;
             case SchedulerOfTemperature:
                 EditAutomationSchedulerTemperatureViewModel modelST = _factory.createEditAutomationSchedulerTemperatureViewModel(_listener, _sensor, _index);

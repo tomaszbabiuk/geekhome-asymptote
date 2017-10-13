@@ -21,9 +21,11 @@ import java.util.Map;
 
 import eu.geekhome.asymptote.model.Automation;
 import eu.geekhome.asymptote.model.AutomationDateTimeHumidity;
+import eu.geekhome.asymptote.model.AutomationDateTimeImpulse;
 import eu.geekhome.asymptote.model.AutomationDateTimeRelay;
 import eu.geekhome.asymptote.model.AutomationDateTimeTemperature;
 import eu.geekhome.asymptote.model.AutomationSchedulerHumidity;
+import eu.geekhome.asymptote.model.AutomationSchedulerImpulse;
 import eu.geekhome.asymptote.model.AutomationSchedulerRelay;
 import eu.geekhome.asymptote.model.AutomationSchedulerTemperature;
 import eu.geekhome.asymptote.model.AutomationUnit;
@@ -277,6 +279,9 @@ public class FirebaseCloudDeviceService implements CloudDeviceService {
                             AutomationDateTimeRelay relayAutomation = new AutomationDateTimeRelay(index, trigger, relayValue, enabled);
                             automationList.add(relayAutomation);
                             break;
+                        case Impulse:
+                            AutomationDateTimeImpulse impulseAutomation = new AutomationDateTimeImpulse(index, trigger, (int)param, enabled);
+                            automationList.add(impulseAutomation);
                         case Temperature:
                             ParamValue tempValue = new ParamValue((int)param, value);
                             AutomationDateTimeTemperature temperatureAutomation = new AutomationDateTimeTemperature(index, trigger, tempValue, enabled);
@@ -309,6 +314,10 @@ public class FirebaseCloudDeviceService implements CloudDeviceService {
                             RelayValue relayValue = new RelayValue((int)param, value == 1);
                             AutomationSchedulerRelay relayAutomation = new AutomationSchedulerRelay(index, trigger, relayValue, enabled);
                             automationList.add(relayAutomation);
+                            break;
+                        case Impulse:
+                            AutomationSchedulerImpulse impulseAutomation = new AutomationSchedulerImpulse(index, trigger, (int)param, enabled);
+                            automationList.add(impulseAutomation);
                             break;
                         case Temperature:
                             ParamValue tempValue = new ParamValue((int)param, value);
@@ -560,27 +569,19 @@ public class FirebaseCloudDeviceService implements CloudDeviceService {
                                 AutomationSyncUpdate automationUpdate = (AutomationSyncUpdate) update;
                                 Automation automation = (Automation) automationUpdate.getValue();
                                 String ix = String.format("addauto/%02X/", automation.getIndex());
-                                if (automation instanceof AutomationDateTimeRelay) {
+                                if (automation instanceof AutomationDateTimeRelay || automation instanceof AutomationSchedulerRelay) {
                                     orders.put(ix + "u", AutomationUnit.Relay.toInt());
                                 }
 
-                                if (automation instanceof AutomationDateTimeTemperature) {
+                                if (automation instanceof AutomationDateTimeImpulse || automation instanceof AutomationSchedulerImpulse) {
+                                    orders.put(ix + "u", AutomationUnit.Impulse.toInt());
+                                }
+
+                                if (automation instanceof AutomationDateTimeTemperature || automation instanceof AutomationSchedulerTemperature) {
                                     orders.put(ix + "u", AutomationUnit.Temperature.toInt());
                                 }
 
-                                if (automation instanceof AutomationDateTimeHumidity) {
-                                    orders.put(ix + "u", AutomationUnit.Humidity.toInt());
-                                }
-
-                                if (automation instanceof AutomationSchedulerRelay) {
-                                    orders.put(ix + "u", AutomationUnit.Relay.toInt());
-                                }
-
-                                if (automation instanceof AutomationSchedulerTemperature) {
-                                    orders.put(ix + "u", AutomationUnit.Temperature.toInt());
-                                }
-
-                                if (automation instanceof AutomationSchedulerHumidity) {
+                                if (automation instanceof AutomationDateTimeHumidity || automation instanceof AutomationSchedulerHumidity) {
                                     orders.put(ix + "u", AutomationUnit.Humidity.toInt());
                                 }
 
@@ -607,6 +608,11 @@ public class FirebaseCloudDeviceService implements CloudDeviceService {
                                     ParamValue paramValue = (ParamValue) automation.getValue();
                                     orders.put(ix + "v", paramValue.getValue());
                                     orders.put(ix + "p", paramValue.getIndex());
+                                }
+
+                                if (automation.getValue() instanceof Integer) {
+                                    orders.put(ix + "v", 0);
+                                    orders.put(ix + "p", automation.getValue());
                                 }
 
                                 orders.put(ix + "e", automation.isEnabled() ? 1 : 0);

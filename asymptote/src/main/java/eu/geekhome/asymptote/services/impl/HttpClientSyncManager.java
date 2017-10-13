@@ -28,9 +28,11 @@ import javax.net.ssl.TrustManagerFactory;
 import eu.geekhome.asymptote.R;
 import eu.geekhome.asymptote.model.Automation;
 import eu.geekhome.asymptote.model.AutomationDateTimeHumidity;
+import eu.geekhome.asymptote.model.AutomationDateTimeImpulse;
 import eu.geekhome.asymptote.model.AutomationDateTimeRelay;
 import eu.geekhome.asymptote.model.AutomationDateTimeTemperature;
 import eu.geekhome.asymptote.model.AutomationSchedulerHumidity;
+import eu.geekhome.asymptote.model.AutomationSchedulerImpulse;
 import eu.geekhome.asymptote.model.AutomationSchedulerRelay;
 import eu.geekhome.asymptote.model.AutomationSchedulerTemperature;
 import eu.geekhome.asymptote.model.AutomationSyncUpdate;
@@ -412,6 +414,10 @@ public class HttpClientSyncManager implements SyncManager, LocalDiscoveryService
                                 AutomationDateTimeRelay relayAutomation = new AutomationDateTimeRelay(dta.getIndex(), trigger, relayValue, dta.getEnabled() == 1);
                                 automationList.add(relayAutomation);
                                 break;
+                            case Impulse:
+                                AutomationDateTimeImpulse impulseAutomation = new AutomationDateTimeImpulse(dta.getIndex(), trigger, dta.getParam(), dta.getEnabled() == 1);
+                                automationList.add(impulseAutomation);
+                                break;
                             case Temperature:
                                 ParamValue tempValue = new ParamValue(0, dta.getValue());
                                 AutomationDateTimeTemperature temperatureAutomation = new AutomationDateTimeTemperature(dta.getIndex(), trigger, tempValue, dta.getEnabled() == 1);
@@ -432,6 +438,10 @@ public class HttpClientSyncManager implements SyncManager, LocalDiscoveryService
                                 RelayValue relayValue = new RelayValue(sra.getParam(), sra.getValue() == 1);
                                 AutomationSchedulerRelay relayAutomation = new AutomationSchedulerRelay(sra.getIndex(), trigger, relayValue, sra.getEnabled() == 1);
                                 automationList.add(relayAutomation);
+                                break;
+                            case Impulse:
+                                AutomationSchedulerImpulse impulseAutomation = new AutomationSchedulerImpulse(sra.getIndex(), trigger, sra.getParam(), sra.getEnabled() == 1);
+                                automationList.add(impulseAutomation);
                                 break;
                             case Temperature:
                                 ParamValue tempValue = new ParamValue(0, sra.getValue());

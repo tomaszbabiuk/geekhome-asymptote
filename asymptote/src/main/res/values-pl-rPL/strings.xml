@@ -314,7 +314,7 @@
     <string name="reset">Resetuj</string>
     <string name="remove_this_color_question">Czy usunąć ten kolor z listy?</string>
     <string name="cannot_remove_selected_color">Kolor zaznaczony nie może zostać usunięty. Możesz usuwać pozostałe kolory.</string>
-    <string name="user_message"></string>
+    <string name="user_message"/>
     <string name="variant_deprecated">Ten wariant nie jest już wspierany!</string>
     <string name="please_update_to_latest_version">Prosimy o uaktualnienie oprogramowania dla tego urządzenia do najnowszej wersji.</string>
     <string name="signin_and_update_to_latest_version">Prosimy o zalogowanie się i uaktualnienie oprogramowania dla tego urządzenia do najnowszej wersji.</string>
@@ -326,19 +326,35 @@
     <string name="choose_automation">Wybierz typ automatyzacji</string>
     <string name="automation_datetime_name">Data i godzina</string>
     <string name="automation_datetime_relay_desc">Zmienia stan urządzenia o ustalonej dacie i godzinie</string>
+    <string name="automation_datetime_impulse_desc">Aktywuje zaawansowaną funkcję przekaźnika o ustalonej dacie i godzinie</string>
     <string name="automation_datetime_temperature_desc">Zmienia temperaturę zadaną o ustalonej dacie i godzinie</string>
     <string name="automation_datetime_humidity_desc">Zmienia wilgotność zadaną o ustalonej dacie i godzinie</string>
+    <string name="automation_datetime_pwm_desc">Zmienia wypełnienie PWM (jasność) o ustalonej dacie i godzinie</string>
+    <string name="automation_datetime_rgb_desc">Zmienia kolor o ustalonej dacie i godzinie</string>
+    <string name="automation_datetime_gate_desc">Zmienia stan bramy o ustalonej dacie i godzinie</string>
     <string name="automation_scheduler_name">Terminarz</string>
     <string name="automation_scheduler_relay_desc">Pozwala zdefiniować tygodniowy rozkład zmiany stanu</string>
+    <string name="automation_scheduler_impulse_desc">Pozwala zdefiniować tygodniowy rozkład aktywacji zaawansowanej funkcji przekaźnika</string>
     <string name="automation_scheduler_temperature_desc">Pozwala zdefiniować tygodniowy rozkład zmiany temperatury zadanej</string>
     <string name="automation_scheduler_humidity_desc">Pozwala zdefiniować tygodniowy rozkład zmiany wilgotności zadanej</string>
+    <string name="automation_scheduler_pwm_desc">Pozwala zdefiniować tygodniowy rozkład zmiany wypełnienia PWM (jasności)</string>
+    <string name="automation_scheduler_rgb_desc">Pozwala zdefiniować tygodniowy rozkład zmiany koloru</string>
+    <string name="automation_scheduler_gate_desc">Pozwala zdefiniować tygodniowy rozkład zmiany stanu bramy</string>
     <string name="no_automation">Brak automatyzacji</string>
     <string name="automation_datetime_relay">Zmień stan przekaźnika o ustalonej dacie i godzinie</string>
     <string name="automation_datetime_temperature">Zmień zadaną temperaturę o ustalonej dacie i godzinie</string>
     <string name="automation_datetime_humidity">Zmień zadaną wilgotność o ustalonej dacie i godzinie</string>
+    <string name="automation_datetime_impulse">Aktywuj zaawansowaną funkcję przekaźnika o ustalonej dacie i godzinie</string>
+    <string name="automation_datetime_pwm">Zmień wypełnienie PWM (jasność) o ustalonej dacie i godzinie</string>
+    <string name="automation_datetime_rgb">Zmień kolor o ustalonej dacie i godzinie</string>
+    <string name="automation_datetime_gate">Zmień stan bramy o ustalonej dacie i godzinie</string>
     <string name="automation_scheduler_relay">Zmieniaj stan przekaźnika wg tygodniowego rozkładu</string>
     <string name="automation_scheduler_temperature">Zmieniaj temperaturę zadaną wg tygodniowego rozkładu</string>
     <string name="automation_scheduler_humidity">Zmieniaj wilgotność zadaną wg tygodniowego rozkładu</string>
+    <string name="automation_scheduler_impulse">Aktywuj zaawansowaną funkcję przekaźnika wg tygodniowego rozkładu</string>
+    <string name="automation_scheduler_pwm">Zmieniaj wypełnienie PWM (jasność) wg tygodniowego rozkładu</string>
+    <string name="automation_scheduler_rgb">Zmieniaj kolor wg tygodniowego rozkładu</string>
+    <string name="automation_scheduler_gate">Zmieniaj stan bramy wg tygodniowego rozkładu</string>
     <string name="change_state_to_on">Zmień stan na wł</string>
     <string name="change_state_to_off">Zmień stan na wył</string>
     <string name="edit">Edytuj</string>
@@ -361,7 +377,7 @@
     <string name="change_gate_setting_to_released" formatted="false">Odblokuj bramę dnia %s o godzinie %s</string>
     <string name="change_impulse_setting_to" formatted="false">Aktywuj kanał %d, dnia %s o godzinie %s</string>
     <string name="change_relay_at_on" formatted="false">Włącz przekaźnik %d,  dnia %s o godzinie %s</string>
-    <string name="change_relay_at_off" formatted="false">Wyłącz przekaźnik %d 0 dnia %s o godzinie %s</string>
+    <string name="change_relay_at_off" formatted="false">Wyłącz przekaźnik %d dnia %s o godzinie %s</string>
     <string name="change_relay_by_schedule_on" formatted="false">W %s o godzinie %s włączaj przekaźnik %d</string>
     <string name="change_relay_by_schedule_off" formatted="false">W %s o godzinie %s wyłączaj przekaźnik %d</string>
     <string name="change_temperature_by_schedule" formatted="false">W %s o godzinie %s zmieniaj temperaturę zadaną na %s</string>
@@ -406,12 +422,12 @@
     <string-array name="signal_turned_on_solutions">
         <item>Poczekaj na bardziej znaczący sygnał. Przykładowo, gdy urządzenie nie zna naszej sieci WiFi i próbuje nawiązać połączenie dioda stanu świeci się w sposób ciągły (nie miga) przez kilka sekund, a następnie miga dwukrotnie kilka razy i znowu zaświeca się, aby ponowić próbę. Te dwa mrugnięcia są tym bardziej znaczącym sygnałem w tym przypadku.</item>
     </string-array>
-    <plurals name="reset_procedure_steps">
+    <plurals name="reset_procedure_steps" tools:ignore="MissingQuantity">
         <item quantity="one">Procedura resetowania ustawień WiFi</item>
         <item quantity="few">Kroki procedury resetowania ustawień WiFi</item>
         <item quantity="other">Kroki procedury resetowania ustawień WiFi</item>
     </plurals>
-    <plurals name="solutions">
+    <plurals name="solutions" tools:ignore="MissingQuantity">
         <item quantity="one">Rozwiązanie</item>
         <item quantity="few">Rozwiązania</item>
         <item quantity="other">Rozwiązań</item>

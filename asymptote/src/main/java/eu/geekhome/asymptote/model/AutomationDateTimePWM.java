@@ -17,7 +17,7 @@ public class AutomationDateTimePWM extends Automation<DateTimeTrigger, PWMValue>
         DateFormat dateFormat = android.text.format.DateFormat.getDateFormat(context);
         DateFormat timeFormat = android.text.format.DateFormat.getTimeFormat(context);
         Date date = new Date(getTrigger().getUtcTimestamp() * 1000);
-        String intensity =  Math.round(getValue().getDuty()/255 * 100) + "%";
+        String intensity =  Math.round((float)getValue().getDuty()/255 * 100) + "%";
 
         return context.getString(R.string.change_pwm_to,
                 getValue().getChannel(), intensity,

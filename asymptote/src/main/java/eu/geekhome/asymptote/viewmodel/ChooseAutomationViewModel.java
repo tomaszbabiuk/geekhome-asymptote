@@ -75,6 +75,12 @@ public class ChooseAutomationViewModel extends ViewModel<DialogChooseAutomationB
                 AutomationTypeItemViewModel scheduleTriggerOfHumidity = new AutomationTypeItemViewModel(this, sensor, AutomationType.SchedulerOfHumidity);
                 result.add(scheduleTriggerOfHumidity);
                 break;
+            case MULTI_PWM:
+                AutomationTypeItemViewModel exactTriggerOfPWM = new AutomationTypeItemViewModel(this, sensor, AutomationType.DateTimeOfPWM);
+                result.add(exactTriggerOfPWM);
+                AutomationTypeItemViewModel scheduleTriggerOfPWM = new AutomationTypeItemViewModel(this, sensor, AutomationType.SchedulerOfPWM);
+                result.add(scheduleTriggerOfPWM);
+                break;
         }
 
         return result;
@@ -104,6 +110,10 @@ public class ChooseAutomationViewModel extends ViewModel<DialogChooseAutomationB
                 EditAutomationDateTimeImpulseViewModel modelDI = _factory.createEditAutomationDateTimeImpulseViewModel(_listener, _sensor, _index);
                 _navigationService.showViewModel(modelDI, new ShowBackButtonInToolbarViewParam());
                 break;
+            case DateTimeOfPWM:
+                EditAutomationDateTimePWMViewModel modelDP = _factory.createEditAutomationDateTimePWMViewModel(_listener, _sensor, _index);
+                _navigationService.showViewModel(modelDP, new ShowBackButtonInToolbarViewParam());
+                break;
             case DateTimeOfTemperature:
                 EditAutomationDateTimeTemperatureViewModel modelDT = _factory.createEditAutomationDateTimeTemperatureViewModel(_listener, _sensor, _index);
                 _navigationService.showViewModel(modelDT, new ShowBackButtonInToolbarViewParam());
@@ -119,6 +129,10 @@ public class ChooseAutomationViewModel extends ViewModel<DialogChooseAutomationB
             case SchedulerOfImpulse:
                 EditAutomationSchedulerImpulseViewModel modelSI = _factory.createEditAutomationSchedulerImpulseViewModel(_listener, _sensor, _index);
                 _navigationService.showViewModel(modelSI, new ShowBackButtonInToolbarViewParam());
+                break;
+            case SchedulerOfPWM:
+                EditAutomationSchedulerPWMViewModel modelSP = _factory.createEditAutomationSchedulerPWMViewModel(_listener, _sensor, _index);
+                _navigationService.showViewModel(modelSP, new ShowBackButtonInToolbarViewParam());
                 break;
             case SchedulerOfTemperature:
                 EditAutomationSchedulerTemperatureViewModel modelST = _factory.createEditAutomationSchedulerTemperatureViewModel(_listener, _sensor, _index);

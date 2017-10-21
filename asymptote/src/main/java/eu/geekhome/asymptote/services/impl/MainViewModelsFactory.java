@@ -11,10 +11,12 @@ import eu.geekhome.asymptote.MainActivity;
 import eu.geekhome.asymptote.bindingutils.LayoutHolder;
 import eu.geekhome.asymptote.model.AutomationDateTimeHumidity;
 import eu.geekhome.asymptote.model.AutomationDateTimeImpulse;
+import eu.geekhome.asymptote.model.AutomationDateTimePWM;
 import eu.geekhome.asymptote.model.AutomationDateTimeRelay;
 import eu.geekhome.asymptote.model.AutomationDateTimeTemperature;
 import eu.geekhome.asymptote.model.AutomationSchedulerHumidity;
 import eu.geekhome.asymptote.model.AutomationSchedulerImpulse;
+import eu.geekhome.asymptote.model.AutomationSchedulerPWM;
 import eu.geekhome.asymptote.model.AutomationSchedulerRelay;
 import eu.geekhome.asymptote.model.AutomationSchedulerTemperature;
 import eu.geekhome.asymptote.model.DeviceSyncData;
@@ -44,8 +46,11 @@ import eu.geekhome.asymptote.viewmodel.ChangeEmailViewModel;
 import eu.geekhome.asymptote.viewmodel.ChangeFirmwareViewModel;
 import eu.geekhome.asymptote.viewmodel.ChangePasswordViewModel;
 import eu.geekhome.asymptote.viewmodel.EditAutomationDateTimeImpulseViewModel;
+import eu.geekhome.asymptote.viewmodel.EditAutomationDateTimePWMViewModel;
 import eu.geekhome.asymptote.viewmodel.EditAutomationSchedulerImpulseViewModel;
+import eu.geekhome.asymptote.viewmodel.EditAutomationSchedulerPWMViewModel;
 import eu.geekhome.asymptote.viewmodel.EditImpulseValueViewModel;
+import eu.geekhome.asymptote.viewmodel.EditPWMValueViewModel;
 import eu.geekhome.asymptote.viewmodel.ManageViewModel;
 import eu.geekhome.asymptote.viewmodel.ChooseAutomationViewModel;
 import eu.geekhome.asymptote.viewmodel.ControlsCreator;
@@ -310,6 +315,18 @@ public class MainViewModelsFactory {
                 sensor, automation);
     }
 
+    public EditAutomationDateTimePWMViewModel createEditAutomationDateTimePWMViewModel(
+            AutomationAddedListener listener, SensorItemViewModel sensor, int index) {
+        return new EditAutomationDateTimePWMViewModel(_context, this, _navigationService, listener,
+                sensor, index);
+    }
+
+    public EditAutomationDateTimePWMViewModel createEditAutomationDateTimePWMViewModel(
+            AutomationAddedListener listener, SensorItemViewModel sensor, AutomationDateTimePWM automation) {
+        return new EditAutomationDateTimePWMViewModel(_context, this, _navigationService, listener,
+                sensor, automation);
+    }
+
     public EditAutomationDateTimeTemperatureViewModel createEditAutomationDateTimeTemperatureViewModel(
             AutomationAddedListener listener, SensorItemViewModel sensor, int index) {
         return new EditAutomationDateTimeTemperatureViewModel(_context, this, _navigationService, listener,
@@ -360,6 +377,19 @@ public class MainViewModelsFactory {
 
     }
 
+    public EditAutomationSchedulerPWMViewModel createEditAutomationSchedulerPWMViewModel(
+            AutomationAddedListener listener, SensorItemViewModel sensor, int index) {
+        return new EditAutomationSchedulerPWMViewModel(_context, this, _navigationService, listener,
+                sensor, index);
+    }
+
+    public EditAutomationSchedulerPWMViewModel createEditAutomationSchedulerPWMViewModel(
+            AutomationAddedListener listener, SensorItemViewModel sensor, AutomationSchedulerPWM automation) {
+        return new EditAutomationSchedulerPWMViewModel(_context, this, _navigationService, listener,
+                sensor, automation);
+
+    }
+
     public EditAutomationSchedulerTemperatureViewModel createEditAutomationSchedulerTemperatureViewModel(
             AutomationAddedListener listener, SensorItemViewModel sensor, int index) {
         return new EditAutomationSchedulerTemperatureViewModel(_context, this, _navigationService, listener, sensor, index);
@@ -382,6 +412,10 @@ public class MainViewModelsFactory {
 
     public EditRelayValueViewModel createEditRelayValueViewModel(SensorItemViewModel sensor) {
         return new EditRelayValueViewModel(_context, sensor);
+    }
+
+    public EditPWMValueViewModel createEditPWMValueViewModel(SensorItemViewModel sensor) {
+        return new EditPWMValueViewModel(_context, sensor);
     }
 
     public EditImpulseValueViewModel createEditImpulseValueViewModel(SensorItemViewModel sensor) {

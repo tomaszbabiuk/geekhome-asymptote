@@ -5,6 +5,10 @@ public enum AutomationUnit {
     Impulse(1),
     Temperature(2),
     Humidity(3),
+    Pwm(4),
+    Rgb(5),
+    Gate(6),
+    Remote(7),
     Unknown(255);
 
     private final int _code;

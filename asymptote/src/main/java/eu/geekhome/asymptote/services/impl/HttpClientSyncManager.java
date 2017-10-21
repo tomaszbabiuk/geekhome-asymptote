@@ -29,10 +29,13 @@ import eu.geekhome.asymptote.R;
 import eu.geekhome.asymptote.model.Automation;
 import eu.geekhome.asymptote.model.AutomationDateTimeHumidity;
 import eu.geekhome.asymptote.model.AutomationDateTimeImpulse;
+import eu.geekhome.asymptote.model.AutomationDateTimePWM;
+import eu.geekhome.asymptote.model.AutomationDateTimeRGB;
 import eu.geekhome.asymptote.model.AutomationDateTimeRelay;
 import eu.geekhome.asymptote.model.AutomationDateTimeTemperature;
 import eu.geekhome.asymptote.model.AutomationSchedulerHumidity;
 import eu.geekhome.asymptote.model.AutomationSchedulerImpulse;
+import eu.geekhome.asymptote.model.AutomationSchedulerPWM;
 import eu.geekhome.asymptote.model.AutomationSchedulerRelay;
 import eu.geekhome.asymptote.model.AutomationSchedulerTemperature;
 import eu.geekhome.asymptote.model.AutomationSyncUpdate;
@@ -55,6 +58,7 @@ import eu.geekhome.asymptote.model.OtaHostSyncUpdate;
 import eu.geekhome.asymptote.model.OtaState;
 import eu.geekhome.asymptote.model.PWMImpulseSyncUpdate;
 import eu.geekhome.asymptote.model.PWMSyncUpdate;
+import eu.geekhome.asymptote.model.PWMValue;
 import eu.geekhome.asymptote.model.ParamSyncUpdate;
 import eu.geekhome.asymptote.model.ParamValue;
 import eu.geekhome.asymptote.model.RGBSyncUpdate;
@@ -337,6 +341,10 @@ public class HttpClientSyncManager implements SyncManager, LocalDiscoveryService
             type="type=dt&unit=" + AutomationUnit.Humidity.toInt();
         }
 
+        if (automation instanceof AutomationDateTimePWM) {
+            type="type=dt&unit=" + AutomationUnit.Pwm.toInt();
+        }
+
         if (automation instanceof AutomationSchedulerRelay) {
             type="type=sr&unit=" + AutomationUnit.Relay.toInt();
         }
@@ -347,6 +355,10 @@ public class HttpClientSyncManager implements SyncManager, LocalDiscoveryService
 
         if (automation instanceof AutomationSchedulerHumidity) {
             type="type=sr&unit=" + AutomationUnit.Humidity.toInt();
+        }
+
+        if (automation instanceof AutomationSchedulerPWM) {
+            type="type=sr&unit=" + AutomationUnit.Pwm.toInt();
         }
 
         if (automation.getTrigger() instanceof DateTimeTrigger) {
@@ -367,6 +379,11 @@ public class HttpClientSyncManager implements SyncManager, LocalDiscoveryService
         if (automation.getValue() instanceof ParamValue) {
             ParamValue paramValue = (ParamValue)automation.getValue();
             valueQuery = String.format(Locale.US, "&value=%d&param=%d", paramValue.getValue(), paramValue.getIndex());
+        }
+
+        if (automation.getValue() instanceof PWMValue) {
+            PWMValue pwmValue = (PWMValue)automation.getValue();
+            valueQuery = String.format(Locale.US, "&value=%d&param=%d", pwmValue.getDuty(), pwmValue.getChannel());
         }
 
         Request request = new Request.Builder()
@@ -428,6 +445,16 @@ public class HttpClientSyncManager implements SyncManager, LocalDiscoveryService
                                 AutomationDateTimeHumidity humidityAutomation = new AutomationDateTimeHumidity(dta.getIndex(), trigger, humValue, dta.getEnabled() == 1);
                                 automationList.add(humidityAutomation);
                                 break;
+                            case Pwm:
+                                PWMValue pwmValue = new PWMValue(dta.getParam(), (int)dta.getValue());
+                                AutomationDateTimePWM pwmAutomation = new AutomationDateTimePWM(dta.getIndex(), trigger, pwmValue, dta.getEnabled() == 1);
+                                automationList.add(pwmAutomation);
+                                break;
+//                            case Rgb:
+//                                PWMValue rgbValue = new PWMValue(dta.getParam(), (int)dta.getValue());
+//                                AutomationDateTimeRGB rgbAutomation = new AutomationDateTimeRGB(dta.getIndex(), trigger, rgbValue, dta.getEnabled() == 1);
+//                                automationList.add(rgbAutomation);
+//                                break;
                         }
                     }
                     for (HttpSchedulerAutomationResponse sra : listResponse.getSchedulerAutomations()) {
@@ -453,7 +480,11 @@ public class HttpClientSyncManager implements SyncManager, LocalDiscoveryService
                                 AutomationSchedulerHumidity humidityAutomation = new AutomationSchedulerHumidity(sra.getIndex(), trigger, humValue, sra.getEnabled() == 1);
                                 automationList.add(humidityAutomation);
                                 break;
-                        }
+                            case Pwm:
+                                PWMValue pwmValue = new PWMValue(sra.getParam(), (int)sra.getValue());
+                                AutomationSchedulerPWM pwmAutomation = new AutomationSchedulerPWM(sra.getIndex(), trigger, pwmValue, sra.getEnabled() == 1);
+                                automationList.add(pwmAutomation);
+                                break;                        }
                     }
 
                     if (_listener != null) {

@@ -1,7 +1,6 @@
 package eu.geekhome.asymptote.viewmodel;
 
 import android.content.Context;
-import android.databinding.BaseObservable;
 import android.databinding.Bindable;
 
 import java.util.ArrayList;
@@ -10,7 +9,7 @@ import eu.geekhome.asymptote.BR;
 import eu.geekhome.asymptote.R;
 import eu.geekhome.asymptote.model.RelayValue;
 
-public class EditRelayValueViewModel  extends BaseObservable {
+public class EditRelayValueViewModel extends EditValueViewModelBase<RelayValue> {
     private final Context _context;
     private ArrayList<String> _channels;
     private ArrayList<String> _values;
@@ -45,19 +44,6 @@ public class EditRelayValueViewModel  extends BaseObservable {
         return _values;
     }
 
-    RelayValue buildRelayValue() {
-        int channel = getChannels().indexOf(getSelectedChannel());
-        boolean state = getValues().indexOf(getSelectedValue()) == 0;
-        return new RelayValue(channel, state);
-    }
-
-    public void applyRelayValue(RelayValue relayValue) {
-        String channelToSelect = buildChannelName(relayValue.getChannel());
-        setSelectedChannel(channelToSelect);
-        String valueName = _context.getString(relayValue.getState() ? R.string.on : R.string.off);
-        setSelectedValue(valueName);
-    }
-
     @Bindable
     public String getSelectedValue() {
         return _selectedValue;
@@ -76,5 +62,20 @@ public class EditRelayValueViewModel  extends BaseObservable {
     public void setSelectedChannel(String selectedChannel) {
         _selectedChannel = selectedChannel;
         notifyPropertyChanged(BR.selectedChannel);
+    }
+
+    @Override
+    protected RelayValue buildValue() {
+        int channel = getChannels().indexOf(getSelectedChannel());
+        boolean state = getValues().indexOf(getSelectedValue()) == 0;
+        return new RelayValue(channel, state);
+    }
+
+    @Override
+    public void applyValue(RelayValue value) {
+        String channelToSelect = buildChannelName(value.getChannel());
+        setSelectedChannel(channelToSelect);
+        String valueName = _context.getString(value.getState() ? R.string.on : R.string.off);
+        setSelectedValue(valueName);
     }
 }

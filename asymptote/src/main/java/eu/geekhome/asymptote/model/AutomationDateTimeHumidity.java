@@ -10,7 +10,7 @@ import eu.geekhome.asymptote.utils.ValueConverter;
 
 public class AutomationDateTimeHumidity extends Automation<DateTimeTrigger, ParamValue> {
     public AutomationDateTimeHumidity(int index, DateTimeTrigger trigger, ParamValue value, boolean enabled) {
-        super(index, trigger, value, enabled);
+        super(index, trigger, value, enabled, AutomationUnit.Humidity);
     }
 
     @Override

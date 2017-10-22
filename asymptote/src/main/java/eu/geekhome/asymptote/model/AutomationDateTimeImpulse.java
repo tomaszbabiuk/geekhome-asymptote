@@ -9,7 +9,7 @@ import eu.geekhome.asymptote.R;
 
 public class AutomationDateTimeImpulse extends Automation<DateTimeTrigger, Integer> {
     public AutomationDateTimeImpulse(int index, DateTimeTrigger trigger, Integer value, boolean enabled) {
-        super(index, trigger, value, enabled);
+        super(index, trigger, value, enabled, AutomationUnit.Impulse);
     }
 
     @Override

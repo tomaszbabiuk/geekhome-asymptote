@@ -7,11 +7,11 @@
 
         <import type="android.view.View"/>
         <import type="eu.geekhome.asymptote.utils.ValueConverter"/>
-        <import type="eu.geekhome.asymptote.viewmodel.EditPWMValueViewModel"/>
+        <import type="eu.geekhome.asymptote.viewmodel.EditRGBValueViewModel"/>
 
         <variable
             name="vm"
-            type="eu.geekhome.asymptote.viewmodel.EditAutomationSchedulerPWMViewModel"/>
+            type="eu.geekhome.asymptote.viewmodel.EditAutomationSchedulerRGBViewModel"/>
     </data>
 
     <LinearLayout
@@ -47,8 +47,8 @@
                     app:vm="@{vm.editSchedulerViewModel}"/>
 
                 <include
-                    layout="@layout/control_edit_pwm_value"
-                    app:vm="@{(EditPWMValueViewModel)vm.editValueViewModel}"/>
+                    layout="@layout/control_edit_rgb_value"
+                    app:vm="@{(EditRGBValueViewModel)vm.editValueViewModel}"/>
             </LinearLayout>
         </ScrollView>
 

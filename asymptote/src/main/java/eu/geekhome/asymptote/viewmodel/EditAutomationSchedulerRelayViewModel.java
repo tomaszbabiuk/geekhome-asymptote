@@ -1,13 +1,13 @@
 package eu.geekhome.asymptote.viewmodel;
 
 import android.content.Context;
-import android.databinding.Bindable;
 import android.databinding.DataBindingUtil;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
 import eu.geekhome.asymptote.R;
 import eu.geekhome.asymptote.databinding.FragmentEditAutomationSchedulerRelayBinding;
+import eu.geekhome.asymptote.model.Automation;
 import eu.geekhome.asymptote.model.AutomationSchedulerRelay;
 import eu.geekhome.asymptote.model.RelayValue;
 import eu.geekhome.asymptote.model.SchedulerTrigger;
@@ -15,16 +15,18 @@ import eu.geekhome.asymptote.services.AutomationAddedListener;
 import eu.geekhome.asymptote.services.NavigationService;
 import eu.geekhome.asymptote.services.impl.MainViewModelsFactory;
 
-public class EditAutomationSchedulerRelayViewModel extends EditAutomationViewModelBase<FragmentEditAutomationSchedulerRelayBinding, AutomationSchedulerRelay> {
-
-    private EditRelayValueViewModel _editRelayValueViewModel;
-    private EditSchedulerViewModel _editSchedulerViewModel;
+public class EditAutomationSchedulerRelayViewModel extends EditAutomationSchedulerViewModelBase<FragmentEditAutomationSchedulerRelayBinding, RelayValue> {
 
     public EditAutomationSchedulerRelayViewModel(Context context, MainViewModelsFactory factory,
                                                  NavigationService navigationService,
                                                  AutomationAddedListener listener,
                                                  SensorItemViewModel sensor, int index) {
         super(context, factory, navigationService, listener, sensor, index);
+    }
+
+    @Override
+    protected EditValueViewModelBase<RelayValue> createValueViewModel(MainViewModelsFactory factory, SensorItemViewModel sensor) {
+        return factory.createEditRelayValueViewModel(sensor);
     }
 
     public EditAutomationSchedulerRelayViewModel(Context context, MainViewModelsFactory factory,
@@ -35,22 +37,8 @@ public class EditAutomationSchedulerRelayViewModel extends EditAutomationViewMod
     }
 
     @Override
-    protected void createSubmodels(MainViewModelsFactory factory, SensorItemViewModel sensor) {
-        _editRelayValueViewModel = factory.createEditRelayValueViewModel(sensor);
-        _editSchedulerViewModel = factory.createEditSchedulerViewModel(sensor);
-    }
-
-    @Override
-    protected AutomationSchedulerRelay createAutomation() {
-        RelayValue value = _editRelayValueViewModel.buildRelayValue();
-        SchedulerTrigger trigger = _editSchedulerViewModel.buildSchedulerTrigger();
+    protected Automation<SchedulerTrigger, RelayValue> createAutomation(SchedulerTrigger trigger, RelayValue value) {
         return new AutomationSchedulerRelay(getIndex(), trigger, value, isEnabled());
-    }
-
-    @Override
-    protected void applyAutomationChanges(AutomationSchedulerRelay automation) {
-        _editRelayValueViewModel.applyRelayValue(automation.getValue());
-        _editSchedulerViewModel.applySchedulerTrigger(automation.getTrigger());
     }
 
     @Override
@@ -58,15 +46,5 @@ public class EditAutomationSchedulerRelayViewModel extends EditAutomationViewMod
         FragmentEditAutomationSchedulerRelayBinding binding = DataBindingUtil.inflate(inflater, R.layout.fragment_edit_automation_scheduler_relay, container, false);
         binding.setVm(this);
         return binding;
-    }
-
-    @Bindable
-    public EditRelayValueViewModel getEditRelayValueViewModel() {
-        return _editRelayValueViewModel;
-    }
-
-    @Bindable
-    public EditSchedulerViewModel getEditSchedulerViewModel() {
-        return _editSchedulerViewModel;
     }
 }

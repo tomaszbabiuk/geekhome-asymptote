@@ -20,11 +20,13 @@ import eu.geekhome.asymptote.model.Automation;
 import eu.geekhome.asymptote.model.AutomationDateTimeHumidity;
 import eu.geekhome.asymptote.model.AutomationDateTimeImpulse;
 import eu.geekhome.asymptote.model.AutomationDateTimePWM;
+import eu.geekhome.asymptote.model.AutomationDateTimeRGB;
 import eu.geekhome.asymptote.model.AutomationDateTimeRelay;
 import eu.geekhome.asymptote.model.AutomationDateTimeTemperature;
 import eu.geekhome.asymptote.model.AutomationSchedulerHumidity;
 import eu.geekhome.asymptote.model.AutomationSchedulerImpulse;
 import eu.geekhome.asymptote.model.AutomationSchedulerPWM;
+import eu.geekhome.asymptote.model.AutomationSchedulerRGB;
 import eu.geekhome.asymptote.model.AutomationSchedulerRelay;
 import eu.geekhome.asymptote.model.AutomationSchedulerTemperature;
 import eu.geekhome.asymptote.model.AutomationSyncUpdate;
@@ -186,6 +188,10 @@ public class EditAutomationViewModel extends ViewModel<FragmentEditAutomationBin
             AutomationDateTimeHumidity automation = (AutomationDateTimeHumidity) toEdit.getAutomation();
             EditAutomationDateTimeHumidityViewModel model = _factory.createEditAutomationDateTimeHumidityViewModel(this, _sensor, automation);
             _navigationService.showViewModel(model, new ShowBackButtonInToolbarViewParam());
+        } else if (toEdit.getAutomation() instanceof AutomationDateTimeRGB) {
+            AutomationDateTimeRGB automation = (AutomationDateTimeRGB) toEdit.getAutomation();
+            EditAutomationDateTimeRGBViewModel model = _factory.createEditAutomationDateTimeRGBViewModel(this, _sensor, automation);
+            _navigationService.showViewModel(model, new ShowBackButtonInToolbarViewParam());
         } else if (toEdit.getAutomation() instanceof AutomationSchedulerRelay) {
             AutomationSchedulerRelay automation = (AutomationSchedulerRelay) toEdit.getAutomation();
             EditAutomationSchedulerRelayViewModel model = _factory.createEditAutomationSchedulerRelayViewModel(this, _sensor, automation);
@@ -205,6 +211,10 @@ public class EditAutomationViewModel extends ViewModel<FragmentEditAutomationBin
         } else if (toEdit.getAutomation() instanceof AutomationSchedulerHumidity) {
             AutomationSchedulerHumidity automation = (AutomationSchedulerHumidity) toEdit.getAutomation();
             EditAutomationSchedulerHumidityViewModel model = _factory.createEditAutomationSchedulerHumidityViewModel(this, _sensor, automation);
+            _navigationService.showViewModel(model, new ShowBackButtonInToolbarViewParam());
+        } else if (toEdit.getAutomation() instanceof AutomationSchedulerRGB) {
+            AutomationSchedulerRGB automation = (AutomationSchedulerRGB) toEdit.getAutomation();
+            EditAutomationSchedulerRGBViewModel model = _factory.createEditAutomationSchedulerRGBViewModel(this, _sensor, automation);
             _navigationService.showViewModel(model, new ShowBackButtonInToolbarViewParam());
         }
     }

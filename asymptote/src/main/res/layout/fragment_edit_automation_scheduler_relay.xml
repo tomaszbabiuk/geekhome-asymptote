@@ -7,6 +7,7 @@
 
         <import type="android.view.View"/>
         <import type="eu.geekhome.asymptote.utils.ValueConverter"/>
+        <import type="eu.geekhome.asymptote.viewmodel.EditRelayValueViewModel"/>
 
         <variable
             name="vm"
@@ -47,7 +48,7 @@
 
                 <include
                     layout="@layout/control_edit_relay_value"
-                    app:vm="@{vm.editRelayValueViewModel}"/>
+                    app:vm="@{(EditRelayValueViewModel)vm.editValueViewModel}"/>
             </LinearLayout>
         </ScrollView>
 

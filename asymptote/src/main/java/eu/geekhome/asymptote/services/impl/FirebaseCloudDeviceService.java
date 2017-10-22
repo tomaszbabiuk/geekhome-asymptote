@@ -20,19 +20,6 @@ import java.util.Iterator;
 import java.util.Map;
 
 import eu.geekhome.asymptote.model.Automation;
-import eu.geekhome.asymptote.model.AutomationDateTimeHumidity;
-import eu.geekhome.asymptote.model.AutomationDateTimeImpulse;
-import eu.geekhome.asymptote.model.AutomationDateTimePWM;
-import eu.geekhome.asymptote.model.AutomationDateTimeRGB;
-import eu.geekhome.asymptote.model.AutomationDateTimeRelay;
-import eu.geekhome.asymptote.model.AutomationDateTimeTemperature;
-import eu.geekhome.asymptote.model.AutomationSchedulerHumidity;
-import eu.geekhome.asymptote.model.AutomationSchedulerImpulse;
-import eu.geekhome.asymptote.model.AutomationSchedulerPWM;
-import eu.geekhome.asymptote.model.AutomationSchedulerRGB;
-import eu.geekhome.asymptote.model.AutomationSchedulerRelay;
-import eu.geekhome.asymptote.model.AutomationSchedulerTemperature;
-import eu.geekhome.asymptote.model.AutomationUnit;
 import eu.geekhome.asymptote.model.BoardId;
 import eu.geekhome.asymptote.model.BoardMode;
 import eu.geekhome.asymptote.model.BoardNotSupportedException;
@@ -74,17 +61,20 @@ import eu.geekhome.asymptote.services.CloudDeviceService;
 import eu.geekhome.asymptote.services.CloudException;
 import eu.geekhome.asymptote.services.SyncListener;
 import eu.geekhome.asymptote.services.SyncSource;
+import eu.geekhome.asymptote.utils.AutomationBuilder;
 import eu.geekhome.asymptote.utils.Base64Utils;
 
 public class FirebaseCloudDeviceService implements CloudDeviceService {
     private final Activity _activity;
+    private final AutomationBuilder _automationBuilder;
     private SyncListener _syncListener;
     private Hashtable<DeviceSnapshot, ValueEventListener> _deviceListeners = new Hashtable<>();
     private Hashtable<String, ValueEventListener> _automationListeners = new Hashtable<>();
 
 
-    public FirebaseCloudDeviceService(Activity activity) {
+    public FirebaseCloudDeviceService(Activity activity, AutomationBuilder automationBuilder) {
         _activity = activity;
+        _automationBuilder = automationBuilder;
     }
 
     private ValueEventListener createDeviceListener(final DeviceSnapshot deviceSnapshot) {
@@ -276,34 +266,14 @@ public class FirebaseCloudDeviceService implements CloudDeviceService {
                     long value = dateTimeAutomationChild.child("val").getValue(Long.class);
                     int unit = dateTimeAutomationChild.child("unt").getValue(Integer.class);
                     boolean enabled = dateTimeAutomationChild.child("end").getValue(Integer.class) == 1;
-                    DateTimeTrigger trigger = new DateTimeTrigger(time);
 
-                    AutomationUnit unitParsed = AutomationUnit.fromInt(unit);
-                    switch (unitParsed) {
-                        case Relay:
-                            RelayValue relayValue = new RelayValue((int)param, value == 1);
-                            AutomationDateTimeRelay relayAutomation = new AutomationDateTimeRelay(index, trigger, relayValue, enabled);
-                            automationList.add(relayAutomation);
-                            break;
-                        case Impulse:
-                            AutomationDateTimeImpulse impulseAutomation = new AutomationDateTimeImpulse(index, trigger, (int)param, enabled);
-                            automationList.add(impulseAutomation);
-                        case Temperature:
-                            ParamValue tempValue = new ParamValue((int)param, value);
-                            AutomationDateTimeTemperature temperatureAutomation = new AutomationDateTimeTemperature(index, trigger, tempValue, enabled);
-                            automationList.add(temperatureAutomation);
-                            break;
-                        case Humidity:
-                            ParamValue humValue = new ParamValue((int)param, value);
-                            AutomationDateTimeHumidity humidityAutomation = new AutomationDateTimeHumidity(index, trigger, humValue, enabled);
-                            automationList.add(humidityAutomation);
-                            break;
-                        case Pwm:
-                            PWMValue pwmValue = new PWMValue((int)param, (int)value);
-                            AutomationDateTimePWM pwmAutomation = new AutomationDateTimePWM(index, trigger, pwmValue, enabled);
-                            automationList.add(pwmAutomation);
-                            break;
+                    Automation automation = null;
+                    try {
+                        automation = _automationBuilder.buildDateTimeAutomationFromNumbers(index,
+                                time, unit, param, value, enabled);
+                    } catch (Exception ignored) {
                     }
+                    automationList.add(automation);
                 }
 
                 DataSnapshot schedulerAutomationList = dataSnapshot.child("sr");
@@ -318,33 +288,13 @@ public class FirebaseCloudDeviceService implements CloudDeviceService {
                     int unit = schedulerAutomationChild.child("unt").getValue(Integer.class);
                     boolean enabled = schedulerAutomationChild.child("end").getValue(Integer.class) == 1;
 
-                    SchedulerTrigger trigger = new SchedulerTrigger(days, time);
-                    AutomationUnit unitParsed = AutomationUnit.fromInt(unit);
-                    switch (unitParsed) {
-                        case Relay:
-                            RelayValue relayValue = new RelayValue((int)param, value == 1);
-                            AutomationSchedulerRelay relayAutomation = new AutomationSchedulerRelay(index, trigger, relayValue, enabled);
-                            automationList.add(relayAutomation);
-                            break;
-                        case Impulse:
-                            AutomationSchedulerImpulse impulseAutomation = new AutomationSchedulerImpulse(index, trigger, (int)param, enabled);
-                            automationList.add(impulseAutomation);
-                            break;
-                        case Temperature:
-                            ParamValue tempValue = new ParamValue((int)param, value);
-                            AutomationSchedulerTemperature temperatureAutomation = new AutomationSchedulerTemperature(index, trigger, tempValue, enabled);
-                            automationList.add(temperatureAutomation);
-                            break;
-                        case Humidity:
-                            ParamValue humValue = new ParamValue((int)param, value);
-                            AutomationSchedulerHumidity humidityAutomation = new AutomationSchedulerHumidity(index, trigger, humValue, enabled);
-                            automationList.add(humidityAutomation);
-                            break;
-                        case Pwm:
-                            PWMValue pwmValue = new PWMValue((int)param, (int)value);
-                            AutomationSchedulerPWM pwmAutomation = new AutomationSchedulerPWM(index, trigger, pwmValue, enabled);
-                            automationList.add(pwmAutomation);
-                            break;                    }
+                    Automation automation = null;
+                    try {
+                        automation = _automationBuilder.buildSchedulerAutomationFromNumbers(
+                                index, time, days, unit, param, value, enabled);
+                    } catch (Exception ignored) {
+                    }
+                    automationList.add(automation);
                 }
 
                 if (_syncListener != null) {
@@ -584,30 +534,7 @@ public class FirebaseCloudDeviceService implements CloudDeviceService {
                                 AutomationSyncUpdate automationUpdate = (AutomationSyncUpdate) update;
                                 Automation automation = (Automation) automationUpdate.getValue();
                                 String ix = String.format("addauto/%02X/", automation.getIndex());
-
-                                if (automation instanceof AutomationDateTimeRelay || automation instanceof AutomationSchedulerRelay) {
-                                    orders.put(ix + "u", AutomationUnit.Relay.toInt());
-                                }
-
-                                if (automation instanceof AutomationDateTimeImpulse || automation instanceof AutomationSchedulerImpulse) {
-                                    orders.put(ix + "u", AutomationUnit.Impulse.toInt());
-                                }
-
-                                if (automation instanceof AutomationDateTimeTemperature || automation instanceof AutomationSchedulerTemperature) {
-                                    orders.put(ix + "u", AutomationUnit.Temperature.toInt());
-                                }
-
-                                if (automation instanceof AutomationDateTimeHumidity || automation instanceof AutomationSchedulerHumidity) {
-                                    orders.put(ix + "u", AutomationUnit.Humidity.toInt());
-                                }
-
-                                if (automation instanceof AutomationDateTimePWM || automation instanceof AutomationSchedulerPWM) {
-                                    orders.put(ix + "u", AutomationUnit.Pwm.toInt());
-                                }
-
-                                if (automation instanceof AutomationDateTimeRGB || automation instanceof AutomationSchedulerRGB) {
-                                    orders.put(ix + "u", AutomationUnit.Rgb.toInt());
-                                }
+                                orders.put(ix + "u", automation.getUnit().toInt());
 
                                 if (automation.getTrigger() instanceof DateTimeTrigger) {
                                     DateTimeTrigger dateTimeTrigger = (DateTimeTrigger) automation.getTrigger();
@@ -643,6 +570,12 @@ public class FirebaseCloudDeviceService implements CloudDeviceService {
                                     PWMValue pwmValue = (PWMValue) automation.getValue();
                                     orders.put(ix + "v", pwmValue.getDuty());
                                     orders.put(ix + "p", pwmValue.getChannel());
+                                }
+
+                                if (automation.getValue() instanceof RGBValue) {
+                                    RGBValue rgbValue = (RGBValue) automation.getValue();
+                                    orders.put(ix + "v", rgbValue.getDutyValueAsLong());
+                                    orders.put(ix + "p", rgbValue.getChannelValueAsLong());
                                 }
 
                                 orders.put(ix + "e", automation.isEnabled() ? 1 : 0);

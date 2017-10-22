@@ -1,6 +1,5 @@
 package eu.geekhome.asymptote.viewmodel;
 
-import android.databinding.BaseObservable;
 import android.databinding.Bindable;
 
 import java.util.ArrayList;
@@ -9,7 +8,7 @@ import eu.geekhome.asymptote.BR;
 import eu.geekhome.asymptote.model.ParamValue;
 import eu.geekhome.asymptote.utils.ValueConverter;
 
-public class EditHumidityValueViewModel extends BaseObservable {
+public class EditHumidityValueViewModel extends EditValueViewModelBase<ParamValue> {
     private ArrayList<String> _values;
     private String _selectedValue;
 
@@ -30,16 +29,6 @@ public class EditHumidityValueViewModel extends BaseObservable {
         return _values;
     }
 
-    ParamValue buildHumidityValue() {
-        int value = ValueConverter.humidityToInt(getSelectedValue());
-        return new ParamValue(0, value);
-    }
-
-    void applyHumidityValue(ParamValue paramValue) {
-        String valueName = ValueConverter.intToHumidity((int)paramValue.getValue());
-        setSelectedValue(valueName);
-    }
-
     @Bindable
     public String getSelectedValue() {
         return _selectedValue;
@@ -48,5 +37,17 @@ public class EditHumidityValueViewModel extends BaseObservable {
     public void setSelectedValue(String selectedValue) {
         _selectedValue = selectedValue;
         notifyPropertyChanged(BR.selectedValue);
+    }
+
+    @Override
+    protected ParamValue buildValue() {
+        int value = ValueConverter.humidityToInt(getSelectedValue());
+        return new ParamValue(0, value);
+    }
+
+    @Override
+    public void applyValue(ParamValue value) {
+        String valueName = ValueConverter.intToHumidity((int)value.getValue());
+        setSelectedValue(valueName);
     }
 }

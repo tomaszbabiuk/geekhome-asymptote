@@ -13,7 +13,7 @@ public class AutomationSchedulerImpulse extends Automation<SchedulerTrigger, Int
     private final int _offset;
 
     public AutomationSchedulerImpulse(int index, SchedulerTrigger trigger, Integer value, boolean enabled) {
-        super(index, trigger, value, enabled);
+        super(index, trigger, value, enabled, AutomationUnit.Impulse);
         _offset = TimeZone.getDefault().getOffset(Calendar.getInstance().getTimeInMillis())/1000;
 
     }

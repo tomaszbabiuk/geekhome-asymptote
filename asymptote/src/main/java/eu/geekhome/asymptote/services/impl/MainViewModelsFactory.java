@@ -12,11 +12,13 @@ import eu.geekhome.asymptote.bindingutils.LayoutHolder;
 import eu.geekhome.asymptote.model.AutomationDateTimeHumidity;
 import eu.geekhome.asymptote.model.AutomationDateTimeImpulse;
 import eu.geekhome.asymptote.model.AutomationDateTimePWM;
+import eu.geekhome.asymptote.model.AutomationDateTimeRGB;
 import eu.geekhome.asymptote.model.AutomationDateTimeRelay;
 import eu.geekhome.asymptote.model.AutomationDateTimeTemperature;
 import eu.geekhome.asymptote.model.AutomationSchedulerHumidity;
 import eu.geekhome.asymptote.model.AutomationSchedulerImpulse;
 import eu.geekhome.asymptote.model.AutomationSchedulerPWM;
+import eu.geekhome.asymptote.model.AutomationSchedulerRGB;
 import eu.geekhome.asymptote.model.AutomationSchedulerRelay;
 import eu.geekhome.asymptote.model.AutomationSchedulerTemperature;
 import eu.geekhome.asymptote.model.DeviceSyncData;
@@ -47,10 +49,14 @@ import eu.geekhome.asymptote.viewmodel.ChangeFirmwareViewModel;
 import eu.geekhome.asymptote.viewmodel.ChangePasswordViewModel;
 import eu.geekhome.asymptote.viewmodel.EditAutomationDateTimeImpulseViewModel;
 import eu.geekhome.asymptote.viewmodel.EditAutomationDateTimePWMViewModel;
+import eu.geekhome.asymptote.viewmodel.EditAutomationDateTimeRGBViewModel;
 import eu.geekhome.asymptote.viewmodel.EditAutomationSchedulerImpulseViewModel;
 import eu.geekhome.asymptote.viewmodel.EditAutomationSchedulerPWMViewModel;
+import eu.geekhome.asymptote.viewmodel.EditAutomationSchedulerRGBViewModel;
 import eu.geekhome.asymptote.viewmodel.EditImpulseValueViewModel;
 import eu.geekhome.asymptote.viewmodel.EditPWMValueViewModel;
+import eu.geekhome.asymptote.viewmodel.EditRGBValueViewModel;
+import eu.geekhome.asymptote.viewmodel.EditValueViewModelBase;
 import eu.geekhome.asymptote.viewmodel.ManageViewModel;
 import eu.geekhome.asymptote.viewmodel.ChooseAutomationViewModel;
 import eu.geekhome.asymptote.viewmodel.ControlsCreator;
@@ -351,6 +357,18 @@ public class MainViewModelsFactory {
                 sensor, automation);
     }
 
+    public EditAutomationDateTimeRGBViewModel createEditAutomationDateTimeRGBViewModel(
+            AutomationAddedListener listener, SensorItemViewModel sensor, int index) {
+        return new EditAutomationDateTimeRGBViewModel(_context, this, _navigationService, listener,
+                sensor, index);
+    }
+
+    public EditAutomationDateTimeRGBViewModel createEditAutomationDateTimeRGBViewModel(
+            AutomationAddedListener listener, SensorItemViewModel sensor, AutomationDateTimeRGB automation) {
+        return new EditAutomationDateTimeRGBViewModel(_context, this, _navigationService, listener,
+                sensor, automation);
+    }
+
     public EditAutomationSchedulerRelayViewModel createEditAutomationSchedulerRelayViewModel(
             AutomationAddedListener listener, SensorItemViewModel sensor, int index) {
         return new EditAutomationSchedulerRelayViewModel(_context, this, _navigationService, listener,
@@ -387,7 +405,6 @@ public class MainViewModelsFactory {
             AutomationAddedListener listener, SensorItemViewModel sensor, AutomationSchedulerPWM automation) {
         return new EditAutomationSchedulerPWMViewModel(_context, this, _navigationService, listener,
                 sensor, automation);
-
     }
 
     public EditAutomationSchedulerTemperatureViewModel createEditAutomationSchedulerTemperatureViewModel(
@@ -410,6 +427,16 @@ public class MainViewModelsFactory {
         return new EditAutomationSchedulerHumidityViewModel(_context, this, _navigationService, listener, sensor, automation);
     }
 
+    public EditAutomationSchedulerRGBViewModel createEditAutomationSchedulerRGBViewModel(
+            AutomationAddedListener listener, SensorItemViewModel sensor, int index) {
+        return new EditAutomationSchedulerRGBViewModel(_context, this, _navigationService, listener, sensor, index);
+    }
+
+    public EditAutomationSchedulerRGBViewModel createEditAutomationSchedulerRGBViewModel(
+            AutomationAddedListener listener, SensorItemViewModel sensor, AutomationSchedulerRGB automation) {
+        return new EditAutomationSchedulerRGBViewModel(_context, this, _navigationService, listener, sensor, automation);
+    }
+
     public EditRelayValueViewModel createEditRelayValueViewModel(SensorItemViewModel sensor) {
         return new EditRelayValueViewModel(_context, sensor);
     }
@@ -428,6 +455,10 @@ public class MainViewModelsFactory {
 
     public EditHumidityValueViewModel createEditHumidityValueViewModel(SensorItemViewModel sensor) {
         return new EditHumidityValueViewModel(sensor);
+    }
+
+    public EditRGBValueViewModel createEditRGBValueViewModel(SensorItemViewModel sensor) {
+        return new EditRGBValueViewModel(_context, sensor);
     }
 
     public EditDateTimeViewModel createEditDateTimeViewModel(SensorItemViewModel sensor) {

@@ -1,13 +1,13 @@
 package eu.geekhome.asymptote.viewmodel;
 
 import android.content.Context;
-import android.databinding.Bindable;
 import android.databinding.DataBindingUtil;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
 import eu.geekhome.asymptote.R;
 import eu.geekhome.asymptote.databinding.FragmentEditAutomationDatetimeRelayBinding;
+import eu.geekhome.asymptote.model.Automation;
 import eu.geekhome.asymptote.model.AutomationDateTimeRelay;
 import eu.geekhome.asymptote.model.DateTimeTrigger;
 import eu.geekhome.asymptote.model.RelayValue;
@@ -15,16 +15,18 @@ import eu.geekhome.asymptote.services.AutomationAddedListener;
 import eu.geekhome.asymptote.services.NavigationService;
 import eu.geekhome.asymptote.services.impl.MainViewModelsFactory;
 
-public class EditAutomationDateTimeRelayViewModel extends EditAutomationViewModelBase<FragmentEditAutomationDatetimeRelayBinding, AutomationDateTimeRelay> {
-
-    private EditRelayValueViewModel _editRelayValueViewModel;
-    private EditDateTimeViewModel _editDateTimeViewModel;
+public class EditAutomationDateTimeRelayViewModel extends EditAutomationDateTimeViewModelBase<FragmentEditAutomationDatetimeRelayBinding, RelayValue> {
 
     public EditAutomationDateTimeRelayViewModel(Context context, MainViewModelsFactory factory,
                                                 NavigationService navigationService,
                                                 AutomationAddedListener listener,
                                                 SensorItemViewModel sensor, int index) {
         super(context, factory, navigationService, listener, sensor, index);
+    }
+
+    @Override
+    protected EditValueViewModelBase<RelayValue> createValueViewModel(MainViewModelsFactory factory, SensorItemViewModel sensor) {
+        return factory.createEditRelayValueViewModel(sensor);
     }
 
     public EditAutomationDateTimeRelayViewModel(Context context, MainViewModelsFactory factory,
@@ -35,23 +37,8 @@ public class EditAutomationDateTimeRelayViewModel extends EditAutomationViewMode
     }
 
     @Override
-    protected void createSubmodels(MainViewModelsFactory factory, SensorItemViewModel sensor) {
-        _editRelayValueViewModel = factory.createEditRelayValueViewModel(sensor);
-        _editDateTimeViewModel = factory.createEditDateTimeViewModel(sensor);
-    }
-
-
-    @Override
-    protected AutomationDateTimeRelay createAutomation() {
-        RelayValue relayValue = _editRelayValueViewModel.buildRelayValue();
-        DateTimeTrigger dateTimeTrigger = _editDateTimeViewModel.buildDateTimeTrigger();
-        return new AutomationDateTimeRelay(getIndex(), dateTimeTrigger, relayValue, isEnabled());
-    }
-
-    @Override
-    protected void applyAutomationChanges(AutomationDateTimeRelay automation) {
-        _editRelayValueViewModel.applyRelayValue(automation.getValue());
-        _editDateTimeViewModel.applyDateTime(automation.getTrigger());
+    protected Automation<DateTimeTrigger, RelayValue> createAutomation(DateTimeTrigger trigger, RelayValue value) {
+        return new AutomationDateTimeRelay(getIndex(), trigger, value, isEnabled());
     }
 
     @Override
@@ -59,15 +46,5 @@ public class EditAutomationDateTimeRelayViewModel extends EditAutomationViewMode
         FragmentEditAutomationDatetimeRelayBinding binding = DataBindingUtil.inflate(inflater, R.layout.fragment_edit_automation_datetime_relay, container, false);
         binding.setVm(this);
         return binding;
-    }
-
-    @Bindable
-    public EditRelayValueViewModel getEditRelayValueViewModel() {
-        return _editRelayValueViewModel;
-    }
-
-    @Bindable
-    public EditDateTimeViewModel getEditDateTimeViewModel() {
-        return _editDateTimeViewModel;
     }
 }

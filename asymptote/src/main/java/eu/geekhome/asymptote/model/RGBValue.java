@@ -24,4 +24,12 @@ public class RGBValue {
     public PWMValue getBlue() {
         return _blue;
     }
+    
+    public long getDutyValueAsLong() {
+        return getBlue().getDuty() + getGreen().getDuty() * 256 + getRed().getDuty() * 256 * 256;
+    }
+    
+    public long getChannelValueAsLong() {
+        return getBlue().getChannel() + getGreen().getChannel() * 256 + getRed().getChannel() * 256 * 256;
+    }
 }

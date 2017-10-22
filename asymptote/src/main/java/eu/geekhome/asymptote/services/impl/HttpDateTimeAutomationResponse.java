@@ -18,7 +18,7 @@ public class HttpDateTimeAutomationResponse {
     private long _value;
 
     @SerializedName("prm")
-    private int _param;
+    private long _param;
 
     @SerializedName("end")
     private int _enabled;
@@ -39,7 +39,7 @@ public class HttpDateTimeAutomationResponse {
         return _value;
     }
 
-    public int getParam() {
+    public long getParam() {
         return _param;
     }
 

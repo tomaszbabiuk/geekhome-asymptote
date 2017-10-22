@@ -7,15 +7,15 @@ import java.util.ArrayList;
 
 import eu.geekhome.asymptote.BR;
 import eu.geekhome.asymptote.R;
-import eu.geekhome.asymptote.model.PWMValue;
+import eu.geekhome.asymptote.model.RGBValue;
 
-public class EditPWMValueViewModel extends EditValueViewModelBase<PWMValue> {
+public class EditRGBValueViewModel extends EditValueViewModelBase<RGBValue>  {
     private final Context _context;
     private ArrayList<String> _channels;
     private String _selectedChannel;
     private int _value;
 
-    public EditPWMValueViewModel(Context context, SensorItemViewModel sensor) {
+    public EditRGBValueViewModel(Context context, SensorItemViewModel sensor) {
         _context = context;
         _channels = new ArrayList<>();
         int channelsCount = sensor.getSyncData().getPwmDuties().length;
@@ -37,16 +37,17 @@ public class EditPWMValueViewModel extends EditValueViewModelBase<PWMValue> {
 
 
     @Override
-    protected PWMValue buildValue() {
-        int channel = getChannels().indexOf(getSelectedChannel());
-        return new PWMValue(channel, getValue());
+    protected RGBValue buildValue() {
+//        int channel = getChannels().indexOf(getSelectedChannel());
+//        return new PWMValue(channel, getValue());
+        return null;
     }
 
     @Override
-    public void applyValue(PWMValue pwmValue) {
-        String channelToSelect = buildChannelName(pwmValue.getChannel());
-        setSelectedChannel(channelToSelect);
-        setValue(pwmValue.getDuty());
+    public void applyValue(RGBValue value) {
+//        String channelToSelect = buildChannelName(pwmValue.getChannel());
+//        setSelectedChannel(channelToSelect);
+//        setValue(pwmValue.getDuty());
     }
 
     @Bindable

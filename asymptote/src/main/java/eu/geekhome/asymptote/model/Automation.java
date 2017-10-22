@@ -7,12 +7,14 @@ public abstract class Automation<T, V> {
     private final T _trigger;
     private final V _value;
     private boolean _enabled;
+    private final AutomationUnit _unit;
 
-    public Automation(int index, T trigger, V value, boolean enabled) {
+    public Automation(int index, T trigger, V value, boolean enabled, AutomationUnit unit) {
         _index = index;
         _trigger = trigger;
         _value = value;
         _enabled = enabled;
+        _unit = unit;
     }
 
     public T getTrigger() {
@@ -39,4 +41,7 @@ public abstract class Automation<T, V> {
 
     public abstract  boolean supportsRole(BoardRole role);
 
+    public AutomationUnit getUnit() {
+        return _unit;
+    }
 }

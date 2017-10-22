@@ -1,7 +1,6 @@
 package eu.geekhome.asymptote.viewmodel;
 
 import android.content.Context;
-import android.databinding.BaseObservable;
 import android.databinding.Bindable;
 
 import java.util.ArrayList;
@@ -9,7 +8,7 @@ import java.util.ArrayList;
 import eu.geekhome.asymptote.BR;
 import eu.geekhome.asymptote.R;
 
-public class EditImpulseValueViewModel extends BaseObservable {
+public class EditImpulseValueViewModel extends EditValueViewModelBase<Integer> {
     private final Context _context;
     private ArrayList<String> _channels;
     private String _selectedChannel;
@@ -34,15 +33,6 @@ public class EditImpulseValueViewModel extends BaseObservable {
         return _channels;
     }
 
-    int buildImpulseValue() {
-        return getChannels().indexOf(getSelectedChannel());
-    }
-
-    public void applyImpulseValue(int channel) {
-        String channelToSelect = buildChannelName(channel);
-        setSelectedChannel(channelToSelect);
-    }
-
     @Bindable
     public String getSelectedChannel() {
         return _selectedChannel;
@@ -51,5 +41,17 @@ public class EditImpulseValueViewModel extends BaseObservable {
     public void setSelectedChannel(String selectedChannel) {
         _selectedChannel = selectedChannel;
         notifyPropertyChanged(BR.selectedChannel);
+    }
+
+    @Override
+    protected Integer buildValue() {
+        return getChannels().indexOf(getSelectedChannel());
+
+    }
+
+    @Override
+    public void applyValue(Integer value) {
+        String channelToSelect = buildChannelName(value);
+        setSelectedChannel(channelToSelect);
     }
 }

@@ -14,7 +14,7 @@ public class AutomationSchedulerRGB extends Automation<SchedulerTrigger, RGBValu
     private final int _offset;
 
     public AutomationSchedulerRGB(int index, SchedulerTrigger trigger, RGBValue value, boolean enabled) {
-        super(index, trigger, value, enabled);
+        super(index, trigger, value, enabled, AutomationUnit.Rgb);
         _offset = TimeZone.getDefault().getOffset(Calendar.getInstance().getTimeInMillis())/1000;
 
     }

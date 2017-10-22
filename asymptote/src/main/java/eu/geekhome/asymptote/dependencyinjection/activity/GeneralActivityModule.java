@@ -4,7 +4,6 @@ import android.support.v7.app.AppCompatActivity;
 
 import dagger.Module;
 import dagger.Provides;
-import eu.geekhome.asymptote.model.CloudUser;
 import eu.geekhome.asymptote.services.AddressesPersistenceService;
 import eu.geekhome.asymptote.services.CloudDeviceService;
 import eu.geekhome.asymptote.services.CloudUserService;
@@ -36,6 +35,7 @@ import eu.geekhome.asymptote.services.impl.NanoOtaServer;
 import eu.geekhome.asymptote.services.impl.PreferencesAddressesPersistenceService;
 import eu.geekhome.asymptote.services.impl.PreferencesFavoriteColorsService;
 import eu.geekhome.asymptote.services.impl.UdpLocalDiscoveryService;
+import eu.geekhome.asymptote.utils.AutomationBuilder;
 
 @Module
 public abstract class GeneralActivityModule<T extends AppCompatActivity> {
@@ -107,10 +107,11 @@ public abstract class GeneralActivityModule<T extends AppCompatActivity> {
     @ActivityScope
     SyncManager provideSyncManager(T activity, LocalDiscoveryService localDiscoveryService,
                                    AddressesPersistenceService addressesPersistenceService,
-                                   ThreadRunner threadRunner, EmergencyManager emergencyManager) {
+                                   ThreadRunner threadRunner, EmergencyManager emergencyManager,
+                                   AutomationBuilder automationBuilder) {
         try {
             return new HttpClientSyncManager(activity, localDiscoveryService, addressesPersistenceService,
-                    threadRunner, emergencyManager);
+                    threadRunner, emergencyManager, automationBuilder);
         } catch (Exception e) {
             return null;
         }
@@ -124,8 +125,8 @@ public abstract class GeneralActivityModule<T extends AppCompatActivity> {
 
     @Provides
     @ActivityScope
-    CloudDeviceService provideCloudDeviceService(T activity) {
-        return new FirebaseCloudDeviceService(activity);
+    CloudDeviceService provideCloudDeviceService(T activity, AutomationBuilder automationBuilder) {
+        return new FirebaseCloudDeviceService(activity, automationBuilder);
     }
 
     @Provides

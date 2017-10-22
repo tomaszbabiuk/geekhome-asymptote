@@ -1,6 +1,5 @@
 package eu.geekhome.asymptote.viewmodel;
 
-import android.databinding.BaseObservable;
 import android.databinding.Bindable;
 
 import java.util.ArrayList;
@@ -9,7 +8,7 @@ import eu.geekhome.asymptote.BR;
 import eu.geekhome.asymptote.model.ParamValue;
 import eu.geekhome.asymptote.utils.ValueConverter;
 
-public class EditTemperatureValueViewModel extends BaseObservable {
+public class EditTemperatureValueViewModel extends EditValueViewModelBase<ParamValue> {
     private ArrayList<String> _values;
     private String _selectedValue;
 
@@ -30,16 +29,6 @@ public class EditTemperatureValueViewModel extends BaseObservable {
         return _values;
     }
 
-    ParamValue buildTemperatureValue() {
-        int value = ValueConverter.celsiusToInt(getSelectedValue());
-        return new ParamValue(0, value);
-    }
-
-    void applyTemperatureValue(ParamValue paramValue) {
-        String valueName = ValueConverter.intToCelsius((int)paramValue.getValue());
-        setSelectedValue(valueName);
-    }
-
     @Bindable
     public String getSelectedValue() {
         return _selectedValue;
@@ -48,5 +37,17 @@ public class EditTemperatureValueViewModel extends BaseObservable {
     public void setSelectedValue(String selectedValue) {
         _selectedValue = selectedValue;
         notifyPropertyChanged(BR.selectedValue);
+    }
+
+    @Override
+    protected ParamValue buildValue() {
+        int value = ValueConverter.celsiusToInt(getSelectedValue());
+        return new ParamValue(0, value);
+    }
+
+    @Override
+    public void applyValue(ParamValue value) {
+        String valueName = ValueConverter.intToCelsius((int)value.getValue());
+        setSelectedValue(valueName);
     }
 }

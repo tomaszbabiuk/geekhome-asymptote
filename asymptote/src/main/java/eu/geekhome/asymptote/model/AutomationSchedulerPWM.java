@@ -13,9 +13,8 @@ public class AutomationSchedulerPWM extends Automation<SchedulerTrigger, PWMValu
     private final int _offset;
 
     public AutomationSchedulerPWM(int index, SchedulerTrigger trigger, PWMValue value, boolean enabled) {
-        super(index, trigger, value, enabled);
+        super(index, trigger, value, enabled, AutomationUnit.Pwm);
         _offset = TimeZone.getDefault().getOffset(Calendar.getInstance().getTimeInMillis())/1000;
-
     }
 
     @Override

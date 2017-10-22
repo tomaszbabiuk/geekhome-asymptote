@@ -7,6 +7,7 @@
 
         <import type="android.view.View"/>
         <import type="eu.geekhome.asymptote.utils.ValueConverter"/>
+        <import type="eu.geekhome.asymptote.viewmodel.EditTemperatureValueViewModel" />
 
         <variable
             name="vm"
@@ -47,7 +48,7 @@
 
                 <include
                     layout="@layout/control_edit_temperature_value"
-                    app:vm="@{vm.editTemperatureValueViewModel}"/>
+                    app:vm="@{(EditTemperatureValueViewModel)vm.editValueViewModel}"/>
             </LinearLayout>
         </ScrollView>
 

@@ -9,7 +9,7 @@ import eu.geekhome.asymptote.R;
 
 public class AutomationDateTimePWM extends Automation<DateTimeTrigger, PWMValue> {
     public AutomationDateTimePWM(int index, DateTimeTrigger trigger, PWMValue value, boolean enabled) {
-        super(index, trigger, value, enabled);
+        super(index, trigger, value, enabled, AutomationUnit.Pwm);
     }
 
     @Override

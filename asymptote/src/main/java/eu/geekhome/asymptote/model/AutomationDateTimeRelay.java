@@ -9,7 +9,7 @@ import eu.geekhome.asymptote.R;
 
 public class AutomationDateTimeRelay extends Automation<DateTimeTrigger, RelayValue> {
     public AutomationDateTimeRelay(int index, DateTimeTrigger trigger, RelayValue value, boolean enabled) {
-        super(index, trigger, value, enabled);
+        super(index, trigger, value, enabled, AutomationUnit.Relay);
     }
 
     @Override

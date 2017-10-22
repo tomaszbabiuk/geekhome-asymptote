@@ -13,7 +13,7 @@ public class AutomationSchedulerTemperature extends Automation<SchedulerTrigger,
     private final int _offset;
 
     public AutomationSchedulerTemperature(int index, SchedulerTrigger trigger, ParamValue value, boolean enabled) {
-        super(index, trigger, value, enabled);
+        super(index, trigger, value, enabled, AutomationUnit.Temperature);
         _offset = TimeZone.getDefault().getOffset(Calendar.getInstance().getTimeInMillis())/1000;
 
     }

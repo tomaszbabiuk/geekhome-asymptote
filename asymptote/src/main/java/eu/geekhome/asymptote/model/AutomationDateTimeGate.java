@@ -9,7 +9,7 @@ import eu.geekhome.asymptote.R;
 
 public class AutomationDateTimeGate extends Automation<DateTimeTrigger, String> {
     public AutomationDateTimeGate(int index, DateTimeTrigger trigger, String value, boolean enabled) {
-        super(index, trigger, value, enabled);
+        super(index, trigger, value, enabled, AutomationUnit.Gate);
     }
 
     @Override

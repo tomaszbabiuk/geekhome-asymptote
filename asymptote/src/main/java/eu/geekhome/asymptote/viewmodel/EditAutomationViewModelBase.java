@@ -11,8 +11,7 @@ import eu.geekhome.asymptote.services.AutomationAddedListener;
 import eu.geekhome.asymptote.services.NavigationService;
 import eu.geekhome.asymptote.services.impl.MainViewModelsFactory;
 
-public abstract class EditAutomationViewModelBase<T extends ViewDataBinding, A extends Automation> extends ViewModel<T> {
-
+public abstract class EditAutomationViewModelBase<B extends ViewDataBinding, T, V> extends ViewModel<B> {
 
     private HelpActionBarViewModel _actionBarModel;
     private final AutomationAddedListener _listener;
@@ -22,6 +21,12 @@ public abstract class EditAutomationViewModelBase<T extends ViewDataBinding, A e
     private final Context _context;
     private boolean _editMode;
     private boolean _enabled;
+    private EditValueViewModelBase<V> _editValueViewModel;
+
+    @Bindable
+    public EditValueViewModelBase<V> getEditValueViewModel() {
+        return _editValueViewModel;
+    }
 
     @Bindable
     public HelpActionBarViewModel getActionBarModel() {
@@ -43,26 +48,30 @@ public abstract class EditAutomationViewModelBase<T extends ViewDataBinding, A e
         _sensor = sensor;
         _index = index;
         _actionBarModel = factory.createHelpActionBarModel();
-        createSubmodels(factory, sensor);
+        _editValueViewModel = createValueViewModel(factory, sensor);
+        createTriggerViewModel(factory, sensor);
         setEditMode(false);
         setEnabled(true);
     }
 
+    protected abstract EditValueViewModelBase<V> createValueViewModel(MainViewModelsFactory factory, SensorItemViewModel sensor);
+
+    protected abstract void createTriggerViewModel(MainViewModelsFactory factory, SensorItemViewModel sensor);
+
     EditAutomationViewModelBase(Context context, MainViewModelsFactory factory,
                                 NavigationService navigationService,
                                 AutomationAddedListener listener,
-                                SensorItemViewModel sensor, A automation) {
+                                SensorItemViewModel sensor, Automation<T,V> automation) {
         this(context, factory, navigationService, listener, sensor, automation.getIndex());
-        createSubmodels(factory, sensor);
+        createTriggerViewModel(factory, sensor);
         setIndex(automation.getIndex());
         setEnabled(automation.isEnabled());
         setEditMode(true);
-        applyAutomationChanges(automation);
+        _editValueViewModel.applyValue(automation.getValue());
+        applyTriggerChanges(automation);
     }
 
-    protected abstract void createSubmodels(MainViewModelsFactory factory, SensorItemViewModel sensor);
-
-    protected abstract void applyAutomationChanges(A automation);
+    protected abstract void applyTriggerChanges(Automation<T,V> automation);
 
     @Bindable
     public boolean isEditMode() {
@@ -76,7 +85,9 @@ public abstract class EditAutomationViewModelBase<T extends ViewDataBinding, A e
 
     public void done() {
         if (_listener != null) {
-            Automation automation = createAutomation();
+            V value = _editValueViewModel.buildValue();
+            T trigger = createTrigger();
+            Automation<T,V> automation = createAutomation(trigger, value);
             if (isEditMode()) {
                 _listener.onAutomationEdit(automation);
             } else {
@@ -87,7 +98,9 @@ public abstract class EditAutomationViewModelBase<T extends ViewDataBinding, A e
         _navigationService.goBack();
     }
 
-    protected abstract A createAutomation();
+    protected abstract T createTrigger();
+
+    protected abstract Automation<T,V> createAutomation(T trigger, V value);
 
     public void setIndex(int index) {
         _index = index;

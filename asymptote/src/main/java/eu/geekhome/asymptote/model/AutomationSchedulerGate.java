@@ -13,7 +13,7 @@ public class AutomationSchedulerGate extends Automation<SchedulerTrigger, String
     private final int _offset;
 
     public AutomationSchedulerGate(int index, SchedulerTrigger trigger, String value, boolean enabled) {
-        super(index, trigger, value, enabled);
+        super(index, trigger, value, enabled, AutomationUnit.Gate);
         _offset = TimeZone.getDefault().getOffset(Calendar.getInstance().getTimeInMillis())/1000;
 
     }

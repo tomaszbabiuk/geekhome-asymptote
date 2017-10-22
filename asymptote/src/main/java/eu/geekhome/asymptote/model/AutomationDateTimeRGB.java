@@ -9,7 +9,7 @@ import eu.geekhome.asymptote.utils.ByteUtils;
 
 public class AutomationDateTimeRGB extends Automation<DateTimeTrigger, RGBValue> {
     public AutomationDateTimeRGB(int index, DateTimeTrigger trigger, RGBValue value, boolean enabled) {
-        super(index, trigger, value, enabled);
+        super(index, trigger, value, enabled, AutomationUnit.Rgb);
     }
 
     @Override

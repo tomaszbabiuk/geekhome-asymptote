@@ -36,6 +36,7 @@ import eu.geekhome.asymptote.model.AutomationDateTimeTemperature;
 import eu.geekhome.asymptote.model.AutomationSchedulerHumidity;
 import eu.geekhome.asymptote.model.AutomationSchedulerImpulse;
 import eu.geekhome.asymptote.model.AutomationSchedulerPWM;
+import eu.geekhome.asymptote.model.AutomationSchedulerRGB;
 import eu.geekhome.asymptote.model.AutomationSchedulerRelay;
 import eu.geekhome.asymptote.model.AutomationSchedulerTemperature;
 import eu.geekhome.asymptote.model.AutomationSyncUpdate;
@@ -62,6 +63,7 @@ import eu.geekhome.asymptote.model.PWMValue;
 import eu.geekhome.asymptote.model.ParamSyncUpdate;
 import eu.geekhome.asymptote.model.ParamValue;
 import eu.geekhome.asymptote.model.RGBSyncUpdate;
+import eu.geekhome.asymptote.model.RGBValue;
 import eu.geekhome.asymptote.model.RelayImpulseSyncUpdate;
 import eu.geekhome.asymptote.model.RelaySyncUpdate;
 import eu.geekhome.asymptote.model.RelayValue;
@@ -79,6 +81,7 @@ import eu.geekhome.asymptote.services.SyncListener;
 import eu.geekhome.asymptote.services.SyncManager;
 import eu.geekhome.asymptote.services.SyncSource;
 import eu.geekhome.asymptote.services.ThreadRunner;
+import eu.geekhome.asymptote.utils.AutomationBuilder;
 import eu.geekhome.asymptote.utils.Base64Utils;
 import eu.geekhome.asymptote.utils.ByteUtils;
 import okhttp3.Call;
@@ -96,16 +99,18 @@ public class HttpClientSyncManager implements SyncManager, LocalDiscoveryService
     private AddressesPersistenceService _persistenceService;
     private ThreadRunner _threadRunner;
     private EmergencyManager _emergencyManager;
+    private final AutomationBuilder _automationBuilder;
     private SyncListener _listener;
 
     @SuppressWarnings("deprecation")
     public HttpClientSyncManager(Context context, LocalDiscoveryService discoveryService,
                                  AddressesPersistenceService persistenceService, ThreadRunner threadRunner,
-                                 EmergencyManager emergencyManager) throws Exception {
+                                 EmergencyManager emergencyManager, AutomationBuilder automationBuilder) throws Exception {
         _discoveryService = discoveryService;
         _persistenceService = persistenceService;
         _threadRunner = threadRunner;
         _emergencyManager = emergencyManager;
+        _automationBuilder = automationBuilder;
         _gson = new Gson();
 
         //load certificate
@@ -329,36 +334,11 @@ public class HttpClientSyncManager implements SyncManager, LocalDiscoveryService
 
         String ix = String.format(Locale.US, "&index=%d&enabled=%d", automation.getIndex(), automation.isEnabled() ? 1 : 0);
 
-        if (automation instanceof AutomationDateTimeRelay) {
-            type="type=dt&unit=" + AutomationUnit.Relay.toInt();
+        if (automation.getTrigger() instanceof DateTimeTrigger) {
+            type="type=dt&unit=" + automation.getUnit().toInt();
         }
-
-        if (automation instanceof AutomationDateTimeTemperature) {
-            type="type=dt&unit=" + AutomationUnit.Temperature.toInt();
-        }
-
-        if (automation instanceof AutomationDateTimeHumidity) {
-            type="type=dt&unit=" + AutomationUnit.Humidity.toInt();
-        }
-
-        if (automation instanceof AutomationDateTimePWM) {
-            type="type=dt&unit=" + AutomationUnit.Pwm.toInt();
-        }
-
-        if (automation instanceof AutomationSchedulerRelay) {
-            type="type=sr&unit=" + AutomationUnit.Relay.toInt();
-        }
-
-        if (automation instanceof AutomationSchedulerTemperature) {
-            type="type=sr&unit=" + AutomationUnit.Temperature.toInt();
-        }
-
-        if (automation instanceof AutomationSchedulerHumidity) {
-            type="type=sr&unit=" + AutomationUnit.Humidity.toInt();
-        }
-
-        if (automation instanceof AutomationSchedulerPWM) {
-            type="type=sr&unit=" + AutomationUnit.Pwm.toInt();
+        if (automation.getTrigger() instanceof SchedulerTrigger) {
+            type="type=sr&unit=" + automation.getUnit().toInt();
         }
 
         if (automation.getTrigger() instanceof DateTimeTrigger) {
@@ -384,6 +364,11 @@ public class HttpClientSyncManager implements SyncManager, LocalDiscoveryService
         if (automation.getValue() instanceof PWMValue) {
             PWMValue pwmValue = (PWMValue)automation.getValue();
             valueQuery = String.format(Locale.US, "&value=%d&param=%d", pwmValue.getDuty(), pwmValue.getChannel());
+        }
+
+        if (automation.getValue() instanceof RGBValue) {
+            RGBValue rgbValue = (RGBValue)automation.getValue();
+            valueQuery = String.format(Locale.US, "&value=%d&param=%d", rgbValue.getDutyValueAsLong(), rgbValue.getChannelValueAsLong());
         }
 
         Request request = new Request.Builder()
@@ -423,68 +408,22 @@ public class HttpClientSyncManager implements SyncManager, LocalDiscoveryService
                 if (listResponse != null) {
                     ArrayList<Automation> automationList = new ArrayList<>();
                     for (HttpDateTimeAutomationResponse dta : listResponse.getDateTimeAutomations()) {
-                        DateTimeTrigger trigger = new DateTimeTrigger(dta.getTime());
-                        AutomationUnit unitParsed = AutomationUnit.fromInt(dta.getUnit());
-                        switch (unitParsed) {
-                            case Relay:
-                                RelayValue relayValue = new RelayValue(dta.getParam(), dta.getValue() == 1);
-                                AutomationDateTimeRelay relayAutomation = new AutomationDateTimeRelay(dta.getIndex(), trigger, relayValue, dta.getEnabled() == 1);
-                                automationList.add(relayAutomation);
-                                break;
-                            case Impulse:
-                                AutomationDateTimeImpulse impulseAutomation = new AutomationDateTimeImpulse(dta.getIndex(), trigger, dta.getParam(), dta.getEnabled() == 1);
-                                automationList.add(impulseAutomation);
-                                break;
-                            case Temperature:
-                                ParamValue tempValue = new ParamValue(0, dta.getValue());
-                                AutomationDateTimeTemperature temperatureAutomation = new AutomationDateTimeTemperature(dta.getIndex(), trigger, tempValue, dta.getEnabled() == 1);
-                                automationList.add(temperatureAutomation);
-                                break;
-                            case Humidity:
-                                ParamValue humValue = new ParamValue(0, dta.getValue());
-                                AutomationDateTimeHumidity humidityAutomation = new AutomationDateTimeHumidity(dta.getIndex(), trigger, humValue, dta.getEnabled() == 1);
-                                automationList.add(humidityAutomation);
-                                break;
-                            case Pwm:
-                                PWMValue pwmValue = new PWMValue(dta.getParam(), (int)dta.getValue());
-                                AutomationDateTimePWM pwmAutomation = new AutomationDateTimePWM(dta.getIndex(), trigger, pwmValue, dta.getEnabled() == 1);
-                                automationList.add(pwmAutomation);
-                                break;
-//                            case Rgb:
-//                                PWMValue rgbValue = new PWMValue(dta.getParam(), (int)dta.getValue());
-//                                AutomationDateTimeRGB rgbAutomation = new AutomationDateTimeRGB(dta.getIndex(), trigger, rgbValue, dta.getEnabled() == 1);
-//                                automationList.add(rgbAutomation);
-//                                break;
+                        Automation automation = null;
+                        try {
+                            automation = _automationBuilder.buildDateTimeAutomationFromNumbers(
+                                    dta.getIndex(), dta.getTime(), dta.getUnit(), dta.getParam(), dta.getValue(), dta.getEnabled() == 1);
+                        } catch (Exception ignored) {
                         }
+                        automationList.add(automation);
                     }
                     for (HttpSchedulerAutomationResponse sra : listResponse.getSchedulerAutomations()) {
-                        SchedulerTrigger trigger = new SchedulerTrigger(sra.getDays(), sra.getTime());
-                        AutomationUnit unitParsed = AutomationUnit.fromInt(sra.getUnit());
-                        switch (unitParsed) {
-                            case Relay:
-                                RelayValue relayValue = new RelayValue(sra.getParam(), sra.getValue() == 1);
-                                AutomationSchedulerRelay relayAutomation = new AutomationSchedulerRelay(sra.getIndex(), trigger, relayValue, sra.getEnabled() == 1);
-                                automationList.add(relayAutomation);
-                                break;
-                            case Impulse:
-                                AutomationSchedulerImpulse impulseAutomation = new AutomationSchedulerImpulse(sra.getIndex(), trigger, sra.getParam(), sra.getEnabled() == 1);
-                                automationList.add(impulseAutomation);
-                                break;
-                            case Temperature:
-                                ParamValue tempValue = new ParamValue(0, sra.getValue());
-                                AutomationSchedulerTemperature temperatureAutomation = new AutomationSchedulerTemperature(sra.getIndex(), trigger, tempValue, sra.getEnabled() == 1);
-                                automationList.add(temperatureAutomation);
-                                break;
-                            case Humidity:
-                                ParamValue humValue = new ParamValue(0, sra.getValue());
-                                AutomationSchedulerHumidity humidityAutomation = new AutomationSchedulerHumidity(sra.getIndex(), trigger, humValue, sra.getEnabled() == 1);
-                                automationList.add(humidityAutomation);
-                                break;
-                            case Pwm:
-                                PWMValue pwmValue = new PWMValue(sra.getParam(), (int)sra.getValue());
-                                AutomationSchedulerPWM pwmAutomation = new AutomationSchedulerPWM(sra.getIndex(), trigger, pwmValue, sra.getEnabled() == 1);
-                                automationList.add(pwmAutomation);
-                                break;                        }
+                        Automation automation = null;
+                        try {
+                            automation = _automationBuilder.buildSchedulerAutomationFromNumbers(
+                                    sra.getIndex(), sra.getTime(), sra.getDays(), sra.getUnit(), sra.getParam(), sra.getValue(), sra.getEnabled() == 1);
+                        } catch (Exception ignored) {
+                        }
+                        automationList.add(automation);
                     }
 
                     if (_listener != null) {

@@ -16,7 +16,7 @@ public class FavoriteColorItemViewModel extends SelectableItemViewModel implemen
     private ControlRGBItemViewModel _rgbModel;
     private int _color;
 
-    public FavoriteColorItemViewModel(GeneralDialogService generalDialogService, ControlRGBItemViewModel rgbModel, int color) {
+    FavoriteColorItemViewModel(GeneralDialogService generalDialogService, ControlRGBItemViewModel rgbModel, int color) {
         _generalDialogService = generalDialogService;
         _rgbModel = rgbModel;
         _color = color;

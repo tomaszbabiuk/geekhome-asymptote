@@ -7,7 +7,7 @@
 
         <import type="android.view.View"/>
 
-        <import type="eu.geekhome.asymptote.utils.ValueConverter"/>
+        <import type="android.graphics.Color"/>
 
         <variable
             name="vm"
@@ -18,10 +18,10 @@
         style="@style/Layout.MatchX.Vertical">
 
         <LinearLayout
-            android:visibility="@{vm.channels.size() &gt; 1 ? View.VISIBLE : View.GONE}"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:visibility="@{vm.channels.size() &gt; 1 ? View.VISIBLE : View.GONE}">
 
             <TextView
                 style="@style/Triggers.Label"
@@ -32,8 +32,8 @@
             <Spinner
                 android:id="@+id/channels_spinner"
                 style="@style/Triggers.Spinner"
-                app:selectedValue="@={vm.selectedChannel}"
-                app:items="@{vm.channels}"/>
+                app:items="@{vm.channels}"
+                app:selectedValue="@={vm.selectedChannel}"/>
 
         </LinearLayout>
 
@@ -47,12 +47,19 @@
                 android:text='@{@string/change_to + ": "}'
                 tools:text="@string/change_to"/>
 
-
-            <android.support.v7.widget.AppCompatSeekBar
+            <FrameLayout
+                android:layout_width="0dp"
+                android:layout_height="30dp"
                 android:layout_weight="1"
-                style="@style/SensorList.SeekBar"
-                android:progress="@={vm.value}"
-                android:layout_width="0dp"/>
+                android:background="@color/light_gray"
+                android:onClick="@{() -> vm.pickColor()}"
+                android:padding="@dimen/common_small_padding">
+
+                <View
+                    style="@style/Layout.MatchXY"
+                    android:background="@{Color.rgb(vm.selectedRed,vm.selectedGreen,vm.selectedBlue)}" />
+            </FrameLayout>
+
 
         </LinearLayout>
     </LinearLayout>

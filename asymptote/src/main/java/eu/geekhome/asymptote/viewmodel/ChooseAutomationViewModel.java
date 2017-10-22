@@ -48,43 +48,76 @@ public class ChooseAutomationViewModel extends ViewModel<DialogChooseAutomationB
             case MAINS2:
             case MAINS4:
             case LIGHT_SWITCH_TRADITIONAL:
-                AutomationTypeItemViewModel exactTriggerOfRelay = new AutomationTypeItemViewModel(this, sensor, AutomationType.DateTimeOfRelay);
-                result.add(exactTriggerOfRelay);
-                AutomationTypeItemViewModel scheduleTriggerOfRelay = new AutomationTypeItemViewModel(this, sensor, AutomationType.SchedulerOfRelay);
-                result.add(scheduleTriggerOfRelay);
+                addRelayTriggers(sensor, result);
                 break;
             case MAINS1_ADV:
             case MAINS2_ADV:
             case MAINS4_ADV:
-                AutomationTypeItemViewModel exactTriggerOfImpulse = new AutomationTypeItemViewModel(this, sensor, AutomationType.DateTimeOfImpulse);
-                result.add(exactTriggerOfImpulse);
-                AutomationTypeItemViewModel scheduleTriggerOfImpulse= new AutomationTypeItemViewModel(this, sensor, AutomationType.SchedulerOfImpulse);
-                result.add(scheduleTriggerOfImpulse);
+                addImpulseTriggers(sensor, result);
                 break;
             case HEATING_THERMOSTAT:
             case COOLING_THERMOSTAT:
-                AutomationTypeItemViewModel exactTriggerOfTemperature = new AutomationTypeItemViewModel(this, sensor, AutomationType.DateTimeOfTemperature);
-                result.add(exactTriggerOfTemperature);
-                AutomationTypeItemViewModel scheduleTriggerOfTemperature = new AutomationTypeItemViewModel(this, sensor, AutomationType.SchedulerOfTemperature);
-                result.add(scheduleTriggerOfTemperature);
+                addTemperatureTriggers(sensor, result);
                 break;
             case HUMIDIFICATION_HYGROSTAT:
             case DRYING_HYGROSTAT:
-                AutomationTypeItemViewModel exactTriggerOfHumidity = new AutomationTypeItemViewModel(this, sensor, AutomationType.DateTimeOfHumidity);
-                result.add(exactTriggerOfHumidity);
-                AutomationTypeItemViewModel scheduleTriggerOfHumidity = new AutomationTypeItemViewModel(this, sensor, AutomationType.SchedulerOfHumidity);
-                result.add(scheduleTriggerOfHumidity);
+                addHumidityTriggers(sensor, result);
                 break;
             case MULTI_PWM:
-                AutomationTypeItemViewModel exactTriggerOfPWM = new AutomationTypeItemViewModel(this, sensor, AutomationType.DateTimeOfPWM);
-                result.add(exactTriggerOfPWM);
-                AutomationTypeItemViewModel scheduleTriggerOfPWM = new AutomationTypeItemViewModel(this, sensor, AutomationType.SchedulerOfPWM);
-                result.add(scheduleTriggerOfPWM);
+                addPWMTriggers(sensor, result);
+                break;
+            case RGB_1PWM:
+            case RGB_2PWM:
+                addPWMTriggers(sensor, result);
+                addRGBTriggers(sensor, result);
                 break;
         }
 
         return result;
     }
+
+    private void addRelayTriggers(SensorItemViewModel sensor, ObservableArrayList<LayoutHolder> result) {
+        AutomationTypeItemViewModel exactTriggerOfRelay = new AutomationTypeItemViewModel(this, sensor, AutomationType.DateTimeOfRelay);
+        result.add(exactTriggerOfRelay);
+        AutomationTypeItemViewModel scheduleTriggerOfRelay = new AutomationTypeItemViewModel(this, sensor, AutomationType.SchedulerOfRelay);
+        result.add(scheduleTriggerOfRelay);
+    }
+
+    private void addImpulseTriggers(SensorItemViewModel sensor, ObservableArrayList<LayoutHolder> result) {
+        AutomationTypeItemViewModel exactTriggerOfImpulse = new AutomationTypeItemViewModel(this, sensor, AutomationType.DateTimeOfImpulse);
+        result.add(exactTriggerOfImpulse);
+        AutomationTypeItemViewModel scheduleTriggerOfImpulse= new AutomationTypeItemViewModel(this, sensor, AutomationType.SchedulerOfImpulse);
+        result.add(scheduleTriggerOfImpulse);
+    }
+
+    private void addTemperatureTriggers(SensorItemViewModel sensor, ObservableArrayList<LayoutHolder> result) {
+        AutomationTypeItemViewModel exactTriggerOfTemperature = new AutomationTypeItemViewModel(this, sensor, AutomationType.DateTimeOfTemperature);
+        result.add(exactTriggerOfTemperature);
+        AutomationTypeItemViewModel scheduleTriggerOfTemperature = new AutomationTypeItemViewModel(this, sensor, AutomationType.SchedulerOfTemperature);
+        result.add(scheduleTriggerOfTemperature);
+    }
+
+    private void addHumidityTriggers(SensorItemViewModel sensor, ObservableArrayList<LayoutHolder> result) {
+        AutomationTypeItemViewModel exactTriggerOfHumidity = new AutomationTypeItemViewModel(this, sensor, AutomationType.DateTimeOfHumidity);
+        result.add(exactTriggerOfHumidity);
+        AutomationTypeItemViewModel scheduleTriggerOfHumidity = new AutomationTypeItemViewModel(this, sensor, AutomationType.SchedulerOfHumidity);
+        result.add(scheduleTriggerOfHumidity);
+    }
+
+    private void addPWMTriggers(SensorItemViewModel sensor, ObservableArrayList<LayoutHolder> result) {
+        AutomationTypeItemViewModel exactTriggerOfPWM = new AutomationTypeItemViewModel(this, sensor, AutomationType.DateTimeOfPWM);
+        result.add(exactTriggerOfPWM);
+        AutomationTypeItemViewModel scheduleTriggerOfPWM = new AutomationTypeItemViewModel(this, sensor, AutomationType.SchedulerOfPWM);
+        result.add(scheduleTriggerOfPWM);
+    }
+
+    private void addRGBTriggers(SensorItemViewModel sensor, ObservableArrayList<LayoutHolder> result) {
+        AutomationTypeItemViewModel exactTriggerOfRGB = new AutomationTypeItemViewModel(this, sensor, AutomationType.DateTimeOfRGB);
+        result.add(exactTriggerOfRGB);
+        AutomationTypeItemViewModel scheduleTriggerOfRGB = new AutomationTypeItemViewModel(this, sensor, AutomationType.SchedulerOfRGB);
+        result.add(scheduleTriggerOfRGB);
+    }
+
 
     @Override
     public DialogChooseAutomationBinding createBinding(LayoutInflater inflater, ViewGroup container) {
@@ -114,6 +147,10 @@ public class ChooseAutomationViewModel extends ViewModel<DialogChooseAutomationB
                 EditAutomationDateTimePWMViewModel modelDP = _factory.createEditAutomationDateTimePWMViewModel(_listener, _sensor, _index);
                 _navigationService.showViewModel(modelDP, new ShowBackButtonInToolbarViewParam());
                 break;
+            case DateTimeOfRGB:
+                EditAutomationDateTimeRGBViewModel modelDRgb = _factory.createEditAutomationDateTimeRGBViewModel(_listener, _sensor, _index);
+                _navigationService.showViewModel(modelDRgb, new ShowBackButtonInToolbarViewParam());
+                break;
             case DateTimeOfTemperature:
                 EditAutomationDateTimeTemperatureViewModel modelDT = _factory.createEditAutomationDateTimeTemperatureViewModel(_listener, _sensor, _index);
                 _navigationService.showViewModel(modelDT, new ShowBackButtonInToolbarViewParam());
@@ -133,6 +170,10 @@ public class ChooseAutomationViewModel extends ViewModel<DialogChooseAutomationB
             case SchedulerOfPWM:
                 EditAutomationSchedulerPWMViewModel modelSP = _factory.createEditAutomationSchedulerPWMViewModel(_listener, _sensor, _index);
                 _navigationService.showViewModel(modelSP, new ShowBackButtonInToolbarViewParam());
+                break;
+            case SchedulerOfRGB:
+                EditAutomationSchedulerRGBViewModel modelSRgb = _factory.createEditAutomationSchedulerRGBViewModel(_listener, _sensor, _index);
+                _navigationService.showViewModel(modelSRgb, new ShowBackButtonInToolbarViewParam());
                 break;
             case SchedulerOfTemperature:
                 EditAutomationSchedulerTemperatureViewModel modelST = _factory.createEditAutomationSchedulerTemperatureViewModel(_listener, _sensor, _index);

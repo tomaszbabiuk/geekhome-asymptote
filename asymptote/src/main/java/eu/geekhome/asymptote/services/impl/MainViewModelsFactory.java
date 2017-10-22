@@ -29,6 +29,7 @@ import eu.geekhome.asymptote.services.AddressesPersistenceService;
 import eu.geekhome.asymptote.services.CloudCertificateChecker;
 import eu.geekhome.asymptote.services.CloudDeviceService;
 import eu.geekhome.asymptote.services.CloudUserService;
+import eu.geekhome.asymptote.services.ColorDialogService;
 import eu.geekhome.asymptote.services.EmergencyManager;
 import eu.geekhome.asymptote.services.FirmwareRepository;
 import eu.geekhome.asymptote.services.GeneralDialogService;
@@ -56,7 +57,6 @@ import eu.geekhome.asymptote.viewmodel.EditAutomationSchedulerRGBViewModel;
 import eu.geekhome.asymptote.viewmodel.EditImpulseValueViewModel;
 import eu.geekhome.asymptote.viewmodel.EditPWMValueViewModel;
 import eu.geekhome.asymptote.viewmodel.EditRGBValueViewModel;
-import eu.geekhome.asymptote.viewmodel.EditValueViewModelBase;
 import eu.geekhome.asymptote.viewmodel.ManageViewModel;
 import eu.geekhome.asymptote.viewmodel.ChooseAutomationViewModel;
 import eu.geekhome.asymptote.viewmodel.ControlsCreator;
@@ -119,6 +119,7 @@ public class MainViewModelsFactory {
     private ControlsCreator _controlsCreator;
     private UserMessageAcknowledgeService _userMessageAcknowledgeService;
     private LogoutService _logoutService;
+    private ColorDialogService _colorDialogService;
 
     @Inject
     MainViewModelsFactory(MainActivity activity, Context context, CloudUserService cloudUserService, CloudDeviceService cloudDeviceService,
@@ -130,7 +131,7 @@ public class MainViewModelsFactory {
                           ThreadRunner threadRunner, GeneralDialogService generalDialogService,
                           EmergencyManager emergencyManager, ControlsCreator controlsCreator,
                           UserMessageAcknowledgeService userMessageAcknowledgeService,
-                          LogoutService logoutService) {
+                          LogoutService logoutService, ColorDialogService colorDialogService) {
         _activity = activity;
         _context = context;
         _cloudUserService = cloudUserService;
@@ -151,6 +152,7 @@ public class MainViewModelsFactory {
         _controlsCreator = controlsCreator;
         _userMessageAcknowledgeService = userMessageAcknowledgeService;
         _logoutService = logoutService;
+        _colorDialogService = colorDialogService;
     }
 
     public HelpActionBarViewModel createHelpActionBarModel() {
@@ -458,7 +460,7 @@ public class MainViewModelsFactory {
     }
 
     public EditRGBValueViewModel createEditRGBValueViewModel(SensorItemViewModel sensor) {
-        return new EditRGBValueViewModel(_context, sensor);
+        return new EditRGBValueViewModel(_context, sensor, _colorDialogService);
     }
 
     public EditDateTimeViewModel createEditDateTimeViewModel(SensorItemViewModel sensor) {

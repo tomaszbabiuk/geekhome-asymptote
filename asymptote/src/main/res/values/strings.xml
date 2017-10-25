@@ -370,6 +370,7 @@
     <string name="channel">Channel</string>
     <string name="value">Value</string>
     <string name="channel_no" formatted="false">Channel %d</string>
+    <string name="rgb_channel_no" formatted="false">RGB: %d (%02X%02X%02X)</string>
     <string name="change_temperature_setting_to" formatted="false">Change temperature setting to %s, at %s, %s</string>
     <string name="change_humidity_setting_to" formatted="false">Change humidity setting to %s, at %s, %s</string>
     <string name="change_rgb_to" formatted="false">Change color to %s, at %s, %s</string>

@@ -371,6 +371,10 @@ public class HttpClientSyncManager implements SyncManager, LocalDiscoveryService
             valueQuery = String.format(Locale.US, "&value=%d&param=%d", rgbValue.getDutyValueAsLong(), rgbValue.getChannelValueAsLong());
         }
 
+        if (automation.getValue() instanceof Integer) {
+            valueQuery = String.format(Locale.US, "&value=%d&param=%d", 0, automation.getValue());
+        }
+
         Request request = new Request.Builder()
                 .url((variant == Variant.WiFi ? "https:/" : "http:/") + address.toString() + "/addauto?" + type + ix + triggerQuery + valueQuery)
                 .build();

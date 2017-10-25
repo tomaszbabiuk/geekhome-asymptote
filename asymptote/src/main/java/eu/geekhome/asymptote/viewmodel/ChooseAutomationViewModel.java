@@ -66,6 +66,9 @@ public class ChooseAutomationViewModel extends ViewModel<DialogChooseAutomationB
             case MULTI_PWM:
                 addPWMTriggers(sensor, result);
                 break;
+            case RGBW:
+                addRGBTriggers(sensor, result);
+                break;
             case RGB_1PWM:
             case RGB_2PWM:
                 addPWMTriggers(sensor, result);

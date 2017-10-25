@@ -323,6 +323,7 @@
     <string name="light_switch_type">Typ łącznika</string>
     <string name="trust_this_device_and_remember_password">Zaufaj temu telefonowi/tabletowi i zapamiętaj hasło</string>
     <string name="automation">Automatyzacja</string>
+    <string name="automation_beta">Automatyzacja (beta)</string>
     <string name="choose_automation">Wybierz typ automatyzacji</string>
     <string name="automation_datetime_name">Data i godzina</string>
     <string name="automation_datetime_relay_desc">Zmienia stan urządzenia o ustalonej dacie i godzinie</string>

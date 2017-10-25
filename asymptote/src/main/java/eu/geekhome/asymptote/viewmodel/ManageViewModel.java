@@ -18,6 +18,8 @@ import eu.geekhome.asymptote.databinding.FragmentManageBinding;
 import eu.geekhome.asymptote.services.EmergencyManager;
 import eu.geekhome.asymptote.services.NavigationService;
 import eu.geekhome.asymptote.services.SyncManager;
+import eu.geekhome.asymptote.services.ThreadRunner;
+import eu.geekhome.asymptote.services.ToastService;
 import eu.geekhome.asymptote.services.impl.MainViewModelsFactory;
 
 public class ManageViewModel extends ViewModel<FragmentManageBinding> {
@@ -31,6 +33,8 @@ public class ManageViewModel extends ViewModel<FragmentManageBinding> {
     private ObservableArrayList<LayoutHolder> _actions;
     private ActionItemViewModel _selectedAction;
     private String _errorMessage;
+    private ToastService _toastService;
+    private final ThreadRunner _threadRunner;
 
     @Bindable
     public HelpActionBarViewModel getActionBarModel() {
@@ -48,11 +52,14 @@ public class ManageViewModel extends ViewModel<FragmentManageBinding> {
     }
 
     public ManageViewModel(MainViewModelsFactory factory, Context context, NavigationService navigationService,
-                           EmergencyManager emergencyManager, SyncManager syncManager, SensorItemViewModel sensor) {
+                           EmergencyManager emergencyManager, SyncManager syncManager,
+                           ToastService toastService, ThreadRunner threadRunner, SensorItemViewModel sensor) {
         _factory = factory;
         _context = context;
         _emergencyManager = emergencyManager;
         _syncManager = syncManager;
+        _toastService = toastService;
+        _threadRunner = threadRunner;
         _actionBarModel = _factory.createHelpActionBarModel();
         _navigationService = navigationService;
         _actions = createActions(sensor);
@@ -64,16 +71,18 @@ public class ManageViewModel extends ViewModel<FragmentManageBinding> {
             @Override
             public void execute() {
                 EditSensorViewModel model = _factory.createEditSensorViewModel(sensor);
+                _navigationService.goBack();
                 _navigationService.showViewModel(model, new ShowBackButtonInToolbarViewParam());
             }
         };
     }
 
     private ActionItemViewModel createAutomationItem(final SensorItemViewModel sensor) {
-        return new ActionItemViewModel(this, sensor, R.raw.robot, R.string.automation, R.string.define_automation) {
+        return new ActionItemViewModel(this, sensor, R.raw.robot, R.string.automation_beta, R.string.define_automation) {
             @Override
             public void execute() {
                 EditAutomationViewModel model = _factory.createEditAutomationViewModel(sensor);
+                _navigationService.goBack();
                 _navigationService.showViewModel(model, new ShowBackButtonInToolbarViewParam());
             }
         };
@@ -83,8 +92,13 @@ public class ManageViewModel extends ViewModel<FragmentManageBinding> {
         return new ActionItemViewModel(this, sensor, R.raw.microchip, R.string.firmware, R.string.change_firmware) {
             @Override
             public void execute() {
-                ChangeFirmwareViewModel model = _factory.createChangeFirmwareViewModel(sensor);
-                _navigationService.showViewModel(model, new ShowBackButtonInToolbarViewParam());
+                if (!sensor.getSyncData().isLocked()) {
+                    _toastService.makeToast(_context.getString(R.string.device_locked_not_upgradable), true);
+                } else {
+                    ChangeFirmwareViewModel model = _factory.createChangeFirmwareViewModel(sensor);
+                    _navigationService.goBack();
+                    _navigationService.showViewModel(model, new ShowBackButtonInToolbarViewParam());
+                }
             }
         };
     }
@@ -95,6 +109,7 @@ public class ManageViewModel extends ViewModel<FragmentManageBinding> {
             public void execute() {
                 if (_emergencyManager.getPassword() == null) {
                     LockViewModel lockViewModel = _factory.createLockViewModel(_sensor);
+                    _navigationService.goBack();
                     _navigationService.showViewModel(lockViewModel, new ShowBackButtonInToolbarViewParam());
                 } else {
                     _syncManager.lock(_sensor.getSyncData().getSystemInfo().getVariant(), _sensor.getAddress(), new SyncManager.SyncCallback() {
@@ -102,6 +117,7 @@ public class ManageViewModel extends ViewModel<FragmentManageBinding> {
                         public void success() {
                             _sensor.getSyncData().setLocked(true);
                             _sensor.requestSyncDelayed();
+                            _navigationService.goBack();
                         }
 
                         @Override
@@ -144,7 +160,7 @@ public class ManageViewModel extends ViewModel<FragmentManageBinding> {
         result.add(settingsItem);
 
         ActionItemViewModel automationItem = createAutomationItem(sensor);
-        //automationItem.setEnabled(sensor.getSyncData().getSystemInfo().getVersionMajor() * 256 + sensor.getSyncData().getSystemInfo().getVersionMinor() == 256 + 6);
+        automationItem.setEnabled(sensor.getSyncData().getSystemInfo().getVersionMajor() * 256 + sensor.getSyncData().getSystemInfo().getVersionMinor() == 256 + 6);
         result.add(automationItem);
 
         ActionItemViewModel firmwareItem = createFirmwareItem(sensor);
@@ -174,8 +190,12 @@ public class ManageViewModel extends ViewModel<FragmentManageBinding> {
     }
 
     public void onNext() {
-        _navigationService.goBack();
-        getSelectedAction().execute();
+        _threadRunner.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                getSelectedAction().execute();
+            }
+        });
     }
 
     @Bindable

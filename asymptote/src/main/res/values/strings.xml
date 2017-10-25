@@ -326,6 +326,7 @@
     <string name="light_switch_type">Light switch type</string>
     <string name="trust_this_device_and_remember_password">Trust this device and remember password</string>
     <string name="automation">Automation</string>
+    <string name="automation_beta">Automation (beta_</string>
     <string name="choose_automation">Choose automation</string>
     <string name="automation_datetime_name">Date and time</string>
     <string name="automation_datetime_relay_desc">Changes device state on defined date and time</string>

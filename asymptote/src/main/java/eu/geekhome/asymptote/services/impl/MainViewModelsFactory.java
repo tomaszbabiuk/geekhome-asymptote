@@ -468,7 +468,8 @@ public class MainViewModelsFactory {
     }
 
     public ManageViewModel createChooseActionViewModel(SensorItemViewModel sensor) {
-        return new ManageViewModel(this, _context, _navigationService, _emergencyManager, _syncManager, sensor);
+        return new ManageViewModel(this, _context, _navigationService, _emergencyManager, _syncManager,
+                _toastService, _threadRunner,sensor);
     }
 
     public EditSchedulerViewModel createEditSchedulerViewModel(SensorItemViewModel sensor) {

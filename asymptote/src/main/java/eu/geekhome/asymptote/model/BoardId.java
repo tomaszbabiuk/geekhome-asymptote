@@ -10,8 +10,7 @@ public enum BoardId {
     SonoffTH_None(0x05),
     SonoffTH_AM2301(0x06),
     SonoffTH_DS18B20(0x07),
-    Elecrodragon2REL(0x08),         //depracated
-    Elecrodragon2REL_SPDT(0x09),    //deprecated
+    Elecrodragon2REL(0x08),
     H801(0x0A),
     H802(0x0B),
     SonoffBASIC(0x0C),

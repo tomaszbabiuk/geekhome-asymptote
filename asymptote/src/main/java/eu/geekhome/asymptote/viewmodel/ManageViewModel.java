@@ -160,7 +160,7 @@ public class ManageViewModel extends ViewModel<FragmentManageBinding> {
         result.add(settingsItem);
 
         ActionItemViewModel automationItem = createAutomationItem(sensor);
-        automationItem.setEnabled(sensor.getSyncData().getSystemInfo().getVersionMajor() * 256 + sensor.getSyncData().getSystemInfo().getVersionMinor() == 256 + 6);
+        automationItem.setEnabled(sensor.getSyncData().getSystemInfo().getVersionMajor() * 256 + sensor.getSyncData().getSystemInfo().getVersionMinor() >= 256 + 6);
         result.add(automationItem);
 
         ActionItemViewModel firmwareItem = createFirmwareItem(sensor);

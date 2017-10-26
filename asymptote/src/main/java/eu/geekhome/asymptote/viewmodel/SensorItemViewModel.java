@@ -464,7 +464,7 @@ public class SensorItemViewModel extends BaseObservable implements LayoutHolder 
                 getSyncData().getSystemInfo().getVariant().isWifi();
 
         if (syncWiFi) {
-            _syncManager.pushUpdates(getSyncData(), getUpdates(), getAddress(), new SyncManager.SyncCallback() {
+            _syncManager.pushUpdatesAtOnce(getSyncData(), getUpdates(), getAddress(), new SyncManager.SyncCallback() {
                 @Override
                 public void success() {
                     getUpdates().clear();
@@ -472,7 +472,7 @@ public class SensorItemViewModel extends BaseObservable implements LayoutHolder 
 
                 @Override
                 public void failure(Exception exception) {
-                    _syncManager.pushUpdates(getSyncData(), getUpdates(), getAddress(), new SyncManager.SyncCallback() {
+                    _syncManager.pushUpdatesAtOnce(getSyncData(), getUpdates(), getAddress(), new SyncManager.SyncCallback() {
                         @Override
                         public void success() {
                             getUpdates().clear();

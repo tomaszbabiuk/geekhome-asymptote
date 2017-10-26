@@ -27,20 +27,7 @@ import javax.net.ssl.TrustManagerFactory;
 
 import eu.geekhome.asymptote.R;
 import eu.geekhome.asymptote.model.Automation;
-import eu.geekhome.asymptote.model.AutomationDateTimeHumidity;
-import eu.geekhome.asymptote.model.AutomationDateTimeImpulse;
-import eu.geekhome.asymptote.model.AutomationDateTimePWM;
-import eu.geekhome.asymptote.model.AutomationDateTimeRGB;
-import eu.geekhome.asymptote.model.AutomationDateTimeRelay;
-import eu.geekhome.asymptote.model.AutomationDateTimeTemperature;
-import eu.geekhome.asymptote.model.AutomationSchedulerHumidity;
-import eu.geekhome.asymptote.model.AutomationSchedulerImpulse;
-import eu.geekhome.asymptote.model.AutomationSchedulerPWM;
-import eu.geekhome.asymptote.model.AutomationSchedulerRGB;
-import eu.geekhome.asymptote.model.AutomationSchedulerRelay;
-import eu.geekhome.asymptote.model.AutomationSchedulerTemperature;
 import eu.geekhome.asymptote.model.AutomationSyncUpdate;
-import eu.geekhome.asymptote.model.AutomationUnit;
 import eu.geekhome.asymptote.model.BoardId;
 import eu.geekhome.asymptote.model.BoardMode;
 import eu.geekhome.asymptote.model.BoardNotSupportedException;
@@ -189,140 +176,161 @@ public class HttpClientSyncManager implements SyncManager, LocalDiscoveryService
         _listener = listener;
     }
 
+
+    private String updateToQuery(SyncUpdate update) {
+        if (update instanceof RelaySyncUpdate) {
+            RelaySyncUpdate relayUpdate = (RelaySyncUpdate) update;
+            int channel = relayUpdate.getValue().getChannel();
+            boolean state = relayUpdate.getValue().getState();
+            return String.format(Locale.US, "rel%02X=%d", channel, state ? 1 : 0);
+        }
+
+        if (update instanceof RelayImpulseSyncUpdate) {
+            RelayImpulseSyncUpdate relayImpulseUpdate = (RelayImpulseSyncUpdate) update;
+            int channel = relayImpulseUpdate.getValue().getChannel();
+            long impulse = relayImpulseUpdate.getValue().getImpulse();
+            return String.format(Locale.US, "rimp%02X=%d", channel, impulse);
+        }
+
+        if (update instanceof PWMSyncUpdate) {
+            PWMSyncUpdate pwmUpdate = (PWMSyncUpdate) update;
+            int channel = pwmUpdate.getValue().getChannel();
+            int duty = pwmUpdate.getValue().getDuty();
+            return String.format(Locale.US, "pwm%02X=%d", channel, duty);
+        }
+
+        if (update instanceof RGBSyncUpdate) {
+            RGBSyncUpdate rgbUpdate = (RGBSyncUpdate) update;
+            int redChannel = rgbUpdate.getValue().getRed().getChannel();
+            int greenChannel = rgbUpdate.getValue().getGreen().getChannel();
+            int blueChannel = rgbUpdate.getValue().getBlue().getChannel();
+            int redDuty = rgbUpdate.getValue().getRed().getDuty();
+            int greenDuty = rgbUpdate.getValue().getGreen().getDuty();
+            int blueDuty = rgbUpdate.getValue().getBlue().getDuty();
+            return String.format(Locale.US, "rgb%02X%02X%02X=%02X%02X%02X",
+                    redChannel, greenChannel, blueChannel,
+                    redDuty, greenDuty, blueDuty);
+        }
+
+        if (update instanceof PWMImpulseSyncUpdate) {
+            PWMImpulseSyncUpdate pwmImpulseUpdate = (PWMImpulseSyncUpdate) update;
+            int channel = pwmImpulseUpdate.getValue().getChannel();
+            long impulse = pwmImpulseUpdate.getValue().getImpulse();
+            return String.format(Locale.US, "pimp%02X=%d", channel, impulse);
+        }
+
+        if (update instanceof ParamSyncUpdate) {
+            ParamSyncUpdate paramUpdate = (ParamSyncUpdate) update;
+            int index = paramUpdate.getValue().getIndex();
+            long value = paramUpdate.getValue().getValue();
+            return String.format(Locale.US, "param%02X=%d", index, value);
+        }
+
+        if (update instanceof NameSyncUpdate) {
+            NameSyncUpdate nameUpdate = (NameSyncUpdate) update;
+            return String.format("name=%s", Base64Utils.encodeNameToBase64(nameUpdate.getValue()));
+        }
+
+        if (update instanceof OtaHostSyncUpdate) {
+            OtaHostSyncUpdate otaHostUpdate = (OtaHostSyncUpdate) update;
+            return String.format("otaHost=%s", otaHostUpdate.getValue());
+        }
+
+        if (update instanceof OtaHashSyncUpdate) {
+            OtaHashSyncUpdate otaHashUpdate = (OtaHashSyncUpdate) update;
+            return String.format("otaHash=%s", otaHashUpdate.getValue());
+        }
+
+        if (update instanceof RestoreTokenSyncUpdate) {
+            RestoreTokenSyncUpdate restoreTokenSyncUpdate = (RestoreTokenSyncUpdate) update;
+            return String.format("restoreToken=%s", restoreTokenSyncUpdate.getValue());
+        }
+
+        if (update instanceof CloudUsernameSyncUpdate) {
+            CloudUsernameSyncUpdate cloudUsernameSyncUpdate = (CloudUsernameSyncUpdate) update;
+            return String.format("cloudUsername=%s", cloudUsernameSyncUpdate.getValue());
+        }
+
+        if (update instanceof CloudPasswordSyncUpdate) {
+            CloudPasswordSyncUpdate cloudPasswordSyncUpdate = (CloudPasswordSyncUpdate) update;
+            return String.format("cloudPassword=%s", cloudPasswordSyncUpdate.getValue());
+        }
+
+        if (update instanceof CloudFingerprintSyncUpdate) {
+            CloudFingerprintSyncUpdate cloudFingerprintSyncUpdate = (CloudFingerprintSyncUpdate) update;
+            return String.format("cloudFingerprint=%s", cloudFingerprintSyncUpdate.getValue());
+        }
+
+        if (update instanceof ColorSyncUpdate) {
+            ColorSyncUpdate colorUpdate = (ColorSyncUpdate) update;
+            return String.format(Locale.US, "color=%d", colorUpdate.getValue());
+        }
+
+        if (update instanceof RoleSyncUpdate) {
+            RoleSyncUpdate roleUpdate = (RoleSyncUpdate) update;
+            return String.format(Locale.US, "role=%d", roleUpdate.getValue().getId());
+        }
+
+        if (update instanceof StateSyncUpdate) {
+            StateSyncUpdate stateUpdate = (StateSyncUpdate) update;
+            return String.format(Locale.US, "state=%s", stateUpdate.getValue());
+        }
+
+        if (update instanceof DeleteAutomationSyncUpdate) {
+            DeleteAutomationSyncUpdate deleteUpdate = (DeleteAutomationSyncUpdate) update;
+            Automation automation = (Automation) deleteUpdate.getValue();
+            return String.format(Locale.US, "deleteauto=%d", automation.getIndex());
+        }
+
+        return null;
+    }
+
     @Override
     public void pushUpdates(DeviceSyncData syncData, List<SyncUpdate> updates,
                             final InetAddress address, final SyncCallback syncCallback) {
         Variant variant = syncData.getSystemInfo().getVariant();
         if (updates != null && updates.size() > 0) {
             for (SyncUpdate update : updates) {
-                if (update instanceof RelaySyncUpdate) {
-                    RelaySyncUpdate relayUpdate = (RelaySyncUpdate) update;
-                    int channel = relayUpdate.getValue().getChannel();
-                    boolean state = relayUpdate.getValue().getState();
-                    String query = String.format(Locale.US, "rel%02X=%d", channel, state ? 1 : 0);
-                    pushUpdateQuery(variant, query, address, syncCallback);
-                }
-
-                if (update instanceof RelayImpulseSyncUpdate) {
-                    RelayImpulseSyncUpdate relayImpulseUpdate = (RelayImpulseSyncUpdate) update;
-                    int channel = relayImpulseUpdate.getValue().getChannel();
-                    long impulse = relayImpulseUpdate.getValue().getImpulse();
-                    String query = String.format(Locale.US, "rimp%02X=%d", channel, impulse);
-                    pushUpdateQuery(variant, query, address, syncCallback);
-                }
-
-                if (update instanceof PWMSyncUpdate) {
-                    PWMSyncUpdate pwmUpdate = (PWMSyncUpdate) update;
-                    int channel = pwmUpdate.getValue().getChannel();
-                    int duty = pwmUpdate.getValue().getDuty();
-                    String query = String.format(Locale.US, "pwm%02X=%d", channel, duty);
-                    pushUpdateQuery(variant, query, address, syncCallback);
-                }
-
-                if (update instanceof RGBSyncUpdate) {
-                    RGBSyncUpdate rgbUpdate = (RGBSyncUpdate) update;
-                    int redChannel = rgbUpdate.getValue().getRed().getChannel();
-                    int greenChannel = rgbUpdate.getValue().getGreen().getChannel();
-                    int blueChannel = rgbUpdate.getValue().getBlue().getChannel();
-                    int redDuty = rgbUpdate.getValue().getRed().getDuty();
-                    int greenDuty = rgbUpdate.getValue().getGreen().getDuty();
-                    int blueDuty = rgbUpdate.getValue().getBlue().getDuty();
-                    String query = String.format(Locale.US, "rgb%02X%02X%02X=%02X%02X%02X",
-                            redChannel, greenChannel, blueChannel,
-                            redDuty, greenDuty, blueDuty);
-                    pushUpdateQuery(variant, query, address, syncCallback);
-                }
-
-
-
-                if (update instanceof PWMImpulseSyncUpdate) {
-                    PWMImpulseSyncUpdate pwmImpulseUpdate = (PWMImpulseSyncUpdate) update;
-                    int channel = pwmImpulseUpdate.getValue().getChannel();
-                    long impulse = pwmImpulseUpdate.getValue().getImpulse();
-                    String query = String.format(Locale.US, "pimp%02X=%d", channel, impulse);
-                    pushUpdateQuery(variant, query, address, syncCallback);
-                }
-
-                if (update instanceof ParamSyncUpdate) {
-                    ParamSyncUpdate paramUpdate = (ParamSyncUpdate) update;
-                    int index = paramUpdate.getValue().getIndex();
-                    long value = paramUpdate.getValue().getValue();
-                    String query = String.format(Locale.US, "param%02X=%d", index, value);
-                    pushUpdateQuery(variant, query, address, syncCallback);
-                }
-
-                if (update instanceof NameSyncUpdate) {
-                    NameSyncUpdate nameUpdate = (NameSyncUpdate) update;
-                    String query = String.format("name=%s", Base64Utils.encodeNameToBase64(nameUpdate.getValue()));
-                    pushUpdateQuery(variant, query, address, syncCallback);
-                }
-
-                if (update instanceof OtaHostSyncUpdate) {
-                    OtaHostSyncUpdate otaHostUpdate = (OtaHostSyncUpdate) update;
-                    String query = String.format("otaHost=%s", otaHostUpdate.getValue());
-                    pushUpdateQuery(variant, query, address, syncCallback);
-                }
-
-                if (update instanceof OtaHashSyncUpdate) {
-                    OtaHashSyncUpdate otaHashUpdate = (OtaHashSyncUpdate) update;
-                    String query = String.format("otaHash=%s", otaHashUpdate.getValue());
-                    pushUpdateQuery(variant, query, address, syncCallback);
-                }
-
-                if (update instanceof RestoreTokenSyncUpdate) {
-                    RestoreTokenSyncUpdate restoreTokenSyncUpdate = (RestoreTokenSyncUpdate) update;
-                    String query = String.format("restoreToken=%s", restoreTokenSyncUpdate.getValue());
-                    pushUpdateQuery(variant, query, address, syncCallback);
-                }
-
-                if (update instanceof CloudUsernameSyncUpdate) {
-                    CloudUsernameSyncUpdate cloudUsernameSyncUpdate = (CloudUsernameSyncUpdate) update;
-                    String query = String.format("cloudUsername=%s", cloudUsernameSyncUpdate.getValue());
-                    pushUpdateQuery(variant, query, address, syncCallback);
-                }
-
-                if (update instanceof CloudPasswordSyncUpdate) {
-                    CloudPasswordSyncUpdate cloudPasswordSyncUpdate = (CloudPasswordSyncUpdate) update;
-                    String query = String.format("cloudPassword=%s", cloudPasswordSyncUpdate.getValue());
-                    pushUpdateQuery(variant, query, address, syncCallback);
-                }
-
-                if (update instanceof CloudFingerprintSyncUpdate) {
-                    CloudFingerprintSyncUpdate cloudFingerprintSyncUpdate = (CloudFingerprintSyncUpdate) update;
-                    String query = String.format("cloudFingerprint=%s", cloudFingerprintSyncUpdate.getValue());
-                    pushUpdateQuery(variant, query, address, syncCallback);
-                }
-
-                if (update instanceof ColorSyncUpdate) {
-                    ColorSyncUpdate colorUpdate = (ColorSyncUpdate) update;
-                    String query = String.format(Locale.US, "color=%d", colorUpdate.getValue());
-                    pushUpdateQuery(variant, query, address, syncCallback);
-                }
-
-                if (update instanceof RoleSyncUpdate) {
-                    RoleSyncUpdate roleUpdate = (RoleSyncUpdate) update;
-                    String query = String.format(Locale.US, "role=%d", roleUpdate.getValue().getId());
-                    pushUpdateQuery(variant, query, address, syncCallback);
-                }
-
-                if (update instanceof StateSyncUpdate) {
-                    StateSyncUpdate stateUpdate = (StateSyncUpdate) update;
-                    String query = String.format(Locale.US, "state=%s", stateUpdate.getValue());
-                    pushUpdateQuery(variant, query, address, syncCallback);
-                }
-
                 if (update instanceof AutomationSyncUpdate) {
                     AutomationSyncUpdate automationUpdate = (AutomationSyncUpdate) update;
-                    Automation automation = (Automation)automationUpdate.getValue();
+                    Automation automation = (Automation) automationUpdate.getValue();
                     pushAutomation(variant, automation, address, syncCallback);
                 }
 
-                if (update instanceof DeleteAutomationSyncUpdate) {
-                    DeleteAutomationSyncUpdate deleteUpdate = (DeleteAutomationSyncUpdate)update;
-                    Automation automation = (Automation)deleteUpdate.getValue();
-                    String query = String.format(Locale.US, "deleteauto=%d", automation.getIndex());
+                String query = updateToQuery(update);
+                if (query != null) {
                     pushUpdateQuery(variant, query, address, syncCallback);
                 }
+            }
+        }
+    }
+
+    @Override
+    public void pushUpdatesAtOnce(DeviceSyncData syncData, List<SyncUpdate> updates, InetAddress address, SyncCallback syncCallback) {
+        if (updates != null && updates.size() > 0) {
+            boolean canRunUpdatesAtOnce = true;
+            for (SyncUpdate update : updates) {
+                if (update instanceof AutomationSyncUpdate) {
+                    canRunUpdatesAtOnce = false;
+                    break;
+                }
+            }
+
+            if (canRunUpdatesAtOnce) {
+                StringBuilder fullQuery = new StringBuilder();
+                Variant variant = syncData.getSystemInfo().getVariant();
+                for (int i = 0; i < updates.size(); i++) {
+                    SyncUpdate update = updates.get(i);
+                    String query = updateToQuery(update);
+                    if (i > 0) {
+                        fullQuery.append("&");
+                    }
+                    fullQuery.append(query);
+                }
+
+                pushUpdateQuery(variant, fullQuery.toString(), address, syncCallback);
+            } else {
+                pushUpdates(syncData, updates, address, syncCallback);
             }
         }
     }
@@ -335,39 +343,39 @@ public class HttpClientSyncManager implements SyncManager, LocalDiscoveryService
         String ix = String.format(Locale.US, "&index=%d&enabled=%d", automation.getIndex(), automation.isEnabled() ? 1 : 0);
 
         if (automation.getTrigger() instanceof DateTimeTrigger) {
-            type="type=dt&unit=" + automation.getUnit().toInt();
+            type = "type=dt&unit=" + automation.getUnit().toInt();
         }
         if (automation.getTrigger() instanceof SchedulerTrigger) {
-            type="type=sr&unit=" + automation.getUnit().toInt();
+            type = "type=sr&unit=" + automation.getUnit().toInt();
         }
 
         if (automation.getTrigger() instanceof DateTimeTrigger) {
-            DateTimeTrigger dateTimeTrigger = (DateTimeTrigger)automation.getTrigger();
+            DateTimeTrigger dateTimeTrigger = (DateTimeTrigger) automation.getTrigger();
             triggerQuery = String.format(Locale.US, "&time=%d", dateTimeTrigger.getUtcTimestamp());
         }
 
         if (automation.getTrigger() instanceof SchedulerTrigger) {
-            SchedulerTrigger schedulerTrigger = (SchedulerTrigger)automation.getTrigger();
+            SchedulerTrigger schedulerTrigger = (SchedulerTrigger) automation.getTrigger();
             triggerQuery = String.format(Locale.US, "&days=%d&time=%d", schedulerTrigger.getDays(), schedulerTrigger.getTimeMark());
         }
 
         if (automation.getValue() instanceof RelayValue) {
-            RelayValue relayValue = (RelayValue)automation.getValue();
+            RelayValue relayValue = (RelayValue) automation.getValue();
             valueQuery = String.format(Locale.US, "&value=%d&param=%d", relayValue.getState() ? 1 : 0, relayValue.getChannel());
         }
 
         if (automation.getValue() instanceof ParamValue) {
-            ParamValue paramValue = (ParamValue)automation.getValue();
+            ParamValue paramValue = (ParamValue) automation.getValue();
             valueQuery = String.format(Locale.US, "&value=%d&param=%d", paramValue.getValue(), paramValue.getIndex());
         }
 
         if (automation.getValue() instanceof PWMValue) {
-            PWMValue pwmValue = (PWMValue)automation.getValue();
+            PWMValue pwmValue = (PWMValue) automation.getValue();
             valueQuery = String.format(Locale.US, "&value=%d&param=%d", pwmValue.getDuty(), pwmValue.getChannel());
         }
 
         if (automation.getValue() instanceof RGBValue) {
-            RGBValue rgbValue = (RGBValue)automation.getValue();
+            RGBValue rgbValue = (RGBValue) automation.getValue();
             valueQuery = String.format(Locale.US, "&value=%d&param=%d", rgbValue.getDutyValueAsLong(), rgbValue.getChannelValueAsLong());
         }
 
@@ -438,6 +446,19 @@ public class HttpClientSyncManager implements SyncManager, LocalDiscoveryService
                 }
             }
         });
+    }
+
+    private boolean pushBlockingUpdateQuery(Variant variant, String query, final InetAddress address) {
+        Request request = new Request.Builder()
+                .url((variant == Variant.WiFi ? "https:/" : "http:/") + address.toString() + "/sync?" + query)
+                .build();
+
+        try {
+            Response response = _client.newCall(request).execute();
+            return response.isSuccessful();
+        } catch (IOException e) {
+            return false;
+        }
     }
 
     private void pushUpdateQuery(Variant variant, String query, final InetAddress address, final SyncCallback syncCallback) {
@@ -558,7 +579,7 @@ public class HttpClientSyncManager implements SyncManager, LocalDiscoveryService
 
         syncData.setPwmImpulses(new long[pwmImpulses]);
         if (pwmImpulses > 0) {
-            int i=0;
+            int i = 0;
             for (Long impulse : values.getPwmImpulses()) {
                 syncData.getPwmImpulses()[i] = impulse;
                 i++;
@@ -614,7 +635,8 @@ public class HttpClientSyncManager implements SyncManager, LocalDiscoveryService
     }
 
     @Override
-    public void onFound(InetAddress address, Variant variant, BoardId boardId, Byte[] restoreTokenPart) {if (!_persistenceService.contains(address) && _listener != null) {
+    public void onFound(InetAddress address, Variant variant, BoardId boardId, Byte[] restoreTokenPart) {
+        if (!_persistenceService.contains(address) && _listener != null) {
             sync(variant, address, new SyncCallback() {
                 @Override
                 public void success() {

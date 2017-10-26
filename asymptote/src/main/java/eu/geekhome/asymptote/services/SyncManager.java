@@ -15,6 +15,10 @@ public interface SyncManager {
     void start() throws IOException;
     void stop();
 
+    void pushUpdatesAtOnce(DeviceSyncData syncData, List<SyncUpdate> updates,
+                     final InetAddress address, final SyncCallback syncCallback);
+
+
     void listAutomations(Variant variant, InetAddress address, SyncCallback syncCallback);
 
     void sync(Variant variant, InetAddress address, SyncCallback syncCallback);

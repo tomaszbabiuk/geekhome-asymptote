@@ -5,9 +5,9 @@ import eu.geekhome.asymptote.model.FirmwareSet;
 import eu.geekhome.asymptote.model.Variant;
 public class ResourcesBasedFirmwareRepository extends ResourcesBasedFirmwareRepositoryBase {
     public ResourcesBasedFirmwareRepository() {
-        Firmware sonoffTHWifi = new Firmware(Variant.WiFi, "sonoffth/firmware_wifi.bin", "cf88971160a9b9a08d0c69bec616c168", 1, 6);
-        Firmware sonoffTHFirebase = new Firmware(Variant.Firebase, "sonoffth/firmware_firebase.bin", "d90109ce6148273e0279cdbc83ff2ad4", 1, 6);
-        Firmware sonoffTHHybrid = new Firmware(Variant.Hybrid, "sonoffth/firmware_hybrid.bin", "c348f694084fc94140d922fe5d4decb8", 1, 6);
+        Firmware sonoffTHWifi = new Firmware(Variant.WiFi, "sonoffth/firmware_wifi.bin", "643a0d2ed06d17f482fcfd8b4354bdcb", 1, 7);
+        Firmware sonoffTHFirebase = new Firmware(Variant.Firebase, "sonoffth/firmware_firebase.bin", "7cd2866d93e245e6596ef65d0154d969", 1, 7);
+        Firmware sonoffTHHybrid = new Firmware(Variant.Hybrid, "sonoffth/firmware_hybrid.bin", "ae01b6cd16cc5c1ea87ae39506c9b7cf", 1, 7);
         FirmwareSet sonoffTHSet = new FirmwareSet(sonoffTHWifi, sonoffTHFirebase, sonoffTHHybrid);
         put(BoardId.SonoffTH_None, sonoffTHSet);
         put(BoardId.SonoffTH_AM2301, sonoffTHSet);
@@ -17,18 +17,20 @@ public class ResourcesBasedFirmwareRepository extends ResourcesBasedFirmwareRepo
         Firmware sonoffSCHybrid = new Firmware(Variant.Hybrid, "sonoffsc/firmware_hybrid.bin", "42716d29a979b5245a76a738a5dcfef4", 1, 4);
         FirmwareSet sonoffSCSet = new FirmwareSet(sonoffSCWifi, sonoffSCFirebase, sonoffSCHybrid);
         put(BoardId.SonoffSC, sonoffSCSet);
-        Firmware sonoffTouchWifi = new Firmware(Variant.WiFi, "sonofftouch/firmware_wifi.bin", "5233753eac3525f11cc2f61dba5fe053", 1, 6);
-        Firmware sonoffTouchFirebase = new Firmware(Variant.Firebase, "sonofftouch/firmware_firebase.bin", "1653d6e92c3953523dcc5b3ba8e425d0", 1, 6);
-        Firmware sonoffTouchHybrid = new Firmware(Variant.Hybrid, "sonofftouch/firmware_hybrid.bin", "ff47b2b87ce132ceb2424c5252510513", 1, 6);
-        FirmwareSet sonoffTouchSet = new FirmwareSet(sonoffTouchWifi, sonoffTouchFirebase, sonoffTouchHybrid);        put(BoardId.SonoffTOUCH, sonoffTouchSet);
+        Firmware sonoffTouchWifi = new Firmware(Variant.WiFi, "sonofftouch/firmware_wifi.bin", "06d4b32f29d96d5af3ac23c14b076bc9", 1, 7);
+        Firmware sonoffTouchFirebase = new Firmware(Variant.Firebase, "sonofftouch/firmware_firebase.bin", "0964c8aff84f72085cb85a78d5edac41", 1, 7);
+        Firmware sonoffTouchHybrid = new Firmware(Variant.Hybrid, "sonofftouch/firmware_hybrid.bin", "29fbc2d5fe7b65fc26bce746d348e69d", 1, 7);
+        FirmwareSet sonoffTouchSet = new FirmwareSet(sonoffTouchWifi, sonoffTouchFirebase, sonoffTouchHybrid);
+        put(BoardId.SonoffTOUCH, sonoffTouchSet);
         Firmware sonoffDualWifi = new Firmware(Variant.WiFi, "sonoffdual/firmware_wifi.bin", "ff6851762c46da7d0c9c50932970f217", 1, 4);
         Firmware sonoffDualFirebase = new Firmware(Variant.Firebase, "sonoffdual/firmware_firebase.bin", "cd80bf39101313515f5c222ed20ff4e6", 1, 4);
         Firmware sonoffDualHybrid = new Firmware(Variant.Hybrid, "sonoffdual/firmware_hybrid.bin", "957a32d4aa333cd4a69795ee33eaf222", 1, 4);
         FirmwareSet sonoffDualSet = new FirmwareSet(sonoffDualWifi, sonoffDualFirebase, sonoffDualHybrid);
         put(BoardId.SonoffDUAL, sonoffDualSet);
-        Firmware sonoff4ChWifi = new Firmware(Variant.WiFi, "sonoff4ch/firmware_wifi.bin", "6316d71cbc1bde190b59a9e0c5cf4698", 1, 6);
-        Firmware sonoff4ChFirebase = new Firmware(Variant.Firebase, "sonoff4ch/firmware_firebase.bin", "7d9f2fd1880862da176456af91e0df7f", 1, 6);
-        Firmware sonoff4ChHybrid = new Firmware(Variant.Hybrid, "sonoff4ch/firmware_hybrid.bin", "548bf8f8e9caf8b72d1b51738faca901", 1, 6);        FirmwareSet sonoff4ChSet = new FirmwareSet(sonoff4ChWifi, sonoff4ChFirebase, sonoff4ChHybrid);
+        Firmware sonoff4ChWifi = new Firmware(Variant.WiFi, "sonoff4ch/firmware_wifi.bin", "9d550c5a84d1fc661c842231e455f0b7", 1, 7);
+        Firmware sonoff4ChFirebase = new Firmware(Variant.Firebase, "sonoff4ch/firmware_firebase.bin", "be438647a220e8164ed9ca425678b839", 1, 7);
+        Firmware sonoff4ChHybrid = new Firmware(Variant.Hybrid, "sonoff4ch/firmware_hybrid.bin", "406567b36a457cbb08874e7a9873cc07", 1, 7);
+        FirmwareSet sonoff4ChSet = new FirmwareSet(sonoff4ChWifi, sonoff4ChFirebase, sonoff4ChHybrid);
         put(BoardId.Sonoff4CH, sonoff4ChSet);
         Firmware sonoffPowWifi = new Firmware(Variant.WiFi, "sonoffpow/firmware_wifi.bin", "e25f84cfbc03bd6bba7b111ca24c232f", 1, 4);
         Firmware sonoffPowFirebase = new Firmware(Variant.Firebase, "sonoffpow/firmware_firebase.bin", "23a6127cd420dfd526f0b4cbb411ecfb", 1, 4);
@@ -40,29 +42,22 @@ public class ResourcesBasedFirmwareRepository extends ResourcesBasedFirmwareRepo
         Firmware h802Hybrid = new Firmware(Variant.Hybrid, "h802/firmware_hybrid.bin", "aafb6476d426e0118c40609fed7f64f1", 1, 4);
         FirmwareSet h802Set = new FirmwareSet(h802Wifi, h802Firebase, h802Hybrid);
         put(BoardId.H802, h802Set);
-        Firmware sonoffBasicWifi = new Firmware(Variant.WiFi, "sonoffbasic/firmware_wifi.bin", "86bd6129ddbda930b73345ca5009e497", 1, 6);
-        Firmware sonoffBasicFirebase = new Firmware(Variant.Firebase, "sonoffbasic/firmware_firebase.bin", "e08905503c23948db5ef7af3db9d491b", 1, 6);
-        Firmware sonoffBasicHybrid = new Firmware(Variant.Hybrid, "sonoffbasic/firmware_hybrid.bin", "e9ab3927db9058badee813cc648555b2", 1, 6);
+        Firmware sonoffBasicWifi = new Firmware(Variant.WiFi, "sonoffbasic/firmware_wifi.bin", "a512a15a89affadbc897bbc0c779d4d7", 1, 7);
+        Firmware sonoffBasicFirebase = new Firmware(Variant.Firebase, "sonoffbasic/firmware_firebase.bin", "5b43cef5388119ae3cbe933cc2b9c19c", 1, 7);
+        Firmware sonoffBasicHybrid = new Firmware(Variant.Hybrid, "sonoffbasic/firmware_hybrid.bin", "4db52401320e43ef8dd9cea024a048da", 1, 7);
         FirmwareSet sonoffBasicSet = new FirmwareSet(sonoffBasicWifi, sonoffBasicFirebase, sonoffBasicHybrid);
         put(BoardId.SonoffBASIC, sonoffBasicSet);
-        Firmware electrodragon2RelWifi = new Firmware(Variant.WiFi, "electrodragon2rel/firmware_wifi.bin", "dec9b816ea974940e4681bd874bc1341", 1, 4);
-        Firmware electrodragon2RelFirebase = new Firmware(Variant.Firebase, "electrodragon2rel/firmware_firebase.bin", "6af7e1dda2828c4c4fb95ebf36023a03", 1, 4);
-        Firmware electrodragon2RelHybrid = new Firmware(Variant.Hybrid, "electrodragon2rel/firmware_hybrid.bin", "b3024c764403d0e945718ca7b567adc8", 1, 4);
+        Firmware electrodragon2RelWifi = new Firmware(Variant.WiFi, "electrodragon2rel/firmware_wifi.bin", "cab2a0fab7d4f418971be51fca4daf84", 1, 7);
+        Firmware electrodragon2RelFirebase = new Firmware(Variant.Firebase, "electrodragon2rel/firmware_firebase.bin", "53baf443da7d382b947e5ce9d5381b50", 1, 7);
+        Firmware electrodragon2RelHybrid = new Firmware(Variant.Hybrid, "electrodragon2rel/firmware_hybrid.bin", "fc44be2af9c032248df8e900b7121776", 1, 7);
         FirmwareSet electrodragon2RelSet = new FirmwareSet(electrodragon2RelWifi, electrodragon2RelFirebase, electrodragon2RelHybrid);
         put(BoardId.Electrodragon2REL_None, electrodragon2RelSet);
         put(BoardId.Electrodragon2REL_DS18B20, electrodragon2RelSet);
         put(BoardId.Electrodragon2REL_AM2301, electrodragon2RelSet);
 
-
-        Firmware electrodragon2RelSpdtWifi = new Firmware(Variant.WiFi, "electrodragon2rel_spdt/firmware_wifi.bin", "c48d7d7a54cda3333ea7234f6a24eaf1", 1, 4);
-        Firmware electrodragon2RelSpdtFirebase = new Firmware(Variant.Firebase, "electrodragon2rel_spdt/firmware_firebase.bin", "a9b2853c2cdf83e188b53b8f0977c349", 1, 4);
-        Firmware electrodragon2RelSpdtHybrid = new Firmware(Variant.Hybrid, "electrodragon2rel_spdt/firmware_hybrid.bin", "0be3d83660cc390fb0769607f00c82dc", 1, 4);
-        FirmwareSet electrodragon2RelSpdtSet = new FirmwareSet(electrodragon2RelSpdtWifi, electrodragon2RelSpdtFirebase, electrodragon2RelSpdtHybrid);
-        put(BoardId.Elecrodragon2REL_SPDT, electrodragon2RelSpdtSet);
-
-        Firmware electrodragonLedWifi = new Firmware(Variant.WiFi, "electrodragon_led/firmware_wifi.bin", "f00002872b815f697ea40cc016edc380", 1, 4);
-        Firmware electrodragonLedFirebase = new Firmware(Variant.Firebase, "electrodragon_led/firmware_firebase.bin", "e95a9e2e1a406826eb185d62b69596df", 1, 4);
-        Firmware electrodragonLedHybrid = new Firmware(Variant.Hybrid, "electrodragon_led/firmware_hybrid.bin", "1e74fa237d7b905e6672514b447bcd9f", 1, 4);
+        Firmware electrodragonLedWifi = new Firmware(Variant.WiFi, "electrodragon_led/firmware_wifi.bin", "40a3b8ca18c71e03f1c0017504629ac9", 1, 7);
+        Firmware electrodragonLedFirebase = new Firmware(Variant.Firebase, "electrodragon_led/firmware_firebase.bin", "44333d6e59bf6768211a3f15e2ec1627", 1, 7);
+        Firmware electrodragonLedHybrid = new Firmware(Variant.Hybrid, "electrodragon_led/firmware_hybrid.bin", "a6152f830d0b2f4da2847350cf8b62f4", 1, 7);
         FirmwareSet electrodragonLedSet = new FirmwareSet(electrodragonLedWifi, electrodragonLedFirebase, electrodragonLedHybrid);
         put(BoardId.ElectrodragonLed, electrodragonLedSet);
 

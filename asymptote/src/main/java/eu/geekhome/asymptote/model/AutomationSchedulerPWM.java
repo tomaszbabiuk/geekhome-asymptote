@@ -19,7 +19,7 @@ public class AutomationSchedulerPWM extends Automation<SchedulerTrigger, PWMValu
 
     @Override
     public String composeMessage(Context context) {
-        String intensity =  Math.round(getValue().getDuty()/255 * 100) + "%";
+        String intensity =  Math.round((float)getValue().getDuty()/255 * 100) + "%";
 
         return context.getString(R.string.change_pwm_setting_by_schedule,
                 ValueConverter.daysToNames(context, getTrigger().getDays()),

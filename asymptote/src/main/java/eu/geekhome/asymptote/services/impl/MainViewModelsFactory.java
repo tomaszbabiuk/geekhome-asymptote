@@ -175,8 +175,8 @@ public class MainViewModelsFactory {
         return new ChangePasswordViewModel(_context, this, _wifiHelper, _navigationService, _toastService, _cloudUserService);
     }
 
-    public ResultViewModel createResultViewModel(String title, String status, boolean success) {
-        return new ResultViewModel(this, _wifiHelper, _navigationService, title, status , success);
+    public ResultViewModel createResultViewModel(String title, String status, boolean success, boolean enableRetry) {
+        return new ResultViewModel(this, _wifiHelper, _navigationService, title, status , success, enableRetry);
     }
 
     public TouchProgressViewModel createTouchProgressViewModel(WiFiParameters wiFiParameters) {

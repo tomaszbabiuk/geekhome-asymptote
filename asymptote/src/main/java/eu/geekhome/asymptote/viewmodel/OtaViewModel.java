@@ -261,12 +261,12 @@ public class OtaViewModel extends WiFiAwareViewModel<FragmentOtaBinding> impleme
                         CloudPasswordSyncUpdate passwordSyncUpdate = new CloudPasswordSyncUpdate(deviceToken);
                         String fingerprint = ByteUtils.bytesToHex(sha1Thumbprint).toLowerCase();
                         CloudFingerprintSyncUpdate cloudFingerprintSyncUpdate = new CloudFingerprintSyncUpdate(fingerprint);
-                        _sensor.getUpdates().add(hashSyncUpdate);
-                        _sensor.getUpdates().add(hostSyncUpdate);
                         _sensor.getUpdates().add(restoreTokenSyncUpdate);
                         _sensor.getUpdates().add(usernameSyncUpdate);
                         _sensor.getUpdates().add(passwordSyncUpdate);
                         _sensor.getUpdates().add(cloudFingerprintSyncUpdate);
+                        _sensor.getUpdates().add(hashSyncUpdate);
+                        _sensor.getUpdates().add(hostSyncUpdate);
                         _sensor.requestFullSync();
                         _sensor.getUpdates().clear();
                         _cloudDeviceService.registerForDeviceSyncEvents(_sensor.getUserId(), deviceSnapshot);
@@ -371,7 +371,7 @@ public class OtaViewModel extends WiFiAwareViewModel<FragmentOtaBinding> impleme
         } else {
             String title = _context.getString(R.string.ota_failed);
             String status = _context.getString(R.string.ota_elapsed);
-            ResultViewModel result = _factory.createResultViewModel(title, status, false);
+            ResultViewModel result = _factory.createResultViewModel(title, status, false, false);
             _navigationService.goBackTo(MainViewModel.class);
             _navigationService.showViewModel(result);
         }
@@ -388,7 +388,7 @@ public class OtaViewModel extends WiFiAwareViewModel<FragmentOtaBinding> impleme
             public void run() {
                 String title = _context.getString(R.string.ota_failed);
                 String status = syncData.getOta().getErrorCode();
-                ResultViewModel result = _factory.createResultViewModel(title, status, false);
+                ResultViewModel result = _factory.createResultViewModel(title, status, false, false);
                 _navigationService.goBackTo(MainViewModel.class);
                 _navigationService.showViewModel(result);
             }
@@ -402,7 +402,7 @@ public class OtaViewModel extends WiFiAwareViewModel<FragmentOtaBinding> impleme
                 String title = _context.getString(R.string.ota_done);
                 String status = _context.getString(R.string.ota_device_updated, _sensor.getSyncData().getDeviceKey().getDeviceId(),
                         syncData.getSystemInfo().getVersionMajor(), syncData.getSystemInfo().getVersionMinor());
-                ResultViewModel result = _factory.createResultViewModel(title, status, true);
+                ResultViewModel result = _factory.createResultViewModel(title, status, true, false);
                 _navigationService.goBackTo(MainViewModel.class);
                 _navigationService.showViewModel(result);
             }

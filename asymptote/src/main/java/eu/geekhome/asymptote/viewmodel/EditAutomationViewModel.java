@@ -232,12 +232,9 @@ public class EditAutomationViewModel extends ViewModel<FragmentEditAutomationBin
                         createUpdateFromAutomation((AutomationItemViewModel) automationHolder);
 
                         _sensor.requestFullSync();
-
-
                         try {
-                            Thread.currentThread().sleep(1000);
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
+                            Thread.sleep(1000);
+                        } catch (InterruptedException ignored) {
                         }
                     }
                 }

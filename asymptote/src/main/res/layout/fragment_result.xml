@@ -51,6 +51,13 @@
                 android:visibility="@{!vm.success ? View.VISIBLE : View.GONE}"
                 app:svgId="@raw/error"/>
 
+            <TextView
+                style="@style/Common.Button.Orange"
+                android:layout_gravity="center_horizontal"
+                android:onClick="@{() -> vm.retry()}"
+                android:visibility="@{!vm.success &amp;&amp; vm.enableRetry ? View.VISIBLE : View.GONE}"
+                android:text="@string/retry"/>
+
             <View style="@style/Layout.MatchX1"/>
 
             <View style="@style/Common.OrangeSeparator.Horizontal"/>

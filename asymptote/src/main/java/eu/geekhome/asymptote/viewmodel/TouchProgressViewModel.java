@@ -158,7 +158,7 @@ public class TouchProgressViewModel extends HelpViewModelBase<FragmentTouchProgr
     private void processFailure() {
         String status = _context.getString(R.string.pairing_failed);
         String title = _context.getString(R.string.pair_device);
-        ResultViewModel model = _factory.createResultViewModel(title, status, false);
+        ResultViewModel model = _factory.createResultViewModel(title, status, false, false);
         _navigationService.goBackTo(MainViewModel.class);
         _navigationService.showViewModel(model);
     }
@@ -168,7 +168,7 @@ public class TouchProgressViewModel extends HelpViewModelBase<FragmentTouchProgr
 
         String status = String.format(_context.getString(R.string.device_paired), inetAddress);
         String title = _context.getString(R.string.pair_device);
-        ResultViewModel model = _factory.createResultViewModel(title, status, true);
+        ResultViewModel model = _factory.createResultViewModel(title, status, true, false);
         _navigationService.goBackTo(MainViewModel.class);
         _navigationService.showViewModel(model);
     }

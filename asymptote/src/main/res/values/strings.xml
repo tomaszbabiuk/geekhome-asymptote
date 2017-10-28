@@ -423,6 +423,7 @@
     <string name="choose_action">Choose action</string>
     <string name="set_lan_password_to_protect">Set emergency/LAN password to protect this device from malware</string>
     <string name="automation_not_working_in_this_role">This automation is not working in current role of this device</string>
+    <string name="retry">Retry</string>
 
 
     <string-array name="signal_turned_on_solutions">

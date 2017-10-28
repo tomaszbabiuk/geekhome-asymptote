@@ -17,18 +17,24 @@ public class ResultViewModel extends HelpViewModelBase<FragmentResultBinding> {
     private String _status;
     private boolean _success;
     private final NavigationService _navigationService;
+    private boolean _enableRetry;
 
     public ResultViewModel(MainViewModelsFactory factory, WiFiHelper wifiHelper, NavigationService navigationService,
-                           String title, String status, boolean success) {
+                           String title, String status, boolean success, boolean enableRetry) {
         super(factory, wifiHelper, navigationService);
         _navigationService = navigationService;
         setTitle(title);
         setStatus(status);
         setSuccess(success);
+        setEnableRetry(enableRetry);
     }
 
     public void onDone() {
         _navigationService.goBackTo(MainViewModel.class);
+    }
+
+    public void retry() {
+        _navigationService.goBack();
     }
 
     @Override
@@ -70,5 +76,15 @@ public class ResultViewModel extends HelpViewModelBase<FragmentResultBinding> {
     @Override
     protected String getNoWiFiRationale() {
         return null;
+    }
+
+    private void setEnableRetry(boolean enableRetry) {
+        _enableRetry = enableRetry;
+        notifyPropertyChanged(BR.enableRetry);
+    }
+
+    @Bindable
+    public boolean isEnableRetry() {
+        return _enableRetry;
     }
 }

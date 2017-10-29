@@ -48,14 +48,14 @@ public class NanoOtaServer extends NanoHTTPD implements OtaServer {
 
     @Override
     public Response serve(IHTTPSession session) {
-        AssetManager assManager = _context.getAssets();
+        AssetManager assetsManager = _context.getAssets();
         InputStream is;
         try {
             if (_listener != null) {
                 _listener.downloadStarted();
             }
 
-            is = assManager.open(_firmware.getLocation());
+            is = assetsManager.open(_firmware.getLocation());
             long length = is.available();
             Response response = newFixedLengthResponse(Response.Status.OK, "application/ocet-stream", is, length);
             response.addHeader("x-MD5", _firmware.getMd5());

@@ -240,7 +240,7 @@ public class EditAutomationViewModel extends ViewModel<FragmentEditAutomationBin
                 }
             });
 
-            _navigationService.goBack();
+            _navigationService.goBackTo(MainViewModel.class);
         } else {
             //cloud
             _sensor.getUpdates().clear();
@@ -293,7 +293,7 @@ public class EditAutomationViewModel extends ViewModel<FragmentEditAutomationBin
         setLoadingAutomationList(false);
         if (isSavingAutomationList()) {
             setSavingAutomationList(false);
-            _navigationService.goBack();
+            _navigationService.goBackTo(MainViewModel.class);
         } else if (_automationList.size() == 0) {
             _automationList.clear();
             _threadRunner.runOnUiThread(new Runnable() {

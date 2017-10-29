@@ -71,7 +71,7 @@ public class ManageViewModel extends ViewModel<FragmentManageBinding> {
             @Override
             public void execute() {
                 EditSensorViewModel model = _factory.createEditSensorViewModel(sensor);
-                _navigationService.goBack();
+//                _navigationService.goBack();
                 _navigationService.showViewModel(model, new ShowBackButtonInToolbarViewParam());
             }
         };
@@ -82,7 +82,7 @@ public class ManageViewModel extends ViewModel<FragmentManageBinding> {
             @Override
             public void execute() {
                 EditAutomationViewModel model = _factory.createEditAutomationViewModel(sensor);
-                _navigationService.goBack();
+//                _navigationService.goBack();
                 _navigationService.showViewModel(model, new ShowBackButtonInToolbarViewParam());
             }
         };
@@ -92,12 +92,16 @@ public class ManageViewModel extends ViewModel<FragmentManageBinding> {
         return new ActionItemViewModel(this, sensor, R.raw.microchip, R.string.firmware, R.string.change_firmware) {
             @Override
             public void execute() {
-                if (!sensor.getSyncData().isLocked()) {
-                    _toastService.makeToast(_context.getString(R.string.device_locked_not_upgradable), true);
+                if (_emergencyManager.isEmergency()) {
+                    _toastService.makeToast(_context.getString(R.string.sign_in_to_install), true);
                 } else {
-                    ChangeFirmwareViewModel model = _factory.createChangeFirmwareViewModel(sensor);
-                    _navigationService.goBack();
-                    _navigationService.showViewModel(model, new ShowBackButtonInToolbarViewParam());
+                    if (!sensor.getSyncData().isLocked()) {
+                        _toastService.makeToast(_context.getString(R.string.device_locked_not_upgradable), true);
+                    } else {
+                        ChangeFirmwareViewModel model = _factory.createChangeFirmwareViewModel(sensor);
+//                        _navigationService.goBack();
+                        _navigationService.showViewModel(model, new ShowBackButtonInToolbarViewParam());
+                    }
                 }
             }
         };

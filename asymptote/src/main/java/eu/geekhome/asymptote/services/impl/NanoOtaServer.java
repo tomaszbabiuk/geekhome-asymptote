@@ -11,7 +11,6 @@ import java.io.InputStream;
 
 import eu.geekhome.asymptote.model.DeviceSyncData;
 import eu.geekhome.asymptote.model.Firmware;
-import eu.geekhome.asymptote.services.FirmwareRepository;
 import eu.geekhome.asymptote.services.OtaServer;
 import fi.iki.elonen.NanoHTTPD;
 
@@ -19,7 +18,6 @@ public class NanoOtaServer extends NanoHTTPD implements OtaServer {
     private final static int PORT = 8890;
     private static final Logger _logger = LoggerFactory.getLogger(NanoOtaServer.class);
     private Context _context;
-    private DeviceSyncData _syncData;
     private Listener _listener;
     private Firmware _firmware;
 
@@ -36,7 +34,6 @@ public class NanoOtaServer extends NanoHTTPD implements OtaServer {
 
     @Override
     public void start(DeviceSyncData syncData, Firmware firmware) throws IOException {
-        _syncData = syncData;
         _firmware = firmware;
         start();
     }

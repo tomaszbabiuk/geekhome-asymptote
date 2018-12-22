@@ -326,19 +326,23 @@
     <string name="light_switch_type">Light switch type</string>
     <string name="trust_this_device_and_remember_password">Trust this device and remember password</string>
     <string name="automation">Automation</string>
-    <string name="exact_time_trigger">Exact time</string>
-    <string name="scheduler_trigger">Scheduler</string>
     <string name="choose_automation">Choose automation</string>
     <string name="automation_datetime_name">Date and time</string>
     <string name="automation_datetime_relay_desc">Changes device state on defined date and time</string>
     <string name="automation_datetime_impulse_desc">Activate advanced relay function on defined date and time</string>
     <string name="automation_datetime_temperature_desc">Changes temperature setting on defined date and time</string>
     <string name="automation_datetime_humidity_desc">Changes device humidity setting on defined date and time</string>
+    <string name="automation_datetime_pwm_desc">Changes PWM  (brightness) setting on defined date and time</string>
+    <string name="automation_datetime_rgb_desc">Changes color setting on defined date and time</string>
+    <string name="automation_datetime_gate_desc">Changes color setting on defined date and time</string>
     <string name="automation_scheduler_name">Scheduler</string>
     <string name="automation_scheduler_relay_desc">Changes device state according to weekly schedule</string>
     <string name="automation_scheduler_impulse_desc">Activates advanced relay function according to weekly schedule</string>
     <string name="automation_scheduler_temperature_desc">Changes temperature setting according to weekly schedule</string>
     <string name="automation_scheduler_humidity_desc">Changes humidity setting according to weekly schedule</string>
+    <string name="automation_scheduler_pwm_desc">Changes PWM  (brightness) setting according to weekly schedule</string>
+    <string name="automation_scheduler_rgb_desc">Changes color setting according to weekly schedule</string>
+    <string name="automation_scheduler_gate_desc">Changes color setting according to weekly schedule</string>
     <string name="no_automation">No automation</string>
     <string name="automation_datetime_relay">Change relay state at specific time</string>
     <string name="automation_datetime_impulse">Activates advanced relay function at specific time</string>
@@ -366,7 +370,6 @@
     <string name="channel">Channel</string>
     <string name="value">Value</string>
     <string name="channel_no" formatted="false">Channel %d</string>
-    <string name="temperature_no" formatted="false">Temperature %d dupa</string>
     <string name="change_temperature_setting_to" formatted="false">Change temperature setting to %s, at %s, %s</string>
     <string name="change_humidity_setting_to" formatted="false">Change humidity setting to %s, at %s, %s</string>
     <string name="change_rgb_to" formatted="false">Change color to %s, at %s, %s</string>

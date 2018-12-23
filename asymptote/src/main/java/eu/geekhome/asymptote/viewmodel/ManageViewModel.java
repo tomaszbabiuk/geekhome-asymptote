@@ -79,15 +79,15 @@ public class ManageViewModel extends ViewModel<FragmentManageBinding> {
         };
     }
 
-    private ActionItemViewModel createFirmwareItem(final SensorItemViewModel sensor) {
-        return new ActionItemViewModel(this, sensor, R.raw.microchip, R.string.firmware, R.string.change_firmware) {
-            @Override
-            public void execute() {
-                ChangeFirmwareViewModel model = _factory.createChangeFirmwareViewModel(sensor);
-                _navigationService.showViewModel(model, new ShowBackButtonInToolbarViewParam());
-            }
-        };
-    }
+//    private ActionItemViewModel createFirmwareItem(final SensorItemViewModel sensor) {
+//        return new ActionItemViewModel(this, sensor, R.raw.microchip, R.string.firmware, R.string.change_firmware) {
+//            @Override
+//            public void execute() {
+//                ChangeFirmwareViewModel model = _factory.createChangeFirmwareViewModel(sensor);
+//                _navigationService.showViewModel(model, new ShowBackButtonInToolbarViewParam());
+//            }
+//        };
+//    }
 
     private ActionItemViewModel createLockItem(final SensorItemViewModel sensor) {
         return new ActionItemViewModel(this, sensor, R.raw.locked, R.string.lock, R.string.set_lan_password_to_protect) {
@@ -147,8 +147,8 @@ public class ManageViewModel extends ViewModel<FragmentManageBinding> {
         automationItem.setEnabled(sensor.getSyncData().getSystemInfo().getVersionMajor() * 256 + sensor.getSyncData().getSystemInfo().getVersionMinor() == 256 + 6);
         result.add(automationItem);
 
-        ActionItemViewModel firmwareItem = createFirmwareItem(sensor);
-        result.add(firmwareItem);
+//        ActionItemViewModel firmwareItem = createFirmwareItem(sensor);
+//        result.add(firmwareItem);
 
         if (sensor.getSyncData().getSystemInfo().getVariant().isWifi()) {
             if (sensor.getSyncData().isLocked()) {

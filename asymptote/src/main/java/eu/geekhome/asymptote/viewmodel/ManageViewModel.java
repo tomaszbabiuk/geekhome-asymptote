@@ -167,8 +167,8 @@ public class ManageViewModel extends ViewModel<FragmentManageBinding> {
         automationItem.setEnabled(sensor.getSyncData().getSystemInfo().getVersionMajor() * 256 + sensor.getSyncData().getSystemInfo().getVersionMinor() >= 256 + 6);
         result.add(automationItem);
 
-        ActionItemViewModel firmwareItem = createFirmwareItem(sensor);
-        result.add(firmwareItem);
+//        ActionItemViewModel firmwareItem = createFirmwareItem(sensor);
+//        result.add(firmwareItem);
 
         if (sensor.getSyncData().getSystemInfo().getVariant().isWifi()) {
             if (sensor.getSyncData().isLocked()) {

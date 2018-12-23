@@ -6,9 +6,6 @@ allprojects {
         maven {
             url "https://jitpack.io"
         }
-        maven {
-            url "https://maven.google.com"
-        }
     }
 }
 
@@ -27,8 +24,8 @@ android {
         applicationId "eu.geekhome.asymptote"
         minSdkVersion 18
         targetSdkVersion 28
-        versionCode 14
-        versionName "1.61"
+        versionCode 16
+        versionName "1.63"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         //multiDexEnabled true
     }
